@@ -1,0 +1,33 @@
+{% render 'findify-filters-search', filterName: filterName %}
+<div class="findify-filters--body-wrapper">
+    {%- for filterValues in items -%}
+        {%- assign name = filterName -%}
+        {%- assign type = filterType -%}
+        {%- assign filterValue = filterValues | split: '~' -%}
+        {%- assign name = filterName -%}
+        {%- assign value = filterValue[0] -%}
+        {%- assign borderColor = filterValue[1] -%}
+        {%- assign count = filterValue[2] -%}
+        {%- assign selected = filterValue[3] -%}
+        {%- assign has_children = has_children[4] -%}
+
+        {% if value != 'nm' %}
+            {% render'findify-filters-checkbox', 
+                name: name,
+                type: type,
+                selected: selected,
+                count: count,
+                componentType: componentType,
+                value: value,
+                colorName: value,
+                borderColor: borderColor,
+                index: forloop.index,
+                limit: limit
+            %}
+        {% endif %}
+
+    {% endfor %}
+</div>
+{% if size > limit %}
+    <div class="findify-filters--show-more" ref="{{filterName}}"> + More </div>
+{% endif %}

@@ -1,0 +1,31 @@
+{% assign selectedParts = selected | split: '-' %}
+{% assign selectedLabel = selectedParts[0] %}
+{% assign selectedField = selectedParts[1] %}
+{% assign selectedOrder = selectedParts[2] %}
+
+<div id="findify-sorting" class="findify-sorting">
+    <div class="findify-sorting-body">
+        <span>
+            sort by:
+        </span>
+        <button id="findify-sorting-button" class="findify-sorting-button">
+            {{ selectedLabel }}
+            {% render 'findify-icon-arrow' %}
+        </button>
+    </div>
+    <ul id="findify-sorting-list" class="findify-sorting-list">
+        {% for option in options %}
+            {% assign parts = option | split: '-' %}
+            {% assign label = parts[0] %}
+            {% assign field = parts[1] %}
+            {% assign order = parts[2] %}
+
+            {% if field == selectedField and order == selectedOrder %}
+            {% else %}
+                <li class="findify-sorting-option" field="{{field}}" order="{{order}}">
+                    <span>{{label}}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

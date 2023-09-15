@@ -1,0 +1,51 @@
+<div class="findify-filters--breadcrumbs-wrapper">
+    <div class="findify-filters--breadcrumb-item findify-filters--breadcrumbs-clear-all" selected="true">
+        Clear All
+    </div>
+    {%- assign filters = activeFilters | split: "|" -%}
+    {% for filter in filters %}
+        {% assign parts = filter | split: '~' %}
+        {% assign name = parts[0] %}
+        {% assign type = parts[1] %}
+        {% if type == 'range' %}
+            {% assign from = parts[2] %}
+            {% assign to = parts[3] %}
+            {% assign value = 'from|' | append: from | append: '-to|' | append: to %}
+            {% assign reviewValue =  from | append: 'to' | append: to  %}
+            {%- else -%}
+            {% assign value = parts[2] %}
+        {% endif %}
+
+        {% case type %}
+                {% when 'range' %}
+        <div class="findify-filters--breadcrumb-item findify-filters--breadcrumb-filter" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
+            {% case name %}
+                {% when 'reviews.average_score' %} 
+                    {% render 'findify-filters-rating-value',
+                        selected: true,
+                        value: reviewValue 
+                    %}
+                {% else %}
+                    {% if from == 'undefined' %}
+                        <span>under {{to | append: '00' | money}}</span>
+                    {%  elsif to == 'undefined' %}
+                        <span>{{from | append: '00' | money}} & up</span>
+                    {%  else %}
+                        {{ from | append: '00' | money }} - {{ to | append: '00' | money }}
+                    {% endif %}
+ 
+                {% endcase %}
+            {% else %}
+        <div class="findify-filters--breadcrumb-item findify-filters--breadcrumb-filter" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
+                {{value}}
+            {% endcase %}
+            <svg width="15" height="15" 
+                class="findify-filters--breadcrumb-cross" viewBox="0 0 15 15">
+                <title>Remove filter</title>
+                <path d="M11.865 4.27l-3.48 3.48 3.48 3.48-.885.885-3.48-3.48-3.48 3.48-.885-.885 
+                3.48-3.48-3.48-3.48.885-.885 3.48 3.48 3.48-3.48z" fill="currentColor" fill-rule="evenodd">
+                </path>
+            </svg>
+        </div>
+    {% endfor %}
+</div>

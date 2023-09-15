@@ -1,0 +1,98 @@
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|'  | replace: '%27', "'" -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+{% include 'findify-native-liquid-object-conversion' %}
+  
+<div id="findify-search" class="findify-search-section page-width">
+  <link rel="stylesheet" href="{{ 'findify-content-grid.css' | asset_url }}" media="print" onload="this.media='all'">
+  
+  {% if tabs.size > 0 %}
+      {{ 'findify-tabs.css' | asset_url | stylesheet_tag }}
+      {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
+      <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
+  {% endif %}
+    
+  <div class="findify-search-container">
+    <div class="findify-search-header">
+      <div>
+        <!-- Here only for mobile, toggle filter button -->
+      </div>
+      <div class="findify-search-header-toolbar">
+        <div>
+            {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by %}
+        </div>
+      </div>
+    </div>
+    {% if results_count.size > 0 %}
+      <div id="findify-search-main" class="findify-search-main">
+        <div class="findify-loader-overlay">
+          <svg width="150" height="150" ersion="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+              <path class="findify-loader-path"
+                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50"
+                  to="360 50 50" repeatCount="indefinite" />
+              </path>
+          </svg>
+        </div>
+        <aside id="findify-filters" class="findify-filters-section">
+          {% comment %} 
+              This element #findify-filters will be replaced with rendered html from sections/findify-filters
+            {% endcomment %}
+        </aside>
+        <div class="findify-products-section">
+          <div class="findify-product-list">
+            {% for product in results %}
+              {% render 'findify-product-card', card_product: all_products[product] %}
+            {% endfor %}
+          </div>
+          <div id='findify-pagination'>
+            {% comment %} 
+              This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class=findify-search-no-results>
+        <h6>No results</h6>
+      </div>
+    {% endif %}
+  </div>
+  {% if tabs.size > 0 %}
+    </div>
+  {% endif %}
+  {% for tab in tabs %}
+    {% assign content_id = tab | split: '~' | first %}
+    <div id="{{content_id}}-content" class="findify-tab-content">
+      {% render 'findify-content-grid', content_id: content_id %}
+    </div>
+  {% endfor %}
+</div>
+
+<script id="findify-search-done">
+  /*
+  * This script block will be executed at the end of every Findify render cycle.
+  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+  */
+
+  const onFindifySearchDone = () => {
+    initFindifyFiltersEvents();
+    initFindifySortingEvents();
+    initFindifyTabsEvents();
+    loadFindifyContent();
+    initFindifyContentEvents();
+    // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
+    setFindifyLoader(false);
+  }
+
+  onFindifySearchDone()
+</script>
+
+{% schema %}
+{
+    "name": "Findify search section",
+    "tag": "section",
+    "class": "section",
+    "settings": []
+}
+{% endschema %}

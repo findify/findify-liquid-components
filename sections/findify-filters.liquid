@@ -1,0 +1,31 @@
+
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign activeFilters = page_url | split: "filters=" | last | split: '&' | first -%}
+{%- assign limit = 3 -%}
+
+{% assign tempArray = shop.money_format | split: '{' %}
+{% assign currencySymbol = tempArray.first %}
+
+<div id="findify-filters" class="findify-filters-sidebar">
+    <div id="findify-filters-wrapper" class="findify-filters-wrapper">
+        <div class="findify-filters--breadcrumbs-container">
+            {%if activeFilters != 'none' %}
+                {% include 'findify-filters-breadcrumbs' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% schema %}
+    {
+      "name": "Findify filters",
+      "settings": []
+    }
+  {% endschema %}
+  
+  {% stylesheet %}
+  {% endstylesheet %}
+  
+  {% javascript %}
+  {% endjavascript %}
