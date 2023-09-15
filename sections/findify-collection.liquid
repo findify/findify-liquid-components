@@ -1,13 +1,8 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|'  | replace: '%27', "'" -%}
-{%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-collection&' | last -%}
 {% include 'findify-native-liquid-object-conversion' %}
   
-<div id="findify-search" class="findify-search-section">
-  {% if tabs.size > 0 %}
-      {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
-      <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
-  {% endif %}
-    
+<div id="findify-search" class="findify-search-section">    
   <div class="findify-search-container">
     <div class="findify-search-header">
       <div>
@@ -38,7 +33,7 @@
         </aside>
         <div class="findify-products-section">
           <div class="findify-product-list">
-            {% for product in results %}
+            {% for product in products %}
               {% render 'findify-product-card', card_product: all_products[product] %}
             {% endfor %}
           </div>
@@ -55,15 +50,6 @@
       </div>
     {% endif %}
   </div>
-  {% if tabs.size > 0 %}
-    </div>
-  {% endif %}
-  {% for tab in tabs %}
-    {% assign content_id = tab | split: '~' | first %}
-    <div id="{{content_id}}-content" class="findify-tab-content">
-      {% render 'findify-content-grid', content_id: content_id %}
-    </div>
-  {% endfor %}
 </div>
 
 <script id="findify-search-done">
@@ -75,9 +61,6 @@
   const onFindifySearchDone = () => {
     initFindifyFiltersEvents();
     initFindifySortingEvents();
-    initFindifyTabsEvents();
-    loadFindifyContent();
-    initFindifyContentEvents();
     // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
     setFindifyLoader(false);
   }
@@ -87,7 +70,7 @@
 
 {% schema %}
 {
-    "name": "Findify search",
+    "name": "Findify collection",
     "tag": "section",
     "class": "section",
     "settings": []
