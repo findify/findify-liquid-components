@@ -1,0 +1,72 @@
+.findify-sorting {
+    position: relative;
+    display: flex;
+}
+
+.findify-sorting-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.findify-sorting-body>span {
+    text-transform: uppercase;
+}
+
+.findify-sorting-button {
+    height: 40px;
+    padding: 10px;
+    min-width: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.findify-sorting-button>svg {
+    transform: rotate(180deg);
+}
+
+.findify-sorting.open .findify-sorting-button>svg {
+    transform: rotate(0);
+}
+
+.findify-sorting-list {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    width: 180px;
+    border: 1px solid #f7f7f7;
+    background-color: white;
+    padding: 5px;
+    right: 0;
+    top: 100%;
+    margin: 0;
+    z-index: 5;
+    transition: height ease .4s;
+}
+
+.findify-sorting.open .findify-sorting-list {
+    display: flex;
+}
+
+.findify-sorting-list>li {
+    width: 100%;
+    padding: 5px 10px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.findify-sorting-list>li:hover {
+    background-color: #f7f7f7;
+}
+
+.findify-sorting-list>li>span {
+    font-size: 1rem;
+}

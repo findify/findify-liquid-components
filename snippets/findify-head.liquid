@@ -1,0 +1,22 @@
+{% comment %} Search and Collection {% endcomment %}
+{% if search or collection %}
+    <link rel="stylesheet" href="{{ 'findify-search.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'findify-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+    
+    <script src="{{ 'findify-filters.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'findify-filters.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    <script src="{{ 'findify-sorting.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'findify-sorting.css' | asset_url }}" media="print" onload="this.media='all'">
+{% endif %}
+
+{% comment %} Search {% endcomment %}
+{% if search %}
+    <script src="{{ 'findify-content-tabs.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'findify-content-tabs.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    <script src="{{ 'findify-content.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'findify-content-grid.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    <script src="{{ 'findify-content-events.js' | asset_url }}" defer></script>
+{% endif %}
