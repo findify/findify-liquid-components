@@ -28,11 +28,15 @@
     flex-direction: column;
 }
 
+.findify-heading {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
 .findify-search-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
+    flex-direction: column;
 }
 
 .findify-search-header-toolbar {
@@ -41,10 +45,52 @@
     align-items: center;
 }
 
+.findify-search-header-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+.findify-search-header-label {
+    font-size: 1.2rem;
+}
+
+.findify-search-filters-toggle-btn {
+    height: 46px;
+    width: 140px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border: 1px solid #EAEAEA;
+}
+
+.findify-search-filters-toggle-btn:hover {
+    background: #EAEAEA;
+}
+
+.findify-search-header-breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Sidebar panel css */
+#findify-filters-sidebar.findify-filters-sidebar {
+    display: none;
+}
+
+#findify-filters-sidebar.findify-filters-sidebar.open {
+    display: flex;
+}
+
 .findify-search-main {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 30px;
     position: relative;
 }
 
@@ -67,3 +113,7 @@
 
 
 .findify-product-card {}
+
+b {
+    color: #000000;
+}

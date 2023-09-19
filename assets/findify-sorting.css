@@ -7,46 +7,50 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     gap: 10px;
     justify-content: space-between;
 }
 
-.findify-sorting-body>span {
-    text-transform: uppercase;
-}
-
-.findify-sorting-button {
-    height: 40px;
-    padding: 10px;
-    min-width: 120px;
+.findify-sorting-btn {
+    height: 46px;
+    padding: 0 10px 0 15px;
+    width: 160px;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid #EAEAEA;
 }
 
-.findify-sorting-button>svg {
+.findify-sorting-btn:hover {
+    background: #EAEAEA;
+}
+
+.findify-sorting-btn>svg {
+    transform: rotate(0)
+}
+
+.findify-sorting.open .findify-sorting-btn {
+    border-bottom: none;
+}
+
+.findify-sorting.open .findify-sorting-btn>svg {
     transform: rotate(180deg);
-}
-
-.findify-sorting.open .findify-sorting-button>svg {
-    transform: rotate(0);
 }
 
 .findify-sorting-list {
     position: absolute;
     display: none;
     flex-direction: column;
-    width: 180px;
-    border: 1px solid #f7f7f7;
+    width: 160px;
+    border: 1px solid #EAEAEA;
+    border-top: none;
     background-color: white;
-    padding: 5px;
+    padding: 0;
     right: 0;
     top: 100%;
     margin: 0;
     z-index: 5;
-    transition: height ease .4s;
 }
 
 .findify-sorting.open .findify-sorting-list {
@@ -55,18 +59,18 @@
 
 .findify-sorting-list>li {
     width: 100%;
-    padding: 5px 10px;
+    padding: 0 5px 0 15px;
     cursor: pointer;
     list-style: none;
     display: flex;
-    height: 40px;
+    height: 46px;
     align-items: center;
 }
 
 .findify-sorting-list>li:hover {
-    background-color: #f7f7f7;
+    background-color: #EAEAEA;
 }
 
 .findify-sorting-list>li>span {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }

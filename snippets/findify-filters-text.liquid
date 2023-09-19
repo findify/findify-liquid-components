@@ -1,8 +1,9 @@
 
 {%- assign nestLevelCount = 1 -%}
 {%- assign filterNameMode = filterName -%}
-
-{% render 'findify-filters-search', filterName: filterNameMode %}
+{% if items.size > 4 %}
+    {% render 'findify-filters-search', filterName: filterNameMode %}
+{% endif %}
 <div class="findify-filters--body-wrapper">
     {% if filterType == "category" %}
         {%- assign nestLevelCountString = nestLevelCount | append: "" -%}
@@ -23,7 +24,6 @@
     {%- assign selected = filterValue[2] -%}
     {%- assign hasChildren = filterValue[3] -%}
 
-
     {% render'findify-filters-checkbox',
         name: filterNameMode,
         type: filterType,
@@ -43,7 +43,3 @@
 
     {%- endfor -%}
 </div>
-
-{% if size > limit %}
-    <div class="findify-filters--show-more" ref="{{filterName}}"> + More </div>
-{% endif %}
