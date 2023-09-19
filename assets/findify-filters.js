@@ -4,10 +4,8 @@ const initFindifyFiltersEvents = () => {
     const limit = 5;
     const selectors = {
         selectedItem: 'findify-filters--checkbox-item-value-selected',
-        breadcrumbsWrapper: '.findify-filters--breadcrumbs-wrapper',
-        breadCrumbsContainer: '.findify-filters--breadcrumbs-container',
-        breadcrumbItemClass: '.findify-filters--breadcrumb-filter',
-        clearAll: '.findify-filters--breadcrumbs-clear-all',
+        breadcrumbItemClass: '.findify-filters-breadcrumb-item',
+        clearAll: '.findify-filters-breadcrumbs-clear-all',
         checkboxItem: '.findify-filters--checkbox-item',
         checkBoxNestedValue: '.findify-filters--checkbox-nested-value',
         checkBoxValue: '.findify-filters--checkbox-item-value',

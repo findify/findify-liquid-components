@@ -11,13 +11,23 @@
   <div class="findify-search-container">
     <div class="findify-search-header">
       <div>
-        <!-- Here only for mobile, toggle filter button -->
-      </div>
-      <div class="findify-search-header-toolbar">
         <div>
-            {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by %}
+          <button id="findify-toggle-filter">FILTER BY</button>
+          <label>
+            Showing {{ results_count }} results for "<b>{{terms}}</b>"
+          </label>
+        </div>
+        <div>
+          {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by %}
         </div>
       </div>
+      {% if activeFilters != 'none' %}
+      <div>
+        <div>
+          {% render 'findify-filters-breadcrumbs', active_filters: active_filters  %}
+        </div>
+      </div>
+      {% endif %}
     </div>
     {% if results_count.size > 0 %}
       <div id="findify-search-main" class="findify-search-main">

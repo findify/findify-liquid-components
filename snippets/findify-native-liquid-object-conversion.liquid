@@ -10,6 +10,7 @@
 {%- assign results_count = liquidObject | split: 'results_count:' | last | split: '|' | first | plus: 0 -%} {%- comment -%} number {%- endcomment -%}
 {%- assign sort_by = liquidObject | split: 'sort_by:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
 {%- assign sort_options = liquidObject | split: 'sort_options:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'name-value'[] {%- endcomment -%}
+{%- assign active_filters = liquidObject | split: 'active_filters:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
 
 {%- comment -%} Search properties: https://shopify.dev/docs/api/liquid/objects/search {%- endcomment -%}
 {%- assign performed = liquidObject | split: 'performed:' | last | split: '|' | first | boolean -%} {%- comment -%} boolean {%- endcomment -%}
