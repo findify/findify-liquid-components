@@ -6,7 +6,7 @@
     data-findify-product-card
     class="card-wrapper product-card-wrapper underline-links-hover"
   >
-    <div style="position: relative; width: 100%">
+    <div class="image-wrapper" style="position: relative; width: 100%">
       <img
         style="position: relative; width: 100%; height: auto"
         srcset="
@@ -29,7 +29,9 @@
         height="{{ card_product.featured_media.height }}"
       />
     </div>
-    <div>{{ card_product.title }}</div>
-    {% render 'findify-product-price' %}
+    <div class="content-wrapper">
+      <div>{{ card_product.title }}</div>
+      {% render 'findify-product-price' %}
+    </div>
   </div>
 {%- endif -%}
