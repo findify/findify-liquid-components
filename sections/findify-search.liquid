@@ -4,7 +4,7 @@
   
 <div id="findify-search" class="findify-search-section">
   <h1 class="findify-heading">SEARCH RESULTS</h1>
-  {% if tabs.size > 0 %}
+  {% if tabs[0] != 'none' %}
       {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
       <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
   {% endif %}
@@ -63,15 +63,16 @@
       </div>
     {% endif %}
   </div>
-  {% if tabs.size > 0 %}
+  {% if tabs[0] != 'none' %}
     </div>
-  {% endif %}
+
   {% for tab in tabs %}
     {% assign content_id = tab | split: '~' | first %}
     <div id="{{content_id}}-content" class="findify-tab-content">
       {% render 'findify-content-grid', content_id: content_id %}
     </div>
   {% endfor %}
+{% endif %}
 </div>
 
 <script id="findify-search-done">

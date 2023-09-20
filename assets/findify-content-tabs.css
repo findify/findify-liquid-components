@@ -20,6 +20,8 @@
 
 .findify-tab>label {
     cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 
 .findify-tab.active {
