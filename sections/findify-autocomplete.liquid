@@ -1,0 +1,75 @@
+{% include 'findify-autocomplete-liquify' %}
+
+<div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
+<div class="findify-autocomplete-content">
+    <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
+      <h3>Search Suggestions</h3>
+      <ul>
+        {% for suggestion in suggestions %}
+          <li>
+            <a 
+              class="findify-suggestion" 
+              href='/search?q={{ suggestion }}'
+              data-findify-suggestion
+            >
+              {{ suggestion }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  
+
+    <div class="products-wrapper">
+      <div class="findify-autocomplete-title-wrapper">
+        <h3>Product Matches</h3>
+          <a class="findify-view-all view-all-top" href="/search?q=">View all</a>
+      </div>
+      <div class="products-container">
+        {% for productItem in products %}
+          {% render 'findify-product-card',
+              card_product: all_products[productItem],
+              product: all_products[productItem]
+          %} 
+        {% endfor %}
+      </div>
+      <div class="findify-close-autocomplete">
+        {% render 'findify-cross-icon' %}
+      </div>
+    </div>
+
+{% comment %}
+    <div class="content-wrapper">
+      <h3>{{ findifyAutocompleteContentTitle }}</h3>
+<!--
+  if you want to display specific field create a variable with prefix - "findify_" and field name - "image_url".
+  Field name should be the same as in findify content response.
+--> 
+      <div class="content-container">
+          <div class="content-item" data-content-url="{findify_url}">
+            <div class="content_image">
+              <img src="{findify_image_url}"/>
+            </div>
+            <div class="content_title">{findify_title}</div>
+          </div>
+      </div>
+    </div>
+{% endcomment %}
+
+</div>
+  <a class="findify-view-all view-all-bottom" href="/search?q=">View all</a>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Findify autocomplete",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
