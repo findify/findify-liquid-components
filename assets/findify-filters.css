@@ -184,6 +184,11 @@ button {
 }
 
 /* color item */
+.findify-filters--color-item {
+    display: flex;
+    align-items: center;
+}
+
 .findify-filters--color-item-value {
     border-radius: 50%;
     height: 20px;
