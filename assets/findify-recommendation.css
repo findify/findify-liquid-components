@@ -1,0 +1,159 @@
+.findify-element div[data-findify-product-card] {
+    cursor: pointer;
+}
+
+.findify-swiper {
+    display: none;
+}
+
+.findify-swiper.inited {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 40px;
+}
+
+.swiper-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    list-style: none;
+    padding: 0;
+    /* Fix of Webkit flickering */
+    z-index: 1;
+}
+
+.swiper-container-vertical>.swiper-wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.swiper-wrapperold {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.swiper-container-android .swiper-slide,
+.swiper-wrapper {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.swiper-container-free-mode>.swiper-wrapper {
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    margin: 0 auto;
+}
+
+.swiper-wrapper .swiper-slide {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    position: relative;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+
+.swiper-slide-invisible-blank {
+    visibility: hidden;
+}
+
+.swiper-button-disabled {
+    display: none !important;
+}
+
+
+
+/* Component styles */
+
+
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0 10px;
+    background: transparent;
+    border: none;
+    height: 100%;
+    color: var(--color-black);
+}
+
+.swiper-button-prev {
+    left: 0;
+    right: auto;
+    outline: none;
+    left: 0px;
+}
+
+.swiper-button-next {
+    right: 0;
+    left: auto;
+    outline: none;
+    right: 0px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 22px;
+}
+
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 0;
+    top: auto;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+/* grid */
+.findify-grid-container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.swiper {
+    width: 100%;
+}
+.findify-recommendation-container{
+    margin: 30px 0;
+}
+.findify-swiper-title{
+    text-align: center;
+}
+.findify-swiper-product-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 98%;
+    height: 1.6em;
+    white-space: nowrap;
+}
