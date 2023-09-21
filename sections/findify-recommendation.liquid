@@ -1,5 +1,5 @@
 {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
-{%- assign query_parameters = page_url | split: 'sections=recommendation-section&' | last -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
 {%- assign results = query_parameters | split: 'results:' | last  | split: '%7C' | first |  split:';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '%7C' | first | split: ';'  -%} 
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '%7C' | first | split: '&' | first  | split: ';' -%} 
