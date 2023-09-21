@@ -1,7 +1,5 @@
-<link rel="stylesheet" href="{{ 'findify-autocomplete-element.css' | asset_url }}" async />
-<script>
-    const initAutocomplete = (params) => {
-
+const initAutocomplete = () => {
+    const isMobile = window.innerWidth < 768;
     let selector = "input[name='q']";
     let rid, q, item_limit;
     
@@ -31,7 +29,7 @@
     const navigate = async (url, e, query) => {
         const openInNewWindow = e && (e.ctrlKey || e.metaKey);
         const redirections = Findify.merchantConfig.redirections;
-        const redirectionURL = redirections ? redirections[query] : url;
+        const redirectionURL = redirections && redirections[query] ? redirections[query] : url;
     
         if (redirections && redirections[query]) redirectionFeedback(query);
         if (!window) return;
@@ -42,7 +40,7 @@
 
     const onSearch = (e) => {
         preventDefaults(e);
-        const query = document.activeElement.value;
+        const query = document.querySelector(selector).value;
         navigate(`/search?q=${query}`, e, query);
     };
 
@@ -57,7 +55,6 @@
         } catch (error) {
           console.log('error', error);
         }
-    
         return navigate(e.target.href, e);
     };
 
@@ -101,8 +98,8 @@
     const closeAutocomplete = (e, isEscape) => {
         const target = e.target;
         const selectors = selector.split(',');
-        const checkIsActiveSelector = (i) => document.activeElement.matches(i)
-          || document.activeElement.className.includes(i.replace('.', ''))
+        const checkIsActiveSelector = (i) => document.querySelector(selector).matches(i)
+          || document.querySelector(selector).className.includes(i.replace('.', ''))
     
         const isInputActive = selectors.find(i => checkIsActiveSelector(i))?.length > 0;
     
@@ -117,8 +114,8 @@
     const openAutocomplete = () => {
         const autocompleteClassName = document.querySelector('.findify-autocomplete').className;
         document.querySelector('.findify-autocomplete').className = autocompleteClassName.replace(' hidden', '');
-    
         document.querySelector('.findify-close-autocomplete')?.addEventListener("click", (e) => closeAutocomplete(e));
+        setViewAll();
     };
 
     const onScrollListener = () => {
@@ -130,11 +127,18 @@
 
     const setViewAll = () => {
         const viewAll = document.querySelector('.findify-view-all')?.href;
+        const q = document.querySelector(selector).value;
         document.querySelectorAll('.findify-view-all').forEach(i => {
           i.href = `${viewAll}${q}`;
-          if (q) {
-            i.textContent = 'View all results for';
-            i.innerHTML += `<span class="findify-components-autocomplete--tip__highlight">&nbsp; ${q}</span>`
+          if (q) { 
+              if (isMobile) {    
+                  i.classList.add('findify-view-all-with-query')
+                  i.textContent = 'View all results for';
+                  i.innerHTML += `<span class="findify-components-autocomplete--tip__highlight"><br>"${q}"</span>`
+              } else {
+                i.textContent = 'View all results for';
+                i.innerHTML += `<span class="findify-components-autocomplete--tip__highlight">"${q}"</span>`
+              }
           } else {
             i.textContent = 'View all';
           }
@@ -162,7 +166,7 @@
           }
         )
     };
-// update findify autocomplete????
+
     const loadFindifyAutocomplete = async (event) => {
         const hasQueryChanged = !event || event.target.value !== q;
     
@@ -231,7 +235,8 @@
         if (item_limit && item_limit > 4) document.querySelector('.findify-autocomplete').style.height = '100%'
         initializeFindifyAutocomplete();
     } 
-
+    
+    /*
     const initializeDropdownAutocomplete = () => {
         const { left, right } = document.querySelector(selector).getBoundingClientRect();
         if (left + 650 > window.innerWidth) {
@@ -243,10 +248,10 @@
             initializeFindifyAutocomplete();
     } 
 
-    //initializeDropdownAutocomplete();
+    initializeDropdownAutocomplete();
+     */
+
     initializeFullscreenAutocomplete();  
 }
 
-setTimeout(() => initAutocomplete(), 800);
-
-</script>
+setTimeout(() => initAutocomplete(), 500); // wait for findify to load

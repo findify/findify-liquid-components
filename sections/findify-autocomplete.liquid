@@ -1,68 +1,44 @@
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
-
-{%- assign query = page_url | split: 'findify-autocomplete&q=' -%}
-{%- assign suggestionArray = query[1] | split: '&suggestion=' | first | split: 'isMobile' | first -%}
-{%- assign suggestions = suggestionArray | split: ',' -%}
-{%- assign productHandlers = query[1] | split: '&suggestion=' %}
-{%- assign isMobile = query[1] | split: '&isMobile=' | last -%}
-{%- assign array = productHandlers[0] | split: ',' %}
-{%- assign suggestionsTemplate = "vertical"-%}
-{%- assign viewAllPosition = "bottom" -%}
-{%- assign findifyAutocompleteContentTitle = settings.findifyAutocompleteContentTitle -%}
-{%- assign findifyAutocompleteContentID = settings.findifyAutocompleteContentID -%}
-{%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%}
-{%- assign productCard = '' | append: "findify-product-card" -%}
+{% include 'findify-autocomplete-liquify' %}
 
 <div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
-<div class="findify-autocomplete-content{% if findifyAutocompleteContentTitle.size > 0 and findifyAutocompleteContentID.size > 0 %}columns-3{% endif %}">
+<div class="findify-autocomplete-content">
     <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
       <h3>Search Suggestions</h3>
-      {% if suggestions.size > 0 %}
       <ul>
-        {% for i in suggestions %}
+        {% for suggestion in suggestions %}
           <li>
             <a 
               class="findify-suggestion" 
-              href='/search?q={{ i }}'
+              href='/search?q={{ suggestion }}'
               data-findify-suggestion
-              onclick="event.preventDefault()"
             >
-              {{ i }}
+              {{ suggestion }}
             </a>
           </li>
         {% endfor %}
       </ul>
-      {% endif %}
     </div>
   
-  {% if array.size > 0 %}
+
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
         <h3>Product Matches</h3>
-        {% if viewAllPosition == 'top' or isMobile == 'true' %}
           <a class="findify-view-all view-all-top" href="/search?q=">View all</a>
-        {% endif %}
       </div>
       <div class="products-container">
-        {% for i in array %}
-          {% include productCard,
-              card_product: all_products[i],
-              product: all_products[i],
-              media_aspect_ratio: 'adapt'
+        {% for productItem in products %}
+          {% render 'findify-product-card',
+              card_product: all_products[productItem],
+              product: all_products[productItem]
           %} 
         {% endfor %}
       </div>
       <div class="findify-close-autocomplete">
-        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 20 20"><path fill="#444" d="M15.89 14.696l-4.734-4.734 4.717-4.717c.4-.4.37-1.085-.03-1.485s-1.085-.43-1.485-.03L9.641 8.447 4.97 3.776c-.4-.4-1.085-.37-1.485.03s-.43 1.085-.03 1.485l4.671 4.671-4.688 4.688c-.4.4-.37 1.085.03 1.485s1.085.43 1.485.03l4.688-4.687 4.734 4.734c.4.4 1.085.37 1.485-.03s.43-1.085.03-1.485z"></path></svg>
+        {% render 'findify-cross-icon' %}
       </div>
     </div>
-  {% endif %}
 
-  {% if 
-    findifyAutocompleteContentTitle.size > 0 
-    and findifyAutocompleteContentID.size > 0 
-    and class != 'findify-autocomplete findify-autocomplete-fullscreen'
-  %}
+{% comment %}
     <div class="content-wrapper">
       <h3>{{ findifyAutocompleteContentTitle }}</h3>
 <!--
@@ -78,12 +54,10 @@
           </div>
       </div>
     </div>
-  {% endif %}
-</div>
+{% endcomment %}
 
-{% if viewAllPosition == 'bottom' and isMobile != 'true' %}
+</div>
   <a class="findify-view-all view-all-bottom" href="/search?q=">View all</a>
-{% endif %}
 </div>
 
 

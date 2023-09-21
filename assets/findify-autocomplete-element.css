@@ -131,6 +131,10 @@ body{
 .findify-view-all:hover{
   text-decoration: underline;
 }
+.findify-components-autocomplete--tip__highlight{
+  margin-left: 4px;
+  font-weight: bold;
+}
 .findify-autocomplete .content-wrapper h3{
   font-size: 25px;
   font-weight: 400;
@@ -222,9 +226,6 @@ body{
   grid-template-columns: 30% 70%;
   width: 100%;
 }
-.findify-autocomplete-dropdown .findify-autocomplete-content.3-columns{
-  display: none;
-}
 .findify-autocomplete-dropdown .suggestions-wrapper h3{
   padding-left: 20px;
   font-size: 20px;
@@ -249,11 +250,10 @@ body{
   overflow: scroll;
 }
 .findify-autocomplete-fullscreen .findify-autocomplete-content{
-  display: grid;
-  grid-template-columns: 20% 80%;
+  display: flex;
 }
-.findify-autocomplete-fullscreen .findify-autocomplete-content.columns-3{
-  grid-template-columns: 20% 60% 20%;
+.findify-autocomplete-fullscreen .suggestions-wrapper{
+  flex: 0.5;
 }
 .findify-autocomplete-fullscreen .suggestions-wrapper h3{
   padding-left: 30px;
@@ -262,7 +262,8 @@ body{
   padding-left: 30px;
 }
 .findify-autocomplete-fullscreen .products-wrapper{
-  padding-left: 30px
+  padding-left: 30px;
+  flex: 2;
 }
 /* fulscreen end */
 
@@ -329,9 +330,15 @@ body{
 }
 /* slide-in end */
 
+/* desktop */
+@media (min-width: 767px){
+  .view-all-top{
+    display: none;
+  }
+}
 
 /* mobile */
-@media (max-width: 767px){
+@media (max-width: 768px){
   /* slide-in */
   .findify-autocomplete.findify-autocomplete-slide-in, 
   .findify-autocomplete.findify-autocomplete-slide-in.hidden.animation{
@@ -354,6 +361,7 @@ body{
   .findify-autocomplete-dropdown .findify-autocomplete-content,
   .findify-autocomplete-fullscreen .findify-autocomplete-content{
     grid-template-columns: 100%;
+    flex-direction: column;
   }
   /*  
   .findify-autocomplete .products-container > div{
@@ -361,7 +369,7 @@ body{
     max-width: 50%;
   }
   */
-  .findify-autocomplete .products-container > div  {
+  .findify-autocomplete .products-container > div{
     flex-basis: auto;
     max-width: initial;
   }
@@ -380,6 +388,9 @@ body{
   .findify-autocomplete .suggestions-wrapper.suggestions-horizontal ul{
     margin-top: 10px;
   }
+  .findify-autocomplete-title-wrapper{
+    align-items: unset;
+  }
   .findify-autocomplete-title-wrapper a.findify-view-all{
     padding-left: 0;
     padding-right: 0;
@@ -388,7 +399,20 @@ body{
     font-size: 20px;
     text-decoration: underline;
     color: #838383;
+    white-space: nowrap;
   }
+  .findify-autocomplete-title-wrapper:has(.findify-view-all-with-query){
+    align-items: center;
+  }
+
+  .findify-view-all-with-query{
+    position: relative;
+    top: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+  }
+
   .findify-autocomplete .products-container{
     padding-right: 0;
     flex-direction: column; 
@@ -397,6 +421,9 @@ body{
   }
   .findify-view-all{
     margin: 10px 0;
+  }
+  .view-all-bottom{
+    display: none;
   }
   /* dropdown end */
   .findify-autocomplete-content .content-wrapper{
