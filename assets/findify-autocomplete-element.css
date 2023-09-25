@@ -407,7 +407,7 @@ body{
 
   .findify-view-all-with-query{
     position: relative;
-    top: 17px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     align-items: unset;
