@@ -42,8 +42,10 @@
     {%- endfor -%}
 </div>
 
+{% comment %}
 {% if componentType == "price" %}
     <div class="findify-filters--range-container">
+
         <div class="findify-filters--range-wrapper">
             <div class="findify-filters--range-wrapper-input">
                 <input placeholder="{{min | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="from">
@@ -54,7 +56,10 @@
             </div>
             <button class="findify-filters--range-submit" ref="{{filterName}}">Go</button>
         </div>
+
+        <p>{{min}} - {{max}}</p>
         {% render 'findify-filters-range-slider', min: min, max: max, name: filterName %}
         </div>
 {% endif %}
+{%endcomment%}
 

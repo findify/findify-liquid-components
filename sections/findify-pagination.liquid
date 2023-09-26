@@ -40,7 +40,7 @@
         {%- if previous -%}
         <li>
             <a href="{{ previous_url }}{{ anchor }}" class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
-            {% render 'icon-caret' %}
+            {% render 'findify-icon-arrow' %}
             </a>
         </li>
         {%- endif -%}
@@ -70,7 +70,7 @@
         {%- if next -%}
         <li>
             <a href="{{ next_url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
-            {%- render 'icon-caret' -%}
+            {%- render 'findify-icon-arrow' -%}
             </a>
         </li>
         {%- endif -%}

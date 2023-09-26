@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 15px;
 }
 
@@ -12,39 +12,22 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 5px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     cursor: pointer;
     gap: 5px;
-
-    color: #404040;
+    color: #838383;
 }
 
 .findify-tab>label {
     cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 
 .findify-tab.active {
     pointer-events: none;
-    color: #111;
+    color: #000000;
     cursor: default;
-}
-
-.findify-tab.active:after {
-    content: " ";
-    position: absolute;
-    margin-left: -20px;
-    margin-top: 20px;
-    width: 40px;
-    height: 2px;
-    background: #111;
-}
-
-.findify-tab-badge {
-    font-size: 9px;
-    border-radius: 5px;
-    padding: 2px 4px;
-    background-color: #e2e2e2;
 }
 
 .findify-tab-content {

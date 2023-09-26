@@ -3,48 +3,46 @@
 {% include 'findify-native-liquid-object-conversion' %}
   
 <div id="findify-search" class="findify-search-section">
-  {% if tabs.size > 0 %}
+  <h1 class="findify-heading">SEARCH RESULTS</h1>
+  {% if tabs[0] != 'none' %}
       {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
       <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
   {% endif %}
     
   <div class="findify-search-container">
     <div class="findify-search-header">
-      <div>
-        <div>
-          <button id="findify-toggle-filter">FILTER BY</button>
-          <label>
-            Showing {{ results_count }} results for "<b>{{terms}}</b>"
-          </label>
+      <div class="findify-search-header-toolbar">
+        <div class="findify-search-header-toolbar-actions">
+          <button id="findify-toggle-filter" class="findify-search-filters-toggle-btn">
+            {% render 'findify-filter-icon' %}
+            FILTER BY
+          </button>
         </div>
+        <label class="findify-search-header-label">
+          Showing {{ results_count }} results for "<b>{{terms}}</b>"
+        </label>
         <div>
           {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by %}
         </div>
       </div>
-      {% if activeFilters != 'none' %}
-      <div>
-        <div>
+      {% if active_filters != 'none' %}
+      <div class="findify-search-header-breadcrumb">
           {% render 'findify-filters-breadcrumbs', active_filters: active_filters  %}
-        </div>
       </div>
       {% endif %}
     </div>
-    {% if results_count.size > 0 %}
+    {% if results_count > 0 %}
       <div id="findify-search-main" class="findify-search-main">
         <div class="findify-loader-overlay">
-          <svg width="150" height="150" ersion="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-              <path class="findify-loader-path"
-                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
-                <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50"
-                  to="360 50 50" repeatCount="indefinite" />
-              </path>
-          </svg>
+          {% render 'findify-loader' %}
         </div>
-        <aside id="findify-filters" class="findify-filters-section">
-          {% comment %} 
+        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
+          <div id="findify-filters" class="findify-filters-wrapper">
+            {% comment %} 
               This element #findify-filters will be replaced with rendered html from sections/findify-filters
             {% endcomment %}
+          </div>
+
         </aside>
         <div class="findify-products-section">
           <div class="findify-product-list">
@@ -65,15 +63,16 @@
       </div>
     {% endif %}
   </div>
-  {% if tabs.size > 0 %}
+  {% if tabs[0] != 'none' %}
     </div>
-  {% endif %}
+
   {% for tab in tabs %}
     {% assign content_id = tab | split: '~' | first %}
     <div id="{{content_id}}-content" class="findify-tab-content">
       {% render 'findify-content-grid', content_id: content_id %}
     </div>
   {% endfor %}
+{% endif %}
 </div>
 
 <script id="findify-search-done">

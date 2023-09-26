@@ -3,7 +3,9 @@
 *   @return void;
 */
 const initFindifyContentEvents = () => {
-    const contentIntegrations = Object.keys(Findify.merchantConfig.features.content).map(id => ({ id }))
+    const contentIntegrations = Object.keys(Findify.merchantConfig.features.content)
+        .filter(key => !['scrollTop'].includes(key))
+        .map(id => ({ id }))
     contentIntegrations.forEach(({ id }) => {
         const infiniteScrollElement = document.getElementById(`${id}-infinite-scroll`);
 

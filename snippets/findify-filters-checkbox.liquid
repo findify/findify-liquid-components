@@ -1,9 +1,8 @@
 <div  
-    class="findify-filters--checkbox-item{%if componentType == " color"%}findify-filters--color-item{%endif%}"
+    class="findify-filters-checkbox-item{%if componentType == " color"%}findify-filters--color-item{%endif%}"
     info="{{name}}|{{type}}"
     selected="{{selected}}" 
     value="{%if type == "range"%}{{attribute}}{%else%}{{value}}{%endif %}"
-    {%if index != blank and index > limit and type != 'range' %}aria-hidden="true"{%endif%}
     >
     {%if componentType == "text" or componentType == "price"%}
     {% render 'findify-filters-text-value',
@@ -23,5 +22,5 @@
         borderColor: borderColor 
     %}
     {%endif%}
-    <span class=" findify-filters--checkbox-item-count">({{count}})</span>
+    <span class=" findify-filters-checkbox-item-count">({{count}})</span>
 </div>

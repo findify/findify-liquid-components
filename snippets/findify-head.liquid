@@ -1,7 +1,11 @@
+<link rel="stylesheet" href="{{ 'findify-color-mapping.css' | asset_url }}" media="print" onload="this.media='all'">
 
 {% comment %} Autocomplete {% endcomment %}
 <script src="{{ 'findify-autocomplete.js' | asset_url }}" defer></script>
 <link rel="stylesheet" href="{{ 'findify-autocomplete-element.css' | asset_url }}" async />
+
+{% comment %} Recommendation {% endcomment %}
+<link rel="stylesheet" href="{{ 'findify-recommendation.css' | asset_url }}" media="print" onload="this.media='all'">
 
 {% comment %} Search and Collection {% endcomment %}
 {% if search or collection %}
@@ -26,5 +30,3 @@
 
     <script src="{{ 'findify-content-events.js' | asset_url }}" defer></script>
 {% endif %}
-
-<link rel="stylesheet" href="{{ 'findify-recommendation.css' | asset_url }}" media="print" onload="this.media='all'">

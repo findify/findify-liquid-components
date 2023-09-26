@@ -29,12 +29,12 @@
     id="findify-filters-{{name}}" 
     aria-label="{{name}}"
     aria-collapsed="false" 
-    class="findify-filters--container">
-    <div class="findify-filters--filter-header" ref="{{name}}">
-        <label tabindex="-1" class="findify-filters--filter-header-title">
+    class="findify-filters-container">
+    <div class="findify-filters-header" ref="{{name}}">
+        <label tabindex="-1" class="findify-filters-header-title">
             {{name}}
         </label>
-        {% render 'findify-arrow-icon' %}    
+        {% render 'findify-icon-arrow' %}    
     </div>
     {% render 'findify-filters-items', 
         filterName: name,
