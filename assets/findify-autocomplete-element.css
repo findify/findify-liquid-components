@@ -388,9 +388,6 @@ body{
   .findify-autocomplete .suggestions-wrapper.suggestions-horizontal ul{
     margin-top: 10px;
   }
-  .findify-autocomplete-title-wrapper{
-    align-items: unset;
-  }
   .findify-autocomplete-title-wrapper a.findify-view-all{
     padding-left: 0;
     padding-right: 0;
@@ -400,27 +397,13 @@ body{
     text-decoration: underline;
     color: #838383;
     white-space: nowrap;
-  }
-  .findify-autocomplete-title-wrapper:has(.findify-view-all-with-query){
-    align-items: center;
-  }
-
-  .findify-view-all-with-query{
-    position: relative;
-    top: 10px;
     display: flex;
     flex-direction: column;
-    align-items: unset;
   }
-
   .findify-autocomplete .products-container{
     padding-right: 0;
     flex-direction: column; 
     flex-wrap: nowrap;
-
-  }
-  .findify-view-all{
-    margin: 10px 0;
   }
   .view-all-bottom{
     display: none;

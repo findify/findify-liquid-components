@@ -1,0 +1,10 @@
+<a 
+    class="findify-view-all view-all-{{position}}" 
+    href="/search?q={%- if query != 'none' -%} {{query}} {%- endif -%}"
+>
+{%- if query == 'none' -%}
+  View all
+{%- else -%}
+  View all results for <span class="findify-components-autocomplete--tip__highlight">"{{ query }}"</span>
+{%- endif -%}
+</a>
