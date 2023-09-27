@@ -175,7 +175,6 @@ const initFindifyAutocompleteEvents = () => {
       const input = document.querySelector(selector);
       input.addEventListener("focus", loadFindifyAutocomplete);
       input.addEventListener("keyup", handleFindifyChange);
-
   };
   
   const initializeFullscreenAutocomplete = () => {
