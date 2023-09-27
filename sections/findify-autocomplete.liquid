@@ -1,9 +1,17 @@
 {% include 'findify-autocomplete-liquify' %}
 
+{%- if query != 'none' -%}
+  {%- assign suggestionsTitle = 'Search suggestions' -%}
+  {%- assign productsTitle = 'Product matches' -%}
+{%- else -%}
+  {%- assign suggestionsTitle = 'Trending searches' -%}
+  {%- assign productsTitle = 'Trending products' -%}
+{%- endif -%}
+
 <div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
 <div class="findify-autocomplete-content">
     <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
-      <h3>Search Suggestions</h3>
+      <h3>{{ suggestionsTitle }}</h3>
       <ul>
         {% for suggestion in suggestions %}
           <li>
@@ -22,8 +30,8 @@
 
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
-        <h3>Product Matches</h3>
-          <a class="findify-view-all view-all-top" href="/search?q=">View all</a>
+        <h3>{{ productsTitle }}</h3>
+          {% render 'findify-autocomplete-view-all', query: query, position: 'top' %}
       </div>
       <div class="products-container">
         {% for productItem in products %}
@@ -57,8 +65,18 @@
 {% endcomment %}
 
 </div>
-  <a class="findify-view-all view-all-bottom" href="/search?q=">View all</a>
+  {% render 'findify-autocomplete-view-all', query: query, position: 'bottom' %}
+  
+  <script id="findify-autocomplete-done">
+
+    const onFindifyAutocompleteDone = () => {
+      initFindifyAutocompleteEvents();
+    }
+  
+    onFindifyAutocompleteDone()
+  </script>
 </div>
+
 
 
 {% schema %}

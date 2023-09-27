@@ -1,6 +1,7 @@
 {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
-{%- assign results = page_url | split: 'findify-autocomplete' | last -%}
-{%- assign products = results | split: '&products=' | last | split: '&suggestion' | first | split: ';' -%}
-{%- assign suggestions = results | split: '&suggestion=' | last | split: ',' -%}
+{%- assign results = page_url | split: 'findify-autocomplete' | last | split: '&query=' -%}
+{%- assign products = results | first | split: '&products=' | last | split: '&suggestion' | first | split: ';' -%}
+{%- assign suggestions = results | first | split: '&suggestion=' | last | split: ',' -%}
+{%- assign query = results | last -%}
 {%- assign suggestionsTemplate = "vertical"-%}
-{%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%}
+{%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%} 
