@@ -4,7 +4,7 @@ const initFindifyAutocompleteEvents = () => {
   let rid, q, item_limit;
   
   if(Findify) {
-      let meta =  Findify?.state?.autocomplete?.meta;
+      let meta = Findify?.state?.autocomplete?.meta;
       rid = meta.rid;
       q = meta.q;
       item_limit = meta.item_limit; 
@@ -102,7 +102,9 @@ const initFindifyAutocompleteEvents = () => {
   };
 
   const closeAutocompleteOutside = (e) => { 
-      if (!document.querySelector('.findify-autocomplete').contains(e.target)) {
+    const findifyAutocomplete = document.querySelector('.findify-autocomplete');
+    const input = document.querySelector(selector);
+      if (!findifyAutocomplete.contains(e.target) && !input.contains(e.target)) {
           closeAutocomplete(e);
           document.removeEventListener("click", closeAutocompleteOutside);
       }
@@ -143,6 +145,8 @@ const initFindifyAutocompleteEvents = () => {
   
       if (hasQueryChanged) {
         q = event ? event.target.value : '';
+        event.target.removeEventListener("focus", loadFindifyAutocomplete);
+        event.target.removeEventListener("keyup", handleFindifyChange);
         latestResponse = await Findify.utils.api.autocomplete(q);
         rid = latestResponse.meta.rid;
         await Findify.core.render.autocomplete(latestResponse);
@@ -150,42 +154,28 @@ const initFindifyAutocompleteEvents = () => {
         // On open bind events on the elements shown.
         addSuggestionClickEvent();
         addProductCardClickEvent();
+        
         //if (this.contentID) this.renderContent(this.#latestResponse.content);
       }
-      if (event) { // Interaction with selector has happen. Open autocomplete.
-          setTimeout(() => openAutocomplete(), 250) 
-      }
+      if (event.type == 'focus') setTimeout(openAutocomplete, 200);
+      else openAutocomplete();
+  }
+
+  const handleFindifyChange = e => {
+    if (e.code == 'Enter') {
+      onSearch(e);
+    } else if (e.code == 'Escape') {
+      closeAutocomplete(e, true);
+    } else {
+      loadFindifyAutocomplete(e);
+    }
   }
 
   const initializeFindifyAutocomplete = () => {
-      let submitting = false;
-      let timer;
       const input = document.querySelector(selector);
-      input.addEventListener("focus", (e) => {
-        loadFindifyAutocomplete(e);
-      })
-  
-      input.addEventListener("keyup", (e) => {
-        if (e.code == 'Enter') {
-          if (!submitting) {
-            submitting = true;
-            onSearch(e);
-          }
-        } else if (e.code == 'Escape') {
-          closeAutocomplete(e, true);
-        } else {
-          clearTimeout(timer);
-          timer = setTimeout(() => { loadFindifyAutocomplete(e) }, 300);
-        }
-      });
+      input.addEventListener("focus", loadFindifyAutocomplete);
+      input.addEventListener("keyup", handleFindifyChange);
 
-  
-      addEventListener("submit", (e) => {
-        if (!submitting && e.srcElement.action.includes('search')) {
-          submitting = true;
-          onSearch(e);
-        }
-      });
   };
   
   const initializeFullscreenAutocomplete = () => {
@@ -209,4 +199,4 @@ const initFindifyAutocompleteEvents = () => {
    */
 
   initializeFullscreenAutocomplete();  
-}
+};
