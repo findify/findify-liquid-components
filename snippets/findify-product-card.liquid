@@ -30,8 +30,8 @@
       />
     </div>
     <div class="content-wrapper">
-      <div>{{ card_product.title }}</div>
-      {% render 'findify-product-price' %}
+      <div class='findify-product-title'>{{ card_product.title }}</div>
+      {% render 'findify-product-price', product: card_product %}
     </div>
-  </div>
+ </div>
 {%- endif -%}

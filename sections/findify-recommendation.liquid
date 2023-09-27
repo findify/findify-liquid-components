@@ -1,0 +1,107 @@
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
+{%- assign results = query_parameters | split: 'results:' | last  | split: '%7C' | first |  split:';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '%7C' | first | split: ';'  -%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '%7C' | first | split: '&' | first  | split: ';' -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  | split: ';' -%} 
+
+
+<div class='findify-recommendation-container'>
+  <h1 class='findify-swiper-title'>{{ recommendation_title }}</h1>
+  <div  id="{{ recommendation_id  }}" class='swiper' >
+    <div class="swiper-wrapper"> 
+      {% for product in results %}
+        <div class="findify-product-card swiper-slide">
+          {% render 'findify-product-card', card_product: all_products[product] %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "Findify recommendation",
+    "tag": "section",
+    "class": "section",
+    "settings": []
+}
+{% endschema %}
+
+      
+<script id="findify-recommendation-{{recommendation_id}}-done" >
+    /*
+  * This script block will be executed at the end of every Findify render cycle.
+  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+  */
+  const selector = "#{{ recommendation_id  }}";
+  const meta =  Findify?.state?.recommendations['{{ recommendation_id }}']?.data.meta;
+  if( !meta ) throw new Error('There is no meta for recommendation widget id = {{ recommendation_id }}')      
+  const rid = meta.rid;
+
+  const swiper = new Swiper(selector, {
+    direction: 'horizontal',
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable:true,
+      dynamicBullets: true,
+      dynamicMainBullets: 4
+    },
+    slidesPerView:   "{{ desktop_grid_size }}",
+    breakpoints: {
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      640: {
+        slidesPerView:  "{{ desktop_grid_size }}",
+        spaceBetween: 30
+      }
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+  });
+
+  const navigate = (url, e) => {
+    const openInNewWindow = e && (e.ctrlKey || e.metaKey);   
+    if (!window) return;
+    if (openInNewWindow) return window.open( url, '_blank');
+    return window.location.href = url;
+  };
+  
+  const onProductCardClick = ( e ) => {
+    const item_id = e.target?.closest('[data-product-id]').getAttribute('data-product-id');
+    const variant_item_id = e.target?.closest('[data-variant-id]').getAttribute('data-variant-id');
+    const url = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-url');
+    
+    try {
+      Findify.analytics?.sendEvent('click-item', {
+        rid,
+        item_id,
+        variant_item_id
+      })
+      
+      navigate(url, e)
+      
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+  
+  document.querySelectorAll(`${selector} .findify-product-card`).forEach( card => {
+    card.addEventListener("click", (event) => onProductCardClick(event));
+  });
+</script>

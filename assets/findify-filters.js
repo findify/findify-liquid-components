@@ -3,12 +3,14 @@
 const initFindifyFiltersEvents = () => {
     const limit = 5;
     const selectors = {
-        selectedItem: 'findify-filters--checkbox-item-value-selected',
+        filterSection: '#findify-filters-sidebar',
+        toggleFilterSection: '#findify-toggle-filter',
+        selectedItem: '.findify-filters-checkbox-item-value-selected',
         breadcrumbItemClass: '.findify-filters-breadcrumb-item',
         clearAll: '.findify-filters-breadcrumbs-clear-all',
-        checkboxItem: '.findify-filters--checkbox-item',
+        checkboxItem: '.findify-filters-checkbox-item',
         checkBoxNestedValue: '.findify-filters--checkbox-nested-value',
-        checkBoxValue: '.findify-filters--checkbox-item-value',
+        checkBoxValue: '.findify-filters-checkbox-item-value',
         bodyWrapper: '.findify-filters--body-wrapper',
         bodyContainer: '.findify-filters--body-container',
         rangeSubmit: '.findify-filters--range-submit',
@@ -18,10 +20,10 @@ const initFindifyFiltersEvents = () => {
         rangeSliderLowerValue: '.findify-filters--range__slider-current-value-lower',
         rangeSliderUpperValue: '.findify-filters--range__slider-current-value-upper',
         rangeSliderTrack: '.findify-filters--range__slider-track',
-        filterHeader: '.findify-filters--filter-header',
-        filterHeaderTitle: '.findify-filters--filter-header-title',
-        filterContainer: 'findify-filters--container',
-        filtersToggler: '.findify-filters--header',
+        filterHeader: '.findify-filters-header',
+        filterHeaderTitle: '.findify-filters-header-title',
+        filterContainer: '.findify-filters-container',
+        filtersToggler: '.findify-filters-header',
         filtersTogglerTitle: '.findify-filters--header-title',
         filtersSearchInput: '.findify-filters--checkbox-search input',
         filtersWrapper: '.findify-filters-wrapper',
@@ -46,6 +48,16 @@ const initFindifyFiltersEvents = () => {
         })
         })
     };
+
+    const bindToggleEvent = () => {
+        const btn = document.querySelector(selectors.toggleFilterSection);
+        const toggle = () => {
+            const container = document.querySelector(selectors.filterSection);
+            container.classList.toggle('open')
+        }
+
+        btn.addEventListener('click', toggle)
+    }
 
     const bindBreadcrumbClickEvent = () => {
         const breadcrumbs = [...document.querySelectorAll(selectors.breadcrumbItemClass)];
@@ -278,57 +290,6 @@ const initFindifyFiltersEvents = () => {
         })
     }
 
-    const handleFiltersShowMore = () => {
-        const showMoreFunc = (container, wrapper, children, btn, filterName, height) => {
-        children.forEach(f => {
-            f.setAttribute('aria-hidden', 'false')
-        })
-
-        if (btn !== null) {
-            const styles = `height: ${height}px; overflow-y: scroll`
-            wrapper.setAttribute('style', `${styles}`)
-            container.setAttribute('aria-expanded', 'true')
-            btn.innerText = '- LESS'
-        }
-        }
-
-        const showLessFunc = (container, wrapper, children, btn) => {
-        children.forEach((f, idx) => {
-            if (idx >= limit) {
-            f.setAttribute('aria-hidden', 'true')
-            }
-        })
-        wrapper.removeAttribute('style')
-        container.setAttribute('aria-expanded', 'false')             
-        if (btn !== null) btn.innerText = '+ MORE'
-        }
-
-        const setContainerHeight = (item) => {
-            const { height } = getComputedStyle(item);
-            const containerHeight = Number(height.replace('px', ''));
-            return containerHeight;
-        }
-
-        document.querySelectorAll(selectors.showMore).forEach(btn => {
-        const filterName = btn.getAttribute('ref')
-        const filterContainer = document.querySelector(`[aria-label='${filterName}']`)
-        const filterWrapper = filterContainer.querySelector(selectors.bodyWrapper)
-        const children = [...filterWrapper.querySelectorAll(selectors.checkboxItem)]
-
-        btn.addEventListener('click', (e) => { 
-            e.preventDefault()
-            const containerHeight = setContainerHeight(filterWrapper);
-            const ariaExpandedAttr = filterContainer.getAttribute('aria-expanded');
-            if (ariaExpandedAttr === 'false' || ariaExpandedAttr === null) {
-            showMoreFunc(filterContainer, filterWrapper, children, btn, filterName, containerHeight)
-            }
-            else {
-            showLessFunc(filterContainer, filterWrapper, children, btn)
-            }
-        })
-        })
-    }
-
     const handleFiltersSearch = () => {
         document.querySelectorAll(selectors.filtersSearchInput).forEach(input => {
         const filterName = input.getAttribute('ref')
@@ -345,7 +306,7 @@ const initFindifyFiltersEvents = () => {
             } else {
                 if (i.getAttribute('aria-hidden') === 'true' || value === '') {
                     i.setAttribute('aria-hidden', 'false')
-                } 
+                }
             }
             })
         })
@@ -353,10 +314,11 @@ const initFindifyFiltersEvents = () => {
     }
 
     bindClickEvent();
+    bindToggleEvent();
     bindBreadcrumbClickEvent();
     bindRangeEvent();
     bindListenersToRangeSlider();
     handleExpandSpecificFilter();
-    handleFiltersShowMore();
+    // handleFiltersShowMore();
     handleFiltersSearch();
 }

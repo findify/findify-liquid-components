@@ -1,10 +1,10 @@
 .pagination-wrapper {
-    margin: 4rem 0;
+    margin-top: 4rem;
 }
 
 @media screen and (min-width: 990px) {
     .pagination-wrapper {
-        margin: 5rem 0;
+        margin-top: 5rem;
     }
 }
 
@@ -59,21 +59,21 @@ a.pagination__item:hover::after {
     background-color: currentColor;
 }
 
-.pagination__item--next .icon {
+.pagination__item--next svg {
     margin-left: -0.2rem;
     transform: rotate(90deg);
 }
 
-.pagination__item--next:hover .icon {
+.pagination__item--next:hover svg {
     transform: rotate(90deg) scale(1.07);
 }
 
-.pagination__item--prev .icon {
+.pagination__item--prev svg {
     margin-right: -0.2rem;
     transform: rotate(-90deg);
 }
 
-.pagination__item--prev:hover .icon {
+.pagination__item--prev:hover svg {
     transform: rotate(-90deg) scale(1.07);
 }
 
