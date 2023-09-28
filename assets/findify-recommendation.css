@@ -83,11 +83,6 @@
     right: 0px;
 }
 
-.swiper-button-next:after,
-.swiper-button-prev:after {
-    font-size: 22px;
-}
-
 .swiper-pagination-bullets.swiper-pagination-horizontal {
     bottom: 0;
     top: auto;
@@ -100,11 +95,11 @@
     width: 100%;
 }
 
-.findify-recommendation-container{
+.findify-recommendation-container {
     margin: 30px 0;
 }
 
-.findify-swiper-title{
+.findify-swiper-title {
     text-align: center;
 }
 
@@ -114,4 +109,27 @@
     width: 98%;
     height: 1.6em;
     white-space: nowrap;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: #4d89d5;
+    border-radius: 50%;
+    padding: 10px 20px;
+    color: white;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 10px !important;
+    color: white;
+    font-weight: 700;
+}
+
+.adapt {
+    width: 100%;
+    aspect-ratio: 1/1.5;
+    object-fit: cover;
 }

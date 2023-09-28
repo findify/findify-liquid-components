@@ -11,9 +11,9 @@
   <div  id="{{ recommendation_id  }}" class='swiper' >
     <div class="swiper-wrapper"> 
       {% for product in results %}
-        <div class="findify-product-card swiper-slide">
-          {% render 'findify-product-card', card_product: all_products[product] %}
-        </div>
+  
+        {% render 'findify-product-card', card_product: all_products[product], type: 'swiper-slide' %}
+      
       {% endfor %}
     </div>
     <div class="swiper-button-prev"></div>
@@ -33,43 +33,47 @@
 {% endschema %}
 
       
-<script id="findify-recommendation-{{recommendation_id}}-done" >
-
-  /*
-  * This script block will be executed at the end of every Findify render cycle.
-  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
-  */
-
-    const swiper = new Swiper("#{{ recommendation_id  }}", {
-      direction: 'horizontal',
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable:true,
-        dynamicBullets: true,
-        dynamicMainBullets: 4
+<script id="findify-recommendation-{{recommendation_id}}-done" >  
+/*
+* This script block will be executed at the end of every Findify render cycle.
+* This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+*/
+{% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  
+  const selector = "#{{ recommendation_id  }}";
+  
+  const swiper = new Swiper(selector, {
+    direction: "horizontal",
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      type: "bullets",
+      clickable: true,
+      dynamicBullets: true,
+      dynamicMainBullets: 4,
+    },
+    slidesPerView: "{{ desktop_grid_size }}",
+    breakpoints: {
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 20,
       },
-      slidesPerView:   "{{ desktop_grid_size }}",
-      breakpoints: {
-        320: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        480: {
-          slidesPerView: 3,
-          spaceBetween: 30
-        },
-        640: {
-          slidesPerView:  "{{ desktop_grid_size }}",
-          spaceBetween: 30
-        }
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 30,
       },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+      640: {
+        slidesPerView: "{{ desktop_grid_size }}",
+        spaceBetween: 30,
       },
-    
-    });
-
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+  
+  productCardAnalytics()
+  
+  
 </script>

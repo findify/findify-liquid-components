@@ -1,11 +1,15 @@
+// Note: Functions : eventAutocomplete and navigate are part of Assets => findify-analytics.js file
+
 const initAutocomplete = () => {
     const isMobile = window.innerWidth < 768;
     let selector = "input[name='q']";
-    let rid, q, item_limit;
+    let 
+      q, item_limit;
+      // rid, 
     
     if(Findify && Findify.state && Findify.state.autocomplete && Findify.state.autocomplete.meta) {
         let meta =  Findify?.state?.autocomplete?.meta;
-        rid = meta.rid;
+        // rid = meta.rid;
         q = meta.q;
         item_limit = meta.item_limit; 
     } 
@@ -15,28 +19,28 @@ const initAutocomplete = () => {
         e.stopPropagation(); 
     };
 
-    const redirectionFeedback = async (query)  => {
-        try {
-          Findify.analytics.sendEvent('redirect', {
-            rid,
-            suggestion: query,
-          })
-        } catch (error) {
-          console.log('error', error);
-        }
-    };
+    // const redirectionFeedback = async (query)  => {
+    //     try {
+    //       Findify.analytics.sendEvent('redirect', {
+    //         rid,
+    //         suggestion: query,
+    //       })
+    //     } catch (error) {
+    //       console.log('error', error);
+    //     }
+    // };
 
-    const navigate = async (url, e, query) => {
-        const openInNewWindow = e && (e.ctrlKey || e.metaKey);
-        const redirections = Findify.merchantConfig.redirections;
-        const redirectionURL = redirections && redirections[query] ? redirections[query] : url;
+    // const navigate = async (url, e, query) => {
+    //     const openInNewWindow = e && (e.ctrlKey || e.metaKey);
+    //     const redirections = Findify.merchantConfig.redirections;
+    //     const redirectionURL = redirections && redirections[query] ? redirections[query] : url;
     
-        if (redirections && redirections[query]) redirectionFeedback(query);
-        if (!window) return;
-        if (openInNewWindow) return window.open(redirectionURL, '_blank');
+    //     // if (redirections && redirections[query]) redirectionFeedback(query);
+    //     if (!window) return;
+    //     if (openInNewWindow) return window.open(redirectionURL, '_blank');
     
-        return window.location.href = redirectionURL;
-    };
+    //     return window.location.href = redirectionURL;
+    // };
 
     const onSearch = (e) => {
         preventDefaults(e);
@@ -44,51 +48,51 @@ const initAutocomplete = () => {
         navigate(`/search?q=${query}`, e, query);
     };
 
-    const onSuggestionClick = async (e) => {
-        preventDefaults(e);
-        const suggestion = e.target?.innerText;
-        try {
-          Findify.analytics.sendEvent('click-suggestion', {
-            rid,
-            suggestion: suggestion,
-          })
-        } catch (error) {
-          console.log('error', error);
-        }
-        return navigate(e.target.href, e);
-    };
+    // const onSuggestionClick = async (e) => {
+    //     preventDefaults(e);
+    //     const suggestion = e.target?.innerText;
+    //     try {
+    //       Findify.analytics.sendEvent('click-suggestion', {
+    //         rid,
+    //         suggestion: suggestion,
+    //       })
+    //     } catch (error) {
+    //       console.log('error', error);
+    //     }
+    //     return navigate(e.target.href, e);
+    // };
 
-    const onProductCardClick = async (e) => {
-        preventDefaults(e);
+    // const onProductCardClick = async (e) => {
+    //     preventDefaults(e);
     
-        const itemID = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-id');
-        const variantID = e.target?.closest('[data-findify-product-card]').getAttribute('data-variant-id');
-        const url = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-url');
+    //     const itemID = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-id');
+    //     const variantID = e.target?.closest('[data-findify-product-card]').getAttribute('data-variant-id');
+    //     const url = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-url');
     
-        try {
-          Findify.analytics.sendEvent('click-item', {
-            rid,
-            item_id: itemID,
-            variant_item_id: variantID
-          })
-        } catch (error) {
-          console.log('error', error);
-        }
+    //     try {
+    //       Findify.analytics.sendEvent('click-item', {
+    //         rid,
+    //         item_id: itemID,
+    //         variant_item_id: variantID
+    //       })
+    //     } catch (error) {
+    //       console.log('error', error);
+    //     }
     
-        navigate(url, e)
-    };
+    //     navigate(url, e)
+    // };
 
-    const addSuggestionClickEvent = () => {
-        document.querySelectorAll('.findify-autocomplete [data-findify-suggestion]').forEach(i => {
-          i.addEventListener("click", (e) => onSuggestionClick(e));
-        });
-    };
+    // const addSuggestionClickEvent = () => {
+        // document.querySelectorAll('.findify-autocomplete [data-findify-suggestion]').forEach(i => {
+        //   i.addEventListener("click", (e) => onSuggestionClick(e));
+        // });
+    // };
 
-    const addProductCardClickEvent = () => {
-        document.querySelectorAll('.findify-autocomplete [data-findify-product-card]').forEach(i => {
-          i.addEventListener("click", (e) => onProductCardClick(e));
-        });
-    };
+    // const addProductCardClickEvent = () => {
+        // document.querySelectorAll('.findify-autocomplete [data-findify-product-card]').forEach(i => {
+        //   i.addEventListener("click", (e) => onProductCardClick(e));
+        // });
+    // };
 
     const setAutocompletePosition = () => {
         const top = document.querySelector(selector).getBoundingClientRect().bottom + 2;
@@ -180,8 +184,11 @@ const initAutocomplete = () => {
           setViewAll();
           onScrollListener();
           // On open bind events on the elements shown.
-          addSuggestionClickEvent();
-          addProductCardClickEvent();
+          // addSuggestionClickEvent();
+          
+          autocompleteAnalytics(event)
+          
+          // addProductCardClickEvent();
           //if (this.contentID) this.renderContent(this.#latestResponse.content);
         }
     
@@ -201,8 +208,11 @@ const initAutocomplete = () => {
         selectors.forEach(
           selector => {
             document.querySelectorAll(selector).forEach(i => {
-              i.addEventListener("focus", (e) => {
-                loadFindifyAutocomplete(e)
+              i.addEventListener("focus", async (e) => {
+                await loadFindifyAutocomplete(e)
+                openAutocomplete();
+                setAutocompletePosition() 
+                
               })
     
               i.addEventListener("keyup", (e) => {
