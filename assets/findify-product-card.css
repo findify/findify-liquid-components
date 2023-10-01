@@ -1,0 +1,16 @@
+a,
+a:visited {
+    text-decoration: none;
+}
+
+.adapt {
+    width: 100%;
+    aspect-ratio: 1/1.5;
+    object-fit: cover;
+}
+
+.findify-product-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: grey
+}
