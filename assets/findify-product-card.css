@@ -10,7 +10,19 @@ a:visited {
 }
 
 .findify-product-title {
-    font-size: 22px;
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.findify-cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    height: 1.5em;
+    white-space: nowrap;
+}
+.findify-price{
     font-weight: 700;
-    color: grey
+    color: black !important;
 }

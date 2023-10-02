@@ -113,12 +113,12 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-    background-color: #4d89d5;
+    background-color: #5396ED;
     border-radius: 50%;
     padding: 10px 20px;
     color: white;
-    width: 40px !important;
-    height: 40px !important;
+    width: 38px !important;
+    height: 38px !important;
 }
 
 .swiper-button-next:after,
