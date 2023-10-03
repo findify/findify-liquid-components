@@ -100,7 +100,6 @@
       // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
       setFindifyLoader(false);
     } else{
-      debugger
           const initRecommendation = async (type) => await Findify.core.recommendation.init({
               recommendation_id:"{{ recommendation_id }}",
               desktop_grid_size,
@@ -117,6 +116,9 @@
   }
 
   onFindifySearchDone()
+
+  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  productCardAnalytics()
 </script>
 
 {% schema %}
