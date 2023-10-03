@@ -58,7 +58,7 @@
         <div class="findify-products-section">
           <div class="findify-product-list">
             {% for product in results %}
-            {% render 'findify-product-card', card_product: all_products[product] %}
+              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search' %}
             {% endfor %}
           </div>
           <div id='findify-pagination'>
@@ -103,6 +103,9 @@
   }
 
   onFindifySearchDone()
+
+  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  productCardAnalytics()
 </script>
 
 {% schema %}
