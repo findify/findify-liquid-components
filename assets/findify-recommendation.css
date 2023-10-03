@@ -5,6 +5,7 @@
     list-style: none;
     padding: 0;
     z-index: 1;
+    padding-bottom: 30px;
 }
 
 .swiper-container-vertical>.swiper-wrapper {
@@ -66,6 +67,7 @@
     background: transparent;
     border: none;
     height: 100%;
+    top: calc(50% - 50px) !important;
     color: var(--color-black);
 }
 

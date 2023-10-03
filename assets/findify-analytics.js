@@ -60,9 +60,6 @@ const onProductCardClick = (e) => {
   const variant_item_id = e.target
     ?.closest("[data-variant-id]")
     .getAttribute("data-variant-id");
-  const url = e.target
-    ?.closest("[data-findify-product-card]")
-    .getAttribute("data-product-url");
 
   try {
     Findify.analytics?.sendEvent("click-item", {
