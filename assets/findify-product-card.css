@@ -1,0 +1,28 @@
+a,
+a:visited {
+    text-decoration: none;
+}
+
+.adapt {
+    width: 100%;
+    aspect-ratio: 1/1.5;
+    object-fit: cover;
+}
+
+.findify-product-title {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.findify-cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    height: 1.5em;
+    white-space: nowrap;
+}
+.findify-price{
+    font-weight: 700;
+    color: black !important;
+}

@@ -11,9 +11,9 @@
   <div  id="{{ recommendation_id  }}" class='swiper' >
     <div class="swiper-wrapper"> 
       {% for product in results %}
-        <div class="findify-product-card swiper-slide">
-          {% render 'findify-product-card', card_product: all_products[product] %}
-        </div>
+  
+        {% render 'findify-product-card', card_product: all_products[product], additional_class: "swiper-slide", widget_type: recommendation_id %}
+      
       {% endfor %}
     </div>
     <div class="swiper-button-prev"></div>
@@ -33,75 +33,47 @@
 {% endschema %}
 
       
-<script id="findify-recommendation-{{recommendation_id}}-done" >
-    /*
-  * This script block will be executed at the end of every Findify render cycle.
-  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
-  */
+<script id="findify-recommendation-{{recommendation_id}}-done" >  
+/*
+* This script block will be executed at the end of every Findify render cycle.
+* This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+*/
+  
   const selector = "#{{ recommendation_id  }}";
-  const meta =  Findify?.state?.recommendations['{{ recommendation_id }}']?.data.meta;
-  if( !meta ) throw new Error('There is no meta for recommendation widget id = {{ recommendation_id }}')      
-  const rid = meta.rid;
-
+  
   const swiper = new Swiper(selector, {
-    direction: 'horizontal',
+    direction: "horizontal",
     loop: true,
     pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable:true,
+      el: ".swiper-pagination",
+      type: "bullets",
+      clickable: true,
       dynamicBullets: true,
-      dynamicMainBullets: 4
+      dynamicMainBullets: 4,
     },
-    slidesPerView:   "{{ desktop_grid_size }}",
+    slidesPerView: "{{ desktop_grid_size }}",
     breakpoints: {
       320: {
         slidesPerView: 2,
-        spaceBetween: 20
+        spaceBetween: 20,
       },
       480: {
         slidesPerView: 3,
-        spaceBetween: 30
+        spaceBetween: 30,
       },
       640: {
-        slidesPerView:  "{{ desktop_grid_size }}",
-        spaceBetween: 30
-      }
+        slidesPerView: "{{ desktop_grid_size }}",
+        spaceBetween: 30,
+      },
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
     },
-
   });
-
-  const navigate = (url, e) => {
-    const openInNewWindow = e && (e.ctrlKey || e.metaKey);   
-    if (!window) return;
-    if (openInNewWindow) return window.open( url, '_blank');
-    return window.location.href = url;
-  };
   
-  const onProductCardClick = ( e ) => {
-    const item_id = e.target?.closest('[data-product-id]').getAttribute('data-product-id');
-    const variant_item_id = e.target?.closest('[data-variant-id]').getAttribute('data-variant-id');
-    const url = e.target?.closest('[data-findify-product-card]').getAttribute('data-product-url');
-    
-    try {
-      Findify.analytics?.sendEvent('click-item', {
-        rid,
-        item_id,
-        variant_item_id
-      })
-      
-      navigate(url, e)
-      
-    } catch (error) {
-      console.log('error', error);
-    }
-  }
+  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  productCardAnalytics()
   
-  document.querySelectorAll(`${selector} .findify-product-card`).forEach( card => {
-    card.addEventListener("click", (event) => onProductCardClick(event));
-  });
+  
 </script>
