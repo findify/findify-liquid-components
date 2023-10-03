@@ -293,11 +293,56 @@ button {
     z-index: 1;
 }
 
+.findify-filters-sidebar.open {
+    display: flex;
+}
 
-@media(max-width: 767px) {
-    .findify-filters-sidebar {
+
+@media(max-width: 768px) {
+
+    #findify-toggle-filter {
         display: none;
+    }
+
+    /* findify filters mobile CHECK ONE BY ONE CSS */
+    .findify-filters-sidebar {
         margin: 0;
+        width: 0px;
+        margin-right: 0px;
+        width: 100%;
+    }
+
+    .findify-filters-sidebar .findify-filters-container {
+        width: 100%;
+    }
+
+    .findify-filters-container:first-child .findify-filters-header {
+        padding-top: 0px;
+    }
+
+    .findify-filters--container {
+        margin-top: 0;
+        border-top: 1px solid #dfdfdf;
+        padding: 20px 17px;
+    }
+
+    .findify-filters-header {
+        padding: 20px 0px;
+    }
+
+    .findify-filters-wrapper {
         padding: 20px;
+    }
+
+    .findify-search-header-breadcrumb {
+        margin-bottom: 0px;
+        margin-top: 25px;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0px 20px;
+    }
+
+    .findify-filters--filter-header {
+        justify-content: unset;
     }
 }

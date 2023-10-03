@@ -74,3 +74,41 @@
 .findify-sorting-list>li>span {
     font-size: 1.2rem;
 }
+
+@media(min-width: 767px) {
+    .findify-sorting.mobile {
+        display: none;
+    }
+}
+
+@media(max-width: 768px) {
+    .findify-sorting.desktop {
+        display: none;
+    }
+
+    .findify-sorting-mobile-list {
+        height: 100%;
+    }
+
+    .findify-sorting-mobile-list li {
+        list-style: none;
+        justify-content: left;
+        display: flex;
+    }
+
+    .findify-sorting-mobile-list li input {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        
+    }
+
+    .findify-sorting-mobile-list li input:checked {
+        accent-color: #232323;
+    }
+
+    .findify-sorting-mobile-list li span {
+        display: flex;
+        align-items: center;
+    }
+}
