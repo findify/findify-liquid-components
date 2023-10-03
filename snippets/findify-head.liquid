@@ -16,11 +16,14 @@
 {% if search or collection %}
     <link rel="stylesheet" href="{{ 'findify-search.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'findify-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+
+    <script src="{{ 'findify-modal.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'findify-modal.css' | asset_url }}" media="print" onload="this.media='all'">
     
     <script src="{{ 'findify-filters.js' | asset_url }}" defer></script>
     <link rel="stylesheet" href="{{ 'findify-filters.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'findify-filters-breadcrumbs.css' | asset_url }}" media="print" onload="this.media='all'">
-
+    
     <script src="{{ 'findify-sorting.js' | asset_url }}" defer></script>
     <link rel="stylesheet" href="{{ 'findify-sorting.css' | asset_url }}" media="print" onload="this.media='all'">
 {% endif %}

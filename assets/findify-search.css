@@ -57,18 +57,16 @@
     font-size: 1.2rem;
 }
 
-.findify-search-filters-toggle-btn {
+.findify-search-actions-toggle-btn {
     height: 46px;
     width: 140px;
-
     display: flex;
     justify-content: space-around;
     align-items: center;
-
     border: 1px solid #EAEAEA;
 }
 
-.findify-search-filters-toggle-btn:hover {
+.findify-search-actions-toggle-btn:hover {
     background: #EAEAEA;
 }
 
@@ -76,15 +74,6 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-}
-
-/* Sidebar panel css */
-#findify-filters-sidebar.findify-filters-sidebar {
-    display: none;
-}
-
-#findify-filters-sidebar.findify-filters-sidebar.open {
-    display: flex;
 }
 
 .findify-search-main {
@@ -111,9 +100,33 @@
     gap: 10px;
 }
 
-
 .findify-product-card {}
 
 b {
     color: #000000;
+}
+
+@media(min-width: 767px) {
+    .findify-filters-sidebar {
+        display: none;
+    }
+
+    .findify-search-header.mobile {
+        display: none;
+    }
+
+    .findify-search-desktop-breadcrumb {
+        margin-bottom: 15px;
+    }
+}
+
+@media(max-width: 768px) {
+    .findify-search-header.desktop {
+        display: none;
+    }
+    
+    .findify-search-header-label {
+        display: flex;
+        justify-content: center;
+    }
 }
