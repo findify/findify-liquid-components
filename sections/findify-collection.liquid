@@ -1,59 +1,71 @@
-{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|'  | replace: '%27', "'" -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last
+| replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
 {% include 'findify-native-liquid-object-conversion' %}
-  
-<div id="findify-search" class="findify-search-section">   
+
+<div id="findify-search" class="findify-search-section">
   <div class="findify-search-container">
-    <div class="findify-search-header">
-      <div class="findify-search-header-toolbar">
-        <div class="findify-search-header-toolbar-actions">
-          <button id="findify-toggle-filter" class="findify-search-filters-toggle-btn">
-            {% render 'findify-filter-icon' %}
-            FILTER BY
-          </button>
-        </div>
-        <label class="findify-search-header-label">
-          <b>{{products_count}}</b> products
-        </label>
-        <div>
-          {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by %}
-        </div>
-      </div>
-      {% if active_filters != 'none' %}
-      <div class="findify-search-header-breadcrumb">
-          {% render 'findify-filters-breadcrumbs', active_filters: active_filters  %}
-      </div>
-      {% endif %}
-    </div>
+      {% render 'findify-desktop-actions', 
+      results_count: products_count,
+      is_collection: true, 
+      terms: terms,
+      sort_options: sort_options, 
+      default_sort_by: default_sort_by, 
+      sort_by: sort_by, 
+      active_filters: active_filters
+    %}
+    {% render 'findify-mobile-actions', 
+      results_count: products_count, 
+      is_collection: true, 
+      terms: terms,
+      sort_options: sort_options, 
+      default_sort_by: default_sort_by, 
+      sort_by: sort_by, 
+      active_filters: active_filters
+    %}
     {% if products_count > 0 %}
-      <div id="findify-search-main" class="findify-search-main">
-        <div class="findify-loader-overlay">
-          {% render 'findify-loader' %}
-        </div>
-        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
-          <div id="findify-filters" class="findify-filters-wrapper">
-            {% comment %} 
-              This element #findify-filters will be replaced with rendered html from sections/findify-filters
+    <div id="findify-search-main" class="findify-search-main">
+      <div class="findify-loader-overlay">
+        {% render 'findify-loader' %}
+      </div>
+
+      <aside id="findify-filters-sidebar" class="findify-filters-sidebar">
+        <div class="findify-filters-container">
+          <button id="findify-modal-filters-header" class="findify-modal-header">
+            <span class="findify-modal-header-title">Filters</span>
+            {% render 'findify-cross-icon' %}
+          </button>
+          {% if active_filters != 'none' %}
+            <div class="findify-search-header-breadcrumb">
+              {% render 'findify-filters-breadcrumbs', active_filters: active_filters %}
+            </div>
+        {% endif %}
+          <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+            {% comment %}
+            This element #findify-filters will be replaced with rendered html from sections/findify-filters
             {% endcomment %}
           </div>
-        </aside>
-        <div class="findify-products-section">
-          <div class="findify-product-list">
-            {% for product in products %}
-              {% render 'findify-product-card', card_product: all_products[product] %}
-            {% endfor %}
-          </div>
-          <div id='findify-pagination'>
-            {% comment %} 
-              This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
-            {% endcomment %}
-          </div>
+          <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
+        </div>
+      </aside>
+
+      <div class="findify-products-section">
+        <div class="findify-product-list">
+          {% for product in products %}
+          {% render 'findify-product-card', card_product: all_products[product] %}
+          {% endfor %}
+        </div>
+        <div id='findify-pagination'>
+          {% comment %}
+          This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+          {% endcomment %}
         </div>
       </div>
-      {% else %}
-      <div class=findify-search-no-results>
-        <h6>No results</h6>
-      </div>
+    </div>
+    {% else %}
+    <div class=findify-search-no-results>
+      <h6>No results</h6>
+    </div>
     {% endif %}
   </div>
 </div>
@@ -76,9 +88,9 @@
 
 {% schema %}
 {
-    "name": "Findify collection",
-    "tag": "section",
-    "class": "section",
-    "settings": []
+"name": "Findify collection",
+"tag": "section",
+"class": "section",
+"settings": []
 }
 {% endschema %}
