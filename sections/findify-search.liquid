@@ -7,10 +7,10 @@
 
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
-  <h1 class="findify-heading">SEARCH RESULTS</h1>
-  {% if tabs[0] != 'none' %}
-  {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
-  <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
+    <h1 class="findify-heading">SEARCH RESULTS</h1>
+    {% if tabs[0] != 'none' %}
+      {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
+      <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
     {% endif %}
 
     <div class="findify-search-container">
@@ -30,7 +30,6 @@
         sort_by: sort_by, 
         active_filters: active_filters
       %}
-      {% if results_count > 0 %}
 
       <div id="findify-search-main" class="findify-search-main">
         <div class="findify-loader-overlay">
@@ -57,8 +56,6 @@
           </div>
         </aside>
 
-
-
         <div class="findify-products-section">
           <div class="findify-product-list">
             {% for product in results %}
@@ -72,10 +69,17 @@
           </div>
         </div>
       </div>
-      {% else %}
-      <div class=findify-search-no-results>
-        <h6>No results</h6>
+      
       </div>
+      {% if tabs[0] != 'none' %}
+        </div>
+  
+        {% for tab in tabs %}
+          {% assign content_id = tab | split: '~' | first %}
+          <div id="{{content_id}}-content" class="findify-tab-content">
+            {% render 'findify-content-grid', content_id: content_id %}
+          </div>
+        {% endfor %}
       {% endif %}
     </div>
     {% else %}
@@ -85,16 +89,6 @@
     </div>
     <div  id={{ recommendation_id  }} class='swiper' ></div>
 </div>
-    {% if tabs[0] != 'none' %}
-  </div>
-
-  {% for tab in tabs %}
-  {% assign content_id = tab | split: '~' | first %}
-  <div id="{{content_id}}-content" class="findify-tab-content">
-    {% render 'findify-content-grid', content_id: content_id %}
-  </div>
-  {% endfor %}
-  {% endif %}
 {% endif %}
 </div>
 
