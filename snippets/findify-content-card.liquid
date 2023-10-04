@@ -8,13 +8,17 @@ This will be rendered with Javascript DOM manipulation, inserting these into the
 Attention: Long content might be rendered via JS as there is a query string parameter length restriction
 {% endcomment %}
 
-<li class="findify-content-card">
-    <div class="findify-content-container">
-        <a href="{{url}}">
-            <div class="findify-content-image-wrapper">
-                <img src="{{ image_url }}" alt="{{ title }}"/>
-            </div>
-            <h3 class="findify-content-title findify-content-title-selector"></h3>
-        </a>
-    </div>
-</li>
+<a href={{ url }} id={{ content_id }}>
+  <img  
+    src="{{ image_url }}" 
+    alt="{{ title }}" 
+    class="adapt-content-img" 
+    width="{{ card_product.featured_media.width }}"
+    height="{{ card_product.featured_media.height }}" 
+    style="position: relative; width: 100%; height: auto"
+    loading="lazy"
+  />
+  <div class="content-wrapper">
+    <h3 class="findify-content-title findify-content-title-selector">{{ title }}</h3>
+  </div>
+</a>
