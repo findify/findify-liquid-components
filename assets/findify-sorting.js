@@ -65,6 +65,7 @@ const initFindifySortingEvents = () => {
 
             option.addEventListener('click', () => {
                 Findify.utils.params.sorting.set(sorting);
+                toggleDrawer('open-right', true, document.querySelector(selectors.modalBody));
             });
 
             if (Findify.state.sorting.sort_by === field && Findify.state.sorting.order_by === order) {

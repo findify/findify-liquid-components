@@ -88,6 +88,7 @@
 
     .findify-sorting-mobile-list {
         height: 100%;
+        padding-left: 15px;
     }
 
     .findify-sorting-mobile-list li {

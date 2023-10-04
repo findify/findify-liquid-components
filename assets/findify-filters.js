@@ -30,35 +30,41 @@ let selectors = {
     mobileSeeResults: '#findify-modal-filters-footer'
 };
 
+const toggleFilterDrawer = () => toggleDrawer('open-left', true, document.querySelector(selectors.filterSection));
+
 const bindClickEvent = () => {
     const filters = [...document.querySelectorAll(selectors.checkboxItem)];
-    
+
     filters.forEach(filter => {
-    let value = filter.getAttribute('value').trim()
-    const info = filter.getAttribute('info')
-    const [name, type] = info.split('|')
-    const selected = filter.getAttribute('selected') === 't'
-    
-    filter.addEventListener('click', (e) => {
+        let value = filter.getAttribute('value').trim()
+        const info = filter.getAttribute('info')
+        const [name, type] = info.split('|')
+        const selected = filter.getAttribute('selected') === 't'
+        
+        filter.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+            toggleFilterDrawer();
             Findify.utils.params.filters.update({ value, type, name });
             Findify.core.search.load();
     })
     })
-};
+}; 
 
 const bindBreadcrumbClickEvent = () => {
     const breadcrumbs = [...document.querySelectorAll(selectors.breadcrumbItemClass)];
-    const clearAllCrumbs = document.querySelector(selectors.clearAll);
+    const clearAllCrumbs = document.querySelectorAll(selectors.clearAll);
 
     if(breadcrumbs.length) {
-        clearAllCrumbs.addEventListener('click', () => {
-            Findify.utils.params.filters.set([]);
-            Findify.core.search.load()
+        clearAllCrumbs.forEach(clearAll => {
+            clearAll.addEventListener('click', () => {
+                toggleFilterDrawer();
+                Findify.utils.params.filters.set([]);
+                Findify.core.search.load();
+                
+            })
         })
-    }
+    };
     
     breadcrumbs.forEach(breadcrumb => {
         const name = breadcrumb.getAttribute('name');
