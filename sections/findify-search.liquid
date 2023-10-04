@@ -1,8 +1,12 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
 {% include 'findify-native-liquid-object-conversion' %}
 
 <div id="findify-search" class="findify-search-section">
+  {% if results_count > 0 %}
   <h1 class="findify-heading">SEARCH RESULTS</h1>
   {% if tabs[0] != 'none' %}
   {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
@@ -74,6 +78,13 @@
       </div>
       {% endif %}
     </div>
+    {% else %}
+    <div class="findify-zero-result-container" style="text-align: center;">
+      <h1>No results for "{{ terms }}"</h1>
+      <h3>Check the spelling or try less specific search terms</h3>
+    </div>
+    <div  id={{ recommendation_id  }} class='swiper' ></div>
+</div>
     {% if tabs[0] != 'none' %}
   </div>
 
@@ -84,6 +95,7 @@
   </div>
   {% endfor %}
   {% endif %}
+{% endif %}
 </div>
 
 <script id="findify-search-done">
@@ -93,13 +105,28 @@
   */
 
   const onFindifySearchDone = () => {
-    initFindifyFiltersEvents();
-    initFindifySortingEvents();
-    initFindifyTabsEvents();
-    loadFindifyContent();
-    initFindifyContentEvents();
-    // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
-    setFindifyLoader(false);
+    if("{{ results_count }}" != "0"){
+      initFindifyFiltersEvents();
+      initFindifySortingEvents();
+      initFindifyTabsEvents();
+      loadFindifyContent();
+      initFindifyContentEvents();
+      // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
+      setFindifyLoader(false);
+    } else{
+          const initRecommendation = async (type) => await Findify.core.recommendation.init({
+              recommendation_id:"{{ recommendation_id }}",
+              desktop_grid_size,
+              recommendation_title
+            })
+            
+          Findify.initialization.promise.then(() => {
+            initRecommendation()
+            window.addEventListener("popstate", () => {
+              initRecommendation();
+            });
+          });  
+    }
   }
 
   onFindifySearchDone()
@@ -115,4 +142,4 @@
 "class": "section",
 "settings": []
 }
-{% endschema %}
+{% endschema %} 
