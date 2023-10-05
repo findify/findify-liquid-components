@@ -9,7 +9,7 @@
 }
 
 @media(max-width: 768px) {
-    .document-overflow {
+    .document-overflow-mob {
         overflow: hidden;
     }
 
