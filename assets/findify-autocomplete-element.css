@@ -402,7 +402,7 @@ body{
   }
   .findify-autocomplete .products-container{
     padding-right: 0;
-    flex-direction: column; 
+    flex-direction: column;  
     flex-wrap: nowrap;
   }
   .view-all-bottom{
@@ -412,19 +412,18 @@ body{
   .findify-autocomplete-content .content-wrapper{
     margin-top: 10px;
   }
-  /* findify ac product card */
-  #findify-autocomplete .card-wrapper{
-    display: flex;
+  /* findify ac product card findify-product-card */ 
+  #findify-autocomplete .findify-product-card{
+    display: flex; 
     margin-bottom: 15px;
   }
-  #findify-autocomplete .card-wrapper img{
-    height: 100%!important;
-    width: 100%!important;
+  #findify-autocomplete .findify-product-card a {
+    display: flex;
   }
-  #findify-autocomplete .card-wrapper .image-wrapper{
+  #findify-autocomplete .findify-product-card img{
     width: 45%!important; 
   }
-  #findify-autocomplete .card-wrapper .content-wrapper{
+  #findify-autocomplete .findify-product-card .content-wrapper{
     display: flex;
     flex-direction: column;
     margin-left: 15px;
