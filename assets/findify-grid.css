@@ -133,6 +133,6 @@ b {
 
 @media(max-width: 768px) {
     .findify-product-list {
-        grid-template-columns: 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr; */
     }
 }

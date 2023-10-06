@@ -29,11 +29,11 @@
         {% render 'findify-loader' %}
       </div>
 
-      <aside id="findify-filters-sidebar" class="findify-filters-sidebar">
+      <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
         <div class="findify-filters-container">
           <button id="findify-modal-filters-header" class="findify-modal-header">
             <span class="findify-modal-header-title">Filters</span>
-            {% render 'findify-cross-icon' %}
+            {% render 'findify-icon-cross' %}
           </button>
           {% if active_filters != 'none' %}
             <div class="findify-search-header-breadcrumb">
