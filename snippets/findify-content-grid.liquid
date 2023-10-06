@@ -1,9 +1,0 @@
-{% comment  %}  
-    @param: content_id
-{% endcomment %}
-
-<div class="findify-content-grid">
-    <ul id="{{content_id}}" class="findify-content-list">
-    </ul>
-    {%  render 'findify-content-pagination', id: content_id, type: 'infinite-scroll' %}
-</div>
