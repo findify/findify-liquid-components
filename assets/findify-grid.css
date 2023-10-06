@@ -1,0 +1,12 @@
+
+.findify-product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+@media(max-width: 768px) {
+    .findify-product-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
