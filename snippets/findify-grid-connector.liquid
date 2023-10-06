@@ -1,0 +1,49 @@
+{%- comment -%}
+    Reference obj: https://shopify.dev/docs/api/liquid/objects/search
+    Example: &liquidObject=default_sort_by:popularity|filters:type-some-thing|performed:true|results:he-dh-ad-dg
+{%- endcomment -%}
+{%- assign liquidObject = page_url | split: 'liquidObj=' | last | split: '&' | first -%}
+
+{%- comment -%} Shared properties: search and collection {%- endcomment -%}
+{%- assign default_sort_by = liquidObject | split: 'default_sort_by:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign filters = liquidObject | split: 'filters:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'value1-value2-value3-...'[] {%- endcomment -%}
+{%- assign results_count = liquidObject | split: 'results_count:' | last | split: '|' | first | plus: 0 -%} {%- comment -%} number {%- endcomment -%}
+{%- assign sort_by = liquidObject | split: 'sort_by:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign sort_options = liquidObject | split: 'sort_options:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'name-value'[] {%- endcomment -%}
+{%- assign active_filters = liquidObject | split: 'active_filters:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+
+{%- comment -%} Search properties: https://shopify.dev/docs/api/liquid/objects/search {%- endcomment -%}
+{%- assign performed = liquidObject | split: 'performed:' | last | split: '|' | first | boolean -%} {%- comment -%} boolean {%- endcomment -%}
+{%- assign results = liquidObject | split: 'results:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign terms = liquidObject | split: 'terms:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign types = liquidObject | split: 'types:' | last | split: '|' | first | split: ';'-%}  {%- comment -%} string[] {%- endcomment -%}
+
+{%- comment -%} Collection properties: https://shopify.dev/docs/api/liquid/objects/collection {%- endcomment -%}
+{%- assign all_products_count = liquidObject | split: 'all_products_count:' | last | split: '|' | first | plus: 0 -%} {%- comment -%} number {%- endcomment -%}
+{%- assign all_tags = liquidObject | split: 'all_tags:' | last | split: '|' | first -%} {%- comment -%} '?'[] {%- endcomment -%}
+{%- assign all_types = liquidObject | split: 'all_types:' | last | split: '|' | first -%} {%- comment -%} boolean {%- endcomment -%}
+{%- assign all_vendors = liquidObject | split: 'all_vendors:' | last | split: '|' | first -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign current_type = liquidObject | split: 'current_type:' | last | split: '|' | first -%} {%- comment -%} number {%- endcomment -%}
+{%- assign current_vendor = liquidObject | split: 'current_vendor:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign description = liquidObject | split: 'description:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign featured_image = liquidObject | split: 'featured_image:' | last | split: '|' | first -%}  {%- comment -%} string[] {%- endcomment -%}
+{%- assign handle = liquidObject | split: 'handle:' | last | split: '|' | first -%} {%- comment -%} string {%- endcomment -%}
+{%- assign id = liquidObject | split: 'id:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign image = liquidObject | split: 'image:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign metafields = liquidObject | split: 'metafields:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign next_product = liquidObject | split: 'next_product:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign previous_product = liquidObject | split: 'previous_product:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign products = liquidObject | split: 'products:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign products_count = liquidObject | split: 'products_count:' | last | split: '|' | first | plus: 0-%}  {%- comment -%} number {%- endcomment -%}
+{%- assign published_at = liquidObject | split: 'published_at:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign tags = liquidObject | split: 'tags:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign template_suffix = liquidObject | split: 'template_suffix:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign title = liquidObject | split: 'title:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
+{%- assign url = liquidObject | split: 'url:' | last | split: '|' | first | split: ';' -%} {%- comment -%} ? {%- endcomment -%}
+
+{%- comment -%} Extra findify hardcoded values {%- endcomment -%}
+{% assign object_type = 'product' %}
+{% assign filter_structure = 'list' %}
+
+{%- comment -%} Content search tabs and contents {%- endcomment -%}
+{%- assign tabs = liquidObject | split: 'tabs:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'tab'[] {% endcomment %}

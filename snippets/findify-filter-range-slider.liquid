@@ -1,0 +1,11 @@
+<div class="findify-filters--range-slider__wrapper" data-ref={{name}} data-thumbsize="14" data-rangemin={{min}} data-rangemax={{max}}>
+    <input class="findify-filters--range__slider-min" name="min" type="range" step="1" min={{min}} max={{max}} data-value={{min}} />
+    <div class="findify-filters--range__slider-track"
+    ></div>
+    <input class="findify-filters--range__slider-max" name="max" type="range" step="1" min={{min}} max={{max}} data-value={{max}} />
+    <div class="findify-filters--range__slider-current-value-wrapper">
+        <span class="findify-filters--range__slider-current-value-lower">{{min | append: '00' | money}}</span>
+        <span class="findify-filters--range__slider-current-value-delimiter">-</span>
+        <span class="findify-filters--range__slider-current-value-upper">{{max | append: '00' | money}}</span>
+    </div>
+</div>

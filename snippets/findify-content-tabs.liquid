@@ -1,0 +1,29 @@
+{% comment %}
+Findify tabs schema:
+@param resultsCount: number -> total results of search
+@param tabs: Tab -> Object mapped from Findify
+Original tabs = <label>~<content_id>;<label>~<content_id>;<label>~<content_id>
+Parsed tabs = ['<label>~<content_id>', '<label>~<content_id>', '<label>~<content_id>']
+
+To use the data split by '~'
+and find:
+ 1^ position -> label
+ 2^ position -> content_id
+{% endcomment %}
+
+<div class="findify-tabs">
+    <button class="findify-tab active"  target="findify-product-result">
+        <label>Search results</label>
+        <span class="findify-tab-badge">{{resultsCount}}</span>
+        </button>
+    {% for tab in tabs %}
+        {% assign tabParts = tab | split: '~' %}
+        {% assign content_id = tabParts[0] %}
+        {% assign label = tabParts[1] %}
+        {% assign count = tabParts[2] %}
+        <button class="findify-tab" target="{{ content_id }}">
+            <label>{{label}}</label>
+            <span class="findify-tab-badge">{{count}}</span>
+        </button>
+    {% endfor %}
+</div>

@@ -1,0 +1,139 @@
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
+{% include 'findify-grid-connector' %}
+
+<div id="findify-search" class="findify-search-section">
+  {% if results_count > 0 %}
+    <h1 class="findify-heading">SEARCH RESULTS</h1>
+    {% if tabs[0] != 'none' %}
+      {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
+      <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
+    {% endif %}
+
+    <div class="findify-search-container">
+      {% render 'findify-toolbar-desktop', 
+        results_count: results_count, 
+        terms: terms,
+        sort_options: sort_options, 
+        default_sort_by: default_sort_by, 
+        sort_by: sort_by, 
+        active_filters: active_filters
+      %}
+      {% render 'findify-toolbar-mobile', 
+        results_count: results_count, 
+        terms: terms,
+        sort_options: sort_options, 
+        default_sort_by: default_sort_by, 
+        sort_by: sort_by, 
+        active_filters: active_filters
+      %}
+
+      <div id="findify-search-main" class="findify-search-main">
+        <div class="findify-loader-overlay">
+          {% render 'findify-loader' %}
+        </div>
+
+        <aside id="findify-filters-sidebar" class="findify-filters-sidebar">
+          <div class="findify-filters-container">
+            <button id="findify-modal-filters-header" class="findify-modal-header">
+              <span class="findify-modal-header-title">Filters</span>
+              {% render 'findify-cross-icon' %}
+            </button>
+            {% if active_filters != 'none' %}
+              <div class="findify-search-header-breadcrumb">
+                {% render 'findify-filter-selected', active_filters: active_filters %}
+              </div>
+            {% endif %}
+            <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+              {% comment %}
+              This element #findify-filters will be replaced with rendered html from sections/findify-filters
+              {% endcomment %}
+            </div>
+            <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
+          </div>
+        </aside>
+
+        <div class="findify-products-section">
+          <div class="findify-product-list">
+            {% for product in results %}
+              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search' %}
+            {% endfor %}
+          </div>
+          <div id='findify-pagination'>
+            {% comment %}
+            This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+          </div>
+        </div>
+      </div>
+      
+      </div>
+      {% if tabs[0] != 'none' %}
+        </div>
+  
+        {% for tab in tabs %}
+          {% assign content_id = tab | split: '~' | first %}
+          <div id="{{content_id}}-content" class="findify-tab-content">
+            {% render 'findify-content-grid', content_id: content_id %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="findify-zero-result-container" style="text-align: center;">
+      <h1>No results for "{{ terms }}"</h1>
+      <h3>Check the spelling or try less specific search terms</h3>
+    </div>
+    <div  id={{ recommendation_id  }} class='swiper' ></div>
+</div>
+{% endif %}
+</div>
+
+<script id="findify-search-done">
+  /*
+  * This script block will be executed at the end of every Findify render cycle.
+  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+  */
+
+  const onFindifySearchDone = () => {
+    if("{{ results_count }}" != "0"){
+      initFindifyFiltersEvents();
+      initFindifySortingEvents();
+      initFindifyTabsEvents();
+      loadFindifyContent();
+      initFindifyContentEvents();
+      // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
+      setFindifyLoader(false);
+    } else{
+          const initRecommendation = async (type) => await Findify.core.recommendation.init({
+              recommendation_id:"{{ recommendation_id }}",
+              desktop_grid_size,
+              recommendation_title
+            })
+            
+          Findify.initialization.promise.then(() => {
+            initRecommendation()
+            window.addEventListener("popstate", () => {
+              initRecommendation();
+            });
+          });  
+    }
+  }
+
+  onFindifySearchDone()
+
+  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  productCardAnalytics()
+</script>
+
+{% schema %}
+{
+"name": "Findify search",
+"tag": "section",
+"class": "section",
+"settings": []
+}
+{% endschema %} 

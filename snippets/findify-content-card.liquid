@@ -1,0 +1,24 @@
+{%  comment  %}  
+This is the default findify snippet for content cards.
+You are free to modify its structure or their styling to match your brand look&feel.
+
+This file is referenced within sections/findify-content-result.liquid
+This will be rendered with Javascript DOM manipulation, inserting these into the targetted element.
+
+Attention: Long content might be rendered via JS as there is a query string parameter length restriction
+{% endcomment %}
+
+<a href={{ url }} id={{ content_id }}>
+  <img  
+    src="{{ image_url }}" 
+    alt="{{ title }}" 
+    class="adapt-content-img" 
+    width="{{ card_product.featured_media.width }}"
+    height="{{ card_product.featured_media.height }}" 
+    style="position: relative; width: 100%; height: auto"
+    loading="lazy"
+  />
+  <div class="content-wrapper">
+    <h3 class="findify-content-title findify-content-title-selector">{{ title }}</h3>
+  </div>
+</a>
