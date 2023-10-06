@@ -89,7 +89,7 @@ button {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    color: #000000;
+    color: var(--findify-text-color);
     padding: 0 12px 0 10px;
 }
 
@@ -105,7 +105,7 @@ button {
     display: block;
     width: 15px;
     height: 15px;
-    border: 1px solid #000000;
+    border: 1px solid var(--findify-text-color);
     margin-right: 10px;
     cursor: pointer;
 }
@@ -163,7 +163,7 @@ button {
     padding: 0px 10px;
     border-radius: 20px;
     margin: 0 auto;
-    border: 1px solid #000000;
+    border: 1px solid var(--findify-text-color);
 }
 
 .findify-filters--checkbox-search input:focus-visible {

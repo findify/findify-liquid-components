@@ -1,11 +1,11 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last
 | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
-{% include 'findify-native-liquid-object-conversion' %}
+{% include 'findify-grid-connector' %}
 
 <div id="findify-search" class="findify-search-section">
   <div class="findify-search-container">
-      {% render 'findify-desktop-actions', 
+      {% render 'findify-toolbar-desktop', 
       results_count: products_count,
       is_collection: true, 
       terms: terms,
@@ -14,7 +14,7 @@
       sort_by: sort_by, 
       active_filters: active_filters
     %}
-    {% render 'findify-mobile-actions', 
+    {% render 'findify-toolbar-mobile', 
       results_count: products_count, 
       is_collection: true, 
       terms: terms,
@@ -29,15 +29,15 @@
         {% render 'findify-loader' %}
       </div>
 
-      <aside id="findify-filters-sidebar" class="findify-filters-sidebar">
+      <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
         <div class="findify-filters-container">
           <button id="findify-modal-filters-header" class="findify-modal-header">
             <span class="findify-modal-header-title">Filters</span>
-            {% render 'findify-cross-icon' %}
+            {% render 'findify-icon-cross' %}
           </button>
           {% if active_filters != 'none' %}
             <div class="findify-search-header-breadcrumb">
-              {% render 'findify-filters-breadcrumbs', active_filters: active_filters %}
+              {% render 'findify-filter-selected', active_filters: active_filters %}
             </div>
         {% endif %}
           <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">

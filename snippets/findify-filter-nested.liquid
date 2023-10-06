@@ -18,7 +18,7 @@
         {%- assign selected = filterValue[2] -%}
         {%- assign hasChildren = filterValue[3] -%}
 
-    {% render'findify-filters-checkbox', 
+    {% render'findify-filter-checkbox', 
         name: name,
         type: type,
         selected: selected,
@@ -32,7 +32,7 @@
 
     {% if nestedFilterValues != blank %}
         {% assign nestLevelCount = level | plus: 1 %}
-        {% render 'findify-filters-nested', items: nestedFilterValues, filterName: filterName, type: type, componentType: componentType, index: forloop.index, level: nestLevelCount %}
+        {% render 'findify-filter-nested', items: nestedFilterValues, filterName: filterName, type: type, componentType: componentType, index: forloop.index, level: nestLevelCount %}
     {% endif %}
 
 {%- endfor -%}

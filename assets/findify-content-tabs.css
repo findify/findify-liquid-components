@@ -26,7 +26,7 @@
 
 .findify-tab.active {
     pointer-events: none;
-    color: #000000;
+    color: var(--findify-text-color);
     cursor: default;
 }
 

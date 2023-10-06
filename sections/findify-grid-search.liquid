@@ -3,7 +3,7 @@
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
-{% include 'findify-native-liquid-object-conversion' %}
+{% include 'findify-grid-connector' %}
 
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
@@ -14,7 +14,7 @@
     {% endif %}
 
     <div class="findify-search-container">
-      {% render 'findify-desktop-actions', 
+      {% render 'findify-toolbar-desktop', 
         results_count: results_count, 
         terms: terms,
         sort_options: sort_options, 
@@ -22,7 +22,7 @@
         sort_by: sort_by, 
         active_filters: active_filters
       %}
-      {% render 'findify-mobile-actions', 
+      {% render 'findify-toolbar-mobile', 
         results_count: results_count, 
         terms: terms,
         sort_options: sort_options, 
@@ -36,15 +36,15 @@
           {% render 'findify-loader' %}
         </div>
 
-        <aside id="findify-filters-sidebar" class="findify-filters-sidebar">
+        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
           <div class="findify-filters-container">
             <button id="findify-modal-filters-header" class="findify-modal-header">
               <span class="findify-modal-header-title">Filters</span>
-              {% render 'findify-cross-icon' %}
+              {% render 'findify-icon-cross' %}
             </button>
             {% if active_filters != 'none' %}
               <div class="findify-search-header-breadcrumb">
-                {% render 'findify-filters-breadcrumbs', active_filters: active_filters %}
+                {% render 'findify-filter-selected', active_filters: active_filters %}
               </div>
             {% endif %}
             <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">

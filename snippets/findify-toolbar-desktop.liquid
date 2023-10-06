@@ -2,7 +2,7 @@
     <div class="findify-search-header-toolbar">
         <div class="findify-search-header-toolbar-actions">
             <button id="findify-toggle-filter" class="findify-search-actions-toggle-btn">
-                {% render 'findify-filter-icon' %}
+                {% render 'findify-icon-filter' %}
                 FILTER BY
             </button>
         </div>
@@ -20,7 +20,7 @@
     </div>
     {% if active_filters != 'none' %}
     <div class="findify-search-desktop-breadcrumb">
-        {% render 'findify-filters-breadcrumbs', active_filters: active_filters %}
+        {% render 'findify-filter-selected', active_filters: active_filters %}
     </div>
     {% endif %}
 </div>

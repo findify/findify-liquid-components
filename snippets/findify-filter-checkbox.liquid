@@ -5,22 +5,22 @@
     value="{%if type == "range"%}{{attribute}}{%else%}{{value}}{%endif %}"
     >
     {%if componentType == "text" or componentType == "price"%}
-    {% render 'findify-filters-text-value',
+    {% render 'findify-filter-text-value',
         selected: selected,
         hasChildren: hasChildren,
         value: value 
     %}
     {% elsif componentType == "reviews" %}
-    {% render 'findify-filters-rating-value',
+    {% render 'findify-filter-rating-value',
         selected: selected,
         value: value 
     %}
     {% elsif componentType == "color" %}
-    {% render 'findify-filters-color-value',
+    {% render 'findify-filter-color-value',
         selected: selected,
         colorName: colorName,
         borderColor: borderColor 
     %}
     {%endif%}
-    <span class=" findify-filters-checkbox-item-count">({{count}})</span>
+    <span class=" findify-filter-checkbox-item-count">({{count}})</span>
 </div>

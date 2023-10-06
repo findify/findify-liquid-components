@@ -1,4 +1,4 @@
-{% render 'findify-filters-search', filterName: filterName %}
+{% render 'findify-filter-search-input', filterName: filterName %}
 <div class="findify-filters--body-wrapper">
     {%- for filterValues in items -%}
         {%- assign name = filterName -%}
@@ -12,7 +12,7 @@
         {%- assign has_children = has_children[4] -%}
 
         {% if value != 'nm' %}
-            {% render'findify-filters-checkbox', 
+            {% render'findify-filter-checkbox', 
                 name: name,
                 type: type,
                 selected: selected,

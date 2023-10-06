@@ -16,9 +16,9 @@
         {% case type %}
                 {% when 'range' %}
         <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
-            {% case name %}
+            {% case name %}   
                 {% when 'reviews.average_score' %} 
-                    {% render 'findify-filters-rating-value',
+                    {% render 'findify-filter-rating-value',
                         selected: true,
                         value: reviewValue 
                     %}
@@ -37,7 +37,7 @@
                 {{value}}
             {% endcase %}
             <div class="findify-filters-breadcrumb-close">
-                {% render 'findify-cross-icon' %}
+                {% render 'findify-icon-cross', size: 8 %}
             </div>
         </div>
     {% endfor %}

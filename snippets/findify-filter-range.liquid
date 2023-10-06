@@ -24,7 +24,7 @@
                 {%- assign rangeAttribute = 'from|' | append: from | append : '-' | append: 'to|' | append: to   -%}
             {% endif %}
 
-            {% render'findify-filters-checkbox', 
+            {% render'findify-filter-checkbox', 
                 name: filterName,
                 type: filterType,
                 selected: selected,
@@ -58,7 +58,7 @@
         </div>
 
         <p>{{min}} - {{max}}</p>
-        {% render 'findify-filters-range-slider', min: min, max: max, name: filterName %}
+        {% render 'findify-filter-range-slider', min: min, max: max, name: filterName %}
         </div>
 {% endif %}
 {%endcomment%}
