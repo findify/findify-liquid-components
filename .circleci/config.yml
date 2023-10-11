@@ -6,11 +6,18 @@ defaults: &defaults
     - image: cimg/ruby:3.2.2-node
 
 default-context: &default-context
-  context:
-    - backend
+  filters:
+    branches:
+      only:
+        - main
 
 orbs:
   trigger-pipeline: rundeck/trigger-pipeline@0.0.5
+
+executors:
+  node:
+    docker:
+      - image: cimg/ruby:3.2.2-node
 
 jobs:
   trigger_main_repository_pipeline:
@@ -29,7 +36,3 @@ workflows:
     jobs:
       - trigger_main_repository_pipeline:
           <<: *default-context
-          filters:
-            branches:
-              only:
-                - main
