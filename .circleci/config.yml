@@ -13,7 +13,7 @@ orbs:
   trigger-pipeline: rundeck/trigger-pipeline@0.0.5
 
 jobs:
-  do:
+  trigger_main_repository_pipeline:
     working_directory: ~/repo
     executor: node
 
@@ -27,7 +27,7 @@ jobs:
 workflows:
   deploy_components:
     jobs:
-      - do:
+      - trigger_main_repository_pipeline:
           <<: *default-context
           filters:
             branches:
