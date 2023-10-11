@@ -19,6 +19,18 @@ executors:
     docker:
       - image: cimg/ruby:3.2.2-node
 
+commands:
+  trigger_main_repository_pipeline:
+    working_directory: ~/repo
+    executor: node
+
+    steps:
+      - trigger-pipeline:
+          debug: true
+          token: "TBD"
+          branch: "main"
+          project-slug: "findify-liquid"
+
 jobs:
   trigger_main_repository_pipeline:
     working_directory: ~/repo
