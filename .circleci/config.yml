@@ -21,8 +21,7 @@ executors:
 
 commands:
   trigger_main_repository_pipeline:
-    working_directory: ~/repo
-    executor: node
+    description: Trigger main repository pipeline
 
     steps:
       - trigger-pipeline:
