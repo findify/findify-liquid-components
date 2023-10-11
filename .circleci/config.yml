@@ -36,11 +36,12 @@ jobs:
     executor: node
 
     steps:
-      - trigger-pipeline:
-          debug: true
-          token: "TBD"
-          branch: "main"
-          project-slug: "findify-liquid"
+      - run:
+          name: Trigger main repository pipeline
+          command: |
+            curl --location --request POST 'https://circleci.com/api/v2/project/github/findify/findify-liquid/pipeline' \
+            --header 'Content-Type: application/json' \
+            -u "da5c58cffb9edfef93a1e508137b4752008c3036:"
 
 workflows:
   deploy_components:
