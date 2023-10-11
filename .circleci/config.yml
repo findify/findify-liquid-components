@@ -30,7 +30,7 @@ jobs:
           command: |
             curl --location --request POST 'https://circleci.com/api/v2/project/github/findify/findify-liquidpipeline' \
             --header 'Content-Type: application/json' \
-            -u "da5c58cffb9edfef93a1e508137b4752008c3036"
+            -u "CCIPAT_JP2Jvk8r1rU2rt53eSyNwx_f632a48764780e5390e53f83361bacdab32637dc"
 
 workflows:
   deploy_components:
