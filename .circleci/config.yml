@@ -1,0 +1,35 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: cimg/ruby:3.2.2-node
+
+default-context: &default-context
+  context:
+    - backend
+
+orbs:
+  trigger-pipeline: rundeck/trigger-pipeline@0.0.5
+
+jobs:
+  do:
+    working_directory: ~/repo
+    executor: node
+
+    steps:
+      - trigger-pipeline:
+          debug: true
+          token: "TBD"
+          branch: "main"
+          project-slug: "findify-liquid"
+
+workflows:
+  deploy_components:
+    jobs:
+      - do:
+          <<: *default-context
+          filters:
+            branches:
+              only:
+                - main
