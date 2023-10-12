@@ -11,7 +11,7 @@ const navigate = (url, e, query, rid) => {
 };
 
 const redirectionFeedback = async (query, rid) => {
-  try { 
+  try {
     Findify.analytics.sendEvent("redirect", {
       rid,
       suggestion: query,
