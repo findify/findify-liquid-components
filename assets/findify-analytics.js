@@ -14,7 +14,7 @@ const redirectionFeedback = async (query, rid) => {
   try {
     Findify.analytics.sendEvent("redirect", {
       rid,
-      suggestion: query,
+      suggestion: query, 
     });
   } catch (error) {
     console.log("error", error);
