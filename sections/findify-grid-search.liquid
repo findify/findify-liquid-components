@@ -107,7 +107,9 @@
       initFindifyContentEvents();
       // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
       setFindifyLoader(false);
-    } else{
+
+      /* Custom scripts shall be added here below */
+    } else {
           const initRecommendation = async (type) => await Findify.core.recommendation.init({
               recommendation_id:"{{ recommendation_id }}",
               desktop_grid_size,
