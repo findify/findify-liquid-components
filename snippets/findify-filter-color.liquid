@@ -1,3 +1,4 @@
+
 {% render 'findify-filter-search-input', filterName: filterName %}
 <div class="findify-filters--body-wrapper">
     {%- for filterValues in items -%}
@@ -22,7 +23,8 @@
                 colorName: value,
                 borderColor: borderColor,
                 index: forloop.index,
-                limit: limit
+                limit: limit,
+                color_filter_setting: color_filter_setting
             %}
         {% endif %}
     {% endfor %}

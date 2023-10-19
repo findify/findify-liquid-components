@@ -1,5 +1,16 @@
+
 <span class=" findify-filters-checkbox-item-value findify-filters--color-item
 {%if selected == 't'%}findify-filters-checkbox-item-value-selected{%endif%}">
-<span class="findify-filters--color-item-value color-mapping-background-{{colorName | downcase}} border-{{ borderColor }}"></span>
-{{colorName}}
+{% if color_filter_setting == 'color' %}
+    <span class="findify-filters--color-item-value color-mapping-background-{{colorName | downcase}} border-{{ borderColor }} solid-circle">
+        {%if selected == 't'%}
+                {% render 'findify-icon-checkmark' %}
+        {% endif %}
+    </span>
+{% endif %}
+{% if color_filter_setting == 'color_with_label' %}
+    <span class="findify-filters--color-item-value color-mapping-background-{{colorName | downcase}} border-{{ borderColor }} circle-with-label"></span>
+    {{colorName}}
+    </span>
+{% endif %}
 </span>

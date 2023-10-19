@@ -1,6 +1,7 @@
 
 {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
 {%- assign filtersParam = page_url | split: "filters=" | last | split: '&' | first -%}
+{%- assign color_filter_setting = page_url | split: "color_filter=" | last -%}
 {%- assign limit = 5 -%}
 
 {%- assign details = filtersParam | strip | split: '=' | first | split: '~' -%}
@@ -43,6 +44,7 @@
         componentType: component,
         items: values,
         size: values.size,
-        limit: limit
+        limit: limit,
+        color_filter_setting: color_filter_setting
     %}
 </div>
