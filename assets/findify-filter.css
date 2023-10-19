@@ -26,6 +26,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    max-width: 260px;
 }
 
 /* FILTERS */
@@ -142,6 +143,16 @@ button {
     display: none !important;
 }
 
+.findify-filters--color-item-layout-color {
+    padding: 0;
+}
+
+.findify-filters--color-item-layout-color .findify-filters--color-item-value,
+.findify-filters--color-item-layout-color .findify-filters-checkbox-item-value {
+    margin-right: 0;
+    padding-right: 0;
+}
+
 .findify-filters-checkbox-item-value,
 .findify-filters--checkbox-nested-value {
     padding-right: 5px;
@@ -188,6 +199,20 @@ button {
     overflow: auto;
 }
 
+/* Color filter layout: Only color*/
+.body-wrapper-layout-color {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0 12px 0 10px;
+}
+
+.body-wrapper-layout-color_with_label {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 /* color item */
 .findify-filters--color-item {
     display: flex;
@@ -195,8 +220,8 @@ button {
 }
 
 .solid-circle {
-    height: 37px;
-    width: 37px;
+    height: 35px;
+    width: 35px;
 }
 
 .circle-with-label {
@@ -323,6 +348,10 @@ button {
         width: 0px;
         margin-right: 0px;
         width: 100%;
+    }
+
+    .findify-filters-wrapper {
+        max-width: unset;
     }
 
     .findify-filters-sidebar .findify-filters-container {

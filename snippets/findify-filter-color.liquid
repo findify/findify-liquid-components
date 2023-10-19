@@ -1,6 +1,6 @@
 
-{% render 'findify-filter-search-input', filterName: filterName %}
-<div class="findify-filters--body-wrapper">
+{% if color_filter_setting != 'color'  %} {% render 'findify-filter-search-input', filterName: filterName %} {% endif %}
+<div class="findify-filters--body-wrapper body-wrapper-layout-{{color_filter_setting}}">
     {%- for filterValues in items -%}
         {%- assign name = filterName -%}
         {%- assign type = filterType -%}
@@ -13,7 +13,7 @@
         {%- assign has_children = has_children[4] -%}
 
         {% if value != 'nm' %}
-            {% render'findify-filter-checkbox', 
+            {% render 'findify-filter-checkbox', 
                 name: name,
                 type: type,
                 selected: selected,
