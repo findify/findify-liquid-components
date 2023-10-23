@@ -20,7 +20,8 @@
         sort_options: sort_options, 
         default_sort_by: default_sort_by, 
         sort_by: sort_by, 
-        active_filters: active_filters
+        active_filters: active_filters,
+        color_layout: color_layout,
       %}
       {% render 'findify-toolbar-mobile', 
         results_count: results_count, 
@@ -28,7 +29,7 @@
         sort_options: sort_options, 
         default_sort_by: default_sort_by, 
         sort_by: sort_by, 
-        active_filters: active_filters
+        active_filters: active_filters,
       %}
 
       <div id="findify-search-main" class="findify-search-main">
@@ -44,7 +45,7 @@
             </button>
             {% if active_filters != 'none' %}
               <div class="findify-search-header-breadcrumb">
-                {% render 'findify-filter-selected', active_filters: active_filters %}
+                {% render 'findify-filter-selected', active_filters: active_filters, color_layout: color_layout %}
               </div>
             {% endif %}
             <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">

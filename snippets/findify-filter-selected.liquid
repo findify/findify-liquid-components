@@ -34,13 +34,32 @@
                 {% endcase %}
             {% else %}
         <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
-                {{value}}
+            {% case name %}
+                {% when 'color' %}
+                    {% if color_layout == 'color' %}
+                        <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle">
+                        </span>
+                    {% endif %}
+                    {% if color_layout == 'color_with_label' %}
+                        <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} circle-with-label"></span>
+                            {{value}}
+                        </span>
+                    {% endif %}
+                {% else %}
+                    {{value}}
+            {% endcase %}
             {% endcase %}
             <div class="findify-filters-breadcrumb-close">
                 {% render 'findify-icon-cross', size: 8 %}
             </div>
         </div>
     {% endfor %}
+    <div class="findify-filters-breadcrumbs-show-more">
+        <span></span>
+        <div class="findify-filters-breadcrumb-close">
+            {% render 'findify-icon-arrow', size: 8 %}
+        </div>
+    </div>
     <div class="findify-filters-breadcrumbs-clear-all" selected="true">
         <muted>Clear all</muted>
     </div>
