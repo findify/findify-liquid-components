@@ -48,5 +48,7 @@
 {%- comment -%} Content search tabs and contents {%- endcomment -%}
 {%- assign tabs = liquidObject | split: 'tabs:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'tab'[] {% endcomment %}
 
-{% comment %}{% endcomment %}
-{%-  assign color_layout = liquidObject | split: 'color_filter:' | last |  split: '|' |  first -%}
+{% comment %} Grid Settings and configurations{% endcomment %}
+{%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
+
+{%-  assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
