@@ -22,8 +22,13 @@ const initFindifyAutocompleteEvents = () => {
       navigate(`/search?q=${query}`, e, query);
   };
 
-  const setAutocompletePosition = () => {
-      const top = document.querySelector(selector).getBoundingClientRect().bottom + 2;
+  const getBottom = (el) => {
+      const { bottom } = el.getBoundingClientRect();
+      return bottom;
+  };
+
+  const setAutocompletePosition = (input) => {
+      const top = getBottom(input) + 2;
       document.querySelector('.findify-autocomplete').style.top = `${top}px`;
   };
 
@@ -33,21 +38,20 @@ const initFindifyAutocompleteEvents = () => {
       }
   };
 
-  const closeAutocompleteOutside = (e) => { 
+  const closeAutocompleteOutside = (e, input) => { 
     const findifyAutocomplete = document.querySelector('.findify-autocomplete');
-    const input = document.querySelector(selector);
       if (!findifyAutocomplete.contains(e.target) && !input.contains(e.target)) {
           closeAutocomplete(e);
           document.removeEventListener("click", closeAutocompleteOutside);
       }
   }
 
-  const openAutocomplete = () => {
+  const openAutocomplete = (input) => {
       const autocompleteClassName = document.querySelector('.findify-autocomplete').className;
       document.querySelector('.findify-autocomplete').className = autocompleteClassName.replace(' hidden', '');
       document.querySelector('.findify-close-autocomplete')?.addEventListener("click", (e) => closeAutocomplete(e));
-      document.addEventListener("click", (e) => closeAutocompleteOutside(e));
-      setAutocompletePosition();
+      document.addEventListener("click", (e) => closeAutocompleteOutside(e, input));
+      setAutocompletePosition(input);
   };
 
   const renderContent = (content) => {
@@ -87,8 +91,8 @@ const initFindifyAutocompleteEvents = () => {
         
         //if (this.contentID) this.renderContent(this.#latestResponse.content);
       }
-      if (event.type == 'focus') setTimeout(openAutocomplete, 200);
-      else openAutocomplete();
+      if (event.type == 'focus') setTimeout(() => openAutocomplete(event.target), 200);
+      else openAutocomplete(event.target);
   }
 
   const handleFindifyChange = e => {
@@ -102,10 +106,12 @@ const initFindifyAutocompleteEvents = () => {
   }
 
   const initializeFindifyAutocomplete = () => {
-      const input = document.querySelector(selector);
+    const inputDomRefs = document.querySelectorAll(selector);
+    inputDomRefs.forEach(input => {
       input.addEventListener("focus", loadFindifyAutocomplete);
       input.addEventListener("keyup", handleFindifyChange);
-  };
+    })
+};
   
   const initializeFullscreenAutocomplete = () => {
       if (item_limit && item_limit > 4) document.querySelector('.findify-autocomplete').style.height = '100%'
