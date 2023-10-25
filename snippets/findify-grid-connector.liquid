@@ -51,4 +51,5 @@
 {% comment %} Grid Settings and configurations{% endcomment %}
 {%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
 
-{%-  assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
+{%- assign pagination_layout = settingsObj | split: 'pagination_layout:' | last |  split: '|' |  first -%}
+{%- assign color_filter_layout = settingsObj | split: 'color_filter_layout:' | last |  split: '|' |  first -%}

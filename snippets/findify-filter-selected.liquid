@@ -36,11 +36,11 @@
         <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
             {% case name %}
                 {% when 'color' %}
-                    {% if color_layout == 'color' %}
+                    {% if color_filter_layout == 'color' %}
                         <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle">
                         </span>
                     {% endif %}
-                    {% if color_layout == 'color_with_label' %}
+                    {% if color_filter_layout == 'color_with_label' %}
                         <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} circle-with-label"></span>
                             {{value}}
                         </span>
