@@ -83,7 +83,8 @@ const bindBreadcrumbClickEvent = () => {
 const initBreadcrumbShowMore = () => {
     const showMore = document.querySelector(selectors.showMoreBreadcrumbs);
     const breadcrumbsContainer = document.querySelector(`.desktop ${selectors.breadCrumbsContainer}`);
-    const breadcrumbs = [...breadcrumbsContainer.querySelectorAll(selectors.breadcrumbItemClass)];
+    if(!breadcrumbsContainer) return null
+    const breadcrumbs = [...breadcrumbsContainer?.querySelectorAll(selectors.breadcrumbItemClass)];
     const gap = 15;
     const showMoreWidth = showMore.offsetWidth;
     const clearAllWidth = document.querySelector(selectors.clearAll).offsetWidth;
