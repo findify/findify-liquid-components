@@ -83,50 +83,51 @@ const bindBreadcrumbClickEvent = () => {
 const initBreadcrumbShowMore = () => {
     const showMore = document.querySelector(selectors.showMoreBreadcrumbs);
     const breadcrumbsContainer = document.querySelector(`.desktop ${selectors.breadCrumbsContainer}`);
-    const breadcrumbs = [...breadcrumbsContainer.querySelectorAll(selectors.breadcrumbItemClass)];
-    const gap = 15;
-    const showMoreWidth = showMore.offsetWidth;
-    const clearAllWidth = document.querySelector(selectors.clearAll).offsetWidth;
-    let totalCount = 0;
-    let hiddenCount = 0;
-    let totalBreadcrumbsWidth = 0;
-    let containerWidth = breadcrumbsContainer.offsetWidth;
-    let hiddenBreadcrumbs = [];
-
-    // start with show more width
-    totalBreadcrumbsWidth += (showMoreWidth + clearAllWidth);
-
-    // iterate over breadcrumbs and add their width to total width
-    breadcrumbs.forEach(breadcrumb => {
-        totalBreadcrumbsWidth += (breadcrumb.offsetWidth + gap);
-        totalCount += 1;
-        if (totalBreadcrumbsWidth > containerWidth) {
-            hiddenCount += 1;
-            breadcrumb.setAttribute('style', 'display: none;')
-            hiddenBreadcrumbs.push(breadcrumb)
-        }
-    })
-
-    // if there are hidden breadcrumbs, display show more button and add event listener
-    if (hiddenCount > 0) {
-        const showMoreTextContainer = showMore.querySelector('span')
-        showMoreTextContainer.innerHTML = `+${hiddenCount} more`
-        showMore.addEventListener('click', () => {
-            showMore.classList.toggle('open')
-            hiddenBreadcrumbs.forEach(breadcrumb => {
-                if (breadcrumb.hasAttribute('style')) {
-                    breadcrumb.removeAttribute('style')
-                    showMoreTextContainer.innerHTML = '- Less'
-                } else {
-                    breadcrumb.setAttribute('style', 'display: none;')
-                    showMoreTextContainer.innerHTML = `+${hiddenCount} more`
-                }
-            })
+    if (breadcrumbsContainer) {
+        const breadcrumbs = [...breadcrumbsContainer.querySelectorAll(selectors.breadcrumbItemClass)];
+        const gap = 15;
+        const showMoreWidth = showMore.offsetWidth;
+        const clearAllWidth = document.querySelector(selectors.clearAll).offsetWidth;
+        let totalCount = 0;
+        let hiddenCount = 0;
+        let totalBreadcrumbsWidth = 0;
+        let containerWidth = breadcrumbsContainer.offsetWidth;
+        let hiddenBreadcrumbs = [];
+    
+        // start with show more width
+        totalBreadcrumbsWidth += (showMoreWidth + clearAllWidth);
+    
+        // iterate over breadcrumbs and add their width to total width
+        breadcrumbs.forEach(breadcrumb => {
+            totalBreadcrumbsWidth += (breadcrumb.offsetWidth + gap);
+            totalCount += 1;
+            if (totalBreadcrumbsWidth > containerWidth) {
+                hiddenCount += 1;
+                breadcrumb.setAttribute('style', 'display: none;')
+                hiddenBreadcrumbs.push(breadcrumb)
+            }
         })
-    } else {
-        showMore.style.display = 'none';
+    
+        // if there are hidden breadcrumbs, display show more button and add event listener
+        if (hiddenCount > 0) {
+            const showMoreTextContainer = showMore.querySelector('span')
+            showMoreTextContainer.innerHTML = `+${hiddenCount} more`
+            showMore.addEventListener('click', () => {
+                showMore.classList.toggle('open')
+                hiddenBreadcrumbs.forEach(breadcrumb => {
+                    if (breadcrumb.hasAttribute('style')) {
+                        breadcrumb.removeAttribute('style')
+                        showMoreTextContainer.innerHTML = '- Less'
+                    } else {
+                        breadcrumb.setAttribute('style', 'display: none;')
+                        showMoreTextContainer.innerHTML = `+${hiddenCount} more`
+                    }
+                })
+            })
+        } else {
+            showMore.style.display = 'none';
+        }
     }
-
 }
 
 const bindRangeEvent = () => {

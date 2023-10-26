@@ -68,12 +68,8 @@
         left: 45%;
     }
 
-    .findify-modal-header svg {
-        transform: scale(2);
-    }
-
-    .findify-modal-header svg path {
-        fill: #fff;
+    .findify-modal-header svg line {
+        stroke: #fff;
     }
 
     .findify-modal-footer {
