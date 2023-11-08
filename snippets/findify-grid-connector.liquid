@@ -34,6 +34,7 @@
 {%- assign next_product = liquidObject | split: 'next_product:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
 {%- assign previous_product = liquidObject | split: 'previous_product:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
 {%- assign products = liquidObject | split: 'products:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign reviews = liquidObject | split: 'reviews:' | last | split: '|' | first | split: ';' -%} {%- comment -%} 'reviews'[] {%- endcomment -%}
 {%- assign products_count = liquidObject | split: 'products_count:' | last | split: '|' | first | plus: 0-%}  {%- comment -%} number {%- endcomment -%}
 {%- assign published_at = liquidObject | split: 'published_at:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
 {%- assign tags = liquidObject | split: 'tags:' | last | split: '|' | first -%} {%- comment -%} ? {%- endcomment -%}
@@ -52,5 +53,3 @@
 {%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
 
 {%- assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
-{%- assign cards_rating_enabled = settingsObj | split: 'cards_rating_enabled:' | last |  split: '|' |  first -%}
-{%- assign filters_rating_enabled =  settingsObj | split: 'filters_rating_enabled:' | last |  split: '|' |  first -%}
