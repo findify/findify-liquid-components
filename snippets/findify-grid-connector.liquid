@@ -51,4 +51,6 @@
 {% comment %} Grid Settings and configurations{% endcomment %}
 {%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
 
-{%-  assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
+{%- assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
+{%- assign cards_rating_enabled = settingsObj | split: 'cards_rating_enabled:' | last |  split: '|' |  first -%}
+{%- assign filters_rating_enabled =  settingsObj | split: 'filters_rating_enabled:' | last |  split: '|' |  first -%}

@@ -60,7 +60,8 @@
         <div class="findify-products-section">
           <div class="findify-product-list">
             {% for product in results %}
-              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search' %}
+              {% assign reviewIndex =  forloop.index | minus: 1 %}
+              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search', ratingValue: reviews[reviewIndex], cards_rating_enabled: cards_rating_enabled %}
             {% endfor %}
           </div>
           <div id='findify-pagination'>
@@ -98,6 +99,11 @@
   * This script block will be executed at the end of every Findify render cycle.
   * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
   */
+
+  if ("{{filters_rating_enabled}}" === "false") {
+    const ratingFilter = document.querySelector(`div[aria-label="reviews.average_score"]`);
+    ratingFilter.remove();
+  }
 
   const onFindifySearchDone = () => {
     if("{{ results_count }}" != "0"){

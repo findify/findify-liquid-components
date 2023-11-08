@@ -1,0 +1,8 @@
+{% for i in (1..5) %}
+    {%- assign unfilled = '' -%}
+    {%- assign ratingValue = value | split: '-' | first | plus: 1  -%} 
+    {% if ratingValue <= i %}
+        {%- assign unfilled = 'true' -%}
+    {% endif %}
+    {% render 'findify-icon-star', unfilled: unfilled %}
+{% endfor %}
