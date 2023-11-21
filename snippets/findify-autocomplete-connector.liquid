@@ -3,5 +3,5 @@
 {%- assign products = results | first | split: '&products=' | last | split: '&suggestion' | first | split: ';' -%}
 {%- assign suggestions = results | first | split: '&suggestion=' | last | split: ',' -%}
 {%- assign query = results | last | split: '&' | first -%}
-{%- assign suggestionsTemplate = "vertical"- %}
+{%- assign suggestionsTemplate = "vertical" -%}
 {%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%} 
