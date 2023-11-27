@@ -1,0 +1,100 @@
+{%- assign options = product.options -%} 
+{%- assign variants = product.variants -%} 
+
+{% assign isSize = false %}
+
+{% for option in options %}
+  {% assign lowercasedOption = option | downcase %}
+  
+  {% if lowercasedOption == 'size' %}
+    {% assign isSize = true %}
+    {% assign sizeIndex = forloop.index %}    
+  {% endif %}
+  
+{% endfor %}
+
+{% assign sizeTitles = '' %}
+{% assign sizeData = '' %}
+
+
+{% for variant in variants %}
+  {% if isSize == true  %}
+      {% assign sizeKey = "option" | append: sizeIndex %}    
+      
+      {% assign sizeValue = variant[sizeKey] %}
+      {% assign sizeId = variant.id %}
+      {% assign isAvailable = variant.available %}
+      
+      {% assign sizeTitles = sizeTitles | append:sizeValue  | append:'|' %}
+      {% assign sizeData = sizeData  | append:sizeValue | append:'#'  |  append: sizeId | append: '$' | append: isAvailable  | append:'|' %}
+  {% endif %}  
+{% endfor %}
+
+{% assign sizeSwatchesArray = sizeTitles | split:'|'  | uniq %}
+{% assign sizeDataArray = sizeData | split:'|' %}
+
+<div class='findify-swatches-container'>  
+  <div class='findify-flex-container'>    
+        <div class='sizeSwatchesContainer'> 
+
+            {% if isSize == true %}
+              {% assign swatchCounter = 0 %}
+              
+              {% for title in sizeSwatchesArray %}
+                
+                {% for data in sizeDataArray %}
+                  
+                    {% assign sizeTitle = data | split:'#' | first %}
+                    {% assign sizeId = data | split:'#' | last  | split:'$' | first%}
+                    {% assign isAvaliable = data | split:'#' | last  | split:'$' | last%}
+                    {% assign sizeUrl = product.url | append: "?variant=" | append: sizeId %}  
+            
+                      {% if title == sizeTitle %}
+                    
+                        {% if isAvaliable == 'true' %}
+                            {% assign swatchCounter =  swatchCounter | plus:1 %}
+                          
+                          {% if swatchCounter > 4 %}
+                              <a class='findify-size-swatch hided-swatch-option' hidedSwatch={{ true }} href={{ sizeUrl }} >{{ title }}</a>
+                          {% else %}
+                              <a class='findify-size-swatch' href={{ sizeUrl }} >{{ title }}</a>
+                          {% endif %} 
+
+                        {% endif %}
+                       {% break %}
+                      {% endif %}
+                        
+                {% endfor %}
+              {% endfor %}
+              
+              {% if swatchCounter > 4  %}
+                {% assign additionalSizes = sizeSwatchesArray.size | minus: 4 %}
+                <button  class="sizeButton" >+{{ additionalSizes }}</button>
+              {% endif %}    
+                
+            {% endif %}            
+        </div>
+<!-- color swatches ___________________________________________________________________________________________ START  -->
+    <div class='colorSwatchesContainer'>
+        {% for productColor in cardColors %}
+          {% assign currentColorKey = productColor | split:'~' | first | append:':' %} 
+          {% assign colorId = productColor | split:'~' | last %} 
+          {% assign colorUrl = product.url | append: "?variant=" | append: colorId %}  
+      
+          {% if colorMapping contains currentColorKey  %}
+            
+            {% assign colorCode = colorMapping | split:currentColorKey | last | split:',' | first | split:'$' | last  %}  
+            
+            {% if colorCode contains  "https" %}
+                <a class='findify-color-swatch'   href={{ colorUrl }} style="background: no-repeat url({{ colorCode }}) center" > </a>
+            {% else %}
+                {% assign colorHexCode = '#' | append: colorCode %}
+                <a class='findify-color-swatch' href={{ colorUrl }}  style=" background-color:{{ colorHexCode  }}"> </a>
+            {% endif %}
+            
+          {% endif %}
+        {% endfor %}
+    </div>
+    
+  </div>
+</div>

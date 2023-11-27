@@ -28,6 +28,7 @@
         loading="lazy"
       />
       <div class="content-wrapper">
+        {% render 'findify-product-swatches', product: card_product, colorMapping: colorMapping, cardColors: cardColors %}
         <div class='findify-product-title findify-cut-text'>{{ card_product.title }}</div>
         {% render 'findify-product-price', product: card_product %}
       </div>

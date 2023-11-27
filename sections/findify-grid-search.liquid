@@ -3,6 +3,13 @@
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
+
+{%- assign color_mapping = query_parameters | split: 'color_mapping:' | last | split:'|' | first  -%} 
+{%- assign card_colors = query_parameters | split: 'card_colors:'  | last | split:'|' | first  -%} 
+{% assign cardColorsArray = card_colors | split:'$' %}
+
+
+
 {% include 'findify-grid-connector' %}
 
 <div id="findify-search" class="findify-search-section">
@@ -60,7 +67,8 @@
         <div class="findify-products-section">
           <div class="findify-product-list">
             {% for product in results %}
-              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search' %}
+              {% assign cardColors = cardColorsArray[forloop.index0] | split:','  %}
+              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search', colorMapping: color_mapping, cardColors: cardColors %}
             {% endfor %}
           </div>
           <div id='findify-pagination'>
