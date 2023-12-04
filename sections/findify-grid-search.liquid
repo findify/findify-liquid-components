@@ -1,8 +1,13 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+
+{%- assign query_parameters_products = page_url | split: 'sections=findify-products&' | last -%}
+
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
+
+
 
 {%- assign color_mapping = query_parameters | split: 'color_mapping:' | last | split:'|' | first  -%} 
 {%- assign card_colors = query_parameters | split: 'card_colors:'  | last | split:'|' | first  -%} 
@@ -57,28 +62,28 @@
             {% endif %}
             <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
               {% comment %}
-              This element #findify-filters will be replaced with rendered html from sections/findify-filters
+              This element #findify-filters will be replaced with rendered html from sections/findify-filter-group
               {% endcomment %}
             </div>
             <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
           </div>
         </aside>
-
-        <div class="findify-products-section">
-          <div class="findify-product-list">
-            {% for product in results %}
-              {% assign cardColors = cardColorsArray[forloop.index0] | split:','  %}
-              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search', colorMapping: color_mapping, cardColors: cardColors %}
-            {% endfor %}
-          </div>
-          <div id='findify-pagination'>
-            {% comment %}
-            This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
-            {% endcomment %}
-          </div>
-        </div>
+  <!-- product grid section! -->
+     <div class="findify-products-section">
+      <div id="findify-product-grid" class="findify-product-list" >
+          {% comment %}
+          This element #findify-product-grid will be replaced with rendered html from sections/findify-products
+          {% endcomment %}
+      </div> 
+      <div id='findify-pagination'>
+        {% comment %}
+        This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+        {% endcomment %}
       </div>
-      
+     </div>
+    <!-- product grid section! -->
+        
+        
       </div>
       {% if tabs[0] != 'none' %}
         </div>

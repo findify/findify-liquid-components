@@ -94,7 +94,7 @@ const autocompleteAnalytics = (e) => {
   suggestionAnalytics();
 };
 
-// Temporary location!
+// Temporary location! MoreSize button for swatches 
 window.onload = function () {
   setTimeout(function () {
     const moreButtons = document.querySelectorAll(".sizeButton");
@@ -103,6 +103,11 @@ window.onload = function () {
       button.addEventListener("click", (e) => {
         const currentButton = e.target;
         const parent = currentButton.parentNode;
+        const currentSwatchContainer =
+          currentButton.parentNode.parentNode.parentNode;
+        parent.style.flexWrap = "wrap";
+
+        console.log({ sadfs: currentSwatchContainer.style });
         const hidedSwatches = parent.querySelectorAll('[hidedswatch="true"]');
         Array.from(hidedSwatches).map((node) =>
           node.classList.remove("hided-swatch-option")

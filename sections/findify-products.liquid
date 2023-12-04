@@ -1,0 +1,15 @@
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign productsParam = page_url | split: "products=" | last | split: '&' | first -%}
+{%- assign colorMappingParam = page_url | split: "color_mapping=" | last  -%}
+
+{%- assign products= productsParam | split: ";" -%}
+
+
+<div class="findify-products-section">
+  <div class="findify-product-list">
+    <h1>{{ colorMappingParam }}</h1>
+    {% for product in products %}
+      {% render 'findify-product-card', card_product:product, widget_type: 'search', colorMappingParam:colorMappingParam %}
+    {% endfor %}
+  </div>
+</div>

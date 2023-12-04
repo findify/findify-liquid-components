@@ -2,13 +2,14 @@ a,
 a:visited {
     text-decoration: none;
 }
-
+.findify-product-card{
+   min-height:380px;
+}
 .adapt {
     width: 100%;
     aspect-ratio: 1/1.5;
     object-fit: cover;
 }
-
 .findify-product-title {
     font-size: 18px;
     color: black;
@@ -26,3 +27,19 @@ a:visited {
     font-weight: 700;
     color: black !important;
 }
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+.image-container .second-image {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.image-container:hover .second-image {
+    display: inline;
+}
+
+

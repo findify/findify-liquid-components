@@ -6,7 +6,6 @@
 }
 .sizeSwatchesContainer, .colorSwatchesContainer{
   display:flex;
-  flex-wrap:wrap;
   gap:10px;
 }
 .findify-flex-container a:first-child{
