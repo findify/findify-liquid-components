@@ -60,7 +60,8 @@
         <div class="findify-products-section">
           <div class="findify-product-list">
             {% for product in results %}
-              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search' %}
+              {% assign reviewIndex =  forloop.index | minus: 1 %}
+              {% render 'findify-product-card', card_product: all_products[product], widget_type: 'search', ratingValue: reviews[reviewIndex] %}
             {% endfor %}
           </div>
           <div id='findify-pagination'>
