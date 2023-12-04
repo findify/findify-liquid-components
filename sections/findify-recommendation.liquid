@@ -1,20 +1,23 @@
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  | url_decode  -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
-{%- assign results = query_parameters | split: 'results:' | last  | split: '%7C' | first |  split:';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
-{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '%7C' | first | split: ';'  -%} 
-{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '%7C' | first | split: '&' | first  | split: ';' -%} 
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  | split: ';' -%} 
+{%- assign products = query_parameters | split: 'results:' | last  | split: 'total:' | first |  split:';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first | split: ';'  -%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  | split: ';' -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first | split:'|' | first -%} 
+
+{%- assign colorMappingParam = page_url | split: "color_mapping:" | last  -%}
 
 
 <div class='findify-recommendation-container'>
-  <h1 class='findify-swiper-title'>{{ recommendation_title }}</h1>
+  <h1 class='findify-swiper-title'> {{ recommendation_title }}</h1>
+
   <div  id="{{ recommendation_id  }}" class='swiper' >
     <div class="swiper-wrapper"> 
-      {% for product in results %}
   
-        {% render 'findify-product-card', card_product: all_products[product], additional_class: "swiper-slide", widget_type: recommendation_id %}
-      
+      {% for product in products %} 
+        {% render 'findify-product-card', card_product:product, additional_class: "swiper-slide", widget_type: recommendation_id, colorMappingParam:colorMappingParam  %}
       {% endfor %}
+
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>

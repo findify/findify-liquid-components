@@ -4,10 +4,8 @@
 
 {%- assign products= productsParam | split: ";" -%}
 
-
 <div class="findify-products-section">
   <div class="findify-product-list">
-    <h1>{{ colorMappingParam }}</h1>
     {% for product in products %}
       {% render 'findify-product-card', card_product:product, widget_type: 'search', colorMappingParam:colorMappingParam %}
     {% endfor %}
