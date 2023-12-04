@@ -1,0 +1,103 @@
+
+{% assign swatchData  =  '' %}
+
+{%  assign variantsArr = variants | split:'^' %}
+
+{%  for variant in variantsArr  %}
+  {% assign sizeVar = variant | split: 'si=' | last | split: '|' | first   %}
+  {% assign idVar = variant | split: 'id=' | last | split: '|' | first   %}
+  {% assign colorVar = variant | split: 'co=' | last | split: '|' | first   %}
+  {% assign availability = variant | split: 'av=' | last | split: '|' | first   %}
+  
+  {% assign swatchData = swatchData | append: sizeVar |  append:'^' | append: idVar |  append:'~' | append: colorVar | append:'$' | append: availability   | append:',' %}
+  
+{% endfor %}
+
+
+{% assign sizeCounter = 0 %}
+{% assign colorCounter = 0 %}
+{% assign lengthModificator = 4 %}
+
+
+<div class='findify-swatches-container'>  
+  <div class='findify-flex-container'>  
+     <div class='sizeSwatchesContainer'> 
+       
+        {% for size in sizes %}
+         {% assign sizeKey = size | append:'^' %}
+         {% assign variantId = swatchData | split: sizeKey | last | split:'^' | first | split:'~' | first   %}
+         {% assign isAvaliable = swatchData | split: sizeKey | last | split:',' | first | split:'$' | last  %}
+         {% assign sizeUrl = product_url | split: "?variant=" | first | append: "?variant=" | append: variantId %}  
+            
+           {% if size.size > 2  %}
+             {% assign  lengthModificator= 2 %}
+           {% endif %}
+          
+          {% if isAvaliable == 't' %}
+            
+            {% assign sizeCounter =  sizeCounter | plus:1 %}
+            
+            {% if sizeCounter > lengthModificator %}
+                <a class='findify-size-swatch hided-swatch-option' hidedSwatch={{ true }} href={{ sizeUrl }} >{{ size }}</a>
+            {% else %}
+                <a class='findify-size-swatch' href={{ sizeUrl }} >{{ size }}</a>
+            {% endif %} 
+  
+          {% endif %} 
+    
+        {% endfor %}
+  
+        {% if sizeCounter > lengthModificator  %}
+          {% assign additionalSizes = sizeCounter | minus: lengthModificator %}
+          <button  class="sizeButton" >+{{ additionalSizes }}</button>
+        {% endif %}    
+      </div>
+
+      <div class='colorSwatchesContainer'> 
+       
+        {% for color in colors %}
+         {% assign colorKey = '~'  | append: color  %}
+         {% assign variantColorId = swatchData | split: colorKey | first | split:'^' | last | split:'~' | first %}
+         {% assign isAvaliable = swatchData | split: colorKey | last | split:',' | first | split:'$' | last  %}
+         {% assign colorUrl = product_url | split: "?variant=" | first | append: "?variant=" | append: variantColorId %}  
+         {% assign hashColorKey = color | append:":" | downcase %}
+
+         {% assign colorHexCode=''%}
+          
+         {%- if colorMappingParam contains hashColorKey %} 
+        
+           {% assign colorHexCode =  colorMappingParam | split: hashColorKey | last | split:',' | first %}
+           
+         {% endif %}
+
+        {% if isAvaliable == 't' %}
+
+
+          {% assign colorCounter =  colorCounter | plus:1 %}
+
+        
+           {% if colorHexCode contains  "https" %}
+                <a class='findify-color-swatch'   href={{ colorUrl }} style="background: no-repeat url({{ colorHash }}) center" > </a>
+            {% else %}
+                <a class='findify-color-swatch' href={{ colorUrl }}  style=" background-color:{{ colorHexCode  }}"> </a>
+            {% endif %}
+
+         <!-- {% if colorCounter > 6 %}
+                <a class='findify-color-swatch hided-swatch-option' hidedSwatch={{ true }} href={{ colorUrl }} >{{ color }}</a>
+            {% else %}
+                <a class='findify-color-swatch' href={{ colorUrl }} >{{ color }} {{ colorHash }} colorKey:{{ hashColorKey }}</a>
+            {% endif %}  -->
+
+
+         {% endif %} 
+          
+
+        {% endfor %}
+      
+        {% if colorCounter > 6  %}
+          {% assign additionalSizes = sizes.size | minus: 6 %}
+          <button  class="sizeButton" >+{{ additionalSizes }}</button>
+        {% endif %}    
+      </div>
+  </div>
+</div>

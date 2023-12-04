@@ -14,7 +14,7 @@ const redirectionFeedback = async (query, rid) => {
   try {
     Findify.analytics.sendEvent("redirect", {
       rid,
-      suggestion: query, 
+      suggestion: query,
     });
   } catch (error) {
     console.log("error", error);
@@ -38,21 +38,21 @@ const onSuggestionClick = async (e) => {
 };
 
 const getMeta = (widgetType) => {
-  if (widgetType==='search') {
+  if (widgetType === "search") {
     return Findify?.state?.search?.meta;
   }
-  if (widgetType==='autocomplete') {
+  if (widgetType === "autocomplete") {
     return Findify?.state?.autocomplete?.meta;
   }
   if (widgetType.includes("findify-rec")) {
     return Findify?.state?.recommendations[widgetType]?.data?.meta;
   }
-  throw new Error(`there is no meta for widget type : ${ widgetType }`)
+  throw new Error(`there is no meta for widget type : ${widgetType}`);
 };
 
 const onProductCardClick = (e) => {
   const target = e.currentTarget;
-  const widgetType= target.getAttribute('findify-widget-type');
+  const widgetType = target.getAttribute("findify-widget-type");
   const { rid } = getMeta(widgetType);
   const item_id = e.target
     ?.closest("[data-product-id]")
@@ -92,4 +92,28 @@ const suggestionAnalytics = () => {
 const autocompleteAnalytics = (e) => {
   productCardAnalytics(e);
   suggestionAnalytics();
+};
+
+// Temporary location! MoreSize button for swatches 
+window.onload = function () {
+  setTimeout(function () {
+    const moreButtons = document.querySelectorAll(".sizeButton");
+    const arrayNodes = Array.prototype.slice.call(moreButtons);
+    arrayNodes.map((button) => {
+      button.addEventListener("click", (e) => {
+        const currentButton = e.target;
+        const parent = currentButton.parentNode;
+        const currentSwatchContainer =
+          currentButton.parentNode.parentNode.parentNode;
+        parent.style.flexWrap = "wrap";
+
+        console.log({ sadfs: currentSwatchContainer.style });
+        const hidedSwatches = parent.querySelectorAll('[hidedswatch="true"]');
+        Array.from(hidedSwatches).map((node) =>
+          node.classList.remove("hided-swatch-option")
+        );
+        currentButton.classList.add("hided-swatch-option");
+      });
+    });
+  }, 1000);
 };
