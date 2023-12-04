@@ -51,10 +51,10 @@
       </aside>
 
       <div class="findify-products-section">
-        <div class="findify-product-list">
-          {% for product in products %}
-          {% render 'findify-product-card', card_product: all_products[product] %}
-          {% endfor %}
+        <div id="findify-product-grid" class="findify-product-list">
+          {% comment %}
+          This element #findify-product-grid will be populated with rendered html from sections/findify-products.liquid
+          {% endcomment %}
         </div>
         <div id='findify-pagination'>
           {% comment %}
