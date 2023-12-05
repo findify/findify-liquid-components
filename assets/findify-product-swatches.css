@@ -25,12 +25,11 @@
 }
 .findify-color-swatch{
   border-radius:50%;
-  padding: 0 5px !important;
   width:20px;
   height:20px;  
 }
 .findify-size-swatch, .findify-color-swatch {
-  border:1px solid transparent;
+  border:1px solid lightgray;
 }
 
 .findify-size-swatch:hover, .findify-color-swatch:hover {
