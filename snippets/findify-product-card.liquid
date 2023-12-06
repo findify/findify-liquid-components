@@ -84,7 +84,7 @@
         />
       </div>
       <div class="content-wrapper">
-        {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %}
+        {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
         <div class='findify-product-title findify-cut-text'>{{ title }}</div>
         {% render 'findify-product-price', price: price %}
       </div>
