@@ -1,29 +1,29 @@
 {%- if card_product and card_product != empty -%} 
 
-    {% assign availability = card_product | split:'av=' | last | split: "~" | first %} 
-    {% if card_product contains 'co=' %}{% assign colors = card_product | split:'co=' | last | split: "~" | first | split:'^' %}{% endif %}
-    {% assign created_at = card_product | split:'cra=' | last | split: "~" | first %}
-    {% assign selected_variant_id = card_product | split:'svi=' | last | split: "~" | first %}
-    {% assign image_2_url = card_product | split:'i2u=' | last | split: "~" | first %}
-    {% assign image_url = card_product | split:'iu=' | last | split: "~" | first  %} {% comment %}In case of Autocomplete, this equals to thumbnail_url {% endcomment %}
+    {% assign availability = card_product | split:'~av=' | last | split: "~" | first %} 
+    {% if card_product contains '~co=' %}{% assign colors = card_product | split:'~co=' | last | split: "~" | first | split:'^' %}{% endif %}
+    {% assign created_at = card_product | split:'~cra=' | last | split: "~" | first %}
+    {% assign selected_variant_id = card_product | split:'~svi=' | last | split: "~" | first %}
+    {% assign image_2_url = card_product | split:'~i2u=' | last | split: "~" | first %}
+    {% assign image_url = card_product | split:'~iu=' | last | split: "~" | first  %} {% comment %}In case of Autocomplete, this equals to thumbnail_url {% endcomment %}
     {% assign image_url_full= 'https://cdn.shopify.com/s/files/' | append: image_url %}
     {% assign image_2_url_full= 'https://cdn.shopify.com/s/files/' | append: image_2_url %}
-    {% assign item_group_id = card_product | split:'gid=' | last | split:"~" | first %}
-    {% assign id = card_product | split:'id=' | last | split:"~" | first %}
-    {% assign category = card_product | split:'cat=' | last | split:"~" | first %}
-    {% assign product_url = card_product | split:'pu=' | last | split:"~" | first %}
-    {% assign title = card_product | split:'ti=' | last | split:"~" | first %}
-    {% assign price = card_product | split:'pr=' | last | split:"~" | first %}
-    {%- assign quantity = card_product | split: 'qu=' | last | split: '~' | first -%}
-    {%- assign reviews = card_product | split: 'ras=' | last | split: '~' | first -%}
-    {% if card_product contains 'si=' %}{%- assign sizes = card_product | split: 'si=' | last | split: '~' | first | split:'^' -%}{% endif %}
-    {%- assign sku = card_product | split: 'sk=' | last | split: '~' | first -%}
-    {%- assign tags = card_product | split: 'ta=' | last | split: '~' | first -%}
-    {%- assign updated_at = card_product | split: 'ua=' | last | split: '~' | first -%}
-    {%- assign stickers = card_product | split: 'st=' | last | split: '~' | first -%}
+    {% assign item_group_id = card_product | split:'~gid=' | last | split:"~" | first %}
+    {% assign id = card_product | split:'~id=' | last | split:"~" | first %}
+    {% assign category = card_product | split:'~cat=' | last | split:"~" | first %}
+    {% assign product_url = card_product | split:'~pu=' | last | split:"~" | first %}
+    {% assign title = card_product | split:'~ti=' | last | split:"~" | first %}
+    {% assign price = card_product | split:'~pr=' | last | split:"~" | first %}
+    {%- assign quantity = card_product | split: '~qu=' | last | split: '~' | first -%}
+    {%- assign reviews = card_product | split: '~ras=' | last | split: '~' | first -%}
+    {% if card_product contains '~si=' %}{%- assign sizes = card_product | split: '~si=' | last | split: '~' | first | split:'^' -%}{% endif %}
+    {%- assign sku = card_product | split: '~sk=' | last | split: '~' | first -%}
+    {%- assign tags = card_product | split: '~ta=' | last | split: '~' | first -%}
+    {%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}
+    {%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}
   
     {%- comment -%} Product card variants properties mapper {%- endcomment -%}
-    {%- assign variants = card_product | split: 'va=' | last | split: '~' | first -%}
+    {%- assign variants = card_product | split: '~va=' | last | split: '~' | first -%}
     {% if variants contains 'pr=' %}{%- assign variant_price = variants | split: 'pr=' | last | split: '|' | first -%}{% endif %}
     {% if variants contains 'pu=' %}{%- assign variant_product_url = variants | split: 'pu=' | last | split: '|' | first -%}{% endif %}
     {% if variants contains 'qu=' %}{%- assign variant_quantity = variants | split: 'qu=' | last | split: '|' | first -%}{% endif %}
@@ -42,7 +42,7 @@
     {%- comment -%} Custom fields mapper, card.split('cf=') = [false, true, false, true] {%- endcomment -%}
   
     {%- comment -%} Custom fields are now being used in both product object itself and in variants, need more tests when it's different {%- endcomment -%}
-    {%- assign custom_fields = product_card | split: 'cf=' -%}
+    {%- assign custom_fields = product_card | split: '~cf=' -%}
     {%- assign product_custom_fields = custom_fields[1] | split: '~' | first  -%}
     {%- assign variant_custom_fields = custom_fields[3] | split: '~' | first  -%}
     {%- comment -%} Product custom fields properties mapper, type: [] {%- endcomment -%}
