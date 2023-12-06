@@ -34,12 +34,11 @@
           {% render 'findify-autocomplete-view-all', query: query, position: 'top' %}
       </div>
       <div class="products-container">
-        {% for productItem in products %}
-          {% render 'findify-product-card',
-              card_product: all_products[productItem],
-              product: all_products[productItem]
-          %} 
+        
+        {% for product in products %} 
+          {% render 'findify-product-card', card_product:product, colorMappingParam:colorMappingParam  %}
         {% endfor %}
+
       </div>
       <div class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}
