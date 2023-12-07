@@ -93,27 +93,3 @@ const autocompleteAnalytics = (e) => {
   productCardAnalytics(e);
   suggestionAnalytics();
 };
-
-// Temporary location! MoreSize button for swatches 
-window.onload = function () {
-  setTimeout(function () {
-    const moreButtons = document.querySelectorAll(".sizeButton");
-    const arrayNodes = Array.prototype.slice.call(moreButtons);
-    arrayNodes.map((button) => {
-      button.addEventListener("click", (e) => {
-        const currentButton = e.target;
-        const parent = currentButton.parentNode;
-        const currentSwatchContainer =
-          currentButton.parentNode.parentNode.parentNode;
-        parent.style.flexWrap = "wrap";
-
-        console.log({ sadfs: currentSwatchContainer.style });
-        const hidedSwatches = parent.querySelectorAll('[hidedswatch="true"]');
-        Array.from(hidedSwatches).map((node) =>
-          node.classList.remove("hided-swatch-option")
-        );
-        currentButton.classList.add("hided-swatch-option");
-      });
-    });
-  }, 1000);
-};

@@ -11,3 +11,59 @@
     {% endfor %}
   </div>
 </div>
+
+
+<script id="findify-products-done">
+  /*
+  * This script block will be executed at the end of every Findify render cycle.
+  * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
+  */
+
+  const products = document.querySelectorAll('.findify-product-card ');    
+  const productsArray  = Array.prototype.slice.call(products)
+  const containerWidth = productsArray[0].offsetWidth;
+    
+  productsArray.map((product)=>{
+    const swatches = product.querySelectorAll('.findify-size-swatch')
+    const arraySwatches = Array.prototype.slice.call(swatches)
+    let isHided= 0
+    
+    arraySwatches.reduce((leftSpace, current)=>{
+
+      const swatchWidth = current.offsetWidth
+      console.log({leftSpace, swatchWidth, containerWidth, current})
+
+      if( leftSpace <= swatchWidth || leftSpace==undefined ){
+          isHided+=1;
+         current.classList.add("hided-swatch-option");
+        return 
+      }
+        return leftSpace=leftSpace - swatchWidth - 15
+    }, containerWidth)
+
+    if(isHided){
+      const button = document.createElement("button");
+      button.classList.add("sizeButton");
+      
+      button.addEventListener('click',(e)=>{
+        const currentButton = e.target
+        const parent = currentButton.parentNode 
+        parent.style.flexWrap='wrap'
+  
+
+        const hidedSwatches = parent.querySelectorAll('.hided-swatch-option');
+        Array.from(hidedSwatches).map((node)=>node.classList.remove('hided-swatch-option'))
+        currentButton.classList.add('hided-swatch-option')
+    })
+      
+      const node = document.createTextNode(`+${isHided}`);
+      button.appendChild(node);
+      const swatchContainer = product.querySelector('.sizeSwatchesContainer') 
+      swatchContainer.appendChild(button)
+    }
+    
+  })
+
+  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+  productCardAnalytics()
+</script>

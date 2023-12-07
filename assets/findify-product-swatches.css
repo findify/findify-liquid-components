@@ -50,3 +50,6 @@
 .hided-swatch-option{
   display:none
 }
+.sizeSwatchesContainer, .colorSwatchesContainer{
+  flex-wrap: nowrap;
+}
