@@ -30,7 +30,6 @@ body {
 }
 
 .findify-autocomplete .suggestions-wrapper h3 {
-  font-size: 25px;
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 0;
@@ -53,7 +52,6 @@ body {
 }
 
 .findify-autocomplete .products-wrapper h3 {
-  font-size: 25px;
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 0;
@@ -126,7 +124,6 @@ body {
   padding-bottom: 0;
   padding-right: 20px;
   color: var(--findify-text-secondary-color);
-  font-size: 25px;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
@@ -158,7 +155,6 @@ body {
 }
 
 .findify-autocomplete .content-wrapper h3 {
-  font-size: 25px;
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 0;
@@ -239,7 +235,6 @@ body {
 .findify-autocomplete .suggestions-wrapper.suggestions-horizontal ul li a {
   text-decoration: none;
   color: #000;
-  font-size: 16px;
   height: auto;
   line-height: 1;
   padding: 5px;
@@ -262,16 +257,11 @@ body {
 
 .findify-autocomplete-dropdown .suggestions-wrapper h3 {
   padding-left: 20px;
-  font-size: 20px;
 }
 
-.findify-autocomplete-dropdown .products-wrapper h3 {
-  font-size: 20px;
-}
+.findify-autocomplete-dropdown .products-wrapper h3 {}
 
-.findify-autocomplete-dropdown .findify-autocomplete-title-wrapper a.findify-view-all {
-  font-size: 20px
-}
+.findify-autocomplete-dropdown .findify-autocomplete-title-wrapper a.findify-view-all {}
 
 .findify-autocomplete-dropdown .suggestions-wrapper ul {
   padding-left: 20px;
@@ -459,7 +449,7 @@ body {
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 20px;
+
     text-decoration: underline;
     color: var(--findify-text-secondary-color);
     white-space: nowrap;

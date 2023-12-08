@@ -42,7 +42,7 @@ button {
 }
 
 .findify-filters-header {
-    font-size: 1.5rem;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -96,7 +96,7 @@ button {
 
 .findify-filters-checkbox-item-count {
     font-weight: 400;
-    font-size: 13px;
+
     color: var(--findify-text-secondary-color);
 }
 
@@ -159,7 +159,7 @@ button {
     position: relative;
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+
 }
 
 .findify-filters-checkbox-item-value-selected svg {
@@ -251,7 +251,7 @@ button {
 .findify-filters--range-wrapper-input input {
     min-width: 90px;
     padding: 8px;
-    font-size: 13px;
+
 }
 
 .findify-filters--range-wrapper-delimiter {

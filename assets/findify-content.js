@@ -63,7 +63,7 @@
                     /*if(pageChange) {
                         return mapping(contentsResponses);
                     } else {*/
-                        return contentsResponses.then((responses) => {
+                        return contentsResponses?.then((responses) => {
                             const result = mapping(responses);
                             return result;
                         });
