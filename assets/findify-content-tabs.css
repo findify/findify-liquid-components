@@ -15,7 +15,7 @@
     text-transform: capitalize;
     cursor: pointer;
     gap: 5px;
-    color: #838383;
+    color: var(--findify-text-secondary-color);
 }
 
 .findify-tab>label {

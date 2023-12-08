@@ -19,11 +19,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid #EAEAEA;
+    background: var(--findify-cta-background-color);
+    border: 1px solid var(--findify-cta-border-color);
+    color: var(--findify-text-color);
 }
 
 .findify-sorting-btn:hover {
-    background: #EAEAEA;
+    background: var(--findify-cta-background-color-hover);
 }
 
 .findify-sorting-btn>svg {
@@ -43,9 +45,9 @@
     display: none;
     flex-direction: column;
     width: 160px;
-    border: 1px solid #EAEAEA;
+    border: 1px solid var(--findify-cta-border-color);
     border-top: none;
-    background-color: white;
+    background-color: var(--findify-background-color);
     padding: 0;
     right: 0;
     top: 100%;
@@ -68,7 +70,7 @@
 }
 
 .findify-sorting-list>li:hover {
-    background-color: #EAEAEA;
+    background-color: var(--findify-cta-background-color-hover);
 }
 
 .findify-sorting-list>li>span {
@@ -101,11 +103,11 @@
         width: 20px;
         height: 20px;
         margin-right: 10px;
-        
+
     }
 
     .findify-sorting-mobile-list li input:checked {
-        accent-color: #232323;
+        accent-color: var(--findify-text-color);
     }
 
     .findify-sorting-mobile-list li span {

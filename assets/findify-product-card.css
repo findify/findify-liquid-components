@@ -1,6 +1,7 @@
 a,
 a:visited {
     text-decoration: none;
+    color: unset;
 }
 
 .findify-product-card {
@@ -15,7 +16,7 @@ a:visited {
 
 .findify-product-title {
     font-size: 18px;
-    color: black;
+    color: var(--findify-text-color);
     margin-bottom: 10px;
 }
 
@@ -27,9 +28,15 @@ a:visited {
     white-space: nowrap;
 }
 
-.findify-price {
+.findify-price.price-item.price-item--regular {
     font-weight: 700;
-    color: black !important;
+    color: var(--findify-text-color);
+}
+
+.findify-price.price-item.price-item--sale,
+.findify-price.price-item.price-item--last {
+    font-weight: 700;
+    color: var(--findify-text-secondary-color);
 }
 
 .image-container {

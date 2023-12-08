@@ -26,7 +26,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    max-width: 260px;
+    width: 260px;
 }
 
 /* FILTERS */
@@ -34,7 +34,7 @@ button {
     display: flex;
     flex-direction: column;
     padding-bottom: 5px;
-    border-bottom: 1px solid #D7D9D6;
+    border-bottom: 1px solid var(--findify-filters-separator-color);
 }
 
 .findify-filters-container[aria-collapsed=false]>.findify-filters-header>svg {
@@ -53,7 +53,7 @@ button {
 .findify-filters-header-title {
     text-transform: capitalize;
     font-weight: 700;
-    color: #1E2533;
+    color: var(--findify-filters-title);
 }
 
 .findify-filters-header-title span {}
@@ -90,14 +90,14 @@ button {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    color: var(--findify-text-color);
+    color: var(--findify-filters-value);
     padding: 0 12px 0 10px;
 }
 
 .findify-filters-checkbox-item-count {
     font-weight: 400;
     font-size: 13px;
-    color: #c6c6c6;
+    color: var(--findify-text-secondary-color);
 }
 
 .findify-filters-checkbox-item .findify-filters-checkbox-item-value::before {
@@ -106,14 +106,14 @@ button {
     display: block;
     width: 15px;
     height: 15px;
-    border: 1px solid var(--findify-text-color);
+    border: 1px solid var(--findify-checkbox-border-color);
     margin-right: 10px;
     cursor: pointer;
 }
 
 .findify-filters-checkbox-item .findify-filters--checkbox-nested-value::after {
     content: "";
-    border: solid black;
+    border: solid var(--findify-checkbox-checked);
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 2px;
@@ -131,7 +131,7 @@ button {
 }
 
 .findify-filters-checkbox-item .findify-filters-checkbox-item-value-selected::before {
-    background: #000;
+    background: var(--findify-checkbox-checked);
     box-shadow: inset 0 0 0 2px #fff;
 }
 
@@ -179,7 +179,8 @@ button {
     padding: 0px 10px;
     border-radius: 20px;
     margin: 0 auto;
-    border: 1px solid var(--findify-text-color);
+    border: 1px solid var(--findify-input-border-color);
+    background: var(--findify-input-background-color);
 }
 
 .findify-filters--checkbox-search input:focus-visible {
@@ -263,78 +264,16 @@ button {
 
 /* rating star */
 .findify-filters--rating-facet-star {
-    color: #e9be57;
+    color: var(--findify-rating-active);
 }
 
 .findify-filters--rating-facet-star[unfilled] {
-    color: #c6c6c6;
-}
-
-/* slider */
-.findify-filters--range-slider__wrapper {
-    position: relative;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.findify-filters--range-slider__wrapper>input {
-    cursor: pointer;
-    position: absolute;
-}
-
-.findify-filters--range-slider__wrapper>input {
-    appearance: none;
-    outline: none !important;
-    background: transparent;
-    background-image: linear-gradient(to bottom, transparent 0%, transparent 30%, silver 30%, silver 60%, transparent 60%, transparent 100%);
-}
-
-.findify-filters--range-slider__wrapper>input::-webkit-slider-thumb {
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    background: #003da6;
-    cursor: pointer;
-    border: 1px solid #003da6;
-    border-radius: 100%;
-    position: relative;
-}
-
-.findify-filters--range__slider-current-value-wrapper {
-    margin-top: 20px;
-    justify-content: center;
-    display: flex;
-}
-
-.findify-filters--range__slider-current-value-wrapper span {
-    height: 1.7em;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.findify-filters--range__slider-current-value-delimiter {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.findify-filters--range-slider__wrapper>input::-webkit-slider-runnable-track {
-    cursor: pointer;
-}
-
-.findify-filters--range__slider-track {
-    display: block !important;
-    position: absolute;
-    width: 100%;
-    background: #003da6;
-    height: 5px;
-    top: 6px;
-    z-index: 1;
+    color: var(--findify-rating-inactive);
 }
 
 .findify-filters-sidebar.open {
     display: flex;
 }
-
 
 @media(max-width: 768px) {
 
@@ -351,7 +290,7 @@ button {
     }
 
     .findify-filters-wrapper {
-        max-width: unset;
+        width: unset;
     }
 
     .findify-filters-sidebar .findify-filters-container {
@@ -364,7 +303,7 @@ button {
 
     .findify-filters--container {
         margin-top: 0;
-        border-top: 1px solid #dfdfdf;
+        border-top: 1px solid var(--findify-filters-separator-color);
         padding: 20px 17px;
     }
 
