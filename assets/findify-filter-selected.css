@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 1.2rem;
     flex-wrap: wrap;
 }
 
@@ -35,7 +34,7 @@
     align-items: center;
     padding: 0 10px 0 15px;
     gap: 5px;
-    background: #F7F7F7;
+    background: var(--findify-cta-secondary-background-color);
     cursor: pointer;
     border-radius: 4px;
     height: 36px;
@@ -43,7 +42,7 @@
 
 .findify-filters-breadcrumb-item:hover,
 .findify-filters-breadcrumbs-show-more:hover {
-    background: #D5D8DA;
+    background: var(--findify-cta-secondary-background-color-hover);
 }
 
 .findify-filters-breadcrumb-close {
@@ -52,13 +51,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #D5D8DA;
+    background: var(--findify-cta-secondary-background-color-hover);
     border-radius: 50%;
 }
 
 .findify-filters-breadcrumbs-clear-all {
     cursor: pointer;
     margin-left: 10px;
+    color: var(--findify-text-secondary-color);
 }
 
 .findify-filters-breadcrumbs-clear-all:hover {

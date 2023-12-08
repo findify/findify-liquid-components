@@ -115,17 +115,16 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-    background-color: #5396ED;
+    background-color: var(--findify-cta-background-accent);
     border-radius: 50%;
     padding: 10px 20px;
-    color: white;
+    color: var(--findify-text-inverse-color);
     width: 38px !important;
     height: 38px !important;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 10px !important;
-    color: white;
+    color: var(--findify-text-inverse-color);
     font-weight: 700;
 }

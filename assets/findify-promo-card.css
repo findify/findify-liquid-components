@@ -4,6 +4,7 @@
     width: 100%;
     flex-direction: column;
 }
+
 .findify-promo-card-wrapper {
     border-radius: 3px;
     position: relative;
@@ -13,6 +14,7 @@
     background-position: center;
     overflow: hidden;
 }
+
 .findify-promo-card-title-container {
     position: absolute;
     top: 0;
@@ -25,18 +27,20 @@
     justify-content: center;
     z-index: 2;
 }
+
 .findify-promo-card-top-header {
     text-align: center;
-    font-size: 1.5rem;
+
     font-weight: 600;
     margin-bottom: 0px;
 }
+
 .findify-promo-card-subheader {
     text-align: center;
-    font-size: 0.8rem;
     font-weight: 600;
     margin-top: 5px;
 }
+
 .findify-promo-card-cta-button {
     display: block;
     position: absolute;
@@ -48,14 +52,14 @@
     background: #fff;
     color: #1b1b1b;
     border-radius: 4rem;
-    font-size: 0.75rem;
     text-align: center;
     text-decoration: none;
     opacity: 0.8;
 }
+
 .findify-promo-card-footer {
     text-align: center;
     padding: 10px 20px 0 20px;
-    font-size: 0.75rem;
+
     width: 100%;
 }

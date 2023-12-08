@@ -29,7 +29,7 @@
 }
 
 .findify-heading {
-    font-size: 2.5rem;
+
     text-align: center;
     margin-bottom: 5px;
 }
@@ -43,19 +43,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--findify-text-secondary-color)
 }
 
 .findify-search-header-toolbar-actions {
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 1.2rem;
     margin: 15px 0;
 }
 
-.findify-search-header-label {
-    font-size: 1.2rem;
-}
+.findify-search-header-label {}
 
 .findify-search-actions-toggle-btn {
     height: 46px;
@@ -63,11 +61,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid #EAEAEA;
+    border: 1px solid var(--findify-cta-border-color);
+    background: var(--findify-cta-background-color);
+    color: var(--findify-text-color);
 }
 
 .findify-search-actions-toggle-btn:hover {
-    background: #EAEAEA;
+    background: var(--findify-cta-background-color-hover);
 }
 
 .findify-search-header-breadcrumb {
@@ -97,7 +97,7 @@
 .findify-product-card {}
 
 b {
-    color: #000000;
+    color: var(--findify-text-color);
 }
 
 @media(min-width: 767px) {
