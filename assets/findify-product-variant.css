@@ -1,0 +1,15 @@
+.variants-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.findify-variant {
+    display: flex;
+    border: 1px solid transparent;
+}
+
+.findify-variant:hover {
+    border: 1px solid black;
+}

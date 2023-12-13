@@ -1,5 +1,5 @@
-a,
-a:visited {
+.findify-product-card a,
+.findify-product-card a:visited {
     text-decoration: none;
     color: unset;
 }

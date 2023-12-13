@@ -1,0 +1,10 @@
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign variantParam = page_url | split: "variants=" | last | split: '&' | first -%}
+{%- assign colorMappingParam = page_url | split: "color_mapping=" | last  -%}
+
+{%- assign variants = variantParam | split: ";" -%}
+
+{% for variant in variants %}
+    {% include 'findify-product-variant', variant: variant %}
+{% endfor %}
+

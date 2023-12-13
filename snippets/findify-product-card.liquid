@@ -79,11 +79,11 @@
           class="adapt second-image" 
           width="533px"
           height="300px" 
-          
           loading="lazy"
         />
       </div>
       <div class="content-wrapper">
+        <div class="findify-variants-list"></div>
         {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
         <div class='findify-product-title findify-cut-text'><label>{{ title }}</label></div>
         {% render 'findify-product-price', price: price %}
