@@ -8,7 +8,7 @@
 {% if card_product contains '~id=' %}{% assign id = card_product | split:'~id=' | last | split:"~" | first %}{% endif %}
 {% if card_product contains '~cat=' %}{% assign category = card_product | split:'~cat=' | last | split:"~" | first %}{% endif %}
 {% if card_product contains '~pu=' %}{% assign product_url = card_product | split:'~pu=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~ti=' %}{% assign title = card_product | split:'~ti=' | last | split:"~" | first %}{% endif %}
+{% if card_product contains '~ti=' %}{% assign title = card_product | split:'~ti=' | last | split:"~" | first | url_decode %}{% endif %}
 {% if card_product contains '~pr=' %}{% assign price = card_product | split:'~pr=' | last | split:"~" | first %}{% endif %}
 {% if card_product contains '~qu=' %}{%- assign quantity = card_product | split: '~qu=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~ras=' %}{%- assign reviews = card_product | split: '~ras=' | last | split: '~' | first -%}{% endif %}
