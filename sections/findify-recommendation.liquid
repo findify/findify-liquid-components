@@ -1,4 +1,4 @@
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  | url_decode  -%}
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
 {%- assign products = query_parameters | split: 'results:' | last  | split: 'total:' | first |  split:';' -%} {%- comment -%} 'products'[] {%- endcomment -%}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first | split: ';'  -%} 
