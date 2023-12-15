@@ -101,7 +101,7 @@ const initFindifyAutocompleteEvents = () => {
     } else if (e.code == 'Escape') {
       closeAutocomplete(e, true);
     } else {
-      loadFindifyAutocomplete(e);
+      setTimeout(() => loadFindifyAutocomplete(e), 500);
     }
   }
 
