@@ -65,18 +65,15 @@
 
 </div>
   {% render 'findify-autocomplete-view-all', query: query, position: 'bottom' %}
-  
-  <script id="findify-autocomplete-done">
-
-    const onFindifyAutocompleteDone = () => {
-      initFindifyAutocompleteEvents();
-    }
-  
-    onFindifyAutocompleteDone()
-  </script>
 </div>
 
+<script class="findify-script">
+  const onFindifyAutocompleteDone = () => {
+    initFindifyAutocompleteEvents();
+  }
 
+  onFindifyAutocompleteDone()
+</script>
 
 {% schema %}
   {

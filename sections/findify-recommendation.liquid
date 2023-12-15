@@ -1,11 +1,10 @@
 {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
-{%- assign products = query_parameters | split: 'results:' | last  | split: 'total:' | first |  split:';' -%} {%- comment -%} 'products'[] {%- endcomment -%}
-{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first | split: ';'  -%} 
-{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  | split: ';' -%} 
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first | split:'|' | first -%} 
-
-{%- assign colorMappingParam = page_url | split: "color_mapping:" | last | split: '&' | first -%}
+{%- assign products = query_parameters | split: 'results=' | last | split: '&' | first | split:';' -%} {%- comment -%} 'products'[] {%- endcomment -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id=' | last | split: '&' | first  -%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size=' | last | split: '&' | first -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%} 
+{%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first -%}
 
 <div class='findify-recommendation-container'>
   <h1 class='findify-swiper-title'> {{ recommendation_title }}</h1>
@@ -35,7 +34,7 @@
 {% endschema %}
 
       
-<script id="findify-recommendation-{{recommendation_id}}-done" >  
+<script>
 /*
 * This script block will be executed at the end of every Findify render cycle.
 * This is the ideal place where to bind all the events of the DOM, such as filters or button events.

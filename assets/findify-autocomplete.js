@@ -4,8 +4,8 @@ const initFindifyAutocompleteEvents = () => {
   let selector = "input[name='q']";
   let rid, q, item_limit;
   
-  if(Findify) {
-      let meta = Findify?.state?.autocomplete?.meta;
+  if(findify) {
+      let meta = findify?.autocomplete?.response?.meta;
       rid = meta.rid;
       q = meta.q;
       item_limit = meta.item_limit; 
@@ -83,9 +83,9 @@ const initFindifyAutocompleteEvents = () => {
         q = event ? event.target.value : '';
         event.target.removeEventListener("focus", loadFindifyAutocomplete);
         event.target.removeEventListener("keyup", handleFindifyChange);
-        latestResponse = await Findify.utils.api.autocomplete(q);
+        latestResponse = await findify.autocomplete.api(q);
         rid = latestResponse.meta.rid;
-        await Findify.core.render.autocomplete(latestResponse);
+        await findify.autocomplete.render(latestResponse);
 
         autocompleteAnalytics(event)
         
