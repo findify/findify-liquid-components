@@ -47,8 +47,8 @@ const bindClickEvent = () => {
             e.preventDefault();
             e.stopPropagation();
             toggleFilterDrawer();
-            Findify.utils.params.filters.update({ value, type, name });
-            Findify.core.search.load();
+            findify.filters.update({ value, type, name });
+            findify.grid.load();
     })
     })
 }; 
@@ -61,9 +61,8 @@ const bindBreadcrumbClickEvent = () => {
         clearAllCrumbs.forEach(clearAll => {
             clearAll.addEventListener('click', () => {
                 toggleFilterDrawer();
-                Findify.utils.params.filters.set([]);
-                Findify.core.search.load();
-                
+                findify.filters.setState([]);
+                findify.grid.load();
             })
         })
     };
@@ -74,8 +73,8 @@ const bindBreadcrumbClickEvent = () => {
         const value = breadcrumb.getAttribute('value');
 
         breadcrumb.addEventListener('click', () => {
-            Findify.utils.params.filters.update({ name, type, value });
-            Findify.core.search.load();
+            findify.filters.update({ name, type, value });
+            findify.grid.load();
         })
     })
 };
@@ -181,8 +180,8 @@ const bindRangeEvent = () => {
         } else if (to && !from) {
             value = `to|${to}`;
         }
-        Findify.utils.params.filters.update({ value, type: 'range', name });
-        Findify.core.search.load()
+        findify.filters.update({ value, type: 'range', name });
+        findify.grid.load()
         })
     })
 };
@@ -272,7 +271,7 @@ const bindRangeEvent = () => {
         // const rangemin = (filters?.sliderValues?.from && filters?.sliderValues?.from > parseInt(min.getAttribute('min'))) ? filters?.sliderValues?.from : parseInt(min.getAttribute('min'));
         // const rangemax = (filters?.sliderValues?.to && filters?.sliderValues?.to < parseInt(max.getAttribute('max'))) ? filters?.sliderValues?.to : parseInt(max.getAttribute('max'));
         const avgvalue = parseInt((minValue + maxValue) / 2);
-        const interactionEvent = Findify.utils.DOM.isMobile() ? 'touchend' : 'click'
+        const interactionEvent = findify.utils.isMobile() ? 'touchend' : 'click'
 
         const filterName = slider.getAttribute('data-ref');
         
@@ -298,8 +297,8 @@ const bindRangeEvent = () => {
             } else if (to && !from) {
                 value = `to|${to}`;
             }
-            Findify.utils.params.filters.update({ value, type: 'range', name: filterName });
-            Findify.core.search.load()
+            findify.filters.update({ value, type: 'range', name: filterName });
+            findify.grid.load()
         })
         });
     }

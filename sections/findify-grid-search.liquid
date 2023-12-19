@@ -118,7 +118,7 @@
       loadFindifyContent();
       initFindifyContentEvents();
       // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
-      setFindifyLoader(false);
+      setFindifyIsLoading(false);
     } else {
           const initRecommendation = async (type) => await findify.recommendation.init({
               recommendation_id:"{{ recommendation_id }}",

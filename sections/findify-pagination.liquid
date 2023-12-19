@@ -1,18 +1,16 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
 
 {%- assign query_parameters = page_url | split: 'sections=findify-pagination&' | last -%}
-{%- assign paginateObj = query_parameters | split: 'paginate=' | last | replace: '%27', "'" | replace: '%22', '' | replace: '%7C', '|' -%}
 
-{%- assign current_offset = paginateObj | split: 'current_offset:' | last | split: '|' | first -%}
-{%- assign current_page = paginateObj | split: 'current_page:' | last | split: '|' | first -%}
-{%- assign items = paginateObj | split: 'items:' | last | split: '|' | first -%}
-{%- assign next = paginateObj | split: 'next:' | last | split: '|' | first -%}
-{%- assign page_param = paginateObj | split: 'page_param:' | last | split: '|' | first -%}
-{%- assign page_size = paginateObj | split: 'page_size:' | last | split: '|' | first -%}
-{%- assign pages = paginateObj | split: 'pages:' | last | split: '|' | first -%}
-{%- assign partsString = paginateObj | split: 'parts:' | last | split: '|' | first -%}
-{%- assign previous = paginateObj | split: 'previous:' | last | split: '|' | first -%}
-
+{%- assign current_offset = query_parameters | split: 'current_offset=' | last | split: '&' | first -%}
+{%- assign current_page = query_parameters | split: 'current_page=' | last | split: '&' | first -%}
+{%- assign items = query_parameters | split: 'items=' | last | split: '&' | first -%}
+{%- assign next = query_parameters | split: 'next=' | last | split: '&' | first -%}
+{%- assign page_param = query_parameters | split: 'page_param=' | last | split: '&' | first -%}
+{%- assign page_size = query_parameters | split: 'page_size=' | last | split: '&' | first -%}
+{%- assign pages = query_parameters | split: 'pages=' | last | split: '&' | first -%}
+{%- assign partsString = query_parameters | split: 'parts=' | last | split: '&' | first -%}
+{%- assign previous = query_parameters | split: 'previous=' | last | split: '&' | first -%}
 {%- assign parts = partsString | split: ';' -%}
 
 {%- assign nextPieces = next | split: '~' -%}
