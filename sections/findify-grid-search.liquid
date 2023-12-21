@@ -5,6 +5,7 @@
 
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
+{%- assign is_lazy = query_parameters | split: 'is_lazy:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
 
 
@@ -75,11 +76,13 @@
           This element #findify-product-grid will be replaced with rendered html from sections/findify-products
           {% endcomment %}
       </div> 
-      <div id='findify-pagination'>
-        {% comment %}
-        This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
-        {% endcomment %}
-      </div>
+       {% if is_lazy != 'true' %}
+          <div id='findify-pagination'>
+            {% comment %}
+            This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+          </div>
+       {% endif %}
      </div>
     <!-- product grid section! -->
         

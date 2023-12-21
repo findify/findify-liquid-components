@@ -125,14 +125,14 @@ b {
     }
 }
 
-.findify-product-list {
+.findify-grid-part {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 10px;
 }
 
 @media(max-width: 768px) {
-    .findify-product-list {
+    .findify-grid-part {
         /* grid-template-columns: 1fr 1fr; */
     }
 }

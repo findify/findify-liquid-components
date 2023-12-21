@@ -54,19 +54,20 @@
 
         {% if isAvaliable == 't' %}
 
-
           {% assign colorCounter =  colorCounter | plus:1 %}
 
-        
            {% if colorHexCode contains  "https" %}
                 <a class='findify-color-swatch'   href={{ colorUrl }} style="background: no-repeat url({{ colorHexCode }}) center" > </a>
             {% else %}
                 <a class='findify-color-swatch' href={{ colorUrl }}  style=" background-color:{{ colorHexCode  }}"> </a>
             {% endif %}
 
+         <!-- {% if colorCounter > 6 %}
+                <a class='findify-color-swatch hided-swatch-option' hidedSwatch={{ true }} href={{ colorUrl }} >{{ color }}</a>
+            {% else %}
+                <a class='findify-color-swatch' href={{ colorUrl }} >{{ color }} {{ colorHash }} colorKey:{{ hashColorKey }}</a>
+            {% endif %}  -->
          {% endif %} 
-          
-
         {% endfor %}
       
         {% if colorCounter > 6  %}
@@ -76,5 +77,4 @@
       </div>
   </div>
 </div>
-
     
