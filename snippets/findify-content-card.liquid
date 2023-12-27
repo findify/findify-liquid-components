@@ -8,20 +8,26 @@ This will be rendered with Javascript DOM manipulation, inserting these into the
 Attention: Long content might be rendered via JS as there is a query string parameter length restriction
 {% endcomment %}
 
-
 {% assign contentParts = content | split:'~' %}
 {% assign image_url = contentParts[0] | url_decode %}
 {% assign url = contentParts[1] | url_decode %}
 {% assign title = contentParts[2] | url_decode %}
 
 <a class="findify-content-card" href={{ url }} target="_blank">
-  <img
-    src="{{ image_url }}" 
-    alt="{{ title }}" 
-    class="adapt-content-img" 
-    style="position: relative; width: 100%; height: auto"
-    loading="lazy"
-  />
+  {% if image_url != 'undefined'%}
+      <img
+      src="{{ image_url }}" 
+      alt="{{ title }}" 
+      class="adapt-content-img" 
+      style="position: relative; width: 100%; height: auto"
+      loading="lazy"
+    />
+    {% else %}
+    <div class="adapt-content-img content-fallback-img" >
+    {% render 'findify-content-image-fallback' %}
+    </div>
+  {% endif %}
+
   <div class="content-wrapper">
     <p class="findify-content-title">{{ title }}</p>
   </div>
