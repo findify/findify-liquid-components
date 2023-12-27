@@ -1,18 +1,14 @@
 .findify-content-grid {}
 
 .findify-content-list {
-    display: flex;
-    flex-wrap: wrap;
-
-    padding-left: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 0;
 }
 
 .findify-content-card {
     list-style: none;
-
-    flex: 25%;
-    max-width: 25%;
-    height: 300px;
 }
 
 
@@ -61,28 +57,4 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-/* Media Query for Mobile Devices */
-@media (max-width: 480px) {
-    .findify-content-card {
-        flex: 100%;
-        max-width: 100%;
-    }
-}
-
-/* Media Query for low resolution  Tablets, Ipads */
-@media (min-width: 481px) and (max-width: 767px) {
-    .findify-content-card {
-        flex: 50%;
-        max-width: 50%;
-    }
-}
-
-/* Media Query for Tablets Ipads portrait mode */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .findify-content-card {
-        flex: 33.3%;
-        max-width: 33.3%;
-    }
 }
