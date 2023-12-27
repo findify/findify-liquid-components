@@ -5,7 +5,7 @@ const initFindifyAutocompleteEvents = () => {
   let rid, q, item_limit;
   
   if(findify) {
-      let meta = findify?.autocomplete?.response?.meta;
+      let meta = findify.autocomplete.state.meta;
       rid = meta.rid;
       q = meta.q;
       item_limit = meta.item_limit; 
@@ -54,6 +54,10 @@ const initFindifyAutocompleteEvents = () => {
       setAutocompletePosition(input);
   };
 
+  /**
+   * Not yet in use. Not yet implemented.
+   * @param {*} content 
+   */
   const renderContent = (content) => {
       const cardTemplate = document.querySelector('.content-item').outerHTML;
       const container = document.querySelector('.findify-autocomplete-content .content-container').innerHTML;
@@ -86,8 +90,6 @@ const initFindifyAutocompleteEvents = () => {
         latestResponse = await findify.autocomplete.api(q);
         rid = latestResponse.meta.rid;
         await findify.autocomplete.render(latestResponse);
-
-        autocompleteAnalytics(event)
         
         //if (this.contentID) this.renderContent(this.#latestResponse.content);
       }
@@ -101,7 +103,7 @@ const initFindifyAutocompleteEvents = () => {
     } else if (e.code == 'Escape') {
       closeAutocomplete(e, true);
     } else {
-      loadFindifyAutocomplete(e);
+      setTimeout(() => loadFindifyAutocomplete(e), 500);
     }
   }
 
@@ -118,6 +120,7 @@ const initFindifyAutocompleteEvents = () => {
       initializeFindifyAutocomplete();
   } 
   
+  autocompleteAnalytics();
   /*
   const initializeDropdownAutocomplete = () => {
       const { left, right } = document.querySelector(selector).getBoundingClientRect();

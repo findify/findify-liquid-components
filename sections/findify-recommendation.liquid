@@ -10,12 +10,7 @@
   <h1 class='findify-swiper-title'> {{ recommendation_title }}</h1>
 
   <div id="{{ recommendation_id  }}" class='swiper'>
-    <div class="swiper-wrapper"> 
-  
-      {% for product in products %}
-        {% render 'findify-product-card', card_product: product, additional_class: "swiper-slide", widget_type: recommendation_id, colorMappingParam:colorMappingParam  %}
-      {% endfor %}
-
+    <div class="swiper-wrapper" id="findify-products-{{recommendation_id}}"> 
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
@@ -74,7 +69,7 @@
   });
   
   {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
-  productCardAnalytics()
+  productCardAnalytics(`#findify-products-{{recommendation_id}}`)
   
   
 </script>

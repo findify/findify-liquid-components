@@ -7,8 +7,6 @@
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
 
-
-
 {%- assign color_mapping = query_parameters | split: 'color_mapping:' | last | split:'|' | first  -%} 
 {%- assign card_colors = query_parameters | split: 'card_colors:'  | last | split:'|' | first  -%} 
 {% assign cardColorsArray = card_colors | split:'$' %}
@@ -97,7 +95,7 @@
       <h1>No results for "{{ terms }}"</h1>
       <h3>Check the spelling or try less specific search terms</h3>
     </div>
-    <div id={{ recommendation_id  }} class='swiper' ></div>
+    <div id={{ recommendation_id }} class='swiper' ></div>
 </div>
 {% endif %}
 </div>
@@ -123,7 +121,7 @@
               recommendation_title
             })
             
-          Findify.initialization.promise.then(() => {
+          findify.core.init.promise.then(() => {
             initRecommendation()
             window.addEventListener("popstate", () => {
               initRecommendation();
@@ -135,7 +133,7 @@
   onFindifySearchDone()
 
   {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
-  productCardAnalytics()
+  productCardAnalytics('#findify-product-grid')
 </script>
 
 {% schema %}

@@ -9,14 +9,14 @@ const bindToggleEvent = (isDrawer, domRefs, classNames) => {
     const container = document.querySelector(domRefs.section);
     const toggleEvent = () => toggleDrawer(domRefs.openDirection, isDrawer, container);
     
-    btn.addEventListener('click', toggleEvent); 
+    btn?.addEventListener('click', toggleEvent); 
     
     if (isDrawer) {
         const headerBtn = document.querySelector(domRefs.drawerHeader);
         const seeResultsBtn = document.querySelector(domRefs.drawerSeeResults);
 
-        headerBtn.addEventListener('click', toggleEvent);
-        seeResultsBtn.addEventListener('click', toggleEvent);
-        classNames.forEach(c => container.classList.add(c));  
+        headerBtn?.addEventListener('click', toggleEvent);
+        seeResultsBtn?.addEventListener('click', toggleEvent);
+        classNames.forEach(c => container?.classList.add(c));  
     }
 }

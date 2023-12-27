@@ -62,7 +62,6 @@
 {%- if variant_custom_fields contains 'sale_price=' %}{%- assign variant_custom_field_sale_prices = variant_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
 {%- if variant_custom_fields contains 'variant_image_url=' %}{%- assign variant_custom_field_variant_image_url = variant_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
   
-
 <div  
 class="findify-product-card {{ additional_class }}"
 data-product-id={{ id }}

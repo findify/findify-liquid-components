@@ -14,7 +14,9 @@
 {%- comment -%} Search properties: https://shopify.dev/docs/api/liquid/objects/search {%- endcomment -%}
 {%- assign performed = page_url | split: 'performed=' | last | split: '&' | first | boolean -%} {%- comment -%} boolean {%- endcomment -%}
 {%- assign results = page_url | split: 'results=' | last | split: '&' | first | split: ';' -%} {%- comment -%} 'productHandle'[] {%- endcomment -%}
-{%- assign terms = page_url | split: 'terms=' | last | split: '&' | first -%} {%- comment -%} string {%- endcomment -%}
+{% if page_url contains 'terms=' %}
+    {%- assign terms = page_url | split: 'terms=' | last | split: '&' | first -%} {%- comment -%} string {%- endcomment -%}
+{% endif %}
 {%- assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';'-%}  {%- comment -%} string[] {%- endcomment -%}
 
 {%- comment -%} Collection properties: https://shopify.dev/docs/api/liquid/objects/collection {%- endcomment -%}

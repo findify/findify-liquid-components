@@ -33,12 +33,7 @@
         <h3>{{ productsTitle }}</h3>
           {% render 'findify-autocomplete-view-all', query: query, position: 'top' %}
       </div>
-      <div class="products-container">
-        
-        {% for product in products %} 
-          {% render 'findify-product-card', card_product:product, colorMappingParam:colorMappingParam  %}
-        {% endfor %}
-
+      <div id="findify-autocomplete-products" class="products-container">
       </div>
       <div class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}

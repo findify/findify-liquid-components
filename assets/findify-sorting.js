@@ -52,7 +52,7 @@ const initFindifySortingEvents = () => {
         }
 
         const element = document.querySelector(selectors.button);
-        element.addEventListener('click', onClick);
+        element?.addEventListener('click', onClick);
     }
 
     const bindSelectOption = () => {
