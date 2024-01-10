@@ -1,4 +1,4 @@
-a,
+a:not(.button),
 a:visited {
     text-decoration: none;
     color: unset;
