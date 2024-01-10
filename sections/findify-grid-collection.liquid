@@ -1,6 +1,6 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last
 | replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
-{%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-grid-collection&' | last -%}
 {% include 'findify-grid-connector' %}
 
 <div id="findify-search" class="findify-search-section">
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<script id="findify-search-done">
+<script>
   /*
   * This script block will be executed at the end of every Findify render cycle.
   * This is the ideal place where to bind all the events of the DOM, such as filters or button events.
@@ -81,10 +81,11 @@
     initFindifyFiltersEvents();
     initFindifySortingEvents();
     // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
-    setFindifyLoader(false);
+    setFindifyIsLoading(false);
+    productCardAnalytics('#findify-product-grid');
   }
-
   onFindifySearchDone()
+
 </script>
 
 {% schema %}

@@ -4,8 +4,8 @@ const initFindifyAutocompleteEvents = () => {
   let selector = "input[name='q']";
   let rid, q, item_limit;
   
-  if(Findify) {
-      let meta = Findify?.state?.autocomplete?.meta;
+  if(findify) {
+      let meta = findify.autocomplete.state.meta;
       rid = meta.rid;
       q = meta.q;
       item_limit = meta.item_limit; 
@@ -54,6 +54,10 @@ const initFindifyAutocompleteEvents = () => {
       setAutocompletePosition(input);
   };
 
+  /**
+   * Not yet in use. Not yet implemented.
+   * @param {*} content 
+   */
   const renderContent = (content) => {
       const cardTemplate = document.querySelector('.content-item').outerHTML;
       const container = document.querySelector('.findify-autocomplete-content .content-container').innerHTML;
@@ -83,11 +87,9 @@ const initFindifyAutocompleteEvents = () => {
         q = event ? event.target.value : '';
         event.target.removeEventListener("focus", loadFindifyAutocomplete);
         event.target.removeEventListener("keyup", handleFindifyChange);
-        latestResponse = await Findify.utils.api.autocomplete(q);
+        latestResponse = await findify.autocomplete.api(q);
         rid = latestResponse.meta.rid;
-        await Findify.core.render.autocomplete(latestResponse);
-
-        autocompleteAnalytics(event)
+        await findify.autocomplete.render(latestResponse);
         
         //if (this.contentID) this.renderContent(this.#latestResponse.content);
       }
@@ -101,7 +103,7 @@ const initFindifyAutocompleteEvents = () => {
     } else if (e.code == 'Escape') {
       closeAutocomplete(e, true);
     } else {
-      loadFindifyAutocomplete(e);
+      setTimeout(() => loadFindifyAutocomplete(e), 500);
     }
   }
 
@@ -118,6 +120,7 @@ const initFindifyAutocompleteEvents = () => {
       initializeFindifyAutocomplete();
   } 
   
+  autocompleteAnalytics();
   /*
   const initializeDropdownAutocomplete = () => {
       const { left, right } = document.querySelector(selector).getBoundingClientRect();

@@ -52,7 +52,7 @@ const initFindifySortingEvents = () => {
         }
 
         const element = document.querySelector(selectors.button);
-        element.addEventListener('click', onClick);
+        element?.addEventListener('click', onClick);
     }
 
     const bindSelectOption = () => {
@@ -64,11 +64,12 @@ const initFindifySortingEvents = () => {
             const sorting = { order_by: order, sort_by: field };
 
             option.addEventListener('click', () => {
-                Findify.utils.params.sorting.set(sorting);
+                findify.sorting.setState(sorting);
+                findify.grid.load();
                 toggleDrawer('open-right', true, document.querySelector(selectors.modalBody));
             });
-
-            if (Findify.state.sorting.sort_by === field && Findify.state.sorting.order_by === order) {
+  
+            if (findify.sorting.state.sort_by === field && findify.sorting.order_by === order) {
                 option.classList.add('selected');
             }
         });

@@ -6,12 +6,14 @@
                 FILTER BY
             </button>
         </div>
-        
+
         <label class="findify-search-header-label">
             {%if is_collection == true%}
             {{ results_count }} products
+            {% elsif terms == "" %}
+                Showing {{ results_count }} results
             {% else %}
-            Showing {{ results_count }} results for "<b>{{terms}}</b>"
+                Showing {{ results_count }} results for "<b>{{terms}}</b>"
             {% endif %}
         </label>
         <div>

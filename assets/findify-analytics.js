@@ -1,6 +1,6 @@
 const navigate = (url, e, query, rid) => {
   const openInNewWindow = e && (e.ctrlKey || e.metaKey);
-  const redirections = Findify?.merchantConfig?.redirections;
+  const redirections = findify.core.merchantConfig.redirections;
   const redirectionURL =
     redirections && redirections[query] ? redirections[query] : url;
 
@@ -12,7 +12,7 @@ const navigate = (url, e, query, rid) => {
 
 const redirectionFeedback = async (query, rid) => {
   try {
-    Findify.analytics.sendEvent("redirect", {
+    findify.core.analytics.sendEvent("redirect", {
       rid,
       suggestion: query,
     });
@@ -24,10 +24,10 @@ const redirectionFeedback = async (query, rid) => {
 const onSuggestionClick = async (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const { q: query, rid } = Findify?.state?.autocomplete?.meta;
+  const { q: query, rid } = findify.autocomplete.state.meta;
   const suggestion = e.target?.innerText;
   try {
-    Findify.analytics.sendEvent("click-suggestion", {
+    findify.core.analytics.sendEvent("click-suggestion", {
       rid,
       suggestion: suggestion,
     });
@@ -39,13 +39,13 @@ const onSuggestionClick = async (e) => {
 
 const getMeta = (widgetType) => {
   if (widgetType === "search") {
-    return Findify?.state?.search?.meta;
+    return findify.grid.state.meta;
   }
   if (widgetType === "autocomplete") {
-    return Findify?.state?.autocomplete?.meta;
+    return findify.autocomplete.state.meta;
   }
   if (widgetType.includes("findify-rec")) {
-    return Findify?.state?.recommendations[widgetType]?.data?.meta;
+    return findify.recommendation.state[widgetType]?.response?.meta;
   }
   throw new Error(`there is no meta for widget type : ${widgetType}`);
 };
@@ -62,7 +62,7 @@ const onProductCardClick = (e) => {
     .getAttribute("data-variant-id");
 
   try {
-    Findify.analytics?.sendEvent("click-item", {
+    findify.core.analytics?.sendEvent("click-item", {
       rid,
       item_id,
       variant_item_id,
@@ -72,10 +72,8 @@ const onProductCardClick = (e) => {
   }
 };
 
-const productCardAnalytics = (e) => {
-  const selector = e
-    ? "#findify-autocomplete .findify-product-card"
-    : ".findify-product-card";
+const productCardAnalytics = (containerId) => {
+  const selector = containerId ? `${containerId} .findify-product-card` : ".findify-product-card";
   document.querySelectorAll(selector).forEach((card) => {
     card.addEventListener("click", (e) => onProductCardClick(e));
   });
@@ -90,7 +88,7 @@ const suggestionAnalytics = () => {
 };
 
 const autocompleteAnalytics = (e) => {
-  productCardAnalytics(e);
+  productCardAnalytics('#findify-autocomplete');
   suggestionAnalytics();
 };
 
