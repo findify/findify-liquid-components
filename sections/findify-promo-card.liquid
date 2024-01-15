@@ -1,15 +1,14 @@
 
 {%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
 {%- assign parameters = page_url | split: 'sections=findify-promo-card&' | last -%}
-{%- assign promo_settings = parameters | split: "&" -%}
 
-{%- assign cta_text = promo_settings[0] | split: '=' | last -%}
-{%- assign footer = promo_settings[1] | split: '=' | last -%}
-{%- assign image_url = promo_settings[2] | split: '=' | last -%}
-{%- assign redirect_link = promo_settings[3] | split: '=' | last -%}
-{%- assign sub_header = promo_settings[4] | split: '=' | last -%}
-{%- assign top_header = promo_settings[5] | split: '=' | last -%}
-{%- assign id = promo_settings[6] | split: '=' | last -%}
+{%- assign cta_text = parameters | split: 'cta_text=' | last | split: '&' | first -%}
+{%- assign footer = parameters | split: 'footer=' | last | split: '&' | first -%}
+{%- assign image_url =parameters | split: 'image_url=' | last | split: '&' | first -%}
+{%- assign redirect_link = parameters | split: 'redirect_link=' | last | split: '&' | first -%}
+{%- assign sub_header = parameters | split: 'sub_header=' | last | split: '&' | first -%}
+{%- assign top_header = parameters | split: 'top_header=' | last | split: '&' | first -%}
+{%- assign id = parameters | split: 'id=' | last | split: '&' | first -%}
 
 <div id="findify-promo-card-{{id}}" class="findify-promo-card" >
     {% if image_url != ''  %}
@@ -24,11 +23,13 @@
             <h4 class="findify-promo-card-top-header">{{top_header}}</h4>
             <p class="findify-promo-card-subheader">{{sub_header}}</p>
         </div>
-        <a 
+        {% if cta_text != '' %}
+            <a 
             href="{{redirect_link}}"
             class="findify-promo-card-cta-button"
         >{{cta_text}}
         </a>
+        {% endif %}
     </div>
     {% comment %}
         <div class="findify-promo-card-footer">{{footer}}</div>

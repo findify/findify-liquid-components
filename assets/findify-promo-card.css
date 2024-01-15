@@ -1,65 +1,61 @@
 .findify-promo-card {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
 }
 
 .findify-promo-card-wrapper {
-    border-radius: 3px;
-    position: relative;
-    background-size: cover;
-    padding-bottom: 130%;
-    cursor: pointer;
-    background-position: center;
-    overflow: hidden;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  height: 90%;
+  cursor: pointer;
+  background-position: center;
+  overflow: hidden;
 }
 
 .findify-promo-card-title-container {
-    position: absolute;
-    top: 0;
-    left: 12%;
-    right: 12%;
-    bottom: 20%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+  flex: 8;
 }
 
 .findify-promo-card-top-header {
-    text-align: center;
-
-    font-weight: 600;
-    margin-bottom: 0px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0px;
 }
 
 .findify-promo-card-subheader {
-    text-align: center;
-    font-weight: 600;
-    margin-top: 5px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 5px;
 }
 
 .findify-promo-card-cta-button {
-    display: block;
-    position: absolute;
-    bottom: 7%;
-    left: 12%;
-    right: 12%;
-    padding: 0.75rem;
-    text-transform: uppercase;
-    background: #fff;
-    color: #1b1b1b;
-    border-radius: 4rem;
-    text-align: center;
-    text-decoration: none;
-    opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  text-transform: uppercase;
+  height: 33px;
+  background: #fff;
+  color: #1b1b1b;
+  border-radius: 4rem;
+  opacity: 0.8;
+  font-size: 13px;
+  padding: 0 15px;
+  margin-bottom: 15px;
 }
 
 .findify-promo-card-footer {
-    text-align: center;
-    padding: 10px 20px 0 20px;
+  text-align: center;
+  padding: 10px 20px 0 20px;
 
-    width: 100%;
+  width: 100%;
 }

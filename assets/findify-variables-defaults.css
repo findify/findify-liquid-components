@@ -1,35 +1,36 @@
 /* Certain elements do not have a color to inherith. These are required for a proper experience */
 :root {
-    /* Common */
-    --findify-border-color: #EAEAEA;
+  /* Common */
+  --findify-border-color: #eaeaea;
 
-    /* Typography */
-    --findify-text-inverse-color: #FFFFFF;
-    --findify-text-secondary-color: #7D7D7D;
-    --findify-base-font-size: 14px;
-    --findify-background-color: #FFFFFF;
+  /* Typography */
+  --findify-text-inverse-color: #ffffff;
+  --findify-text-secondary-color: #7d7d7d;
+  --findify-base-font-size: 14px;
+  --findify-background-color: #ffffff;
 
-    /* CTA */
-    --findify-cta-background-color: transparent;
-    --findify-cta-background-color-hover: #EAEAEA;
-    --findify-cta-border-color: var(--findify-border-color);
-    --findify-cta-secondary-background-color: #F7F7F7;
-    --findify-cta-secondary-background-color-hover: #EAEAEA;
-    --findify-cta-background-accent: #5396ED;
+  /* CTA */
+  --findify-cta-background-color: transparent;
+  --findify-cta-background-color-hover: #eaeaea;
+  --findify-cta-border-color: var(--findify-border-color);
+  --findify-cta-secondary-background-color: #f7f7f7;
+  --findify-cta-secondary-background-color-hover: #eaeaea;
+  --findify-cta-background-accent: #5396ed;
+  --findify-cta-background-accent-hover: #81b2f2;
 
-    /* Inputs */
-    --findify-input-background-color: #FFFFFF;
-    --findify-input-border-color: #000000;
+  /* Inputs */
+  --findify-input-background-color: #ffffff;
+  --findify-input-border-color: #000000;
 
-    /* Filters */
-    --findify-filters-separator-color: var(--findify-border-color);
-    --findify-checkbox-border-color: #000000;
-    --findify-checkbox-checked: #000000;
+  /* Filters */
+  --findify-filters-separator-color: var(--findify-border-color);
+  --findify-checkbox-border-color: #000000;
+  --findify-checkbox-checked: #000000;
 
-    /* Rating */
-    --findify-rating-active: #E9BE57;
-    --findify-rating-inactive: #C6C6C6;
+  /* Rating */
+  --findify-rating-active: #e9be57;
+  --findify-rating-inactive: #c6c6c6;
 
-    /* Sidebar mobile */
-    --findify-sidebar-header-background-color: #000000;
+  /* Sidebar mobile */
+  --findify-sidebar-header-background-color: #000000;
 }

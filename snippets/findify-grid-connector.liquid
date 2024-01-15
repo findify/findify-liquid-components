@@ -3,6 +3,8 @@
     Example: default_sort_by=popularity&filters=type-some-thing&performed=true&results=he-dh-ad-dg
 {%- endcomment -%}
 
+{%- assign curr_page = page_url | split: 'curr_page=' | last | split: '&' | first | plus: 0 -%} {%- comment -%} string {%- endcomment -%}
+
 {%- comment -%} Shared properties: search and collection {%- endcomment -%}
 {%- assign default_sort_by = page_url | split: 'default_sort_by=' | last | split: '&' | first -%} {%- comment -%} string {%- endcomment -%}
 {%- assign filters = page_url | split: 'filters=' | last | split: '&' | first | split: ';' -%} {%- comment -%} 'value1-value2-value3-...'[] {%- endcomment -%}
@@ -53,3 +55,5 @@
 {%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
 
 {%-  assign color_layout = settingsObj | split: 'color_filter:' | last |  split: '|' |  first -%}
+{%-  assign use_lazy_loading_pagination = settingsObj | split: 'use_lazy_loading_pagination:' | last |  split: '|' |  first -%}
+{%-  assign lazy_loading_pagination_threshold = settingsObj | split: 'lazy_loading_pagination_threshold:' | last |  split: '|' |  first | plus: 0 -%}

@@ -1,138 +1,143 @@
 .findify-initialization {
-    display: flex;
-    min-height: 800px;
-    justify-content: center;
+  display: flex;
+  min-height: 800px;
+  justify-content: center;
 }
 
 .findify-loader-overlay {
-    display: none;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.5)
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.5);
 }
 
-#findify-search-main.loading>.findify-loader-overlay {
-    display: flex;
+#findify-search-main.loading > .findify-loader-overlay {
+  display: flex;
 }
 
-.findify-loader-overlay>svg {
-    margin-top: 25%
+.findify-loader-overlay > svg {
+  margin-top: 25%;
 }
 
 .findify-search-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .findify-heading {
-
-    text-align: center;
-    margin-bottom: 5px;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .findify-search-header {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .findify-search-header-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--findify-text-secondary-color)
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--findify-text-secondary-color);
 }
 
 .findify-search-header-toolbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
 }
 
-.findify-search-header-label {}
+.findify-search-header-label {
+}
 
 .findify-search-actions-toggle-btn {
-    height: 46px;
-    width: 140px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid var(--findify-cta-border-color);
-    background: var(--findify-cta-background-color);
-    color: var(--findify-text-color);
+  height: 46px;
+  width: 140px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid var(--findify-cta-border-color);
+  background: var(--findify-cta-background-color);
+  color: var(--findify-text-color);
 }
 
 .findify-search-actions-toggle-btn:hover {
-    background: var(--findify-cta-background-color-hover);
+  background: var(--findify-cta-background-color-hover);
 }
 
 .findify-search-header-breadcrumb {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .findify-search-main {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  position: relative;
 }
 
 .findify-filters-section {
-    width: 25%;
-    height: 100px;
+  width: 25%;
+  height: 100px;
 }
 
 .findify-products-section {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.findify-product-card {}
+.findify-product-card {
+}
 
 b {
-    color: var(--findify-text-color);
+  color: var(--findify-text-color);
 }
 
-@media(min-width: 767px) {
-    .findify-filters-sidebar {
-        display: none;
-    }
-
-    .findify-search-header.mobile {
-        display: none;
-    }
-
-    .findify-search-desktop-breadcrumb {
-        margin-bottom: 15px;
-    }
+.hidden {
+  display: none !important;
 }
 
-@media(max-width: 768px) {
-    .findify-search-header.desktop {
-        display: none;
-    }
+@media (min-width: 767px) {
+  .findify-filters-sidebar {
+    display: none;
+  }
 
-    .findify-search-header-label {
-        display: flex;
-        justify-content: center;
-    }
+  .findify-search-header.mobile {
+    display: none;
+  }
+
+  .findify-search-desktop-breadcrumb {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .findify-search-header.desktop {
+    display: none;
+  }
+
+  .findify-search-header-label {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .findify-product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
 }
 
-@media(max-width: 768px) {
-    .findify-product-list {
-        /* grid-template-columns: 1fr 1fr; */
-    }
+@media (max-width: 768px) {
+  .findify-product-list {
+    /* grid-template-columns: 1fr 1fr; */
+  }
 }
