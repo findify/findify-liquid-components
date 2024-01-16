@@ -2,7 +2,7 @@
 {%- assign productsParam = page_url | split: "products=" | last | split: '&' | first -%}
 {%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first  -%}
 {%- assign widget_type = page_url | split: "widget_type=" | last | split: '&' | first  -%}
-{%- assign additional_class = page_url | split: "additional_class=" | last | split: '&' | first  -%}
+{%- if page_url contains "additional_class="%}{%- assign additional_class = page_url | split: "additional_class=" | last | split: '&' | first  -%}{%- endif -%}
 
 {%- assign products= productsParam | split: ";" -%}
 

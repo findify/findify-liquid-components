@@ -34,9 +34,12 @@ const initFindifyLazyLoadingPagination = (
           Math.min(initialPage, findify.pagination.state.page) - 1;
         const items = await renderPage(prevPage);
         const target = document.getElementById(selectors.grid);
+        const pageClassName = `page-${prevPage}`;
         items.reverse().forEach((item) => {
+          item.classList.add(pageClassName);
           target.prepend(item);
         });
+        productCardAnalytics("#findify-product-grid", pageClassName);
         if (prevPage == 1) {
           prevBtnElement.classList.toggle("hidden");
         }
@@ -78,9 +81,12 @@ const initFindifyLazyLoadingPagination = (
     );
     const items = await renderPage(nextPage);
     const target = document.getElementById(selectors.grid);
+    const pageClassName = `page-${nextPage}`;
     items.forEach((item) => {
+      item.classList.add(pageClassName);
       target.append(item);
     });
+    productCardAnalytics("#findify-product-grid", pageClassName);
     if (nextPage == lastPage) {
       const nextBtnElement = document.getElementById(selectors.nextBtn);
       nextBtnElement.classList.toggle("hidden");
