@@ -7,10 +7,6 @@
 {%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
 
-{%- assign color_mapping = query_parameters | split: 'color_mapping:' | last | split:'|' | first  -%} 
-{%- assign card_colors = query_parameters | split: 'card_colors:'  | last | split:'|' | first  -%} 
-{% assign cardColorsArray = card_colors | split:'$' %}
-
 {% include 'findify-grid-connector' %}
 
 <div id="findify-search" class="findify-search-section">
@@ -64,19 +60,40 @@
             <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
           </div>
         </aside>
-  <!-- product grid section! -->
-     <div class="findify-products-section">
-      <div id="findify-product-grid" class="findify-product-list" >
-          {% comment %}
-          This element #findify-product-grid will be replaced with rendered html from sections/findify-products
-          {% endcomment %}
-      </div> 
-      <div id='findify-pagination'>
-        {% comment %}
-        This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
-        {% endcomment %}
+    <!-- product grid section! -->
+      <div class="findify-products-section">
+              {% if use_lazy_loading_pagination == 'true' %}   
+              <div class="findify-lazy-loading-pagination-container">
+                {% if curr_page == 1 %}
+                  {% assign hide_load_prev = true %}
+                {% else %}
+                  {% assign hide_load_prev = false %}
+                {% endif %}
+                {% render 'findify-button', id: 'findify-pagination-load-previous', text: 'Load previous', hide: hide_load_prev %}</div>
+              {% endif %}
+          <div id="findify-product-grid" class="findify-product-list" >
+              {% comment %}
+              This element #findify-product-grid will be replaced with rendered html from sections/findify-products
+              {% endcomment %}
+          </div> 
+          <div id='findify-pagination'>
+            {% comment %}
+            This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+            {% if use_lazy_loading_pagination %} 
+            {% if curr_page != last_page %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}
+            <div class="findify-lazy-loading-pagination-container">
+              {% if lazy_loading_pagination_threshold > 0 %}
+                {% assign hide_load_more = true %}
+              {% else %}
+                {% assign hide_load_more = false %}
+              {% endif %}
+              {% render 'findify-button', id: 'findify-pagination-load-more', text: 'Load more', hide: hide_load_more %}
+             </div>
+            {% endif %}
+          {% endif %}
+          </div>
       </div>
-     </div>
       </div>
       </div>
       {% if tabs[0] != 'none' %}
@@ -114,6 +131,9 @@
       initFindifyContentEvents();
       // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
       setFindifyIsLoading(false);
+      if({{ use_lazy_loading_pagination }}) {
+        initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
+      }
     } else {
           const initRecommendation = async (type) => await findify.recommendation.init({
               recommendation_id:"{{ recommendation_id }}",
@@ -128,12 +148,10 @@
             });
           });  
     }
+    productCardAnalytics('#findify-product-grid')
   }
 
   onFindifySearchDone()
-
-  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
-  productCardAnalytics('#findify-product-grid')
 </script>
 
 {% schema %}

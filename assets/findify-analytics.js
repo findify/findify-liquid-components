@@ -72,8 +72,13 @@ const onProductCardClick = (e) => {
   }
 };
 
-const productCardAnalytics = (containerId) => {
-  const selector = containerId ? `${containerId} .findify-product-card` : ".findify-product-card";
+const productCardAnalytics = (containerId, extraClass) => {
+  let selector = containerId
+    ? `${containerId} .findify-product-card`
+    : ".findify-product-card";
+  if (extraClass) {
+    selector += `.${extraClass}`;
+  }
   document.querySelectorAll(selector).forEach((card) => {
     card.addEventListener("click", (e) => onProductCardClick(e));
   });
@@ -88,11 +93,11 @@ const suggestionAnalytics = () => {
 };
 
 const autocompleteAnalytics = (e) => {
-  productCardAnalytics('#findify-autocomplete');
+  productCardAnalytics("#findify-autocomplete");
   suggestionAnalytics();
 };
 
-// Temporary location! MoreSize button for swatches 
+// Temporary location! MoreSize button for swatches
 window.onload = function () {
   setTimeout(function () {
     const moreButtons = document.querySelectorAll(".sizeButton");
