@@ -4,6 +4,7 @@
 {%- endcomment -%}
 
 {%- assign curr_page = page_url | split: 'curr_page=' | last | split: '&' | first | plus: 0 -%} {%- comment -%} string {%- endcomment -%}
+{%- assign last_page = page_url | split: 'last_page=' | last | split: '&' | first | plus: 0 -%} {%- comment -%} string {%- endcomment -%}
 
 {%- comment -%} Shared properties: search and collection {%- endcomment -%}
 {%- assign default_sort_by = page_url | split: 'default_sort_by=' | last | split: '&' | first -%} {%- comment -%} string {%- endcomment -%}

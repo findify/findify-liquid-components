@@ -41,7 +41,7 @@ const initFindifyLazyLoadingPagination = (
         });
         productCardAnalytics("#findify-product-grid", pageClassName);
         if (prevPage == 1) {
-          prevBtnElement.classList.toggle("hidden");
+          prevBtnElement.remove();
         }
       });
     }
@@ -89,7 +89,7 @@ const initFindifyLazyLoadingPagination = (
     productCardAnalytics("#findify-product-grid", pageClassName);
     if (nextPage == lastPage) {
       const nextBtnElement = document.getElementById(selectors.nextBtn);
-      nextBtnElement.classList.toggle("hidden");
+      nextBtnElement.remove();
       removeLoader();
     }
   };

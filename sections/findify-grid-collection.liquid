@@ -70,16 +70,17 @@
           This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
           {% endcomment %}
           {% if use_lazy_loading_pagination %} 
-            {% if curr_page != last_page %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}
+            {% if curr_page < last_page and lazy_loading_pagination_threshold > 0 %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}{% endif %}
             <div class="findify-lazy-loading-pagination-container">
-              {% if lazy_loading_pagination_threshold > 0 %}
-                {% assign hide_load_more = true %}
-              {% else %}
-                {% assign hide_load_more = false %}
+              {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
+                  {% assign hide_load_more = false %}
+                {% elsif curr_page == last_page %}
+                  {% assign hide_load_more = true %}
+                {% else %}
+                  {% assign hide_load_more = true %}
               {% endif %}
               {% render 'findify-button', id: 'findify-pagination-load-more', text: 'Load more', hide: hide_load_more %}
-             </div>
-            {% endif %}
+            </div>
           {% endif %}
         </div>
       </div>
