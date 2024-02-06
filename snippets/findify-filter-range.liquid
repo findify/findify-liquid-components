@@ -1,5 +1,6 @@
 <div class="findify-filters--body-wrapper">
     {%- for filterValues in items -%}
+    
         {% if forloop.index != forloop.length %}               
             {%- assign filterValue = filterValues | split: '~' -%}
             {%- assign value = filterValue[0] -%}
@@ -24,6 +25,7 @@
                 {%- assign rangeAttribute = 'from|' | append: from | append : '-' | append: 'to|' | append: to   -%}
             {% endif %}
 
+          
             {% render'findify-filter-checkbox', 
                 name: filterName,
                 type: filterType,
@@ -34,10 +36,16 @@
                 componentType: componentType,
                 index: forloop.index 
             %}
+ 
         {% else %}
             {%- assign min = filterValues | split: ':' | first -%}
             {%- assign max = filterValues | split: ':' | last  -%}
         {% endif %}
+      
+      {% if forloop.last %}
+        {% render'findify-filter-price-range' %}
+      {% endif %}
+     
 
     {%- endfor -%}
 </div>
