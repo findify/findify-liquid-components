@@ -41,8 +41,8 @@
             {%- assign min = filterValues | split: ':' | first -%}
             {%- assign max = filterValues | split: ':' | last  -%}
         {% endif %}
-      
-      {% if forloop.last %}
+    
+      {% if forloop.last and componentType!='reviews' %}
         {% render'findify-filter-price-range' %}
       {% endif %}
      
