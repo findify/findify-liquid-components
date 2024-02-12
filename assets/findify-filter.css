@@ -327,3 +327,14 @@ button {
         justify-content: unset;
     }
 }
+
+.price-range-container{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px 0 10px;
+}
+.price-range-input{
+  outline: none;
+  box-shadow: none;
+  max-width:50px;
+}
