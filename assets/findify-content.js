@@ -3,9 +3,9 @@
  *   @return void;
  */
 const initFindifyContentEvents = () => {
-  const contentIntegrations = Object.keys(
-    findify.core.merchantConfig.features.content
-  ).map((id) => ({ id }));
+  const contentIntegrations = Object.keys(findify.core.contents).map((id) => ({
+    id,
+  }));
   contentIntegrations.forEach(({ id }) => {
     const infiniteScrollElement = document.getElementById(
       `${id}-infinite-scroll`
@@ -47,7 +47,7 @@ const initFindifyContentEvents = () => {
           findify.contents.state[id].meta.limit;
         const contentToLoad = {
           [id]: {
-            title: findify.core.merchantConfig.features.content[id].title,
+            title: findify.core.contents[id].title,
           },
         };
         const response = await findify.contents.api(contentToLoad, {
