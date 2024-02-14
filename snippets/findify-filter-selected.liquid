@@ -18,7 +18,6 @@
         <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
             {% case name %}   
                 {% when 'reviews.average_score' %}
-                    {{reviewValue}}
                     {% render 'findify-filter-rating-value',
                         selected: true,
                         value: reviewValue 
