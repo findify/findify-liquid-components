@@ -17,6 +17,8 @@
 {% if card_product contains '~ta=' %}{%- assign tags = card_product | split: '~ta=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~ua=' %}{%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~st=' %}{%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}{% endif %}
+{% if card_product contains '~rc=' %}{%- assign reviews_count = card_product | split: '~rc=' | last | split: '~' | first -%}{% endif %}
+  
 
 {% if card_product contains '~iu=' %}
   {% assign image_url = card_product | split:'~iu=' | last | split: "~" | first  %}
@@ -81,7 +83,6 @@ href={{ product_url }}
     
       loading="lazy"
     />
-      
     {% if card_product contains '~i2u=' %}
       <img  
         src="{{ image_2_url_full  }}"       
@@ -95,9 +96,9 @@ href={{ product_url }}
   </div>
   <div class="content-wrapper">
     {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
-    {% render 'findify-rating', ratingValue: reviews  %}
     <div class='findify-product-title findify-cut-text'><label>{{ title }}</label></div>
     {% render 'findify-product-price', price: price %}
+    {% render 'findify-rating', ratingValue: reviews, ratingCount:  reviews_count %}
   </div>
 </a>
 </div>
