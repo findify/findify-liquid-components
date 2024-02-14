@@ -43,6 +43,7 @@ const toggleFilterDrawer = () =>
   );
 
 const priceRangeUpdater = (inputMax, inputMin) => {
+  if (!inputMax.value && !inputMin.value) return;
   toggleFilterDrawer();
   findify.filters.update({
     value: `from|${inputMin.value}-to|${inputMax.value}`,
