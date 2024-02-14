@@ -10,3 +10,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.findify-rating-container{
+  align-items: center;
+  display: flex;
+  gap:10px;
+}
