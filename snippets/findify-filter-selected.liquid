@@ -33,7 +33,7 @@
  
                 {% endcase %}
             {% else %}
-        <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
+        <div class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{% if name == 'color-text' %}color{% else %}{{name}}{% endif %}" value="{{value}}">
             {% case name %}
                 {% when 'color' %}
                     {% if color_layout == 'color' %}
