@@ -331,7 +331,7 @@ button {
 .price-range-container{
   display: flex;
   justify-content: space-between;
-  padding: 0 12px 0 10px;
+  padding: 5px 12px 0 10px;
 }
 .price-range-content{
   display:flex;
@@ -346,22 +346,15 @@ button {
   background: #fff;
 }
 .price-range-input{
-  outline: none;
   box-shadow: none;
   max-width:50px;
-  display: block;
-  width: 100%;
-  margin: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
   height: 30px;
   line-height: 30px;
   padding-left: 8px;
   background: transparent;
   color: #111;
-  font-family: Montserrat,sans-serif;
   font-size: 13px;
   border: none;
   outline: none;
-  z-index: 1;
 }
+
