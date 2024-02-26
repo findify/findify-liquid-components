@@ -18,21 +18,25 @@
 {% if card_product contains '~ua=' %}{%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~st=' %}{%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~rc=' %}{%- assign reviews_count = card_product | split: '~rc=' | last | split: '~' | first -%}{% endif %}
-  
 
+{%- comment -%} Here on product we have access to Shopify Product Object {%- endcomment -%}
+{%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
+{%- assign handler = product_url | split:'"pageurl":"' | split: "?" | first | replace: "/products/" | replace: '["' -%}
+{%- assign product = all_products[handler] -%}
+
+{%  assign prefix_shopify_cdn_url = 'https://cdn.shopify.com/s/files/' %}
 {% if card_product contains '~iu=' %}
   {% assign image_url = card_product | split:'~iu=' | last | split: "~" | first  %}
-  {% assign image_url_full= 'https://cdn.shopify.com/s/files/' | append: image_url %}
+  {% assign image_url_full= prefix_shopify_cdn_url | append: image_url %}
 {% endif %}
 {% if card_product contains '~i2u=' %}
   {% assign image_2_url = card_product | split:'~i2u=' | last | split: "~" | first %}
-  {% assign image_2_url_full= 'https://cdn.shopify.com/s/files/' | append: image_2_url %}
+  {% assign image_2_url_full= prefix_shopify_cdn_url | append: image_2_url %}
 {% endif %}
 {% if card_product contains '~tu=' %}
   {% assign thumbnail_url = card_product | split:'~tu=' | last | split: "~" | first  %}
-  {% assign thumbnail_url_full= 'https://cdn.shopify.com/s/files/' | append: thumbnail_url %}
+  {% assign thumbnail_url_full= prefix_shopify_cdn_url | append: thumbnail_url %}
 {% endif %}
-
 
 {%- comment -%} Product card variants properties mapper {%- endcomment -%}
 {%- assign variants = card_product | split: '~va=' | last | split: '~' | first -%}
@@ -63,7 +67,7 @@
 {%- comment -%} Variant custom fields properties mapper, type: [] {%- endcomment -%}
 {%- if variant_custom_fields contains 'sale_price=' %}{%- assign variant_custom_field_sale_prices = variant_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
 {%- if variant_custom_fields contains 'variant_image_url=' %}{%- assign variant_custom_field_variant_image_url = variant_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-  
+
 <div  
 class="findify-product-card {{ additional_class }}"
 data-product-id={{ id }}
