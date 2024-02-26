@@ -98,7 +98,9 @@ href={{ product_url }}
     {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
     <div class='findify-product-title findify-cut-text'><label>{{ title }}</label></div>
     {% render 'findify-product-price', price: price %}
-    {% render 'findify-rating', value: reviews, count: reviews_count %}
+    {% if reviews %}   
+     {% render 'findify-rating', value: reviews, count: reviews_count %} 
+    {% endif %}
   </div>
 </a>
 </div>

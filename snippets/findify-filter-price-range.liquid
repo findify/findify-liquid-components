@@ -1,8 +1,14 @@
 <div class="price-range-container">
-    <div>
-      <input placeholder="from" type="text" class="price-range-input" id='findify-price-range-min' />
+    <div class="price-range-content">
+      <div class='findify-price-range-input-container'>
+        <span>{{  currency }}</span>
+        <input type="text" class="price-range-input" id='findify-price-range-min' />
+      </div>
       <span>-</span>
-      <input placeholder="to" type="text" class="price-range-input" id='findify-price-range-max'/> 
+      <div class='findify-price-range-input-container'>
+        <span>{{  currency }}</span>
+        <input type="text" class="price-range-input" id='findify-price-range-max'/> 
+      </div>
     </div>
     <button id='findify-custom-price-range'>Go</button>
 </div>

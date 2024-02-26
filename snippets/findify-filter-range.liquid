@@ -43,7 +43,7 @@
         {% endif %}
     
       {% if forloop.last and componentType=='price' %}
-        {% render'findify-filter-price-range' %}
+        {% render'findify-filter-price-range'  currency:currency %}
       {% endif %}
      
 

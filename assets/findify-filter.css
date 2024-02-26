@@ -196,7 +196,7 @@ button {
 }
 
 .findify-filters--body-wrapper {
-    max-height: 145px;
+    max-height: 155px;
     overflow: auto;
 }
 
@@ -331,10 +331,30 @@ button {
 .price-range-container{
   display: flex;
   justify-content: space-between;
-  padding: 0 12px 0 10px;
+  padding: 5px 12px 0 10px;
+}
+.price-range-content{
+  display:flex;
+  gap:5px;
+}
+
+.findify-price-range-input-container{
+  display:flex;
+  align-items: center;
+  padding: 0 8px;
+  border: 1px solid #000;
+  background: #fff;
 }
 .price-range-input{
-  outline: none;
   box-shadow: none;
   max-width:50px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 8px;
+  background: transparent;
+  color: #111;
+  font-size: 13px;
+  border: none;
+  outline: none;
 }
+
