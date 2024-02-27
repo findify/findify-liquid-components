@@ -3,7 +3,7 @@
     info="{{name}}|{{type}}"
     selected="{{selected}}" 
     value="{% if type == "range" %}{{attribute}}{% else %}{{value}}{% endif %}">
-    {%if componentType == "text" or componentType == "price"%}
+    {%if componentType == "text" or componentType == "price" or isColorLabel == true%}
     {% render 'findify-filter-text-value',
         selected: selected,
         hasChildren: hasChildren,

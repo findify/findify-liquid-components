@@ -8,8 +8,9 @@
 
 {%- assign details = filtersParam | strip | split: '=' | first | split: '~' -%}
 {%- assign name = details[0] -%}
-{%- assign type = details[1] -%}
-{%- assign subname = details[2] -%}
+{%- assign label = details[1] -%}
+{%- assign type = details[2] -%}
+{%- assign subname = details[3] -%}
 
 {%- assign values = filtersParam | split: '=' | last | split: '|' -%}
 
@@ -36,7 +37,7 @@
     class="findify-filters-container">
     <div class="findify-filters-header" ref="{{name}}">
         <label tabindex="-1" class="findify-filters-header-title">
-            {{name}}
+            {{label}}
         </label>
         {% render 'findify-icon-arrow' %}    
     </div>

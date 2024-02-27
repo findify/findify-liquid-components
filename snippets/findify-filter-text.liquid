@@ -24,7 +24,7 @@
     {%- assign selected = filterValue[2] -%}
     {%- assign hasChildren = filterValue[3] -%}
 
-    {% render'findify-filter-checkbox',
+    {% render 'findify-filter-checkbox',
         name: filterNameMode,
         type: filterType,
         selected: selected,
@@ -33,7 +33,8 @@
         componentType: componentType,
         index: forloop.index,
         hasChildren: hasChildren,
-        limit: limit
+        limit: limit,
+        isColorLabel: isColorLabel
     %}
 
     {% if children != blank %}
