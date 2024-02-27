@@ -45,8 +45,15 @@
                             {{value}}
                         </span>
                     {% endif %}
+                    {% if color_layout == 'label' %}
+                    <span>
+                        {{value}}
+                    </span>
+                {% endif %}
                 {% else %}
+                <span>
                     {{value}}
+                </span>
             {% endcase %}
             {% endcase %}
             <div class="findify-filters-breadcrumb-close">
