@@ -55,3 +55,8 @@ a:visited:not(.button) {
 .image-container:hover .second-image {
   display: inline;
 }
+
+.findify-product-brand {
+  font-style: italic;
+  font-size: smaller;
+}
