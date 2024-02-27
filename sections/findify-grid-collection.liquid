@@ -69,7 +69,7 @@
           {% comment %}
           This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
           {% endcomment %}
-          {% if use_lazy_loading_pagination %} 
+          {% if use_lazy_loading_pagination == 'true' %} 
             {% if curr_page < last_page and lazy_loading_pagination_threshold > 0 %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}{% endif %}
             <div class="findify-lazy-loading-pagination-container">
               {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
@@ -98,14 +98,13 @@
   * Execution at the end of the Findify render cycle.
   * Bind DOM events, eg filters, sorting, analytics, product card features.
   */
-
   const onFindifySearchDone = () => {
     initFindifyFiltersEvents();
     initFindifySortingEvents();
     // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
     setFindifyIsLoading(false);
     productCardAnalytics('#findify-product-grid');
-    if({{ use_lazy_loading_pagination }}) {
+    if("{{ use_lazy_loading_pagination }}" == "true") {
         initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
       }
   }

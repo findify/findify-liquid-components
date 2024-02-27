@@ -60,18 +60,18 @@ const priceRangeEventHandler = () => {
   const inputMax = document.querySelector(selectors.inputPriceRangeMax);
   const inputMin = document.querySelector(selectors.inputPriceRangeMin);
 
-  inputMax.addEventListener("keyup", (e) => {
+  inputMax?.addEventListener("keyup", (e) => {
     if (e.key === "Enter" || e.keyCode === 13) {
       priceRangeUpdater(inputMax, inputMin);
     }
   });
-  inputMin.addEventListener("keyup", (e) => {
+  inputMin?.addEventListener("keyup", (e) => {
     if (e.key === "Enter" || e.keyCode === 13) {
       priceRangeUpdater(inputMax, inputMin);
     }
   });
 
-  priceRangeButton.addEventListener("click", () =>
+  priceRangeButton?.addEventListener("click", () =>
     priceRangeUpdater(inputMax, inputMin)
   );
 };
