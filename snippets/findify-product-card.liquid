@@ -18,6 +18,7 @@
 {% if card_product contains '~ua=' %}{%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~st=' %}{%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}{% endif %}
 {% if card_product contains '~rc=' %}{%- assign reviews_count = card_product | split: '~rc=' | last | split: '~' | first -%}{% endif %}
+{% if card_product contains '~br=' %}{%- assign brand = card_product | split: '~br=' | last | split: '~' | first -%}{% endif %}
 
 {%- comment -%} Here on product we have access to Shopify Product Object {%- endcomment -%}
 {%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
@@ -100,6 +101,9 @@ href={{ product_url }}
   </div>
   <div class="content-wrapper">
     {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
+    {% if brand %}   
+      <div class="findify-product-brand">{{ brand }}</div>
+    {% endif %}
     <div class='findify-product-title findify-cut-text'><label>{{ title }}</label></div>
     {% render 'findify-product-price', price: price %}
     {% if reviews %}   

@@ -3,16 +3,25 @@
 
 {%- assign query_parameters_products = page_url | split: 'sections=findify-products&' | last -%}
 
-{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first-%} 
-{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first  -%} 
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first  -%} 
+{%  comment  %} Recommendation fallback configuration {% endcomment %}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%} 
+{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first -%} 
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last   | split: '&' | first -%}
 
 {% include 'findify-grid-connector' %}
+
+{%  comment  %} Content integration configuration {% endcomment %}
+{%- assign use_content_integration = query_parameters | split: 'use_content_integration:' | last | split: '&' | first -%} 
+{% if use_content_integration == 'false' or tabs[0] == 'none' %}
+  {%- assign show_content_integration = false -%}
+{% else %}
+  {%- assign show_content_integration = true -%}
+{% endif %}
 
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
     <h1 class="findify-heading">SEARCH RESULTS</h1>
-    {% if tabs[0] != 'none' %}
+    {% if show_content_integration %}
       {% render 'findify-content-tabs', tabs: tabs, resultsCount: results_count %}
       <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
     {% endif %}
@@ -80,7 +89,7 @@
             {% comment %}
             This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
             {% endcomment %}
-            {% if use_lazy_loading_pagination %} 
+            {% if use_lazy_loading_pagination == 'true' %} 
               {% if curr_page < last_page and lazy_loading_pagination_threshold > 0 %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}{% endif %}
               <div class="findify-lazy-loading-pagination-container">
                 {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
@@ -97,9 +106,8 @@
       </div>
       </div>
       </div>
-      {% if tabs[0] != 'none' %}
+      {% if show_content_integration %}
         </div>
-  
         {% for tab in tabs %}
           {% assign content_id = tab | split: '~' | first %}
           <div id="{{content_id}}-content" class="findify-tab-content">
@@ -129,15 +137,17 @@
       initFindifyFiltersEvents();
       initFindifySortingEvents();
       initFindifyTabsEvents();
-      initFindifyContentEvents();
+      if("{{ show_content_integration }}" == 'true') {
+        initFindifyContentEvents();
+      }
       // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
       setFindifyIsLoading(false);
-      if({{ use_lazy_loading_pagination }}) {
+      if("{{ use_lazy_loading_pagination }}" == "true") {
         initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
       }
     } else {
           const initRecommendation = async (type) => await findify.recommendation.init({
-              recommendation_id:"{{ recommendation_id }}",
+              recommendation_id: "{{ recommendation_id }}",
               desktop_grid_size,
               recommendation_title
             })
