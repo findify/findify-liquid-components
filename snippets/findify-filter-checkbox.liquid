@@ -1,26 +1,28 @@
-<div  
-    class="findify-filters-checkbox-item {% if componentType == "color"%}findify-filters--color-item findify-filters--color-item-layout-{{color_filter_setting}}{% endif %}"
-    info="{{name}}|{{type}}"
-    selected="{{selected}}" 
-    value="{% if type == "range" %}{{attribute}}{% else %}{{value}}{% endif %}">
-    {%if componentType == "text" or componentType == "price" or isColorLabel == true%}
-    {% render 'findify-filter-text-value',
-        selected: selected,
-        hasChildren: hasChildren,
-        value: value 
+<div
+  class="findify-filters-checkbox-item {% if componentType == "color"%}findify-filters--color-item findify-filters--color-item-layout-{{color_filter_setting}}{% endif %}"
+  info="{{name}}|{{type}}"
+  selected="{{selected}}"
+  value="{% if type == "range" %}{{attribute}}{% else %}{{value}}{% endif %}">
+  {% if componentType == "text" or componentType == "price" or isColorLabel == true %}
+    {% render 'findify-filter-text-value'
+      , selected: selected
+      , hasChildren: hasChildren
+      , value: value
     %}
-    {% elsif componentType == "reviews" %}
-    {% render 'findify-filter-rating-value',
-        selected: selected,
-        value: value 
+  {% elsif componentType == "reviews" %}
+    {% render 'findify-filter-rating-value'
+      , selected: selected
+      , value: value
     %}
-    {% elsif componentType == "color" %}
-    {% render 'findify-filter-color-value',
-        selected: selected,
-        colorName: colorName,
-        borderColor: borderColor,
-        color_filter_setting: color_filter_setting
+  {% elsif componentType == "color" %}
+    {% render 'findify-filter-color-value'
+      , selected: selected
+      , colorName: colorName
+      , borderColor: borderColor
+      , color_filter_setting: color_filter_setting
     %}
-    {% endif %}
-    {% if color_filter_setting != 'color' %}<span class=" findify-filter-checkbox-item-count">({{count}})</span>{% endif %}
+  {% endif %}
+  {% if color_filter_setting != 'color' %}
+    <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
+  {% endif %}
 </div>
