@@ -39,7 +39,7 @@ const initFindifyLazyLoadingPagination = (
           item.classList.add(pageClassName);
           target.prepend(item);
         });
-        productCardAnalytics("#findify-product-grid", pageClassName);
+        runProductScripts(pageClassName);
         if (prevPage == 1) {
           prevBtnElement.remove();
         }
@@ -86,7 +86,7 @@ const initFindifyLazyLoadingPagination = (
       item.classList.add(pageClassName);
       target.append(item);
     });
-    productCardAnalytics("#findify-product-grid", pageClassName);
+    runProductScripts(pageClassName);
     if (nextPage == lastPage) {
       const nextBtnElement = document.getElementById(selectors.nextBtn);
       nextBtnElement.remove();
@@ -103,6 +103,16 @@ const initFindifyLazyLoadingPagination = (
     if (nextBtnElement) {
       nextBtnElement.addEventListener("click", () => loadNext());
     }
+  };
+
+  /**
+   * When new page is rendered, the new items might have scripts in it that must manually executed.
+   */
+  const runProductScripts = (pageClassName) => {
+    const productCardScripts = document.querySelectorAll(
+      `.${pageClassName} script`
+    );
+    findify.utils.executeScripts(productCardScripts);
   };
 
   const init = () => {

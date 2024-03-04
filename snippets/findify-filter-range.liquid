@@ -1,73 +1,72 @@
 <div class="findify-filters--body-wrapper">
-    {%- for filterValues in items -%}
-    
-        {% if forloop.index != forloop.length %}               
-            {%- assign filterValue = filterValues | split: '~' -%}
-            {%- assign value = filterValue[0] -%}
-            {%- assign count = filterValue[1] -%}              
-            {%- assign selected = filterValue[2] -%}
+  {%- for filterValues in items -%}
 
-            {%- assign rangeValue = "" -%}
-            {%- assign rangeAttribute = "" -%}
+    {% if forloop.index != forloop.length %}
+      {%- assign filterValue = filterValues | split: '~' -%}
+      {%- assign value = filterValue[0] -%}
+      {%- assign count = filterValue[1] -%}
+      {%- assign selected = filterValue[2] -%}
 
-            {% if value contains "to" %}
-                {%- assign to = value | split: 'to' | last  -%}
-                {%- assign rangeValue = 'under ' | append: to  -%}
-                {%- assign rangeAttribute = 'to|' | append: to  -%}
-            {% elsif value contains "from" %}
-                {%- assign from = value | split: 'from' | last -%}
-                {%- assign rangeValue = from | append: ' & up'   -%}
-                {%- assign rangeAttribute = 'from|' | append: from  -%}
-            {% else %}
-                {%- assign from = value | split: ':' | first -%}
-                {%- assign to = value | split: ':' | last -%}
-                {%- assign rangeValue = from | append: ' - ' | append: to   -%}
-                {%- assign rangeAttribute = 'from|' | append: from | append : '-' | append: 'to|' | append: to   -%}
-            {% endif %}
+      {%- assign rangeValue = "" -%}
+      {%- assign rangeAttribute = "" -%}
 
-          
-            {% render'findify-filter-checkbox', 
-                name: filterName,
-                type: filterType,
-                selected: selected,
-                value: rangeValue,
-                attribute: rangeAttribute,
-                count: count,
-                componentType: componentType,
-                index: forloop.index 
-            %}
- 
-        {% else %}
-            {%- assign min = filterValues | split: ':' | first -%}
-            {%- assign max = filterValues | split: ':' | last  -%}
-        {% endif %}
-    
-      {% if forloop.last and componentType=='price' %}
-        {% render'findify-filter-price-range'  currency:currency %}
+      {% if value contains "to" %}
+        {%- assign to = value | split: 'to' | last -%}
+        {%- assign rangeValue = 'under ' | append: to -%}
+        {%- assign rangeAttribute = 'to|' | append: to -%}
+      {% elsif value contains "from" %}
+        {%- assign from = value | split: 'from' | last -%}
+        {%- assign rangeValue = from | append: ' & up' -%}
+        {%- assign rangeAttribute = 'from|' | append: from -%}
+      {% else %}
+        {%- assign from = value | split: ':' | first -%}
+        {%- assign to = value | split: ':' | last -%}
+        {%- assign rangeValue = from | append: ' - ' | append: to -%}
+        {%- assign rangeAttribute = 'from|' | append: from | append: '-' | append: 'to|' | append: to -%}
       {% endif %}
-     
 
-    {%- endfor -%}
+
+      {% render'findify-filter-checkbox'
+        , name: filterName
+        , type: filterType
+        , selected: selected
+        , value: rangeValue
+        , attribute: rangeAttribute
+        , count: count
+        , componentType: componentType
+        , index: forloop.index
+      %}
+
+    {% else %}
+      {%- assign min = filterValues | split: ':' | first -%}
+      {%- assign max = filterValues | split: ':' | last -%}
+    {% endif %}
+
+    {% if forloop.last and componentType == 'price' %}
+      {% render'findify-filter-price-range' currency: currency %}
+    {% endif %}
+
+
+  {%- endfor -%}
 </div>
 
 {% comment %}
-{% if componentType == "price" %}
-    <div class="findify-filters--range-container">
+  {% if componentType == "price" %}
+  <div class="findify-filters--range-container">
 
-        <div class="findify-filters--range-wrapper">
-            <div class="findify-filters--range-wrapper-input">
-                <input placeholder="{{min | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="from">
-            </div>
-            <span class="findify-filters--range-wrapper-delimiter">-</span>
-            <div class="findify-filters--range-wrapper-input">
-                <input placeholder="{{max | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}"  aria-owns="to">
-            </div>
-            <button class="findify-filters--range-submit" ref="{{filterName}}">Go</button>
-        </div>
+  <div class="findify-filters--range-wrapper">
+  <div class="findify-filters--range-wrapper-input">
+  <input placeholder="{{min | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="from">
+  </div>
+  <span class="findify-filters--range-wrapper-delimiter">-</span>
+  <div class="findify-filters--range-wrapper-input">
+  <input placeholder="{{max | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="to">
+  </div>
+  <button class="findify-filters--range-submit" ref="{{filterName}}">Go</button>
+  </div>
 
-        <p>{{min}} - {{max}}</p>
-        {% render 'findify-filter-range-slider', min: min, max: max, name: filterName %}
-        </div>
-{% endif %}
+  <p>{{min}} - {{max}}</p>
+  {% render 'findify-filter-range-slider', min: min, max: max, name: filterName %}
+  </div>
+  {% endif %}
 {%endcomment%}
-

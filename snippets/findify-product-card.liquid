@@ -1,116 +1,157 @@
-{%- if card_product and card_product != empty -%} 
+{%- if card_product and card_product != empty -%}
 
-{% if card_product contains '~av=' %}{% assign availability = card_product | split:'~av=' | last | split: "~" | first %}{% endif %}
-{% if card_product contains '~co=' %}{% assign colors = card_product | split:'~co=' | last | split: "~" | first | split:'^' %}{% endif %}
-{% if card_product contains '~cra=' %}{% assign created_at = card_product | split:'~cra=' | last | split: "~" | first %}{% endif %}
-{% if card_product contains '~svi=' %}{% assign selected_variant_id = card_product | split:'~svi=' | last | split: "~" | first %}{% endif %}
-{% if card_product contains '~gid=' %}{% assign item_group_id = card_product | split:'~gid=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~id=' %}{% assign id = card_product | split:'~id=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~cat=' %}{% assign category = card_product | split:'~cat=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~pu=' %}{% assign product_url = card_product | split:'~pu=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~ti=' %}{% assign title = card_product | split:'~ti=' | last | split:"~" | first | url_decode %}{% endif %}
-{% if card_product contains '~pr=' %}{% assign price = card_product | split:'~pr=' | last | split:"~" | first %}{% endif %}
-{% if card_product contains '~qu=' %}{%- assign quantity = card_product | split: '~qu=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~ras=' %}{%- assign reviews = card_product | split: '~ras=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~si=' %}{%- assign sizes = card_product | split: '~si=' | last | split: '~' | first | split:'^' -%}{% endif %}
-{% if card_product contains '~sk=' %}{%- assign sku = card_product | split: '~sk=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~ta=' %}{%- assign tags = card_product | split: '~ta=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~ua=' %}{%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~st=' %}{%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~rc=' %}{%- assign reviews_count = card_product | split: '~rc=' | last | split: '~' | first -%}{% endif %}
-{% if card_product contains '~br=' %}{%- assign brand = card_product | split: '~br=' | last | split: '~' | first -%}{% endif %}
-
-{%- comment -%} Here on product we have access to Shopify Product Object {%- endcomment -%}
-{%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
-{%- assign handler = product_url | split:'"pageurl":"' | split: "?" | first | replace: "/products/" | replace: '["' -%}
-{%- assign product = all_products[handler] -%}
-
-{%  assign prefix_shopify_cdn_url = 'https://cdn.shopify.com/s/files/' %}
-{% if card_product contains '~iu=' %}
-  {% assign image_url = card_product | split:'~iu=' | last | split: "~" | first  %}
-  {% assign image_url_full= prefix_shopify_cdn_url | append: image_url %}
+  {% if card_product contains '~av=' %}
+    {% assign availability = card_product | split: '~av=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~co=' %}
+    {% assign colors = card_product | split: '~co=' | last | split: "~" | first | split: '^' %}{% endif %}
+  {% if card_product contains '~cra=' %}
+    {% assign created_at = card_product | split: '~cra=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~svi=' %}
+    {% assign selected_variant_id = card_product | split: '~svi=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~gid=' %}
+    {% assign item_group_id = card_product | split: '~gid=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~id=' %}
+    {% assign id = card_product | split: '~id=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~cat=' %}
+    {% assign category = card_product | split: '~cat=' | last | split: "~" | first | url_decode %}{% endif %}
+  {% if card_product contains '~pu=' %}
+    {% assign product_url = card_product | split: '~pu=' | last | split: "~" | first | url_decode %}{% endif %}
+  {% if card_product contains '~ti=' %}
+    {% assign title = card_product | split: '~ti=' | last | split: "~" | first | url_decode %}{% endif %}
+  {% if card_product contains '~pr=' %}
+    {% assign price = card_product | split: '~pr=' | last | split: "~" | first %}{% endif %}
+  {% if card_product contains '~qu=' %}
+    {%- assign quantity = card_product | split: '~qu=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~ras=' %}
+    {%- assign reviews = card_product | split: '~ras=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~si=' %}
+    {%- assign sizes = card_product | split: '~si=' | last | split: '~' | first | split: '^' | url_decode -%}{% endif %}
+  {% if card_product contains '~sk=' %}
+    {%- assign sku = card_product | split: '~sk=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~ta=' %}
+    {%- assign tags = card_product | split: '~ta=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~ua=' %}
+    {%- assign updated_at = card_product | split: '~ua=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~st=' %}
+    {%- assign stickers = card_product | split: '~st=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~rc=' %}
+    {%- assign reviews_count = card_product | split: '~rc=' | last | split: '~' | first -%}{% endif %}
+  {% if card_product contains '~br=' %}
+    {%- assign brand = card_product | split: '~br=' | last | split: '~' | first | url_decode -%}
 {% endif %}
-{% if card_product contains '~i2u=' %}
-  {% assign image_2_url = card_product | split:'~i2u=' | last | split: "~" | first %}
-  {% assign image_2_url_full= prefix_shopify_cdn_url | append: image_2_url %}
+
+  {%- comment -%} Here on product we have access to Shopify Product Object {%- endcomment -%}
+  {%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
+  {%- assign handler = product_url | split: '"pageurl":"' | split: "?" | first | replace: "/products/" | replace: '["' -%}
+  {%- assign product = all_products[handler] -%}
+
+  {% assign prefix_shopify_cdn_url = 'https://cdn.shopify.com/s/files/' %}
+  {% if card_product contains '~iu=' %}
+    {% assign image_url = card_product | split: '~iu=' | last | split: "~" | first | url_decode %}
+    {% assign image_url_full = prefix_shopify_cdn_url | append: image_url %}
+  {% endif %}
+  {% if card_product contains '~i2u=' %}
+    {% assign image_2_url = card_product | split: '~i2u=' | last | split: "~" | first | url_decode %}
+    {% assign image_2_url_full = prefix_shopify_cdn_url | append: image_2_url %}
+  {% endif %}
+  {% if card_product contains '~tu=' %}
+    {% assign thumbnail_url = card_product | split: '~tu=' | last | split: "~" | first | url_decode %}
+    {% assign thumbnail_url_full = prefix_shopify_cdn_url | append: thumbnail_url %}
 {% endif %}
-{% if card_product contains '~tu=' %}
-  {% assign thumbnail_url = card_product | split:'~tu=' | last | split: "~" | first  %}
-  {% assign thumbnail_url_full= prefix_shopify_cdn_url | append: thumbnail_url %}
+
+  {%- comment -%} Product card variants properties mapper {%- endcomment -%}
+  {%- assign variants = card_product | split: '~va=' | last | split: '~' | first -%}
+  {% if variants contains 'pr=' %}
+    {%- assign variant_price = variants | split: 'pr=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'pu=' %}
+    {%- assign variant_product_url = variants | split: 'pu=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'qu=' %}
+    {%- assign variant_quantity = variants | split: 'qu=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'ras=' %}
+    {%- assign variant_reviews = variants | split: 'ras=' | last | split: '|' | first -%}{% endif %}
+
+  {% if variants contains 'si=' %}
+    {%- assign variant_size = variants | split: 'si=' | last | split: '|' | first -%}{% endif %}
+
+  {% if variants contains 'sk=' %}
+    {%- assign variant_sku = variants | split: 'sk=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'ta=' %}
+    {%- assign variant_tags = variants | split: 'ta=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'ti=' %}
+    {%- assign variant_title = variants | split: 'ti=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'ua=' %}
+    {%- assign variant_updated_at = variants | split: 'ua=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'st=' %}
+    {%- assign variant_stickers = variants | split: 'st=' | last | split: '|' | first -%}{% endif %}
+  {% if variants contains 'id=' %}
+    {%- assign variant_id = variants | split: 'st=' | last | split: '|' | first -%}
 {% endif %}
 
-{%- comment -%} Product card variants properties mapper {%- endcomment -%}
-{%- assign variants = card_product | split: '~va=' | last | split: '~' | first -%}
-{% if variants contains 'pr=' %}{%- assign variant_price = variants | split: 'pr=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'pu=' %}{%- assign variant_product_url = variants | split: 'pu=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'qu=' %}{%- assign variant_quantity = variants | split: 'qu=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'ras=' %}{%- assign variant_reviews = variants | split: 'ras=' | last | split: '|' | first -%}{% endif %}
 
-{% if variants contains 'si=' %}{%- assign variant_size = variants | split: 'si=' | last | split: '|' | first -%}{% endif %}
+  {%- comment -%} Custom fields mapper, card.split('cf=') = [false, true, false, true] {%- endcomment -%}
 
-{% if variants contains 'sk=' %}{%- assign variant_sku = variants | split: 'sk=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'ta=' %}{%- assign variant_tags = variants | split: 'ta=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'ti=' %}{%- assign variant_title = variants | split: 'ti=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'ua=' %}{%- assign variant_updated_at = variants | split: 'ua=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'st=' %}{%- assign variant_stickers = variants | split: 'st=' | last | split: '|' | first -%}{% endif %}
-{% if variants contains 'id=' %}{%- assign variant_id = variants | split: 'st=' | last | split: '|' | first -%}{% endif %}
+  {%- comment -%} Custom fields are now being used in both product object itself and in variants, need more tests when it's different {%- endcomment -%}
+  {%- assign custom_fields = product_card | split: '~cf=' -%}
+  {%- assign product_custom_fields = custom_fields[1] | split: '~' | first -%}
+  {%- assign variant_custom_fields = custom_fields[3] | split: '~' | first -%}
+  {%- comment -%} Product custom fields properties mapper, type: [] {%- endcomment -%}
+  {%- if product_custom_fields contains 'sale_price=' %}
+    {%- assign product_custom_field_sale_prices = product_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
+  {%- if product_custom_fields contains 'variant_image_url=' %}
+    {%- assign product_custom_field_variant_image_url = product_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
+  {%- comment -%} Variant custom fields properties mapper, type: [] {%- endcomment -%}
+  {%- if variant_custom_fields contains 'sale_price=' %}
+    {%- assign variant_custom_field_sale_prices = variant_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
+  {%- if variant_custom_fields contains 'variant_image_url=' %}
+    {%- assign variant_custom_field_variant_image_url = variant_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
 
+  <div id={{ id }} class="findify-product-card {{ additional_class }}">
+    <a href={{ product_url }}>
+      <div class='image-container'>
+        <img
+          src="{{ image_url_full  }}"
+          alt="{{ id | escape }}"
+          class="adapt first-image"
+          width="533px"
+          height="300px"
+          loading="lazy" />
+        {% if card_product contains '~i2u=' %}
+          <img
+            src="{{ image_2_url_full  }}"
+            alt="{{ id | escape }}"
+            class="adapt second-image"
+            width="533px"
+            height="300px"
+            loading="lazy" />
+        {% endif %}
+      </div>
+      <div class="content-wrapper">
+        {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
+        {% if brand %}
+          <div class="findify-product-brand">{{ brand }}</div>
+        {% endif %}
+        <div class='findify-product-title findify-cut-text'>
+          <label>{{ title }}</label>
+        </div>
+        {% render 'findify-product-price'
+          , price: price %}
+        {% if reviews %}
+          {% render 'findify-rating'
+            , value: reviews
+            , count: reviews_count %}
+        {% endif %}
+      </div>
+    </a>
 
-{%- comment -%} Custom fields mapper, card.split('cf=') = [false, true, false, true] {%- endcomment -%}
+    <script>
+        /* IMPORTANT: Script tags are executed within this file element. */
+        const id = "{{id}}";
+        const variantId = "{{id}}";
+        const widgetType = "{{widget_type}}";
 
-{%- comment -%} Custom fields are now being used in both product object itself and in variants, need more tests when it's different {%- endcomment -%}
-{%- assign custom_fields = product_card | split: '~cf=' -%}
-{%- assign product_custom_fields = custom_fields[1] | split: '~' | first  -%}
-{%- assign variant_custom_fields = custom_fields[3] | split: '~' | first  -%}
-{%- comment -%} Product custom fields properties mapper, type: [] {%- endcomment -%}
-{%- if product_custom_fields contains 'sale_price=' %}{%- assign product_custom_field_sale_prices = product_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-{%- if product_custom_fields contains 'variant_image_url=' %}{%- assign product_custom_field_variant_image_url = product_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-{%- comment -%} Variant custom fields properties mapper, type: [] {%- endcomment -%}
-{%- if variant_custom_fields contains 'sale_price=' %}{%- assign variant_custom_field_sale_prices = variant_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-{%- if variant_custom_fields contains 'variant_image_url=' %}{%- assign variant_custom_field_variant_image_url = variant_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
+        initOnProductCardClick(id, { widgetType, variantId });
+    </script>
 
-<div  
-class="findify-product-card {{ additional_class }}"
-data-product-id={{ id }}
-data-variant-id={{ id }}
-data-product-url={{ product_url }}
-findify-widget-type={{ widget_type }}
-href={{ product_url }}
->
-<a href={{ product_url }} >
-  <div class='image-container'>
-    <img  
-      src="{{ image_url_full  }}"       
-      alt="{{ id | escape }}" 
-      class="adapt first-image" 
-      width="533px"
-      height="300px" 
-    
-      loading="lazy"
-    />
-    {% if card_product contains '~i2u=' %}
-      <img  
-        src="{{ image_2_url_full  }}"       
-        alt="{{ id | escape }}" 
-        class="adapt second-image" 
-        width="533px"
-        height="300px" 
-        loading="lazy"
-      />
-    {% endif %}
   </div>
-  <div class="content-wrapper">
-    {% comment %} {% render 'findify-product-swatches', colorMappingParam: colorMappingParam, variants:variants, sizes: sizes, product_url:product_url, colors:colors %} {% endcomment %}
-    {% if brand %}   
-      <div class="findify-product-brand">{{ brand }}</div>
-    {% endif %}
-    <div class='findify-product-title findify-cut-text'><label>{{ title }}</label></div>
-    {% render 'findify-product-price', price: price %}
-    {% if reviews %}   
-     {% render 'findify-rating', value: reviews, count: reviews_count %} 
-    {% endif %}
-  </div>
-</a>
-</div>
-    
+
 {%- endif -%}

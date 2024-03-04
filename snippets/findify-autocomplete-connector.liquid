@@ -1,8 +1,8 @@
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-autocomplete&' | last -%}
 {%- assign products = query_parameters | split: 'products=' | last | split: '&' | first | split: ';' -%}
 {%- assign suggestions = query_parameters | split: 'suggestion=' | last | split: '&' | first | split: ',' -%}
 {%- assign query = query_parameters | split: 'query=' | last | split: '&' | first -%}
 {%- assign colorMappingParam = page_url | split: "color_mapping:" | last | split: '&' | first -%}
 {%- assign suggestionsTemplate = "vertical" -%}
-{%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%} 
+{%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%}

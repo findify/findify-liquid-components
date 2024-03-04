@@ -1,122 +1,129 @@
-{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last
-| replace: '\/','/' | replace:'%20',' ' | replace:'\u0026','&' | replace: '%7C', '|' | replace: '%27', "'" -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-grid-collection&' | last -%}
 {% include 'findify-grid-connector' %}
 
+{%  comment  %}
+  IMPORTANT: The outer div will not be inserted on the DOM.
+{% endcomment %}
 <div id="findify-search" class="findify-search-section">
   <div class="findify-search-container">
-      {% render 'findify-toolbar-desktop', 
-      results_count: products_count,
-      is_collection: true, 
-      terms: terms,
-      sort_options: sort_options, 
-      default_sort_by: default_sort_by, 
-      sort_by: sort_by, 
-      active_filters: active_filters,
-      color_layout: color_layout,
+    {% render 'findify-toolbar-desktop'
+      , results_count: products_count
+      , is_collection: true
+      , terms: terms
+      , sort_options: sort_options
+      , default_sort_by: default_sort_by
+      , sort_by: sort_by
+      , active_filters: active_filters
+      , color_layout: color_layout
+      ,
     %}
-    {% render 'findify-toolbar-mobile', 
-      results_count: products_count, 
-      is_collection: true, 
-      terms: terms,
-      sort_options: sort_options, 
-      default_sort_by: default_sort_by, 
-      sort_by: sort_by, 
-      active_filters: active_filters
+    {% render 'findify-toolbar-mobile'
+      , results_count: products_count
+      , is_collection: true
+      , terms: terms
+      , sort_options: sort_options
+      , default_sort_by: default_sort_by
+      , sort_by: sort_by
+      , active_filters: active_filters
     %}
     {% if products_count > 0 %}
-    <div id="findify-search-main" class="findify-search-main">
-      <div class="findify-loader-overlay">
-        {% render 'findify-loader' %}
-      </div>
+      <div id="findify-search-main" class="findify-search-main">
+        <div class="findify-loader-overlay">
+          {% render 'findify-loader' %}
+        </div>
 
-      <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
-        <div class="findify-filters-container">
-          <button id="findify-modal-filters-header" class="findify-modal-header">
-            <span class="findify-modal-header-title">Filters</span>
-            {% render 'findify-icon-cross' %}
-          </button>
-          {% if active_filters != 'none' %}
-            <div class="findify-search-header-breadcrumb">
-              {% render 'findify-filter-selected', active_filters: active_filters, color_layout: color_layout %}
+        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
+          <div class="findify-filters-container">
+            <button id="findify-modal-filters-header" class="findify-modal-header">
+              <span class="findify-modal-header-title">Filters</span>
+              {% render 'findify-icon-cross' %}
+            </button>
+            {% if active_filters != 'none' %}
+              <div class="findify-search-header-breadcrumb">
+                {% render 'findify-filter-selected'
+                  , active_filters: active_filters
+                  , color_layout: color_layout %}
+              </div>
+            {% endif %}
+            <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+              {% comment %}
+                This element #findify-filters will be replaced with rendered html from sections/findify-filters
+              {% endcomment %}
             </div>
-        {% endif %}
-          <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+            <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
+          </div>
+        </aside>
+
+        <div class="findify-products-section">
+          {% if use_lazy_loading_pagination == 'true' %}
+            <div class="findify-lazy-loading-pagination-container">
+              {% if curr_page == 1 %}
+                {% assign hide_load_prev = true %}
+              {% else %}
+                {% assign hide_load_prev = false %}
+              {% endif %}
+              {% render 'findify-button'
+                , id: 'findify-pagination-load-previous'
+                , text: 'Load previous'
+                , hide: hide_load_prev %}</div>
+          {% endif %}
+          <div id="findify-product-grid" class="findify-product-list">
             {% comment %}
-            This element #findify-filters will be replaced with rendered html from sections/findify-filters
+              This element #findify-product-grid will be populated with rendered html from sections/findify-products.liquid
             {% endcomment %}
           </div>
-          <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
-        </div>
-      </aside>
-
-      <div class="findify-products-section">
-        {% if use_lazy_loading_pagination == 'true' %}   
-          <div class="findify-lazy-loading-pagination-container">
-            {% if curr_page == 1 %}
-              {% assign hide_load_prev = true %}
-            {% else %}
-              {% assign hide_load_prev = false %}
-            {% endif %}
-            {% render 'findify-button', id: 'findify-pagination-load-previous', text: 'Load previous', hide: hide_load_prev %}</div>
-          {% endif %}
-        <div id="findify-product-grid" class="findify-product-list">
-          {% comment %}
-          This element #findify-product-grid will be populated with rendered html from sections/findify-products.liquid
-          {% endcomment %}
-        </div>
-        <div id='findify-pagination'>
-          {% comment %}
-          This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
-          {% endcomment %}
-          {% if use_lazy_loading_pagination == 'true' %} 
-            {% if curr_page < last_page and lazy_loading_pagination_threshold > 0 %}{% render 'findify-lazy-loading-pagination', id: 'findify-grid' %}{% endif %}
-            <div class="findify-lazy-loading-pagination-container">
-              {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
+          <div id='findify-pagination'>
+            {% comment %}
+              This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+            {% if use_lazy_loading_pagination == 'true' %}
+              {% if curr_page < last_page and lazy_loading_pagination_threshold > 0 %}
+                {% render 'findify-lazy-loading-pagination'
+                  , id: 'findify-grid' %}{% endif %}
+              <div class="findify-lazy-loading-pagination-container">
+                {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
                   {% assign hide_load_more = false %}
                 {% elsif curr_page == last_page %}
                   {% assign hide_load_more = true %}
                 {% else %}
                   {% assign hide_load_more = true %}
-              {% endif %}
-              {% render 'findify-button', id: 'findify-pagination-load-more', text: 'Load more', hide: hide_load_more %}
-            </div>
-          {% endif %}
-        </div> 
+                {% endif %}
+                {% render 'findify-button'
+                  , id: 'findify-pagination-load-more'
+                  , text: 'Load more'
+                  , hide: hide_load_more %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
       </div>
-    </div>
     {% else %}
-    <div class=findify-search-no-results>
-      <h6>No results</h6>
-    </div>
+      <div class=findify-search-no-results>
+        <h6>No results</h6>
+      </div>
     {% endif %}
   </div>
-</div>
 
-<script>
-  /*
-  * Execution at the end of the Findify render cycle.
-  * Bind DOM events, eg filters, sorting, analytics, product card features.
-  */
-  const onFindifySearchDone = () => {
-    initFindifyFiltersEvents();
-    initFindifySortingEvents();
-    // Add/remove class 'loading' from #findify-search-main element on filtering and sorting;
-    setFindifyIsLoading(false);
-    productCardAnalytics('#findify-product-grid');
-    if("{{ use_lazy_loading_pagination }}" == "true") {
+  <script>
+      /* IMPORTANT: Script tags are executed within this file element. */
+      initFindifyFiltersEvents();
+      initFindifySortingEvents();
+
+      if("{{ use_lazy_loading_pagination }}" == "true") {
         initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
       }
-  }
-  onFindifySearchDone()
 
-</script>
+      setFindifyIsLoading(false);
+  </script>
+</div>
+
 
 {% schema %}
-{
-"name": "Findify collection",
-"tag": "section",
-"class": "section",
-"settings": []
-}
+  {
+    "name": "Findify collection",
+    "tag": "section",
+    "class": "section",
+    "settings": []
+  }
 {% endschema %}

@@ -1,20 +1,24 @@
 <div class="findify-search-header mobile">
-    <label class="findify-search-header-label">
-        {%if is_collection == true%}
-        {{ results_count }} products
-        {% else %}
-        Showing {{ results_count }} results for "<b>{{terms}}</b>"
-        {% endif %}
-    </label>
-    <div class="findify-search-header-toolbar">
-        <div class="findify-search-header-toolbar-actions">
-            <button id="findify-modal-toggler" class="findify-search-actions-toggle-btn">
-                {% render 'findify-icon-filter' %}
-                FILTER BY
-            </button>
-        </div>
-        <div>
-            {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by, is_modal: true %}
-        </div>
+  <label class="findify-search-header-label">
+    {% if is_collection == true %}
+      {{ results_count }} products
+    {% else %}
+      Showing {{ results_count }} results for "<b>{{ terms }}</b>"
+    {% endif %}
+  </label>
+  <div class="findify-search-header-toolbar">
+    <div class="findify-search-header-toolbar-actions">
+      <button id="findify-modal-toggler" class="findify-search-actions-toggle-btn">
+        {% render 'findify-icon-filter' %}
+        FILTER BY
+      </button>
     </div>
+    <div>
+      {% render 'findify-sorting'
+        , options: sort_options
+        , default: default_sort_by
+        , selected: sort_by
+        , is_modal: true %}
+    </div>
+  </div>
 </div>

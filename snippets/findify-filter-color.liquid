@@ -1,42 +1,45 @@
 {% if color_filter_setting == "label" %}
-    {% render 'findify-filter-text',
-    filterName: filterName,
-    filterType: filterType,
-    componentType: componentType,
-    items: items,
-    size: size,
-    limit: limit,
-    isColorLabel: true
-    %}
+  {% render 'findify-filter-text'
+    , filterName: filterName
+    , filterType: filterType
+    , componentType: componentType
+    , items: items
+    , size: size
+    , limit: limit
+    , isColorLabel: true
+  %}
 {% else %}
-    {% if color_filter_setting != 'color'  %} {% render 'findify-filter-search-input', filterName: filterName %} {% endif %}
-    <div class="findify-filters--body-wrapper body-wrapper-layout-{{color_filter_setting}}">
-        {%- for filterValues in items -%}
-            {%- assign name = filterName -%}
-            {%- assign type = filterType -%}
-            {%- assign filterValue = filterValues | split: '~' -%}
-            {%- assign name = filterName -%}
-            {%- assign value = filterValue[0] -%}
-            {%- assign borderColor = filterValue[1] -%}
-            {%- assign count = filterValue[2] -%}
-            {%- assign selected = filterValue[3] -%}
-            {%- assign has_children = has_children[4] -%}
+  {% if color_filter_setting != 'color' %}
+    {% render 'findify-filter-search-input'
+      , filterName: filterName %}
+  {% endif %}
+  <div class="findify-filters--body-wrapper body-wrapper-layout-{{color_filter_setting}}">
+    {%- for filterValues in items -%}
+      {%- assign name = filterName -%}
+      {%- assign type = filterType -%}
+      {%- assign filterValue = filterValues | split: '~' -%}
+      {%- assign name = filterName -%}
+      {%- assign value = filterValue[0] -%}
+      {%- assign borderColor = filterValue[1] -%}
+      {%- assign count = filterValue[2] -%}
+      {%- assign selected = filterValue[3] -%}
+      {%- assign has_children = has_children[4] -%}
 
-            {% if value != 'nm' %}
-                {% render 'findify-filter-checkbox', 
-                    name: name,
-                    type: type,
-                    selected: selected,
-                    count: count,
-                    componentType: componentType,
-                    value: value,
-                    colorName: value,
-                    borderColor: borderColor,
-                    index: forloop.index,
-                    limit: limit,
-                    color_filter_setting: color_filter_setting
-                %}
-            {% endif %}
-        {% endfor %}
-    </div>
+      {% if value != 'nm' %}
+        {% render 'findify-filter-checkbox'
+          ,  name: name
+          , type: type
+          , selected: selected
+          , count: count
+          , componentType: componentType
+          , value: value
+          , colorName: value
+          , borderColor: borderColor
+          , index: forloop.index
+          , limit: limit
+          , color_filter_setting: color_filter_setting
+        %}
+      {% endif %}
+    {% endfor %}
+  </div>
 {% endif %}

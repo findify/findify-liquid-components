@@ -1,52 +1,148 @@
-{% comment %} Analytics, Have to be first script to inject! {% endcomment %}
+{% comment %} Analytics elements MUST be the first to be loaded {% endcomment %}
+{% if product %}
+  <div
+    id="findify-analytics-product"
+    data-findify-item-id="{{product.id}}"
+    data-findify-variant-item-id="{{product.selected_or_first_available_variant.id}}"></div>
+{% endif %}
+
+{% if cart %}
+  <div data-findify-event="update-cart">
+    {% for item in cart.items %}
+      <div
+        data-findify-item-id="{{ item.product_id }}"
+        data-findify-variant-item-id="{{item.variant_id}}"
+        data-findify-unit-price="{{ item.price | money_without_currency }}"
+        data-findify-quantity="{{ item.quantity }}"></div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 <script src="{{ 'findify-analytics.js' | asset_url }}" defer></script>
 
-<link rel="stylesheet" href="{{ 'findify-theme-overwrite.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'findify-product-swatches.css' | asset_url }}" media="print" onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-variables-defaults.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-theme-overwrite.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
-<link rel="stylesheet" href="{{ 'findify-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'findify-variables-defaults.css' | asset_url }}" media="print" onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-product-swatches.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
-<link rel="stylesheet" href="{{ 'findify-color-mapping.css' | asset_url }}" media="print" onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-product-card.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+<script src="{{ 'findify-product-card.js' | asset_url }}" defer></script>
+
+<link
+  rel="stylesheet"
+  href="{{ 'findify-color-mapping.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
 <script src="{{ 'findify-swiper.js' | asset_url }}" defer="defer"></script>
-<link rel="stylesheet" href="{{ 'findify-swiper.css' | asset_url }}" media="print" onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-swiper.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
-<link rel="stylesheet" href="{{ 'findify-button.css' | asset_url }}" media="print" onload="this.media='all'">
+<link
+  rel="stylesheet"
+  href="{{ 'findify-button.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
 {% comment %} Autocomplete {% endcomment %}
 <script src="{{ 'findify-autocomplete.js' | asset_url }}" defer></script>
-<link rel="stylesheet" href="{{ 'findify-autocomplete.css' | asset_url }}" async />
+<link
+  rel="stylesheet"
+  href="{{ 'findify-autocomplete.css' | asset_url }}"
+  async />
 
-{% comment %} Recommendation {% endcomment %}
-<link rel="stylesheet" href="{{ 'findify-recommendation.css' | asset_url }}" media="print" onload="this.media='all'">
+  {% comment %} Recommendation {% endcomment %}
+<link
+  rel="stylesheet"
+  href="{{ 'findify-recommendation.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
 
 {% comment %} Search and Collection {% endcomment %}
 {% if search or collection %}
-    <link rel="stylesheet" href="{{ 'findify-grid.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'findify-promo-card.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'findify-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-grid.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-promo-card.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-pagination.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
 
-    <script src="{{ 'findify-sidebar-mobile.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'findify-sidebar-mobile.css' | asset_url }}" media="print" onload="this.media='all'">
-    
-    <script src="{{ 'findify-filter.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'findify-filter.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'findify-filter-selected.css' | asset_url }}" media="print" onload="this.media='all'">
-    
-    <script src="{{ 'findify-sorting.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'findify-sorting.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'findify-sidebar-mobile.js' | asset_url }}" defer></script>
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-sidebar-mobile.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
 
-    <script src="{{ 'findify-lazy-loading-pagination.js' | asset_url }}" defer></script>
+  <script src="{{ 'findify-filter.js' | asset_url }}" defer></script>
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-filter.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-filter-selected.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+
+  <script src="{{ 'findify-sorting.js' | asset_url }}" defer></script>
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-sorting.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+
+  <script src="{{ 'findify-lazy-loading-pagination.js' | asset_url }}" defer></script>
 
 {% endif %}
 
 {% comment %} Search {% endcomment %}
 {% if search %}
-    <script src="{{ 'findify-content-tabs.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'findify-content-tabs.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'findify-content-tabs.js' | asset_url }}" defer></script>
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-content-tabs.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
 
-    <script src="{{ 'findify-content.js' | asset_url }}" defer></script>
-    <link rel="stylesheet" href="{{ 'findify-content-grid.css' | asset_url }}" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="{{ 'findify-content-card.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'findify-content.js' | asset_url }}" defer></script>
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-content-grid.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
+  <link
+    rel="stylesheet"
+    href="{{ 'findify-content-card.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'">
 {% endif %}
