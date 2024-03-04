@@ -9,66 +9,67 @@
 {%- endif -%}
 
 <div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
-<div class="findify-autocomplete-content">
+  <div class="findify-autocomplete-content">
     <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
       <h3>{{ suggestionsTitle }}</h3>
       <ul>
         {% for suggestion in suggestions %}
           <li>
-            <a 
-              class="findify-suggestion" 
+            <a
+              class="findify-suggestion"
               href='/search?q={{ suggestion }}'
-              data-findify-suggestion
-            >
+              data-findify-suggestion>
               {{ suggestion }}
             </a>
           </li>
         {% endfor %}
       </ul>
     </div>
-  
 
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
         <h3>{{ productsTitle }}</h3>
-          {% render 'findify-autocomplete-view-all', query: query, position: 'top' %}
+        {% render 'findify-autocomplete-view-all'
+          , query: query
+          , position: 'top' %}
       </div>
-      <div id="findify-autocomplete-products" class="products-container">
-      </div>
+      <div id="findify-autocomplete-products" class="products-container"></div>
       <div class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}
       </div>
     </div>
 
-{% comment %}
+  {% comment %}
     <div class="content-wrapper">
-      <h3>{{ findifyAutocompleteContentTitle }}</h3>
-<!--
-  if you want to display specific field create a variable with prefix - "findify_" and field name - "image_url".
-  Field name should be the same as in findify content response.
---> 
-      <div class="content-container">
-          <div class="content-item" data-content-url="{findify_url}">
-            <div class="content_image">
-              <img src="{findify_image_url}"/>
-            </div>
-            <div class="content_title">{findify_title}</div>
-          </div>
-      </div>
+    <h3>{{ findifyAutocompleteContentTitle }}</h3>
+    <!--
+    if you want to display specific field create a variable with prefix - "findify_" and field name - "image_url".
+    Field name should be the same as in findify content response.
+    -->
+    <div class="content-container">
+    <div class="content-item" data-content-url="{findify_url}">
+    <div class="content_image">
+    <img src="{findify_image_url}"/>
     </div>
-{% endcomment %}
+    <div class="content_title">{findify_title}</div>
+    </div>
+    </div>
+    </div>
+  {% endcomment %}
+
+  </div>
+  {% render 'findify-autocomplete-view-all'
+    , query: query
+    , position: 'bottom' %}
+
+
+  <script>
+      /* IMPORTANT: Script tags are executed within this file element. */
+
+      initFindifyAutocompleteEvents();
+  </script>
 
 </div>
-  {% render 'findify-autocomplete-view-all', query: query, position: 'bottom' %}
-</div>
-
-<script class="findify-script">
-  const onFindifyAutocompleteDone = () => {
-    initFindifyAutocompleteEvents();
-  }
-
-  onFindifyAutocompleteDone()
-</script>
 
 {% schema %}
   {

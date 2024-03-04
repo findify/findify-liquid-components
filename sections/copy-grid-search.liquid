@@ -1,0 +1,95 @@
+
+<div id="findify-search" class="findify-search-section">
+  {% if results_count > 0 -%}
+    <h1 class="findify-heading">SEARCH RESULTS</h1>
+    
+    {% if show_content_integration %}
+      <div id="findify-product-result-content" class="findify-tab-content" style="display: block;">
+    {% endif %}
+
+    <div class="findify-search-container">
+
+
+      <div id="findify-search-main" class="findify-search-main">
+        <div class="findify-loader-overlay">
+  
+        </div>
+
+        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
+          <div class="findify-filters-container">
+            <button id="findify-modal-filters-header" class="findify-modal-header">
+              <span class="findify-modal-header-title">Filters</span>
+
+            </button>
+            <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+
+            </div>
+            <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
+          </div>
+        </aside>
+    <!-- product grid section! -->
+      <div class="findify-products-section">
+              {% if use_lazy_loading_pagination == 'true' %}   
+              <div class="findify-lazy-loading-pagination-container">
+                {% if curr_page == 1 %}
+                  {% assign hide_load_prev = true %}
+                {% else %}
+                  {% assign hide_load_prev = false %}
+                {% endif %}
+             
+              {% endif %}
+          <div id="findify-product-grid" class="findify-product-list" >
+              {% comment %}
+              This element #findify-product-grid will be replaced with rendered html from sections/findify-products
+              {% endcomment %}
+          </div>
+          <div id='findify-pagination'>
+            {% comment %}
+            This element #findify-pagination will be replaced with rendered html from sections/findify-pagination
+            {% endcomment %}
+            {% if use_lazy_loading_pagination == 'true' %} 
+
+              <div class="findify-lazy-loading-pagination-container">
+                {% if curr_page < last_page and lazy_loading_pagination_threshold == 0 %}
+                    {% assign hide_load_more = false %}
+                  {% elsif curr_page == last_page %}
+                    {% assign hide_load_more = true %}
+                  {% else %}
+                    {% assign hide_load_more = true %}
+                {% endif %}
+          
+              </div>
+          {% endif %}
+          </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      {% if show_content_integration %}
+        </div>
+        {% for tab in tabs %}
+          {% assign content_id = tab | split: '~' | first %}
+          <div id="{{content_id}}-content" class="findify-tab-content">
+     
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="findify-zero-result-container" style="text-align: center;">
+      <h1>No results for "{{ terms }}"</h1>
+      <h3>Check the spelling or try less specific search terms</h3>
+    </div>
+    <div id={{ recommendation_id }} class='swiper' ></div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+"name": "Findify search",
+"tag": "section",
+"class": "section",
+"settings": []
+}
+{% endschema %} 

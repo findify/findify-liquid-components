@@ -6,37 +6,24 @@
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%} 
 {%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first -%}
 
-<div class='findify-recommendation-container'>
+{%  comment  %}
+  IMPORTANT: The outer div will not be inserted on the DOM.
+{% endcomment %}
+<div id="{{ recommendation_id }}" class='findify-recommendation-container'>
   <h1 class='findify-swiper-title'> {{ recommendation_title }}</h1>
 
-  <div id="{{ recommendation_id  }}" class='swiper'>
+  <div class='swiper'>
     <div class="swiper-wrapper" id="findify-products-{{recommendation_id}}"> 
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-pagination"></div>
   </div>
-</div>
 
+  <script>
+  /* IMPORTANT: Script tags are executed within this file element. */
+  const selector = "#{{ recommendation_id }} .swiper";
 
-{% schema %}
-{
-    "name": "Findify recommendation",
-    "tag": "section",
-    "class": "section",
-    "settings": []
-}
-{% endschema %}
-
-      
-<script>
-/*
-* This script block will be executed at the end of every Findify render cycle.
-* This is the ideal place where to bind all the events of the DOM, such as filters or button events.
-*/
-  
-  const selector = "#{{ recommendation_id  }}";
-  
   const swiper = new Swiper(selector, {
     direction: "horizontal",
     loop: true,
@@ -67,9 +54,16 @@
       prevEl: ".swiper-button-prev",
     },
   });
-  
-  {% comment %} Note: Function: productCardAnalytics is a part of Assets => findify-analytics.js file {% endcomment %}
+
   productCardAnalytics(`#findify-products-{{recommendation_id}}`)
-  
-  
 </script>
+</div>
+
+{% schema %}
+{
+    "name": "Findify recommendation",
+    "tag": "section",
+    "class": "section",
+    "settings": []
+}
+{% endschema %}
