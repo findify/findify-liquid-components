@@ -1,50 +1,45 @@
-
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | replace: '\/', '/' | replace: '\u0026', '&' | url_decode -%}
 {%- assign parameters = page_url | split: 'sections=findify-promo-card&' | last -%}
 
 {%- assign cta_text = parameters | split: 'cta_text=' | last | split: '&' | first -%}
 {%- assign footer = parameters | split: 'footer=' | last | split: '&' | first -%}
-{%- assign image_url =parameters | split: 'image_url=' | last | split: '&' | first -%}
+{%- assign image_url = parameters | split: 'image_url=' | last | split: '&' | first -%}
 {%- assign redirect_link = parameters | split: 'redirect_link=' | last | split: '&' | first -%}
 {%- assign sub_header = parameters | split: 'sub_header=' | last | split: '&' | first -%}
 {%- assign top_header = parameters | split: 'top_header=' | last | split: '&' | first -%}
 {%- assign id = parameters | split: 'id=' | last | split: '&' | first -%}
 
-<div id="findify-promo-card-{{id}}" class="findify-promo-card" >
-    {% if image_url != ''  %}
-        <style>
-            #findify-promo-card-{{id}} .findify-promo-card-wrapper {
-                background-image: url({{image_url}});
-            }
-        </style>
-    {% endif %}
-    <div class="findify-promo-card-wrapper">
-        <div class="findify-promo-card-title-container">
-            <h4 class="findify-promo-card-top-header">{{top_header}}</h4>
-            <p class="findify-promo-card-subheader">{{sub_header}}</p>
-        </div>
-        {% if cta_text != '' %}
-            <a 
-            href="{{redirect_link}}"
-            class="findify-promo-card-cta-button"
-        >{{cta_text}}
-        </a>
-        {% endif %}
+<div id="findify-promo-card-{{id}}" class="findify-promo-card">
+  {% if image_url != '' %}
+    <style>
+      #findify-promo-card-{{ id }} .findify-promo-card-wrapper {
+        background-image: url('{{image_url}}');
+      }
+    </style>
+  {% endif %}
+  <div class="findify-promo-card-wrapper">
+    <div class="findify-promo-card-title-container">
+      <h4 class="findify-promo-card-top-header">{{ top_header }}</h4>
+      <p class="findify-promo-card-subheader">{{ sub_header }}</p>
     </div>
-    {% comment %}
-        <div class="findify-promo-card-footer">{{footer}}</div>
-    {% endcomment %}
+    {% if cta_text != '' %}
+      <a href="{{redirect_link}}" class="findify-promo-card-cta-button">{{ cta_text }}</a>
+    {% endif %}
+  </div>
+{% comment %}
+  <div class="findify-promo-card-footer">{{footer}}</div>
+{% endcomment %}
 </div>
 
 {% schema %}
-    {
-      "name": "Findify promo card",
-      "settings": []
-    }
-  {% endschema %}
-  
-  {% stylesheet %}
-  {% endstylesheet %}
-  
-  {% javascript %}
-  {% endjavascript %}
+  {
+    "name": "Findify promo card",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

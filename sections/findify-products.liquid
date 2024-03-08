@@ -1,15 +1,20 @@
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '\u0026', '&' -%}
 {%- assign productsParam = page_url | split: "products=" | last | split: '&' | first -%}
-{%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first  -%}
-{%- assign widget_type = page_url | split: "widget_type=" | last | split: '&' | first  -%}
-{%- if page_url contains "additional_class="%}{%- assign additional_class = page_url | split: "additional_class=" | last | split: '&' | first  -%}{%- endif -%}
+{%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first -%}
+{%- assign widget_type = page_url | split: "widget_type=" | last | split: '&' | first -%}
+{%- if page_url contains "additional_class=" %}
+  {%- assign additional_class = page_url | split: "additional_class=" | last | split: '&' | first -%}{%- endif -%}
 
-{%- assign products= productsParam | split: ";" -%}
+{%- assign products = productsParam | split: ";" -%}
 
 <div class="findify-products-section">
   <div class="findify-product-list">
     {% for product in products %}
-      {% render 'findify-product-card', card_product:product, widget_type: widget_type, colorMappingParam: colorMappingParam, additional_class: additional_class %}
+      {% render 'findify-product-card'
+        , card_product: product
+        , widget_type: widget_type
+        , colorMappingParam: colorMappingParam
+        , additional_class: additional_class %}
     {% endfor %}
   </div>
 </div>

@@ -1,18 +1,18 @@
 .adapt-content-img {
-    width: 100%;
-    aspect-ratio: 2/1;
-    object-fit: cover;
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
 }
 
 .content-fallback-img {
-    background: #F9F9F9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.findify-rating-container{
+.findify-rating-container {
   align-items: center;
   display: flex;
-  gap:10px;
+  gap: 10px;
 }

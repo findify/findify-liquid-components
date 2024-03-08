@@ -1,21 +1,21 @@
-
 {%- assign nestLevelCount = 1 -%}
 {%- assign filterNameMode = filterName -%}
 {% if items.size > 4 %}
-    {% render 'findify-filter-search-input', filterName: filterNameMode %}
+  {% render 'findify-filter-search-input'
+    , filterName: filterNameMode %}
 {% endif %}
 <div class="findify-filters--body-wrapper">
-    {% if filterType == "category" %}
-        {%- assign nestLevelCountString = nestLevelCount | append: "" -%}
-        {%- assign filterNameMode = filterNameMode | append: nestLevelCountString -%}
-    {% endif %}
+  {% if filterType == "category" %}
+    {%- assign nestLevelCountString = nestLevelCount | append: "" -%}
+    {%- assign filterNameMode = filterNameMode | append: nestLevelCountString -%}
+  {% endif %}
 
-    {%- for filterValues in items -%}
+  {%- for filterValues in items -%}
     {%- assign values = filterValues -%}
 
     {% if filterValues contains "^^" %}
-        {%- assign values = filterValues | split: '^^' | first -%}
-        {%- assign children = filterValues | split: '^^' | last -%}
+      {%- assign values = filterValues | split: '^^' | first -%}
+      {%- assign children = filterValues | split: '^^' | last -%}
     {% endif %}
 
     {%- assign filterValue = values | split: '~' -%}
@@ -24,23 +24,30 @@
     {%- assign selected = filterValue[2] -%}
     {%- assign hasChildren = filterValue[3] -%}
 
-    {% render 'findify-filter-checkbox',
-        name: filterNameMode,
-        type: filterType,
-        selected: selected,
-        value: val,
-        count: count,
-        componentType: componentType,
-        index: forloop.index,
-        hasChildren: hasChildren,
-        limit: limit,
-        isColorLabel: isColorLabel
+    {% render 'findify-filter-checkbox'
+      , name: filterNameMode
+      , type: filterType
+      , selected: selected
+      , value: val
+      , count: count
+      , componentType: componentType
+      , index: forloop.index
+      , hasChildren: hasChildren
+      , limit: limit
+      , isColorLabel: isColorLabel
     %}
 
     {% if children != blank %}
-        {% assign nestLevelCount = nestLevelCount | plus: 1 %}
-        {% render 'findify-filter-nested', items: children, filterName: filterName, type: filterType, componentType: componentType, index: forloop.index, limit: limit, level: nestLevelCount %}
+      {% assign nestLevelCount = nestLevelCount | plus: 1 %}
+      {% render 'findify-filter-nested'
+        , items: children
+        , filterName: filterName
+        , type: filterType
+        , componentType: componentType
+        , index: forloop.index
+        , limit: limit
+        , level: nestLevelCount %}
     {% endif %}
 
-    {%- endfor -%}
+  {%- endfor -%}
 </div>

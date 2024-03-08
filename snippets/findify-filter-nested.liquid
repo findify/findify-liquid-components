@@ -1,40 +1,46 @@
 <div class="findify-filters--body-wrapper findify-filters--nested-body-wrapper">
 
-    {% if items contains '^' %}
-        {%- assign splittedItems = items | split: '^' -%}
-        {%- assign firstElem = splittedItems | first -%}
-        {%- assign elemToReplace = firstElem | append: '^' -%}
-        {%- assign nestedFilterValues = items | replace: elemToReplace, '' -%}
-        {%- assign items = firstElem -%}
-    {% endif %}
+  {% if items contains '^' %}
+    {%- assign splittedItems = items | split: '^' -%}
+    {%- assign firstElem = splittedItems | first -%}
+    {%- assign elemToReplace = firstElem | append: '^' -%}
+    {%- assign nestedFilterValues = items | replace: elemToReplace, '' -%}
+    {%- assign items = firstElem -%}
+  {% endif %}
 
-    {%- assign values = items | split: '-' -%}
+  {%- assign values = items | split: '-' -%}
 
-    {%- for filterValues in values  -%}
-        {%- assign filterValue = filterValues | split: '~' -%}
-        {%- assign name = filterName | append: level %}
-        {%- assign value = filterValue[0] -%}
-        {%- assign count = filterValue[1] -%}
-        {%- assign selected = filterValue[2] -%}
-        {%- assign hasChildren = filterValue[3] -%}
+  {%- for filterValues in values -%}
+    {%- assign filterValue = filterValues | split: '~' -%}
+    {%- assign name = filterName | append: level %}
+    {%- assign value = filterValue[0] -%}
+    {%- assign count = filterValue[1] -%}
+    {%- assign selected = filterValue[2] -%}
+    {%- assign hasChildren = filterValue[3] -%}
 
-    {% render'findify-filter-checkbox', 
-        name: name,
-        type: type,
-        selected: selected,
-        value: value,
-        count: count,
-        componentType: componentType,
-        index: index,
-        hasChildren: hasChildren,
-        limit: limit 
+    {% render'findify-filter-checkbox'
+      ,  name: name
+      , type: type
+      , selected: selected
+      , value: value
+      , count: count
+      , componentType: componentType
+      , index: index
+      , hasChildren: hasChildren
+      , limit: limit
     %}
 
     {% if nestedFilterValues != blank %}
-        {% assign nestLevelCount = level | plus: 1 %}
-        {% render 'findify-filter-nested', items: nestedFilterValues, filterName: filterName, type: type, componentType: componentType, index: forloop.index, level: nestLevelCount %}
+      {% assign nestLevelCount = level | plus: 1 %}
+      {% render 'findify-filter-nested'
+        , items: nestedFilterValues
+        , filterName: filterName
+        , type: type
+        , componentType: componentType
+        , index: forloop.index
+        , level: nestLevelCount %}
     {% endif %}
 
-{%- endfor -%}
+  {%- endfor -%}
 
 </div>

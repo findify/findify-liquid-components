@@ -1,114 +1,114 @@
 .findify-sorting {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
 }
 
 .findify-sorting-body {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
 }
 
 .findify-sorting-btn {
-    height: 46px;
-    padding: 0 10px 0 15px;
-    width: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--findify-cta-background-color);
-    border: 1px solid var(--findify-cta-border-color);
-    color: var(--findify-text-color);
+  height: 46px;
+  padding: 0 10px 0 15px;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--findify-cta-background-color);
+  border: 1px solid var(--findify-cta-border-color);
+  color: var(--findify-text-color);
 }
 
 .findify-sorting-btn:hover {
-    background: var(--findify-cta-background-color-hover);
+  background: var(--findify-cta-background-color-hover);
 }
 
-.findify-sorting-btn>svg {
-    transform: rotate(0)
+.findify-sorting-btn > svg {
+  transform: rotate(0);
 }
 
 .findify-sorting.open .findify-sorting-btn {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.findify-sorting.open .findify-sorting-btn>svg {
-    transform: rotate(180deg);
+.findify-sorting.open .findify-sorting-btn > svg {
+  transform: rotate(180deg);
 }
 
 .findify-sorting-list {
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    width: 160px;
-    border: 1px solid var(--findify-cta-border-color);
-    border-top: none;
-    background-color: var(--findify-background-color);
-    padding: 0;
-    right: 0;
-    top: 100%;
-    margin: 0;
-    z-index: 5;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  width: 160px;
+  border: 1px solid var(--findify-cta-border-color);
+  border-top: none;
+  background-color: var(--findify-background-color);
+  padding: 0;
+  right: 0;
+  top: 100%;
+  margin: 0;
+  z-index: 5;
 }
 
 .findify-sorting.open .findify-sorting-list {
-    display: flex;
+  display: flex;
 }
 
-.findify-sorting-list>li {
-    width: 100%;
-    padding: 0 5px 0 15px;
-    cursor: pointer;
+.findify-sorting-list > li {
+  width: 100%;
+  padding: 0 5px 0 15px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  height: 46px;
+  align-items: center;
+}
+
+.findify-sorting-list > li:hover {
+  background-color: var(--findify-cta-background-color-hover);
+}
+
+.findify-sorting-list > li > span {
+}
+
+@media (min-width: 767px) {
+  .findify-sorting.mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .findify-sorting.desktop {
+    display: none;
+  }
+
+  .findify-sorting-mobile-list {
+    height: 100%;
+    padding-left: 15px;
+  }
+
+  .findify-sorting-mobile-list li {
     list-style: none;
+    justify-content: left;
     display: flex;
-    height: 46px;
+  }
+
+  .findify-sorting-mobile-list li input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .findify-sorting-mobile-list li input:checked {
+    accent-color: var(--findify-text-color);
+  }
+
+  .findify-sorting-mobile-list li span {
+    display: flex;
     align-items: center;
-}
-
-.findify-sorting-list>li:hover {
-    background-color: var(--findify-cta-background-color-hover);
-}
-
-.findify-sorting-list>li>span {}
-
-@media(min-width: 767px) {
-    .findify-sorting.mobile {
-        display: none;
-    }
-}
-
-@media(max-width: 768px) {
-    .findify-sorting.desktop {
-        display: none;
-    }
-
-    .findify-sorting-mobile-list {
-        height: 100%;
-        padding-left: 15px;
-    }
-
-    .findify-sorting-mobile-list li {
-        list-style: none;
-        justify-content: left;
-        display: flex;
-    }
-
-    .findify-sorting-mobile-list li input {
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-
-    }
-
-    .findify-sorting-mobile-list li input:checked {
-        accent-color: var(--findify-text-color);
-    }
-
-    .findify-sorting-mobile-list li span {
-        display: flex;
-        align-items: center;
-    }
+  }
 }

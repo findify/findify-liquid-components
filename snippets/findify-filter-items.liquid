@@ -1,34 +1,33 @@
 <div class="findify-filters--body-container" aria-expanded="false">
-    {% if filterType == "text" or filterType == "category" %}
-        {% if componentType == "text" %}
-        {% render 'findify-filter-text',
-            filterName: filterName,
-            filterType: filterType,
-            componentType: componentType,
-            items: items,
-            size: size,
-            limit: limit
-        %}
-        {% elsif componentType == "color" %}
-        {% render 'findify-filter-color',
-            filterName: filterName,
-            filterType: filterType,
-            componentType: componentType
-            items: items,
-            size: size,
-            limit: limit,
-            color_filter_setting: color_filter_setting
-        %}
-        {% endif %}
+  {% if filterType == "text" or filterType == "category" %}
+    {% if componentType == "text" %}
+      {% render 'findify-filter-text'
+        , filterName: filterName
+        , filterType: filterType
+        , componentType: componentType
+        , items: items
+        , size: size
+        , limit: limit
+      %}
+    {% elsif componentType == "color" %}
+      {% render 'findify-filter-color'
+        , filterName: filterName
+        , filterType: filterType
+        , componentType: componentType items: items
+        , size: size
+        , limit: limit
+        , color_filter_setting: color_filter_setting
+      %}
     {% endif %}
+  {% endif %}
 
-    {% if filterType == "range" %}
-        {% render 'findify-filter-range',
-            filterName: filterName,
-            filterType: filterType,
-            componentType: componentType,
-            items: items,
-            currency:currency
-        %}
-    {% endif %}
+  {% if filterType == "range" %}
+    {% render 'findify-filter-range'
+      , filterName: filterName
+      , filterType: filterType
+      , componentType: componentType
+      , items: items
+      , currency: currency
+    %}
+  {% endif %}
 </div>

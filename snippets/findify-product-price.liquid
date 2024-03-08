@@ -1,9 +1,8 @@
-
 {%- liquid
   assign money_price = price
   if settings.currency_code_enabled
     assign money_price = price | times: 100 | money_with_currency
-  else 
+  else
     assign money_price = price | times: 100 | money
   endif
 -%}

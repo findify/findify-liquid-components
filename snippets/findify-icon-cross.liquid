@@ -1,12 +1,29 @@
 {% if size %}
-    {% assign width = size %}
-    {% assign height = size %}
-  {% else %}
-    {% assign width = 15 %}
-    {% assign height = 15 %}
+  {% assign width = size %}
+  {% assign height = size %}
+{% else %}
+  {% assign width = 15 %}
+  {% assign height = 15 %}
 {% endif %}
 
-<svg width="{{ width }}" height="{{ height }}" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="0.707107" y1="1.47453" x2="13.7071" y2="14.4745" stroke="black" stroke-width="1.5"></line>
-    <line x1="13.7071" y1="1.70711" x2="0.707107" y2="14.7071" stroke="black" stroke-width="1.5"></line>
+<svg
+  width="{{ width }}"
+  height="{{ height }}"
+  viewBox="0 0 15 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <line
+    x1="0.707107"
+    y1="1.47453"
+    x2="13.7071"
+    y2="14.4745"
+    stroke="black"
+    stroke-width="1.5"></line>
+  <line
+    x1="13.7071"
+    y1="1.70711"
+    x2="0.707107"
+    y2="14.7071"
+    stroke="black"
+    stroke-width="1.5"></line>
 </svg>

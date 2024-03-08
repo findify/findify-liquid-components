@@ -1,5 +1,4 @@
-
-{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/','/' | replace:'\u0026','&' | url_decode  -%}
+{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '\u0026', '&' | url_decode -%}
 {%- assign filtersParam = page_url | split: "filters=" | last | split: '&' | first -%}
 {%- assign currency = page_url | split: "currency=" | last | split: '&' | first -%}
 
@@ -15,40 +14,40 @@
 {%- assign values = filtersParam | split: '=' | last | split: '|' -%}
 
 {%- assign component = "" -%}
-    {% if type == "text" or type == "category" %}
-        {% if name == "color" %} 
-            {%- assign component = "color" -%}
-        {% else %}
-            {%- assign component = "text" -%}
-        {% endif %}
-    {% endif %}
+{% if type == "text" or type == "category" %}
+  {% if name == "color" %}
+    {%- assign component = "color" -%}
+  {% else %}
+    {%- assign component = "text" -%}
+  {% endif %}
+{% endif %}
 
-    {% if type == "range" %}
-        {% if name contains "reviews" %}
-            {%- assign component = "reviews" -%}
-        {% else %}
-            {%- assign component = "price" -%}
-        {% endif %}
-    {% endif %}
-<div 
-    id="findify-filters-{{name}}" 
-    aria-label="{{name}}"
-    aria-collapsed="false" 
-    class="findify-filters-container">
-    <div class="findify-filters-header" ref="{{name}}">
-        <label tabindex="-1" class="findify-filters-header-title">
-            {{label}}
-        </label>
-        {% render 'findify-icon-arrow' %}    
-    </div>
-    {% render 'findify-filter-items', 
-        filterName: name,
-        filterType: type,
-        componentType: component,
-        items: values,
-        size: values.size,
-        limit: limit,
-        color_filter_setting: color_filter_setting,
-        currency:currency
-    %}
+{% if type == "range" %}
+  {% if name contains "reviews" %}
+    {%- assign component = "reviews" -%}
+  {% else %}
+    {%- assign component = "price" -%}
+  {% endif %}
+{% endif %}
+<div
+  id="findify-filters-{{name}}"
+  aria-label="{{name}}"
+  aria-collapsed="false"
+  class="findify-filters-container">
+  <div class="findify-filters-header" ref="{{name}}">
+    <label tabindex="-1" class="findify-filters-header-title">
+      {{ label }}
+    </label>
+    {% render 'findify-icon-arrow' %}
+  </div>
+  {% render 'findify-filter-items'
+    ,  filterName: name
+    , filterType: type
+    , componentType: component
+    , items: values
+    , size: values.size
+    , limit: limit
+    , color_filter_setting: color_filter_setting
+    , currency: currency
+  %}
 </div>
