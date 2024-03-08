@@ -104,6 +104,22 @@
         {%- endif -%}
       </div>
       <div class="content-wrapper">
+        {% case swatch_type %}
+          {% when 'colors' %}
+            {% render 'findify-product-swatches-color'
+              , product: product,
+              , variants: variants
+              , colorMappingParam: colorMappingParam 
+              , product_url: product_url
+              , colors: colors %}
+          {% when 'sizes' %}
+            {% render 'findify-product-swatches-size'
+              , variants: variants
+              , sizes: sizes
+              , product_url: product_url %}
+          {% when 'variants' %}
+            variants
+        {% endcase %}
         {% if brand %}
           <div class="findify-product-brand">{{ brand }}</div>
         {% endif %}

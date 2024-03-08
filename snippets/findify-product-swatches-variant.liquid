@@ -1,0 +1,27 @@
+{% if variants contains 'pr=' %}
+  {%- assign variant_price = variants | split: 'pr=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'pu=' %}
+  {%- assign variant_product_url = variants | split: 'pu=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'qu=' %}
+  {%- assign variant_quantity = variants | split: 'qu=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'ras=' %}
+  {%- assign variant_reviews = variants | split: 'ras=' | last | split: '|' | first -%}{% endif %}
+
+{% if variants contains 'si=' %}
+  {%- assign variant_size = variants | split: 'si=' | last | split: '|' | first -%}{% endif %}
+
+{% if variants contains 'sk=' %}
+  {%- assign variant_sku = variants | split: 'sk=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'ta=' %}
+  {%- assign variant_tags = variants | split: 'ta=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'ti=' %}
+  {%- assign variant_title = variants | split: 'ti=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'ua=' %}
+  {%- assign variant_updated_at = variants | split: 'ua=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'st=' %}
+  {%- assign variant_stickers = variants | split: 'st=' | last | split: '|' | first -%}{% endif %}
+{% if variants contains 'id=' %}
+  {%- assign variant_id = variants | split: 'st=' | last | split: '|' | first -%}
+{% endif %}
+
+Variants

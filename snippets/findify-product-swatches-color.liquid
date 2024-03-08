@@ -1,0 +1,85 @@
+{% assign all_variants_data = '' %}
+{% assign color_counter = 0 %}
+{% assign max_colors = 6 %}
+
+{% for variant in variants %}
+  {% assign variant_id = variant | split: 'id=' | last | split: '|' | first %}
+  {% assign variant_color = variant | split: 'co=' | last | split: '|' | first %}
+  {% assign variant_availability = variant | split: 'av=' | last | split: '|' | first %}
+
+  {% assign all_variants_data = all_variants_data | append: variant_id | append: '-' | append: variant_color | append: '-' | append: variant_availability %}
+  {% if forloop.index != forloop.length %}
+    {% assign all_variants_data = all_variants_data | append: ',' %}
+  {% endif %}
+{% endfor %}
+
+<div class="findify-color-swatch-wrapper">
+  {% for color in colors %}
+    {% for colorMapping in colorMappingParam %}
+      {% assign current_iterator_name = colorMapping | split: ':' | first | downcase %}
+      {% assign current_iterator_color = colorMapping | split: ':' | last %}
+
+      {% if current_iterator_name == color %}
+        {% assign current_name_color = current_iterator_name %}
+        {% assign current_value_color = current_iterator_color %}
+      {% endif %}
+    {% endfor %}
+
+    {% for variant in variants %}
+      {% assign current_iterator_variant_id = variant | split: 'id=' | last | split: '|' | first %}
+      {% assign current_iterator_variant_color = variant | split: 'co=' | last | split: '|' | first | downcase %}
+
+      {% if current_iterator_variant_color == color %}
+        {% assign current_variant_id = current_iterator_variant_id %}
+        {% assign current_variant_url = product_url | split: "?variant=" | first | append: "?variant=" | append: current_variant_id %}
+        {% assign native_current_variant = product.variants | where: 'id', current_variant_id %}
+      {% endif %}
+    {% endfor %}
+
+    {% if current_name_color and current_value_color and current_variant_id %}
+      {% assign color_counter = color_counter | plus: 1 %}
+      {% if current_value_color contains "https" %}
+        {% assign styling = "background: no-repeat url(" | append: current_value_color | append: ") center" %}
+      {% else %}
+        {% assign styling = "background-color:" | append: current_value_color %}
+      {% endif %}
+      {% if current_value_color contains "fff" %}
+        {% assign styling = styling | append: '; border: 1px solid #000' %}
+      {% endif %}
+      <div class="findify-color-swatch">
+        <a
+          id="color-swatch-{{ current_variant_id }}"
+          class="findify-color"
+          style="{{styling}}"
+          href="{{ current_variant_url }}">
+          <span class="findify-color-tooltip">
+            {{ current_name_color | capitalize }}
+          </span>
+        </a>
+      </div>
+
+      <script>
+        const current_variant_id = "color-swatch-{{ current_variant_id }}";
+        const product_id = "{{ product.id }}";
+
+        const selectors = {
+          image: `#${product_id} .first-image`,
+          firstImage: `#${product_id} .first-image`,
+          secondImage: `#${product_id} .second-image`,
+          title: `#${product_id} .findify-product-title label`,
+        }
+        
+        const native_variant = "{{ native_current_variant.featured_media | image_url }} {{ native_current_variant.featured_media.width }}w";
+        const native_variant_zero = "{{ native_current_variant.media[1] | image_url }} {{ native_current_variant.media[1].width }}w;";
+        document.getElementById(current_variant_id).addEventListener('mouseover', () => {
+          console.log(current_variant_id, native_variant, native_variant_zero);
+        })
+      </script>
+    {% endif %}
+  {% endfor %}
+
+  {% if color_counter > max_colors %}
+    {% assign other_colors = colors.size | minus: max_colors %}
+    <button class="sizeButton">+{{ other_colors }}</button>
+  {% endif %}
+</div>
