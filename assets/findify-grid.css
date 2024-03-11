@@ -84,6 +84,10 @@
   position: relative;
 }
 
+.findify-zero-result-container {
+  text-align: center;
+}
+
 .findify-filters-section {
   width: 25%;
   height: 100px;

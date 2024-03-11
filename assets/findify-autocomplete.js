@@ -172,13 +172,31 @@ const initFindifyAutocompleteEvents = () => {
     else openAutocomplete(event.target);
   };
 
+  const msDelay = 500;
+  const delay = (fn, ms) => {
+    let timer;
+    return {
+      call(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(fn.bind(this, ...args), ms || 0);
+      },
+
+      cancel() {
+        clearTimeout(timer);
+      },
+    };
+  };
+
+  const delayLoadFindifyAutocomplete = delay(loadFindifyAutocomplete, msDelay);
+
   const handleFindifyChange = (e) => {
     if (e.code == "Enter") {
       onSearch(e);
     } else if (e.code == "Escape") {
       closeAutocomplete(e, true);
     } else {
-      setTimeout(() => loadFindifyAutocomplete(e), 500);
+      delayLoadFindifyAutocomplete.cancel();
+      delayLoadFindifyAutocomplete.call(e);
     }
   };
 
