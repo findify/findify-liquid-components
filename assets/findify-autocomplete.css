@@ -19,6 +19,7 @@ body {
   position: fixed;
   background: var(--findify-background-color);
   z-index: 9999 !important;
+  box-shadow: 0 10px 10px #555;
 }
 
 .findify-autocomplete.hidden {
