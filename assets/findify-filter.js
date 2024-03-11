@@ -159,17 +159,17 @@ const initBreadcrumbShowMore = () => {
 
     // if there are hidden breadcrumbs, display show more button and add event listener
     if (hiddenCount > 0) {
-      const showMoreTextContainer = showMore.querySelector("span");
-      showMoreTextContainer.innerHTML = `+${hiddenCount} more`;
+      const showMoreTextContainer = showMore.querySelector("small");
+      showMoreTextContainer.innerHTML = `${hiddenCount} more`;
       showMore.addEventListener("click", () => {
         showMore.classList.toggle("open");
         hiddenBreadcrumbs.forEach((breadcrumb) => {
           if (breadcrumb.hasAttribute("style")) {
             breadcrumb.removeAttribute("style");
-            showMoreTextContainer.innerHTML = "- Less";
+            showMoreTextContainer.innerHTML = "Less";
           } else {
             breadcrumb.setAttribute("style", "display: none;");
-            showMoreTextContainer.innerHTML = `+${hiddenCount} more`;
+            showMoreTextContainer.innerHTML = `${hiddenCount} more`;
           }
         });
       });

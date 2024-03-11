@@ -23,12 +23,20 @@
                         value: reviewValue 
                     %}
                 {% else %}
+                    {% liquid
+                        assign fake_price = 123
+                        assign money_price = fake_price | times: 100 | money
+                        if settings.currency_code_enabled
+                            assign money_price = fake_price | times: 100 | money_with_currency
+                        endif
+                        assign currency = money_price | split: fake_price | last
+                    %}
                     {% if from == 'undefined' %}
-                        <span>under {{to | append: '00' | money}}</span>
+                        <span>under {{to | append: currency }}</span>
                     {%  elsif to == 'undefined' %}
-                        <span>{{from | append: '00' | money}} & up</span>
+                        <span>{{from | append: currency }} & up</span>
                     {%  else %}
-                        {{ from | append: '00' | money }} - {{ to | append: '00' | money }}
+                        {{ from | append: currency }} - {{ to | append: currency }}
                     {% endif %}
  
                 {% endcase %}
@@ -62,7 +70,7 @@
         </div>
     {% endfor %}
     <div class="findify-filters-breadcrumbs-show-more">
-        <span></span>
+        <small></small>
         <div class="findify-filters-breadcrumb-close">
             {% render 'findify-icon-arrow', size: 8 %}
         </div>

@@ -27,12 +27,13 @@
 
       {% if value != 'nm' %}
         {% render 'findify-filter-checkbox'
-          ,  name: name
+          , name: name
           , type: type
           , selected: selected
           , count: count
           , componentType: componentType
-          , value: value
+          , value: value,
+          , text: value,
           , colorName: value
           , borderColor: borderColor
           , index: forloop.index
