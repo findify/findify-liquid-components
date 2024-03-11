@@ -18,11 +18,12 @@
     {%- assign selected = filterValue[2] -%}
     {%- assign hasChildren = filterValue[3] -%}
 
-    {% render'findify-filter-checkbox'
-      ,  name: name
+    {% render 'findify-filter-checkbox'
+      , name: name
       , type: type
       , selected: selected
       , value: value
+      , text: value
       , count: count
       , componentType: componentType
       , index: index
