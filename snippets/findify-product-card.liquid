@@ -14,10 +14,6 @@
     {% assign id = card_product | split: 'id=' | last | split: "~" | first %}{% endif %}
   {% if card_product contains 'cat=' %}
     {% assign category = card_product | split: 'cat=' | last | split: "~" | first | url_decode %}{% endif %}
-  {% if card_product contains 'pu=' %}
-    {% assign product_url = card_product | split: 'pu=' | last | split: "~" | first | url_decode %}{% endif %}
-  {% if card_product contains 'ti=' %}
-    {% assign title = card_product | split: 'ti=' | last | split: "~" | first | url_decode %}{% endif %}
   {% if card_product contains 'pr=' %}
     {% assign price = card_product | split: 'pr=' | last | split: "~" | first %}{% endif %}
   {% if card_product contains 'qu=' %}
@@ -38,32 +34,24 @@
     {%- assign reviews_count = card_product | split: 'rc=' | last | split: "~" | first -%}{% endif %}
   {% if card_product contains 'br=' %}
     {%- assign brand = card_product | split: 'br=' | last | split: "~" | first | url_decode -%}
+  {% endif %}
+
+  {% if card_product contains 'ha=' %}
+    {%- comment -%} Here on product we have access to Shopify Product Object https://shopify.dev/docs/api/liquid/objects/product {%- endcomment -%}
+    {%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
+    {%- assign handler = card_product | split: 'ha=' | last | split: "~" | first | url_decode -%}
+    {%- assign product = all_products[handler] -%}
+    {% if product.url contains '?' %}
+      {%- assign product_url = product.url | append: '&variant=' | append: selected_variant_id -%}
+    {% else %}
+      {%- assign product_url = product.url | append: '?variant=' | append: selected_variant_id -%}
+    {% endif %}
+
 {% endif %}
 
-  {%- comment -%} Here on product we have access to Shopify Product Object {%- endcomment -%}
-  {%- comment -%} Warning: Mind about Findify manipulation rules, post-rules, pre-rules that might change the data on Findify side. {%- endcomment -%}
-  {%- assign handler = product_url | split: '"pageurl":"' | split: "?" | first | replace: "/products/" | replace: '["' -%}
-{%- assign product = all_products[handler] -%}
-
   {%- comment -%} Product card variants properties mapper {%- endcomment -%}
-{%- assign variants = card_product | split: 'va=' | last | split: '~' | first | url_decode | split: '^' -%}
-
-  {%- comment -%} Custom fields mapper, card.split('cf=') = [false, true, false, true] {%- endcomment -%}
-
-  {%- comment -%} Custom fields are now being used in both product object itself and in variants, need more tests when it's different {%- endcomment -%}
+  {%- assign variants = card_product | split: 'va=' | last | split: '~' | first | url_decode | split: '^' -%}
   {%- assign custom_fields = product_card | split: 'cf=' -%}
-  {%- assign product_custom_fields = custom_fields[1] | split: '~' | first -%}
-  {%- assign variant_custom_fields = custom_fields[3] | split: '~' | first -%}
-  {%- comment -%} Product custom fields properties mapper, type: [] {%- endcomment -%}
-  {%- if product_custom_fields contains 'sale_price=' %}
-    {%- assign product_custom_field_sale_prices = product_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-  {%- if product_custom_fields contains 'variant_image_url=' %}
-    {%- assign product_custom_field_variant_image_url = product_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-  {%- comment -%} Variant custom fields properties mapper, type: [] {%- endcomment -%}
-  {%- if variant_custom_fields contains 'sale_price=' %}
-    {%- assign variant_custom_field_sale_prices = variant_custom_fields | split: 'sale_price=' | last | split: '^' | first | split: '|' -%}{% endif -%}
-  {%- if variant_custom_fields contains 'variant_image_url=' %}
-    {%- assign variant_custom_field_variant_image_url = variant_custom_fields | split: 'variant_image_url=' | last | split: '^' | first | split: '|' -%}{% endif -%}
 
   <div id={{ id }} class="findify-product-card {{ additional_class }}">
     <a href={{ product_url }}>
@@ -108,7 +96,7 @@
           <div class="findify-product-brand">{{ brand }}</div>
         {% endif %}
         <div class='findify-product-title findify-cut-text'>
-          <label>{{ title }}</label>
+          <label>{{ product.title }}</label>
         </div>
         {% render 'findify-product-price'
           , price: price %}

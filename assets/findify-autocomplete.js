@@ -48,7 +48,7 @@ const initFindifyAutocompleteEvents = () => {
 
   const onSearch = (e) => {
     preventDefaults(e);
-    const query = document.querySelector(selector).value;
+    const query = e.target.value;
     navigate(`/search?q=${query}`, e, query);
   };
 

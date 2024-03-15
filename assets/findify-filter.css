@@ -34,13 +34,17 @@ button {
   display: flex;
   flex-direction: column;
   padding-bottom: 5px;
-  border-bottom: 1px solid var(--findify-filters-separator-color);
 }
 
 .findify-filters-container[aria-collapsed="false"]
   > .findify-filters-header
   > svg {
   transform: rotate(180deg);
+}
+
+.findify-filter-group {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--findify-filters-separator-color);
 }
 
 .findify-filters-header {
