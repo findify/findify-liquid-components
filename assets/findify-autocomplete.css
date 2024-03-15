@@ -505,3 +505,22 @@ body {
     margin-top: 15px;
   }
 }
+
+/* AUTOCOMPLETE CONTENT */
+.findify-autocomplete-content-wrapper {
+  flex: .7;
+}
+
+.findify-autocomplete-content-wrapper .findify-tab-content {
+  display: block;
+  .findify-content-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .autocomplete-content-title {
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--findify-text-color);
+  }
+}
