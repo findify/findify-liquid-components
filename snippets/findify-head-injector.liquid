@@ -18,6 +18,20 @@
   </div>
 {% endif %}
 
+<script>
+  window.findify = {
+    product_fields: {
+        include: [], // Include, also, these fields to be returned to liquid section
+        exclude: [], // Exclude these fields from being sent to liquid section
+        /*
+          Create custom fields on the fly.
+          Include these fields on the above include array.
+        */
+        custom_mapping: (item) => ({})
+    }
+  }
+</script>
+
 <script src="{{ 'findify-analytics.js' | asset_url }}" defer></script>
 
 <link

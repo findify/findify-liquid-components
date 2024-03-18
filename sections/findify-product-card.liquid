@@ -1,0 +1,67 @@
+{%- include 'findify-product-card-connector' -%}
+
+<div id="{{ id }}" class="findify-product-card {{ class }}">
+  <a href={{ product_url }}>
+    <div class='image-container'>
+      <img
+        srcset="
+            {%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if product.featured_media.width >= 533 -%}{{ product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
+            {%- if product.featured_media.width >= 720 -%}{{ product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
+            {%- if product.featured_media.width >= 940 -%}{{ product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
+            {%- if product.featured_media.width >= 1066 -%}{{ product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
+            {{ product.featured_media | image_url }} {{ product.featured_media.width }}w
+            "
+        src="{{ product.featured_media | image_url: width: 533 }}"
+        alt="{{ product.featured_media.alt | escape }}"
+        class="adapt first-image motion-reduce"
+        loading="lazy"
+        width="{{ product.featured_media.width }}"
+        height="300px">
+      {%- if product.media[1] != null -%}
+        <img
+          srcset="
+              {%- if product.media[1].width >= 165 -%}{{ product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if product.media[1].width >= 360 -%}{{ product.media[1] | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if product.media[1].width >= 533 -%}{{ product.media[1] | image_url: width: 533 }} 533w,{%- endif -%}
+              {%- if product.media[1].width >= 720 -%}{{ product.media[1] | image_url: width: 720 }} 720w,{%- endif -%}
+              {%- if product.media[1].width >= 940 -%}{{ product.media[1] | image_url: width: 940 }} 940w,{%- endif -%}
+              {%- if product.media[1].width >= 1066 -%}{{ product.media[1] | image_url: width: 1066 }} 1066w,{%- endif -%}
+              {{ product.media[1] | image_url }} {{ product.media[1].width }}w
+            "
+          src="{{ product.media[1] | image_url: width: 533 }}"
+          alt=""
+          class="adapt second-image motion-reduce"
+          loading="lazy"
+          width="{{ product.media[1].width }}"
+          height="300px">
+      {%- endif -%}
+    </div>
+    <div class="content-wrapper">
+      {% if brand %}
+        <div class="findify-product-brand">{{ brand }}</div>
+      {% endif %}
+      <div class='findify-product-title findify-cut-text'>
+        <label>{{ product.title }}</label>
+      </div>
+      {% render 'findify-product-price'
+        , price: price %}
+      {% if reviews %}
+        {% render 'findify-rating'
+          , value: reviews
+          , count: reviews_count %}
+      {% endif %}
+    </div>
+  </a>
+
+  <script>
+        /* IMPORTANT: Script tags are executed within this file element. */
+        const id = "{{id}}";
+        const selected_variant_id = "{{selected_variant_id}}";
+        const widget = "{{widget}}";
+
+        initOnProductCardClick(id, { widget, selected_variant_id });
+  </script>
+
+</div>
