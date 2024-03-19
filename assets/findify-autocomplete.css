@@ -491,10 +491,6 @@ body {
     display: flex;
   }
 
-  #findify-autocomplete .findify-product-card img {
-    width: 45% !important;
-  }
-
   #findify-autocomplete .findify-product-card .content-wrapper {
     display: flex;
     flex-direction: column;
