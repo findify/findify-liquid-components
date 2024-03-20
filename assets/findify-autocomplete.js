@@ -89,7 +89,9 @@ const initFindifyAutocompleteEvents = () => {
 
   const setAutocompletePosition = (input) => {
     const top = getBottom(input) + 2;
-    document.querySelector(".findify-autocomplete").style.top = `${top}px`;
+    const autocomplete = document.querySelector(".findify-autocomplete")
+    autocomplete.style.top = `${top}px`;
+    autocomplete.style.height = `calc(100vh - ${top}px)`;
   };
 
   const closeAutocomplete = (e, isEscape) => {
