@@ -18,6 +18,26 @@
   </div>
 {% endif %}
 
+<script>
+  window.findify = {
+    current_version: "2024-03.01", // To not change property naming. It is fetched with Regex on Shopify App Side
+    product_fields: {
+        include: [], // Include, also, these fields to be returned to liquid section
+        exclude: [], // Exclude these fields from being sent to liquid section
+        /*
+          Create custom fields on the fly.
+          Include these fields on the above include array.
+        */
+        custom_mapping: (item) => ({})
+    }
+  }
+  
+  const printFindifyVersion = async () => {
+    console.log('Findify Liquid Framework v.', window.findify.version);
+  }
+  printFindifyVersion();
+</script>
+
 <script src="{{ 'findify-analytics.js' | asset_url }}" defer></script>
 
 <link

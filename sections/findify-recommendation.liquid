@@ -1,20 +1,18 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
-{%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}{%- assign products = query_parameters | split: 'results=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'products'[] {%- endcomment -%}
-{%- assign recommendation_id = query_parameters | split: 'recommendation_id=' | last | split: '&' | first -%}
-{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size=' | last | split: '&' | first -%}
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}
-{%- assign colorMappingParam = page_url | split: "color_mapping=" | last | split: '&' | first -%}
+{%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
+
+{%- assign id = query_parameters | split: 'id=' | last | split: '&' | first | url_decode -%}
+{%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view=' | last | split: '&' | first -%}
+{%- assign title = query_parameters | split: 'title=' | last | split: '&' | first | url_decode -%}
 
 {%  comment  %}
   IMPORTANT: The outer div will not be inserted on the DOM.
 {% endcomment %}
-<div id="{{ recommendation_id }}" class='findify-recommendation-container'>
-  <h1 class='findify-swiper-title'>
-    {{ recommendation_title }}</h1>
+<div id="{{ id }}" class='findify-recommendation-container'>
+  <h1 class='findify-swiper-title'>{{ title }}</h1>
 
   <div class='swiper'>
-    <div class="swiper-wrapper" id="findify-products-{{recommendation_id}}"></div>
+    <div class="swiper-wrapper" id="findify-products-{{id}}"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-pagination"></div>
@@ -22,37 +20,37 @@
 
   <script>
       /* IMPORTANT: Script tags are executed within this file element. */
-      const selector = "#{{ recommendation_id }} .swiper";
+      const selector = "#{{ id }} .swiper";
 
       const swiper = new Swiper(selector, {
-    direction: "horizontal",
-    loop: true,
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-      clickable: true,
-      dynamicBullets: true,
-      dynamicMainBullets: 4,
-    },
-    slidesPerView: "{{ desktop_grid_size }}",
-    breakpoints: {
-      320: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      480: {
-        slidesPerView: 3,
-        spaceBetween: 30,
-      },
-      640: {
-        slidesPerView: "{{ desktop_grid_size }}",
-        spaceBetween: 30,
-      },
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+        direction: "horizontal",
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          type: "bullets",
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 4,
+        },
+        slidesPerView: "{{ desktop_slide_per_view }}",
+        breakpoints: {
+          320: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          480: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          640: {
+            slidesPerView: "{{ desktop_slide_per_view }}",
+            spaceBetween: 30,
+          },
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
       });
   </script>
 </div>
