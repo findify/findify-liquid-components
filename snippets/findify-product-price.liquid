@@ -1,9 +1,9 @@
 {%- liquid
-  assign money_price = price
+  assign price = product.price | default: 1999
   if settings.currency_code_enabled
-    assign money_price = price | times: 100 | money_with_currency
+    assign money_price = price | money_with_currency
   else
-    assign money_price = price | times: 100 | money
+    assign money_price = price | money
   endif
 -%}
 

@@ -46,7 +46,7 @@
         <label>{{ product.title }}</label>
       </div>
       {% render 'findify-product-price'
-        , price: price %}
+        , product: product %}
       {% if reviews %}
         {% render 'findify-rating'
           , value: reviews
