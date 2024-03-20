@@ -4,5 +4,7 @@
 {%- assign suggestions = query_parameters | split: 'suggestion=' | last | split: '&' | first | split: ',' -%}
 {%- assign query = query_parameters | split: 'query=' | last | split: '&' | first -%}
 {%- assign colorMappingParam = page_url | split: "color_mapping:" | last | split: '&' | first -%}
+{%- assign contents_param = page_url | split: 'content=' | last -%}
+{%- assign contents = contents_param | split: '&' | first | split: ';' -%}
 {%- assign suggestionsTemplate = "vertical" -%}
 {%- assign class = "findify-autocomplete findify-autocomplete-fullscreen" -%}

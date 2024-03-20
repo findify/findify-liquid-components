@@ -24,6 +24,12 @@
           </li>
         {% endfor %}
       </ul>
+
+      {% render 'findify-autocomplete-content-block', 
+          contents_param: contents_param, 
+          content: contents[0]  
+      %}
+
     </div>
 
     <div class="products-wrapper">
@@ -39,23 +45,10 @@
       </div>
     </div>
 
-  {% comment %}
-    <div class="content-wrapper">
-    <h3>{{ findifyAutocompleteContentTitle }}</h3>
-    <!--
-    if you want to display specific field create a variable with prefix - "findify_" and field name - "image_url".
-    Field name should be the same as in findify content response.
-    -->
-    <div class="content-container">
-    <div class="content-item" data-content-url="{findify_url}">
-    <div class="content_image">
-    <img src="{findify_image_url}"/>
-    </div>
-    <div class="content_title">{findify_title}</div>
-    </div>
-    </div>
-    </div>
-  {% endcomment %}
+      {% render 'findify-autocomplete-content-block', 
+          contents_param: contents_param, 
+          content: contents[1]  
+      %}
 
   </div>
   {% render 'findify-autocomplete-view-all'
