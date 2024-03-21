@@ -1,0 +1,96 @@
+{%- liquid
+  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: "\/", "/" | replace: "\u0026", "&"
+  assign query_parameters = page_url | split: "sections=findify-product-card&" | last
+
+  # Product template settings
+  if query_parameters contains "class="
+    assign class = query_parameters | split: "class=" | last | split: "&" | first
+  endif
+  assign widget = query_parameters | split: "widget=" | last | split: "&" | first
+
+  # Product metadata
+  assign colormap = query_parameters | split: "colormap=" | last | split: "&" | first
+  assign index = query_parameters | split: "index=" | last | split: "&" | first
+
+  if query_parameters contains "handler="
+    assign handler = query_parameters | split: "handler=" | last | split: "&" | first | url_decode
+    assign product = all_products[handler]
+  endif
+
+  # Product Findify variants fields
+  if query_parameters contains "variants="
+    assign variants_parameters = query_parameters | split: "variants=" | last | split: "&" | first
+    assign variants = variants_parameters | url_decode | split: "^"
+    # for variant in variants and then parse and assign values
+
+    # Variants may have same property as products, and so "regexes" may conflict picking wrong values, removing variants from here
+    assign query_parameters_splitted_by_variants = query_parameters | split: variants_parameters
+    assign query_parameters_leftside = query_parameters_splitted_by_variants[0]
+    assign query_parameters_rightside = query_parameters_splitted_by_variants[1] | replace_first: "&", ""
+    assign query_parameters = query_parameters_leftside | append: query_parameters_rightside
+  endif
+
+  # Product Findify fields
+  if query_parameters contains "availability="
+    assign availability = query_parameters | split: "availability=" | last | split: "&" | first
+  endif
+  if query_parameters contains "color="
+    assign colors = query_parameters | split: "color=" | last | split: "&" | first | url_decode | downcase | split: "^"
+  endif
+  if query_parameters contains "selected_variant_id="
+    assign selected_variant_id = query_parameters | split: "selected_variant_id=" | last | split: "&" | first
+  endif
+  if query_parameters contains "item_group_id="
+    assign item_group_id = query_parameters | split: "item_group_id=" | last | split: "&" | first
+  endif
+  if query_parameters contains "id="
+    assign id = query_parameters | split: "id=" | last | split: "&" | first
+  endif
+  if query_parameters contains "category="
+    assign category = query_parameters | split: "category=" | last | split: "&" | first | url_decode
+  endif
+  if query_parameters contains "price="
+    assign price = query_parameters | split: "price=" | last | split: "&" | first
+  endif
+  if product.url contains "?"
+    assign product_url = product.url | append: "&variant=" | append: selected_variant_id
+  else
+    assign product_url = product.url | append: "?variant=" | append: selected_variant_id
+  endif
+  if query_parameters contains "quantity="
+    assign quantity = query_parameters | split: "quantity=" | last | split: "&" | first
+  endif
+  if query_parameters contains "size="
+    assign sizes = query_parameters | split: "size=" | last | split: "&" | first | split: "^" | url_decode
+  endif
+  if query_parameters contains "sku="
+    assign sku = query_parameters | split: "sku=" | last | split: "&" | first
+  endif
+  if query_parameters contains "tags="
+    assign tags = query_parameters | split: "tags=" | last | split: "&" | first
+  endif
+  if query_parameters contains "stickers="
+    assign stickers = query_parameters | split: "stickers=" | last | split: "&" | first
+  endif
+  if query_parameters contains "reviews_count="
+    assign reviews_count = query_parameters | split: "reviews_count=" | last | split: "&" | first
+  endif
+  if query_parameters contains "reviews="
+    assign reviews = query_parameters | split: "reviews=" | last | split: "&" | first
+  endif
+  if query_parameters contains "brand="
+    assign brand = query_parameters | split: "brand=" | last | split: "&" | first | url_decode
+  endif
+
+  # Product Findify custom fields
+  if query_parameters contains "custom_fields="
+    assign custom_fields = query_parameters | split: "custom_fields=" | last | split: "&" | first
+    # Parse and assign value
+    if custom_fields contains "example_field"
+      assign example_field = custom_fields | split: "example_field=" | last | split: "~" | first | url_decode
+    endif
+    if custom_fields contains "example_field_array"
+      assign example_field_array = custom_fields | split: "example_field_array=" | last | split: "~" | first | url_decode | split: "^"
+    endif
+  endif
+-%}

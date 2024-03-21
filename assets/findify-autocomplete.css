@@ -434,6 +434,12 @@ body {
     max-width: initial;
   }
 
+  .findify-autocomplete .findify-product-title {
+    overflow: auto;
+    height: auto;
+    white-space: normal;
+  }
+
   .findify-autocomplete-fullscreen .products-wrapper {
     padding-top: 15px;
   }
@@ -484,23 +490,41 @@ body {
   #findify-autocomplete .findify-product-card {
     display: flex;
     margin-bottom: 15px;
+    min-height: auto;
   }
 
   #findify-autocomplete .findify-product-card a {
     display: flex;
-  }
-
-  #findify-autocomplete .findify-product-card img {
-    width: 45% !important;
+    width: 100%;
   }
 
   #findify-autocomplete .findify-product-card .content-wrapper {
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    width: 100%;
   }
 
   #findify-autocomplete .price {
     margin-top: 15px;
+  }
+}
+
+/* AUTOCOMPLETE CONTENT */
+.findify-autocomplete-content-wrapper {
+  flex: 0.7;
+}
+
+.findify-autocomplete-content-wrapper .findify-tab-content {
+  display: block;
+  .findify-content-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .autocomplete-content-title {
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--findify-text-color);
   }
 }

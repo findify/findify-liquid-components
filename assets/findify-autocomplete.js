@@ -48,7 +48,7 @@ const initFindifyAutocompleteEvents = () => {
 
   const onSearch = (e) => {
     preventDefaults(e);
-    const query = document.querySelector(selector).value;
+    const query = e.target.value;
     navigate(`/search?q=${query}`, e, query);
   };
 
@@ -89,7 +89,8 @@ const initFindifyAutocompleteEvents = () => {
 
   const setAutocompletePosition = (input) => {
     const top = getBottom(input) + 2;
-    document.querySelector(".findify-autocomplete").style.top = `${top}px`;
+    const autocomplete = document.querySelector(".findify-autocomplete");
+    autocomplete.style.top = `${top}px`;
   };
 
   const closeAutocomplete = (e, isEscape) => {
@@ -172,13 +173,31 @@ const initFindifyAutocompleteEvents = () => {
     else openAutocomplete(event.target);
   };
 
+  const msDelay = 500;
+  const delay = (fn, ms) => {
+    let timer;
+    return {
+      call(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(fn.bind(this, ...args), ms || 0);
+      },
+
+      cancel() {
+        clearTimeout(timer);
+      },
+    };
+  };
+
+  const delayLoadFindifyAutocomplete = delay(loadFindifyAutocomplete, msDelay);
+
   const handleFindifyChange = (e) => {
     if (e.code == "Enter") {
       onSearch(e);
     } else if (e.code == "Escape") {
       closeAutocomplete(e, true);
     } else {
-      setTimeout(() => loadFindifyAutocomplete(e), 500);
+      delayLoadFindifyAutocomplete.cancel();
+      delayLoadFindifyAutocomplete.call(e);
     }
   };
 

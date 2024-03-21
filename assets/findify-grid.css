@@ -26,6 +26,7 @@
 .findify-search-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 30px;
 }
 
 .findify-heading {
@@ -81,6 +82,10 @@
   flex-direction: row;
   gap: 30px;
   position: relative;
+}
+
+.findify-zero-result-container {
+  text-align: center;
 }
 
 .findify-filters-section {

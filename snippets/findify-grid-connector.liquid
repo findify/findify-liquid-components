@@ -30,7 +30,7 @@
 {% if page_url contains 'terms=' %}
   {%- assign terms = page_url | split: 'terms=' | last | split: '&' | first -%}
   {%- comment -%} string {%- endcomment -%}
-{% endif %}{%- assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';' - %}
+{% endif %}{%- assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';' -%}
 {%- comment -%} string[] {%- endcomment -%}
 
 {%- comment -%} Collection properties: https://shopify.dev/docs/api/liquid/objects/collection {%- endcomment -%}

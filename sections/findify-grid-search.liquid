@@ -3,7 +3,7 @@
 
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
-{%- assign desktop_grid_size = query_parameters | split: 'desktop_grid_size:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
 {%  comment  %} Content integration configuration {% endcomment %}
@@ -11,7 +11,7 @@
 {% if use_content_integration == 'false' or tabs[0] == 'none' %}
   {%- assign show_content_integration = false -%}
 {% else %}
-  {%- assign show_content_integration = true -%}
+  {%- assign show_content_integration = true -%} 
 {% endif %}
 
 <div id="findify-search" class="findify-search-section">
@@ -134,7 +134,7 @@
     {% endif %}
 
   {% else %}
-    <div class="findify-zero-result-container" style="text-align: center;">
+    <div class="findify-zero-result-container">
       <h1>No results for "{{ terms }}"</h1>
       <h3>Check the spelling or try less specific search terms</h3>
     </div>
@@ -161,7 +161,7 @@
     } else {
       const initRecommendation = async (type) => await findify.recommendation.init({
           recommendation_id: "{{ recommendation_id }}",
-          desktop_grid_size,
+          desktop_slide_per_view,
           recommendation_title
         })
         

@@ -33,7 +33,7 @@
   id="findify-filters-{{name}}"
   aria-label="{{name}}"
   aria-collapsed="false"
-  class="findify-filters-container">
+  class="findify-filter-group">
   <div class="findify-filters-header" ref="{{name}}">
     <label tabindex="-1" class="findify-filters-header-title">
       {{ label }}
@@ -41,7 +41,7 @@
     {% render 'findify-icon-arrow' %}
   </div>
   {% render 'findify-filter-items'
-    ,  filterName: name
+    , filterName: name
     , filterType: type
     , componentType: component
     , items: values
