@@ -20,7 +20,7 @@
 
 <script>
   window.findify = {
-    current_version: "2024-03.01", // To not change property naming. It is fetched with Regex on Shopify App Side
+    current_version: "2024-03.01", // DO NOT MODIFY! This is required within Shopify App Side, a Regex will extract the current version.
     product_fields: {
         include: [], // Include, also, these fields to be returned to liquid section
         exclude: [], // Exclude these fields from being sent to liquid section
@@ -33,7 +33,7 @@
   }
   
   const printFindifyVersion = async () => {
-    console.log('Findify Liquid Framework v.', window.findify.version);
+    console.log('Findify Liquid Framework v.', window.findify.current_version);
   }
   printFindifyVersion();
 </script>
