@@ -1,8 +1,23 @@
 {%- liquid
-  assign price = product.price | default: 1999
-  assign money_price = price | money
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign price = target.price | money
+  assign compare_at_price = target.compare_at_price | money
 -%}
 
-<div class="price">
-  {{ money_price }}
+<div>
+  <span class="findify-product-price {%if compare_at_price != ''%} findify-product-price-with-compare{% endif %}">
+    {{ price }}
+  </span>
+  {% if price != compare_at_price %}
+    <span class="findify-product-price-compare-at">
+      <s>
+        {{ compare_at_price }}
+      </s>
+    </span>
+  {% endif %}
 </div>
