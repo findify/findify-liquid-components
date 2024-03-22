@@ -27,14 +27,15 @@ a:visited:not(.button) {
   white-space: nowrap;
 }
 
-.findify-price.price-item.price-item--regular {
-  font-weight: 700;
+.findify-product-price {
   color: var(--findify-text-color);
 }
 
-.findify-price.price-item.price-item--sale,
-.findify-price.price-item.price-item--last {
+.findify-product-price-with-compare {
   font-weight: 700;
+}
+
+.findify-product-price-compare-at {
   color: var(--findify-text-secondary-color);
 }
 
