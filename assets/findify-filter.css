@@ -170,6 +170,14 @@ button {
   align-items: center;
 }
 
+.findify-filters-checkbox-item-value > span,
+.findify-filters--checkbox-nested-value > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 172px;
+}
+
 .findify-filters-checkbox-item-value-selected svg {
   display: flex;
   margin: auto;
@@ -330,6 +338,12 @@ button {
 
   .findify-filters--filter-header {
     justify-content: unset;
+  }
+
+  /* Ellipsis for mobile, increase with maximum */
+  .findify-filters-checkbox-item-value > span,
+  .findify-filters--checkbox-nested-value > span {
+    width: 250px;
   }
 }
 

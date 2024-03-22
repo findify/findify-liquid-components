@@ -1,10 +1,6 @@
 {%- liquid
   assign price = product.price | default: 1999
-  if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-  else
-    assign money_price = price | money
-  endif
+  assign money_price = price | money
 -%}
 
 <div class="price">

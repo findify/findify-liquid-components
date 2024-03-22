@@ -9,9 +9,9 @@
   {%- assign selectedClass = 'findify-filters-checkbox-item-value-selected' -%}
 {% endif %}
 
-<span class="
+<label class="
     {{class}}
     {% if selected == 't'%}{{selectedClass}}{% endif %}
 ">
-  {{ text }}
-</span>
+  <span>{{ text }}</span>
+</label>
