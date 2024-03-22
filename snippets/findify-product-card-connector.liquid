@@ -10,7 +10,7 @@
 
   # Product metadata
   assign colormap = query_parameters | split: "colormap=" | last | split: "&" | first
-  assign index = query_parameters | split: "index=" | last | split: "&" | first
+  assign position = query_parameters | split: "position=" | last | split: "&" | first
 
   if query_parameters contains "handler="
     assign handler = query_parameters | split: "handler=" | last | split: "&" | first | url_decode
