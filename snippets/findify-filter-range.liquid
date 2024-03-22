@@ -13,10 +13,7 @@
       {% liquid
           assign fake_price = 123
           assign money_price = fake_price | times: 100 | money
-          if settings.currency_code_enabled
-            assign money_price = fake_price | times: 100 | money_with_currency
-          endif
-          assign currency = money_price | split: fake_price | last
+          assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
       %}
       
       {% if value contains "to" %}
@@ -61,24 +58,3 @@
 
   {%- endfor -%}
 </div>
-
-{% comment %}
-  {% if componentType == "price" %}
-  <div class="findify-filters--range-container">
-
-  <div class="findify-filters--range-wrapper">
-  <div class="findify-filters--range-wrapper-input">
-  <input placeholder="{{min | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="from">
-  </div>
-  <span class="findify-filters--range-wrapper-delimiter">-</span>
-  <div class="findify-filters--range-wrapper-input">
-  <input placeholder="{{max | append: '00' | money }}" type="number" min="{{min}}" max="{{max}}" aria-owns="to">
-  </div>
-  <button class="findify-filters--range-submit" ref="{{filterName}}">Go</button>
-  </div>
-
-  <p>{{min}} - {{max}}</p>
-  {% render 'findify-filter-range-slider', min: min, max: max, name: filterName %}
-  </div>
-  {% endif %}
-{% endcomment %}
