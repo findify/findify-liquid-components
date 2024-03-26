@@ -85,12 +85,8 @@
   # Product Findify custom fields
   if query_parameters contains "custom_fields="
     assign custom_fields = query_parameters | split: "custom_fields=" | last | split: "&" | first
-    # Parse and assign value
-    if custom_fields contains "example_field"
-      assign example_field = custom_fields | split: "example_field=" | last | split: "~" | first | url_decode
-    endif
-    if custom_fields contains "example_field_array"
-      assign example_field_array = custom_fields | split: "example_field_array=" | last | split: "~" | first | url_decode | split: "^"
-    endif
+    # if custom_fields contains "example_field"
+    # assign example_field = custom_fields | split: "example_field=" | last | split: "~" | first | url_decode
+    # endif
   endif
 -%}

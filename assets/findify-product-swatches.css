@@ -5,12 +5,6 @@
   gap: 4px;
 }
 
-/* There is an extra <a> tag, sort of glitch */
-.findify-color-swatch-wrapper > a,
-.findify-color-swatch-wrapper .findify-color-swatch:first-child a:first-child {
-  display: none;
-}
-
 .findify-color-swatch {
   padding: 4px;
   display: flex;
@@ -19,7 +13,6 @@
   border-radius: 50%;
 }
 
-.findify-color-swatch:has(.findify-color:hover),
 .findify-color-swatch.active {
   border: 0.5px black solid;
   padding: 3.5px;
