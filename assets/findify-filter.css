@@ -218,7 +218,18 @@ button {
   max-height: 155px;
   overflow: auto;
 }
-
+.findify-filters--body-wrapper::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 4px;
+}
+.findify-filters--body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #000000;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.findify-filters--body-wrapper::-webkit-scrollbar-track {
+  background: #e1e1e1;
+}
 /* Color filter layout: Only color*/
 .body-wrapper-layout-color {
   display: flex;
