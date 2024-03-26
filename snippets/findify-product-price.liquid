@@ -10,7 +10,7 @@
 -%}
 
 <div>
-  <span class="findify-product-price {%if compare_at_price != ''%} findify-product-price-with-compare{% endif %}">
+  <span class="findify-product-price {%if compare_at_price != '' and price != compare_at_price %} findify-product-price-with-compare{% endif %}">
     {{ price }}
   </span>
   {% if price != compare_at_price %}

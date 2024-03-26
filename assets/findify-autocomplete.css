@@ -469,6 +469,7 @@ body {
     white-space: nowrap;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
   }
 
   .findify-autocomplete .products-container {
