@@ -22,7 +22,7 @@ const initFindifyTabsEvents = () => {
   };
 
   const init = () => {
-    if (Object.keys(window.FindifyMerchantConfig.features.content).length > 0) {
+    if (Object.keys(findify.grid.liquid?.contents).length > 0) {
       document.querySelectorAll(".findify-tab").forEach((element) => {
         element.addEventListener("click", (event) =>
           onTabClick(event, element.getAttribute("target"))

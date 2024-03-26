@@ -3,7 +3,7 @@
     <div class="findify-autocomplete-content-wrapper">
         {% assign content_id = content | split: '~' | first %}
         {% assign title = content | split: '~' | last %}
-        <div id="{{content_id}}-content" class="findify-tab-content">
+        <div id="{{content_id}}-content" class="findify-autocomplete-tab-content">
           <h3 class="autocomplete-content-title">{{ title }}</h3>
           {% render 'findify-autocomplete-content-grid'
             , content_id: content_id %}

@@ -515,7 +515,7 @@ body {
   flex: 0.7;
 }
 
-.findify-autocomplete-content-wrapper .findify-tab-content {
+.findify-autocomplete-content-wrapper .findify-autocomplete-tab-content {
   display: block;
   .findify-content-list {
     display: flex;
