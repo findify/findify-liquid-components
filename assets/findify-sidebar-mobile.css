@@ -81,5 +81,7 @@
     background: #5396ed;
     color: #fff;
     text-transform: uppercase;
+    position: sticky;
+    bottom: 0;
   }
 }
