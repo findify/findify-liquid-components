@@ -339,6 +339,11 @@ button {
   .findify-filters--filter-header {
     justify-content: unset;
   }
+  /* Ellipsis for mobile, increase with maximum */
+  .findify-filters-checkbox-item-value > span:not(.solid-circle),
+  .findify-filters--checkbox-nested-value > span:not(.solid-circle) {
+    width: 250px;
+  }
 }
 
 .price-range-container {
