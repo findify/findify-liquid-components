@@ -27,6 +27,7 @@ button {
   flex-direction: column;
   gap: 5px;
   width: 260px;
+  position: relative;
 }
 
 /* FILTERS */
@@ -116,6 +117,7 @@ button {
   border: 1px solid var(--findify-checkbox-border-color);
   margin-right: 10px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .findify-filters-checkbox-item .findify-filters--checkbox-nested-value::after {
@@ -160,6 +162,7 @@ button {
 .findify-filters--color-item-layout-color .findify-filters-checkbox-item-value {
   margin-right: 0;
   padding-right: 0;
+  flex: 1;
 }
 
 .findify-filters-checkbox-item-value,
@@ -168,6 +171,14 @@ button {
   position: relative;
   display: flex;
   align-items: center;
+  width: calc(100% - 50px);
+}
+
+.findify-filters-checkbox-item-value > span,
+.findify-filters--checkbox-nested-value > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .findify-filters-checkbox-item-value-selected svg {
@@ -207,7 +218,18 @@ button {
   max-height: 155px;
   overflow: auto;
 }
-
+.findify-filters--body-wrapper::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 4px;
+}
+.findify-filters--body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #000000;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.findify-filters--body-wrapper::-webkit-scrollbar-track {
+  background: #e1e1e1;
+}
 /* Color filter layout: Only color*/
 .body-wrapper-layout-color {
   display: flex;
@@ -330,6 +352,11 @@ button {
 
   .findify-filters--filter-header {
     justify-content: unset;
+  }
+  /* Ellipsis for mobile, increase with maximum */
+  .findify-filters-checkbox-item-value > span:not(.solid-circle),
+  .findify-filters--checkbox-nested-value > span:not(.solid-circle) {
+    width: 250px;
   }
 }
 

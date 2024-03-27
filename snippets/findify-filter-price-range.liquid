@@ -1,10 +1,7 @@
 {% liquid
   assign fake_price = 123
   assign money_price = fake_price | times: 100 | money
-  if settings.currency_code_enabled
-    assign money_price = fake_price | times: 100 | money_with_currency
-  endif
-  assign currency = money_price | split: fake_price | last
+  assign currency = money_price | replace: fake_price, '' | replace: ' ', '' | replace: ',00', ''
 %}
 
 <div class="price-range-container">

@@ -35,12 +35,10 @@ let selectors = {
   inputPriceRangeMin: "#findify-price-range-min",
 };
 
-const toggleFilterDrawer = () =>
-  toggleDrawer(
-    "open-left",
-    true,
-    document.querySelector(selectors.filterSection)
-  );
+const toggleFilterDrawer = () => {
+  const filterSection = document.querySelector(selectors.filterSection);
+  filterSection && toggleDrawer("open-left", true, filterSection);
+};
 
 const priceRangeUpdater = (inputMax, inputMin) => {
   if (!inputMax.value && !inputMin.value) return;

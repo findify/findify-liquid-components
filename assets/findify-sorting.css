@@ -85,6 +85,10 @@
   .findify-sorting.desktop {
     display: none;
   }
+  .findify-sorting-sidebar{
+    display: flex;
+    flex-direction: column;
+  }
 
   .findify-sorting-mobile-list {
     height: 100%;
