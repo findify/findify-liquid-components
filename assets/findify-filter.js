@@ -78,9 +78,9 @@ const bindClickEvent = () => {
   const filters = [...document.querySelectorAll(selectors.checkboxItem)];
   filters.forEach((filter) => {
     let value = filter.getAttribute("value").trim();
-    const info = filter.getAttribute("info");
-    const [name, type] = info.split("|");
-    const selected = filter.getAttribute("selected") === "t";
+    const name = filter.getAttribute("data-name");
+    const type = filter.getAttribute("data-type");
+    const selected = filter.getAttribute("selected");
 
     filter.addEventListener("click", (e) => {
       e.preventDefault();

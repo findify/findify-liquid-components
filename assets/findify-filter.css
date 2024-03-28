@@ -172,6 +172,7 @@ button {
   display: flex;
   align-items: center;
   width: calc(100% - 50px);
+  cursor: pointer;
 }
 
 .findify-filters-checkbox-item-value > span,

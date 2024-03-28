@@ -1,53 +1,63 @@
-{%- assign nestLevelCount = 1 -%}
-{%- assign filterNameMode = filterName -%}
-{% if items.size > 4 %}
+{% liquid
+  assign nest_level = 1
+  assign level_name = name
+
+  if type == "category"
+    assign nest_level_string = nest_level | append: ""
+    assign level_name = level_name | append: nest_level_string
+  endif
+%}
+{{ name }}
+{% if filters.size > 4 %}
   {% render 'findify-filter-search-input'
-    , filterName: filterNameMode %}
+    , name: name %}
 {% endif %}
+
 <div class="findify-filters--body-wrapper">
-  {% if filterType == "category" %}
-    {%- assign nestLevelCountString = nestLevelCount | append: "" -%}
-    {%- assign filterNameMode = filterNameMode | append: nestLevelCountString -%}
-  {% endif %}
 
-  {%- for filterValues in items -%}
-    {%- assign values = filterValues -%}
+  {%- for filter in filters -%}
+    {% liquid
+      assign filter_props = filter | split: '^^' | first | split: '~'
+      assign value = filter_props[0] | url_decode
+      assign count = filter_props[1]
+      assign is_selected_prop = filter_props[2]
+      if is_selected_prop == 't'
+        assign is_selected = true
+      else
+        assign is_selected = false
+      endif
+      assign has_children_prop = filter_props[3]
+      if has_children_prop == 't'
+        assign has_children = true
+      else
+        assign has_children = false
+      endif
 
-    {% if filterValues contains "^^" %}
-      {%- assign values = filterValues | split: '^^' | first -%}
-      {%- assign children = filterValues | split: '^^' | last -%}
-    {% endif %}
-
-    {%- assign filterValue = values | split: '~' -%}
-    {%- assign val = filterValue[0] -%}
-    {%- assign count = filterValue[1] -%}
-    {%- assign selected = filterValue[2] -%}
-    {%- assign hasChildren = filterValue[3] -%}
-
-    {% render 'findify-filter-checkbox'
-      , name: filterNameMode
-      , type: filterType
-      , selected: selected
-      , value: val
-      , text: val
-      , count: count
-      , componentType: componentType
-      , index: forloop.index
-      , hasChildren: hasChildren
-      , limit: limit
-      , isColorLabel: isColorLabel
+      if filter contains '^^'
+        assign children_filter = filter | split: '^^' | last
+      endif
     %}
 
-    {% if children != blank %}
-      {% assign nestLevelCount = nestLevelCount | plus: 1 %}
+    {% render 'findify-filter-checkbox'
+      , name: level_name
+      , type: type
+      , is_selected: is_selected
+      , value: value
+      , text: value
+      , count: count
+      , component: component
+      , has_children: has_children
+    %}
+
+    {% if children_filter != blank %}
+      {% assign nest_level_number = nest_level | plus: 1 %}
+
       {% render 'findify-filter-nested'
-        , items: children
-        , filterName: filterName
-        , type: filterType
-        , componentType: componentType
-        , index: forloop.index
-        , limit: limit
-        , level: nestLevelCount %}
+        , children_filter: children_filter
+        , name: name
+        , type: type
+        , component: component
+        , nest_level: nest_level_number %}
     {% endif %}
 
   {%- endfor -%}

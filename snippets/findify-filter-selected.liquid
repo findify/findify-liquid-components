@@ -9,8 +9,8 @@
             {% assign to = parts[3] %}
             {% assign value = 'from|' | append: from | append: '-to|' | append: to %}
             {% assign reviewValue =  from | append: 'to' | append: to  %}
-            {%- else -%}
-            {% assign value = parts[2] %}
+            {% else %}
+            {% assign value = parts[2] | url_decode %}
         {% endif %}
 
         {% case type %}

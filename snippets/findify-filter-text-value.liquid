@@ -1,17 +1,17 @@
-{%- assign class = '' -%}
-{%- assign selectedClass = '' -%}
+{% liquid
+  if has_children
+    assign class = 'findify-filters--checkbox-nested-value'
+    if is_selected
+      assign selected_class = 'findify-filters--checkbox-nested-value-selected'
+    endif
+  else
+    assign class = 'findify-filters-checkbox-item-value'
+    if is_selected
+      assign selected_class = 'findify-filters-checkbox-item-value-selected'
+    endif
+  endif
+%}
 
-{% if hasChildren == 't' %}
-  {%- assign class = 'findify-filters--checkbox-nested-value' -%}
-  {%- assign selectedClass = 'findify-filters--checkbox-nested-value-selected' -%}
-{% else %}
-  {%- assign class = 'findify-filters-checkbox-item-value' -%}
-  {%- assign selectedClass = 'findify-filters-checkbox-item-value-selected' -%}
-{% endif %}
-
-<label class="
-    {{class}}
-    {% if selected == 't'%}{{selectedClass}}{% endif %}
-">
+<label class="{{class}} {{selected_class}}">
   <span>{{ text }}</span>
 </label>
