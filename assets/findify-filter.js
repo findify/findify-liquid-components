@@ -1,5 +1,3 @@
-// Script - event binding for findify-filters.liquid
-
 let selectors = {
   filtersContainer: "#findify-filters",
   filterSection: "#findify-filters-sidebar",
@@ -13,17 +11,9 @@ let selectors = {
   checkBoxNestedValue: ".findify-filters--checkbox-nested-value",
   checkBoxValue: ".findify-filters-checkbox-item-value",
   bodyWrapper: ".findify-filters--body-wrapper",
-  bodyContainer: ".findify-filters--body-container",
+  bodyContainer: ".findify-filters-body",
   rangeSubmit: ".findify-filters--range-submit",
-  rangeSliderWrapper: ".findify-filters--range-slider__wrapper",
-  rangeSliderMin: ".findify-filters--range__slider-min",
-  rangeSliderMax: ".findify-filters--range__slider-max",
-  rangeSliderLowerValue: ".findify-filters--range__slider-current-value-lower",
-  rangeSliderUpperValue: ".findify-filters--range__slider-current-value-upper",
-  rangeSliderTrack: ".findify-filters--range__slider-track",
   filterHeader: ".findify-filters-header",
-  filterHeaderTitle: ".findify-filters-header-title",
-  filterContainer: ".findify-filters-container",
   filtersSearchInput: ".findify-filters--checkbox-search input",
   filtersWrapper: ".findify-filters-wrapper",
   modalFilterToggler: "#findify-modal-toggler",
@@ -237,151 +227,6 @@ const bindRangeEvent = () => {
   });
 };
 
-const bindListenersToRangeSlider = () => {
-  setTimeout(() => {
-    const thumbsize = 14;
-    const setSliders = (slider, splitvalue) => {
-      const min = slider.querySelector(selectors.rangeSliderMin);
-      const max = slider.querySelector(selectors.rangeSliderMax);
-      const lower = slider.querySelector(selectors.rangeSliderLowerValue);
-      const upper = slider.querySelector(selectors.rangeSliderUpperValue);
-      const rangewidth = parseInt(slider.getAttribute("data-rangewidth"));
-      const rangemin = Math.round(slider.getAttribute("data-rangemin"));
-      const rangemax = Math.round(slider.getAttribute("data-rangemax"));
-
-      min.setAttribute("max", splitvalue);
-      max.setAttribute("min", splitvalue);
-
-      min.style.width =
-        parseInt(
-          thumbsize +
-            ((splitvalue - rangemin) / (rangemax - rangemin)) *
-              (rangewidth - 2 * thumbsize)
-        ) + "px";
-      max.style.width =
-        parseInt(
-          thumbsize +
-            ((rangemax - splitvalue) / (rangemax - rangemin)) *
-              (rangewidth - 2 * thumbsize)
-        ) + "px";
-      min.style.left = "0px";
-      max.style.left = `${parseInt(min.style.width)}px`;
-
-      slider.style.height = `${lower.offsetHeight + min.offsetHeight}px`;
-
-      max.value = max.getAttribute("data-value");
-      min.value = min.getAttribute("data-value");
-      lower.innerHTML = min.getAttribute("data-value");
-      upper.innerHTML = max.getAttribute("data-value");
-    };
-    const setTrack = (slider, direction) => {
-      const min = slider.querySelector(selectors.rangeSliderMin);
-      const max = slider.querySelector(selectors.rangeSliderMax);
-      const minValue = min.value;
-      const maxValue = max.value;
-      const minValueMaxRange = parseInt(min.getAttribute("max"));
-      const minValueMinRange = parseInt(min.getAttribute("min"));
-      const maxValueMaxRange = parseInt(max.getAttribute("max"));
-      const maxValueMinRange = parseInt(max.getAttribute("min"));
-      const minTotalInputWidth = min.offsetWidth;
-      const maxTotalInputWidth = max.offsetWidth;
-      const thumbHalfWidth = slider.getAttribute("data-thumbsize") / 2;
-      const left =
-        ((minValue - minValueMinRange) /
-          (minValueMaxRange - minValueMinRange)) *
-          (minTotalInputWidth - thumbHalfWidth - thumbHalfWidth) +
-        thumbHalfWidth;
-      const right =
-        ((maxValue - maxValueMinRange) /
-          (maxValueMaxRange - maxValueMinRange)) *
-          (maxTotalInputWidth - thumbHalfWidth - thumbHalfWidth) +
-        thumbHalfWidth +
-        minTotalInputWidth;
-      const width = right - left;
-
-      switch (direction) {
-        case "min":
-        case "init":
-          slider.parentElement.querySelector(
-            selectors.rangeSliderTrack
-          ).style.cssText += `
-                left: ${left}px; 
-                width: ${width}px;
-            `;
-          break;
-        case "max":
-          slider.parentElement.querySelector(
-            selectors.rangeSliderTrack
-          ).style.cssText += `
-                width: ${width}px;
-            `;
-          break;
-        default:
-          return;
-      }
-    };
-
-    const update = (el, direction) => {
-      const slider = el.parentElement;
-      const min = slider.querySelector(selectors.rangeSliderMin);
-      const max = slider.querySelector(selectors.rangeSliderMax);
-      const minvalue = parseInt(min.value);
-      const maxvalue = parseInt(max.value);
-      const avgvalue = parseInt((minvalue + maxvalue) / 2);
-
-      min.setAttribute("data-value", minvalue);
-      max.setAttribute("data-value", maxvalue);
-
-      setTrack(slider, direction);
-      setSliders(slider, avgvalue);
-    };
-
-    const init = (slider) => {
-      const min = slider.querySelector(selectors.rangeSliderMin);
-      const max = slider.querySelector(selectors.rangeSliderMax);
-      const minValue = parseInt(min.getAttribute("min"));
-      const maxValue = parseInt(max.getAttribute("max"));
-      // const rangemin = (filters?.sliderValues?.from && filters?.sliderValues?.from > parseInt(min.getAttribute('min'))) ? filters?.sliderValues?.from : parseInt(min.getAttribute('min'));
-      // const rangemax = (filters?.sliderValues?.to && filters?.sliderValues?.to < parseInt(max.getAttribute('max'))) ? filters?.sliderValues?.to : parseInt(max.getAttribute('max'));
-      const avgvalue = parseInt((minValue + maxValue) / 2);
-      const interactionEvent = findify.utils.isMobile() ? "touchend" : "click";
-
-      const filterName = slider.getAttribute("data-ref");
-
-      // min.setAttribute('data-value', rangemin);
-      // max.setAttribute('data-value', rangemax);
-      slider.setAttribute("data-rangewidth", slider.offsetWidth);
-
-      setSliders(slider, avgvalue);
-      setTrack(slider, "init");
-
-      min.addEventListener("input", (e) => update(min, "min"));
-      max.addEventListener("input", (e) => update(max, "max"));
-      slider.querySelectorAll("input").forEach((el) => {
-        el.addEventListener(interactionEvent, () => {
-          const from = parseInt(min.value);
-          const to = parseInt(max.value);
-
-          let value;
-          if (from && to) {
-            value = `from|${from}-to|${to}`;
-          } else if (from && !to) {
-            value = `from|${from}`;
-          } else if (to && !from) {
-            value = `to|${to}`;
-          }
-          findify.filters.update({ value, type: "range", name: filterName });
-          findify.grid.load();
-        });
-      });
-    };
-    // observe width change to properly init slider on mob, on desktop works as well
-    const slider = document.querySelector(selectors.rangeSliderWrapper);
-    const resizeObserver = new ResizeObserver(() => init(slider));
-    resizeObserver.observe(slider);
-  }, 350);
-};
-
 const handleFiltersSearch = () => {
   document.querySelectorAll(selectors.filtersSearchInput).forEach((input) => {
     const filterName = input.getAttribute("ref");
@@ -404,36 +249,6 @@ const handleFiltersSearch = () => {
         }
       });
     });
-  });
-};
-
-const handleExpandSpecificFilter = () => {
-  const hideFilter = (filterContainer) => {
-    filterContainer.setAttribute("aria-collapsed", "true");
-  };
-
-  const showFilter = (filterContainer) => {
-    filterContainer.setAttribute("aria-collapsed", "false");
-  };
-
-  const assignListenerToFilterHeader = (filterContainer, btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (filterContainer.getAttribute("aria-collapsed") === "false") {
-        hideFilter(filterContainer);
-      } else {
-        showFilter(filterContainer);
-      }
-    });
-  };
-
-  document.querySelectorAll(selectors.filterHeader).forEach((btn) => {
-    const filterName = btn.getAttribute("ref");
-    const filterContainer = document.querySelector(
-      `[aria-label='${filterName}']`
-    );
-
-    assignListenerToFilterHeader(filterContainer, btn);
   });
 };
 
@@ -465,9 +280,7 @@ const initFindifyMobileFiltersEvents = () => {
 const initFindifyFiltersEvents = () => {
   bindBreadcrumbClickEvent();
   bindRangeEvent();
-  //bindListenersToRangeSlider();
   bindClickEvent();
-  handleExpandSpecificFilter();
   handleFiltersSearch();
 
   initFindifyMobileFiltersEvents();

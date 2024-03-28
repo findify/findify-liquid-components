@@ -21,20 +21,18 @@
   if name == 'color'
     assign component = 'color'
   endif
+
+  assign element_id = 'findify-filters-' | append: name
 %}
 
-<div
-  id="findify-filters-{{name}}"
-  aria-label="{{name}}"
-  aria-collapsed="false"
-  class="findify-filter-group">
-  <div class="findify-filters-header" ref="{{name}}">
-    <label tabindex="-1" class="findify-filters-header-title">
+<div id="{{ element_id }}" class="findify-filter-group">
+  <div class="findify-filters-header">
+    <label tabindex="-1">
       {{ group_label }}
     </label>
     {% render 'findify-icon-arrow' %}
   </div>
-  <div class="findify-filters--body-container" aria-expanded="false">
+  <div class="findify-filters-body" aria-expanded="true">
     {% case component %}
       {% when 'text' %}
         {% render 'findify-filter-text'
@@ -57,4 +55,23 @@
           , filters: filters %}
     {% endcase %}
   </div>
+
 </div>
+
+<script>
+  const element_id = "{{ element_id }}";
+  
+  const collapseFilter = () => {
+    const filter = document.getElementById(element_id)
+    const childrens = filter.querySelectorAll('div');
+    const header = childrens[0];
+    const body = childrens[1];
+
+    header.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isOpen = body.getAttribute("aria-expanded") === "true";
+      body.setAttribute("aria-expanded", (!isOpen).toString());
+    });
+  };
+  collapseFilter();
+</script>

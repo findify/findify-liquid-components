@@ -10,13 +10,17 @@ button {
   display: none !important;
 }
 
-#findify-filters *[aria-collapsed="true"] .findify-filters--body-container {
+/* SECTION - HEADER & BODY EXPAND */
+.findify-filters-body[aria-expanded="false"] {
   display: none;
 }
 
-#findify-filters *[aria-collapsed="true"] .findify-filters--header-icon {
+.findify-filter-group:has(.findify-filters-body[aria-expanded="false"])
+  .findify-filters-header
+  svg {
   transform: rotate(180deg);
 }
+/* ENDSECTION */
 
 .findify-filters-checkbox-item {
   text-align: left;
@@ -37,12 +41,6 @@ button {
   padding-bottom: 5px;
 }
 
-.findify-filters-container[aria-collapsed="false"]
-  > .findify-filters-header
-  > svg {
-  transform: rotate(180deg);
-}
-
 .findify-filter-group {
   padding-bottom: 5px;
   border-bottom: 1px solid var(--findify-filters-separator-color);
@@ -56,29 +54,14 @@ button {
   padding: 0 12px 0 10px;
 }
 
-.findify-filters-header-title {
+.findify-filters-header label {
   text-transform: capitalize;
   font-weight: 700;
   color: var(--findify-filters-title);
-}
-
-.findify-filters-header-title span {
-}
-
-.findify-filters--header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
   cursor: pointer;
 }
 
-.findify-filters-header-title {
-  text-transform: capitalize;
-  cursor: pointer;
-}
-
-.findify-filters--body-container {
+.findify-filters-body {
   display: flex;
   flex-direction: column;
 }
