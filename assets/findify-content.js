@@ -3,7 +3,7 @@
  *   @return void;
  */
 const initFindifyContentEvents = () => {
-  const contentIntegrations = Object.keys(findify.core.contents).map((id) => ({
+  const contentIntegrations = Object.keys(findify.grid.liquid?.contents).map((id) => ({
     id,
   }));
   contentIntegrations.forEach(({ id }) => {
@@ -47,7 +47,7 @@ const initFindifyContentEvents = () => {
           findify.contents.state[id].meta.limit;
         const contentToLoad = {
           [id]: {
-            title: findify.core.contents[id].title,
+            title: findify.grid.liquid?.contents[id].title,
           },
         };
         const response = await findify.contents.api(contentToLoad, {
