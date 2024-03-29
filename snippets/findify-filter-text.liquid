@@ -7,33 +7,27 @@
     assign level_name = level_name | append: nest_level_string
   endif
 %}
-{{ name }}
+
 {% if filters.size > 4 %}
   {% render 'findify-filter-search-input'
     , name: name %}
 {% endif %}
 
 <div class="findify-filters--body-wrapper">
-
   {%- for filter in filters -%}
     {% liquid
-      assign filter_props = filter | split: '^^' | first | split: '~'
+      assign filter_props = filter | split: '~~' | first | split: '~'
       assign value = filter_props[0] | url_decode
       assign count = filter_props[1]
       assign is_selected_prop = filter_props[2]
-      if is_selected_prop == 't'
+      if is_selected_prop == 'T'
         assign is_selected = true
       else
         assign is_selected = false
       endif
-      assign has_children_prop = filter_props[3]
-      if has_children_prop == 't'
-        assign has_children = true
-      else
-        assign has_children = false
-      endif
 
-      if filter contains '^^'
+      if filter contains '~~'
+        assign has_children = true
         assign children_filter = filter | split: '^^' | last
       endif
     %}

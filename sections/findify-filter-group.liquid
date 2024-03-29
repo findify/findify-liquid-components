@@ -2,12 +2,10 @@
   assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: "\/", "/" | replace: "\u0026", "&" | replace: '%7C', '|' | replace: '%20', ' '
   assign query_parameters = page_url | split: "sections=findify-filter-group&" | last
 
-  assign filters_parameters = query_parameters | split: "filters=" | last | split: '&' | first | split: '='
-  assign filters_props = filters_parameters | first | split: '~'
-  assign name = filters_props[0] | url_decode
-  assign group_label = filters_props[1] | url_decode
-  assign type = filters_props[2]
-  assign filters = filters_parameters | last | split: '|'
+  assign name = query_parameters | split: "name=" | last | split: '&' | first
+  assign group_label = query_parameters | split: "label=" | last | split: '&' | first | url_decode
+  assign type = query_parameters | split: "type=" | last | split: '&' | first
+  assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
 
   assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
 
@@ -59,19 +57,19 @@
 </div>
 
 <script>
-  const element_id = "{{ element_id }}";
-  
-  const collapseFilter = () => {
-    const filter = document.getElementById(element_id)
-    const childrens = filter.querySelectorAll('div');
-    const header = childrens[0];
-    const body = childrens[1];
+const collapseFilter = () => {
+    const element_id = "{{ element_id }}";
+    const filterGroupElement = document.getElementById(element_id);
+    const [header, body] = filterGroupElement.querySelectorAll('div');
 
-    header.addEventListener("click", (e) => {
+    const headerClickHandler = (e) => {
       e.preventDefault();
-      const isOpen = body.getAttribute("aria-expanded") === "true";
-      body.setAttribute("aria-expanded", (!isOpen).toString());
-    });
-  };
-  collapseFilter();
+        const isOpen = body.getAttribute("aria-expanded") === "true";
+        body.setAttribute("aria-expanded", (!isOpen).toString());
+    };
+
+    header.addEventListener("click", headerClickHandler);
+};
+
+collapseFilter();
 </script>

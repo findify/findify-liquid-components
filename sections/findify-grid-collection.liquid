@@ -41,9 +41,10 @@
             </button>
             {% if active_filters != 'none' %}
               <div class="findify-search-header-breadcrumb">
-                {% render 'findify-filter-selected'
+                {% render 'findify-filter-breadcrumb'
                   , active_filters: active_filters
-                  , color_layout: color_layout %}
+                  , color_layout: color_layout,
+                  component_id: 'sidebar' %}
               </div>
             {% endif %}
             <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">

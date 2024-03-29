@@ -1,4 +1,9 @@
+{% liquid 
+  assign filter_element_id = 'findify-filter-' | append: value | downcase
+%}
+
 <div
+  id="{{ filter_element_id }}"
   class="findify-filters-checkbox-item {{class}}"
   data-name="{{name}}"
   data-type="{{type}}"
@@ -27,3 +32,25 @@
       <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
   {% endcase %}
 </div>
+
+<script>
+const onFilterClick = () => {
+  const filter_element_id = "{{ filter_element_id }}"
+  const value = "{{ value }}";
+  const type = "{{ type }}";
+  const name = "{{ name }}";
+
+    const filterElement = document.getElementById(filter_element_id);
+
+    const filterClickHandler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFilterDrawer()
+        findify.filters.update({ value, type, name });
+    };
+
+    filterElement.addEventListener("click", filterClickHandler);
+};
+
+onFilterClick();
+</script>

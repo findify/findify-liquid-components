@@ -26,9 +26,10 @@
   </div>
   {% if active_filters != 'none' %}
     <div class="findify-search-desktop-breadcrumb">
-      {% render 'findify-filter-selected'
+      {% render 'findify-filter-breadcrumb'
         , active_filters: active_filters
-        , color_layout: color_layout %}
+        , color_layout: color_layout
+        , component_id: 'desktop-toolbar' %}
     </div>
   {% endif %}
 </div>

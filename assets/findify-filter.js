@@ -1,5 +1,4 @@
 let selectors = {
-  filtersContainer: "#findify-filters",
   filterSection: "#findify-filters-sidebar",
   toggleFilterSection: "#findify-toggle-filter",
   selectedItem: ".findify-filters-checkbox-item-value-selected",
@@ -10,12 +9,7 @@ let selectors = {
   checkboxItem: ".findify-filters-checkbox-item",
   checkBoxNestedValue: ".findify-filters--checkbox-nested-value",
   checkBoxValue: ".findify-filters-checkbox-item-value",
-  bodyWrapper: ".findify-filters--body-wrapper",
-  bodyContainer: ".findify-filters-body",
   rangeSubmit: ".findify-filters--range-submit",
-  filterHeader: ".findify-filters-header",
-  filtersSearchInput: ".findify-filters--checkbox-search input",
-  filtersWrapper: ".findify-filters-wrapper",
   modalFilterToggler: "#findify-modal-toggler",
   mobileModalWrapper: ".findify-filters-mobile-modal",
   mobileHeader: "#findify-modal-filters-header",
@@ -62,109 +56,6 @@ const priceRangeEventHandler = () => {
   priceRangeButton?.addEventListener("click", () =>
     priceRangeUpdater(inputMax, inputMin)
   );
-};
-
-const bindClickEvent = () => {
-  const filters = [...document.querySelectorAll(selectors.checkboxItem)];
-  filters.forEach((filter) => {
-    let value = filter.getAttribute("value").trim();
-    const name = filter.getAttribute("data-name");
-    const type = filter.getAttribute("data-type");
-    const selected = filter.getAttribute("selected");
-
-    filter.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      toggleFilterDrawer();
-      findify.filters.update({ value, type, name });
-      findify.grid.load();
-    });
-  });
-  priceRangeEventHandler();
-};
-
-const bindBreadcrumbClickEvent = () => {
-  const breadcrumbs = [
-    ...document.querySelectorAll(selectors.breadcrumbItemClass),
-  ];
-  const clearAllCrumbs = document.querySelectorAll(selectors.clearAll);
-
-  if (breadcrumbs.length) {
-    clearAllCrumbs.forEach((clearAll) => {
-      clearAll.addEventListener("click", () => {
-        toggleFilterDrawer();
-        findify.filters.setState([]);
-        findify.grid.load();
-      });
-    });
-  }
-
-  breadcrumbs.forEach((breadcrumb) => {
-    const name = breadcrumb.getAttribute("name");
-    const type = breadcrumb.getAttribute("type");
-    const value = breadcrumb.getAttribute("value");
-
-    breadcrumb.addEventListener("click", () => {
-      findify.filters.update({ name, type, value });
-      findify.grid.load();
-    });
-  });
-};
-
-const initBreadcrumbShowMore = () => {
-  const showMore = document.querySelector(selectors.showMoreBreadcrumbs);
-  const breadcrumbsContainer = document.querySelector(
-    `.desktop ${selectors.breadCrumbsContainer}`
-  );
-  if (breadcrumbsContainer) {
-    const breadcrumbs = [
-      ...breadcrumbsContainer.querySelectorAll(selectors.breadcrumbItemClass),
-    ];
-    const gap = 15;
-    const showMoreWidth = showMore.offsetWidth;
-    const clearAllWidth = document.querySelector(
-      selectors.clearAll
-    ).offsetWidth;
-    let totalCount = 0;
-    let hiddenCount = 0;
-    let totalBreadcrumbsWidth = 0;
-    let containerWidth = breadcrumbsContainer.offsetWidth;
-    let hiddenBreadcrumbs = [];
-
-    // start with show more width
-    totalBreadcrumbsWidth += showMoreWidth + clearAllWidth;
-
-    // iterate over breadcrumbs and add their width to total width
-    breadcrumbs.forEach((breadcrumb) => {
-      totalBreadcrumbsWidth += breadcrumb.offsetWidth + gap;
-      totalCount += 1;
-      if (totalBreadcrumbsWidth > containerWidth) {
-        hiddenCount += 1;
-        breadcrumb.setAttribute("style", "display: none;");
-        hiddenBreadcrumbs.push(breadcrumb);
-      }
-    });
-
-    // if there are hidden breadcrumbs, display show more button and add event listener
-    if (hiddenCount > 0) {
-      const showMoreTextContainer = showMore.querySelector("small");
-      showMoreTextContainer.innerHTML = `${hiddenCount} more`;
-      showMore.addEventListener("click", () => {
-        showMore.classList.toggle("open");
-        hiddenBreadcrumbs.forEach((breadcrumb) => {
-          if (breadcrumb.hasAttribute("style")) {
-            breadcrumb.removeAttribute("style");
-            showMoreTextContainer.innerHTML = "Less";
-          } else {
-            breadcrumb.setAttribute("style", "display: none;");
-            showMoreTextContainer.innerHTML = `${hiddenCount} more`;
-          }
-        });
-      });
-    } else {
-      showMore.style.display = "none";
-    }
-  }
 };
 
 const bindRangeEvent = () => {
@@ -227,31 +118,6 @@ const bindRangeEvent = () => {
   });
 };
 
-const handleFiltersSearch = () => {
-  document.querySelectorAll(selectors.filtersSearchInput).forEach((input) => {
-    const filterName = input.getAttribute("ref");
-    const filterContainer = document.querySelector(
-      `[aria-label='${filterName}']`
-    );
-    const filterWrapper = filterContainer.querySelector(selectors.bodyWrapper);
-    const items = [...filterWrapper.querySelectorAll(selectors.checkboxItem)];
-
-    input.addEventListener("input", (e) => {
-      const value = e.target.value.toLowerCase();
-      items.forEach((i) => {
-        const text = i.innerText.toLowerCase();
-        if (!text.includes(value)) {
-          i.setAttribute("aria-hidden", "true");
-        } else {
-          if (i.getAttribute("aria-hidden") === "true" || value === "") {
-            i.setAttribute("aria-hidden", "false");
-          }
-        }
-      });
-    });
-  });
-};
-
 const initFindifyDesktopFiltersEvents = () => {
   const domRefs = {
     toggleSection: selectors.toggleFilterSection,
@@ -260,7 +126,6 @@ const initFindifyDesktopFiltersEvents = () => {
   };
 
   bindToggleEvent(false, domRefs);
-  initBreadcrumbShowMore();
 };
 
 const initFindifyMobileFiltersEvents = () => {
@@ -278,10 +143,7 @@ const initFindifyMobileFiltersEvents = () => {
 };
 
 const initFindifyFiltersEvents = () => {
-  bindBreadcrumbClickEvent();
   bindRangeEvent();
-  bindClickEvent();
-  handleFiltersSearch();
 
   initFindifyMobileFiltersEvents();
   initFindifyDesktopFiltersEvents();
