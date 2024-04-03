@@ -1,6 +1,6 @@
 {% liquid
   assign children_props = children_filter | split: '^'
-  assing children = children_props | first | split: '-'
+  assign children = children_props | first | split: '-'
   assign children_with_separator = children_props | first | append: '^'
   assign next_children = children_filter | replace: children_with_separator, ''
 
