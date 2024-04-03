@@ -8,6 +8,12 @@
   assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
 
   assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
+  assign color_not_mapped = query_parameters | split: "not_mapped=" | last | split: '&' | first
+  if color_not_mapped == 'true'
+    assign color_not_mapped = true
+  else
+    assign color_not_mapped = false
+  endif
 
   assign component = type
   if name == 'category'
@@ -44,7 +50,8 @@
           , type: type
           , component: component
           , filters: filters
-          , color_filter_layout: color_filter_layout %}
+          , color_filter_layout: color_filter_layout
+          , color_not_mapped: color_not_mapped %}
       {% when 'range' or 'reviews' %}
         {% render 'findify-filter-range'
           , name: name
@@ -57,7 +64,7 @@
 </div>
 
 <script>
-const collapseFilter = () => {
+  const collapseFilter = () => {
     const element_id = "{{ element_id }}";
     const filterGroupElement = document.getElementById(element_id);
     const [header, body] = filterGroupElement.querySelectorAll('div');
@@ -69,7 +76,7 @@ const collapseFilter = () => {
     };
 
     header.addEventListener("click", headerClickHandler);
-};
+  };
 
-collapseFilter();
+  collapseFilter();
 </script>
