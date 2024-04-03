@@ -3,9 +3,15 @@
 <div id="{{ id }}" class="findify-product-card {{ class }}">
   <a class="findify-product-link" href={{ product_url }}>
     <div class='image-container'>
-      {% render 'findify-product-image'
-        , media: product.featured_media
-        , class: 'first-image' %}
+      {% if current_variant.featured_media != null %}
+        {% render 'findify-product-image'
+          , media: current_variant.featured_media
+          , class: 'first-image' %}
+      {% else %}
+        {% render 'findify-product-image'
+          , media: product.featured_media
+          , class: 'first-image' %}
+      {% endif %}
       {%- if product.media[1] != null -%}
         {% render 'findify-product-image'
           , media: product.media[1]

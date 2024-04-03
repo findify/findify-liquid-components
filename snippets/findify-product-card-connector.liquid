@@ -39,6 +39,12 @@
   endif
   if query_parameters contains "selected_variant_id="
     assign selected_variant_id = query_parameters | split: "selected_variant_id=" | last | split: "&" | first
+    for variant in product.variants
+      assign current_variant_id_number = selected_variant_id | plus: 0
+      if variant.id == current_variant_id_number
+        assign current_variant = variant
+      endif
+    endfor
   endif
   if query_parameters contains "item_group_id="
     assign item_group_id = query_parameters | split: "item_group_id=" | last | split: "&" | first
