@@ -1,4 +1,4 @@
-{% liquid 
+{% liquid
   assign filter_element_id = 'findify-filter-' | append: value | downcase
 %}
 
@@ -34,7 +34,7 @@
 </div>
 
 <script>
-const onFilterClick = () => {
+  const onFilterClick = () => {
   const filter_element_id = "{{ filter_element_id }}"
   const value = "{{ value }}";
   const type = "{{ type }}";
@@ -45,12 +45,15 @@ const onFilterClick = () => {
     const filterClickHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleFilterDrawer()
+        const openClass = 'open-left';
+        const containerElement = document.getElementById('findify-filters-sidebar');
+        containerElement?.classList.remove(openClass);
+        document.documentElement.classList.remove("no-scroll");
         findify.filters.update({ value, type, name });
     };
 
     filterElement.addEventListener("click", filterClickHandler);
-};
+  };
 
-onFilterClick();
+  onFilterClick();
 </script>

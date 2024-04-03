@@ -49,7 +49,10 @@
         assign max = filter | split: ':' | last
       %}
       {% render 'findify-filter-price-range'
-        , currency: currency %}
+        , name: name
+        , currency: currency
+        , min: min
+        , max: max %}
     {% endif %}
 
   {% endfor %}

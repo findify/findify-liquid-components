@@ -11,8 +11,10 @@
 {% if use_content_integration == 'false' or tabs[0] == 'none' %}
   {%- assign show_content_integration = false -%}
 {% else %}
-  {%- assign show_content_integration = true -%} 
+  {%- assign show_content_integration = true -%}
 {% endif %}
+
+{% assign findify_filters_component_id = 'findify-filters-sidebar' %}
 
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
@@ -36,6 +38,7 @@
         , sort_by: sort_by
         , active_filters: active_filters
         , color_layout: color_layout
+        , filter_component_id: findify_filters_component_id
       %}
       {% render 'findify-toolbar-mobile'
         , results_count: results_count
@@ -44,6 +47,7 @@
         , default_sort_by: default_sort_by
         , sort_by: sort_by
         , active_filters: active_filters
+        , filter_component_id: findify_filters_component_id
       %}
 
         <div id="findify-search-main" class="findify-search-main">
@@ -52,26 +56,10 @@
         </div>
 
         <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
-          <div class="findify-filters-container">
-            <button id="findify-modal-filters-header" class="findify-modal-header">
-              <span class="findify-modal-header-title">Filters</span>
-              {% render 'findify-icon-cross' %}
-            </button>
-            {% if active_filters != 'none' %}
-              <div class="findify-search-header-breadcrumb">
-                {% render 'findify-filter-breadcrumb'
-                  , active_filters: active_filters
-                  , color_layout: color_layout
-                  , component_id: 'sidebar' %}
-              </div>
-            {% endif %}
-            <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
-              {% comment %}
-                This element #findify-filters will be replaced with rendered html from sections/findify-filter-group
-              {% endcomment %}
-            </div>
-            <button id="findify-modal-filters-footer" class="findify-modal-footer">See results</button>
-          </div>
+          {% render 'findify-filters'
+            , component_id: findify_filters_component_id,
+            , active_filters: active_filters
+            , color_layout: color_layout %}
         </aside>
         <!-- product grid section! -->
         <div class="findify-products-section">
@@ -141,12 +129,7 @@
   {% endif %}
 
   <script>
-    /* IMPORTANT: Script tags are executed within this file element. */
-
     if("{{ results_count }}" != "0"){
-      initFindifyFiltersEvents();
-      initFindifySortingEvents();
-
       if("{{ show_content_integration }}" == 'true') {
         initFindifyTabsEvents();
         initFindifyContentEvents();

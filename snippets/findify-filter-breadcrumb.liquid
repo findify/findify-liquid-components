@@ -1,113 +1,130 @@
-{% assign breadcrumb_container_element_id = 'breadcrumb-container-' | append: component_id %}
+{% assign breadcrumb_container_element_id = 'breadcrumb-container-' | append: component_id | replace: ' ', '' %}
 <div id="{{ breadcrumb_container_element_id }}" class="findify-filters-breadcrumbs-body">
-    {%- assign filters = active_filters | split: ";" -%}
-    {% for filter in filters %}
-        {% liquid
-            assign parts = filter | split: '~'
-            assign name = parts[0]
-            assign type = parts[1]
-            
-             if type == 'range'
-                 assign from = parts[2]
-                 assign to = parts[3]
-                 assign value = 'from|' | append: from | append: '-to|' | append: to
-                 assign reviewValue =  from | append: 'to' | append: to 
-                 else
-                 assign value = parts[2] | url_decode
-             endif
+  {%- assign filters = active_filters | split: ";" -%}
+  {% for filter in filters %}
+    {% liquid
+      assign parts = filter | split: '~'
+      assign name = parts[0]
+      assign type = parts[1]
 
-            assign breadcrumb_element_id = 'breadcrumb-' | append: component_id | append: '-' | append: value
-        %}
+      if type == 'range'
+        assign from = parts[2]
+        assign to = parts[3]
+        assign value = 'from|' | append: from | append: '-to|' | append: to
+        assign reviewValue = from | append: 'to' | append: to
+      else
+        assign value = parts[2] | url_decode
+      endif
 
-        <div id="{{ breadcrumb_element_id }}" class="findify-filters-breadcrumb-item" selected="true" type="{{type}}" name="{{name}}" value="{{value}}">
-            {% case type %}
-                {% when 'range' %}
-                    {% liquid
-                     assign from = parts[2]
-                     assign to = parts[3]
-                    %}
-                    {% case name %}   
-                        {% when 'reviews.average_score' %}
-                            {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
-                        {% else %}
-                        {% liquid
-                         assign fake_price = 123 
-                         assign money_price = fake_price | times: 100 | money 
-                         assign currency = money_price | replace: fake_price, '' | replace: ',00', '' 
-                        %}
-                            {% if from == 'undefined' %}
-                                <span>under {{to | append: currency }}</span>
-                            {% elsif to == 'undefined' %}
-                                <span>{{from | append: currency }} & up</span>
-                            {% else %}
-                                {{ from | append: currency }} - {{ to | append: currency }}
-                            {% endif %}
-                    {% endcase %}
-                {% else %}
-                    {% case name %}
-                        {% when 'color' %}
-                            {% if color_layout %}
-                                <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
-                                {% if color_layout == 'color_with_label' %}
-                                    <span>{{value}}</span>
-                                {% endif %}
-                            {% else %}
-                                <span>{{value}}</span>
-                            {% endif %}
-                        {% else %}
-                            <span>{{value}}</span>
-                    {% endcase %}
-            {% endcase %}
-            <div class="findify-filters-breadcrumb-close">
-                {% render 'findify-icon-cross', size: 8 %}
-            </div>
-        </div>
-        <script>
-            const removeFilter = () => {
-                const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
+      assign breadcrumb_element_id = 'breadcrumb-' | append: component_id | append: '-' | append: value | replace: ' ', ''
+    %}
 
-                const name = "{{ name }}";
-                const type = "{{ type }}";
-                const value = "{{ value }}";
-
-                const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
-    
-                const breadcrumbElement = document.getElementById(breadcrumb_element_id);
-                breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
-            }
-            removeFilter();
-        </script>
-    {% endfor %}
-
-    {% assign breadcrumb_show_more_element_id = 'breadcrumb-show-more-' | append: component_id %}
-    <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
-        <small></small>
-        <div class="findify-filters-breadcrumb-close">
-            {% render 'findify-icon-arrow', size: 8 %}
-        </div>
+    <div
+      id="{{ breadcrumb_element_id }}"
+      class="findify-filters-breadcrumb-item"
+      selected="true"
+      type="{{type}}"
+      name="{{name}}"
+      value="{{value}}">
+      {% case type %}
+        {% when 'range' %}
+          {% liquid
+            assign from = parts[2]
+            assign to = parts[3]
+          %}
+          {% case name %}
+            {% when 'reviews.average_score' %}
+              {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
+            {% else %}
+              {% liquid
+                assign fake_price = 123
+                assign money_price = fake_price | times: 100 | money
+                assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
+              %}
+              {% if from == 'undefined' %}
+                <span>under {{ to | append: currency }}</span>
+              {% elsif to == 'undefined' %}
+                <span>{{ from | append: currency }} & up</span>
+              {% else %}
+                {{ from | append: currency }} - {{ to | append: currency }}
+              {% endif %}
+          {% endcase %}
+        {% else %}
+          {% case name %}
+            {% when 'color' %}
+              {% if color_layout %}
+                <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
+                {% if color_layout == 'color_with_label' %}
+                  <span>{{ value }}</span>
+                {% endif %}
+              {% else %}
+                <span>{{ value }}</span>
+              {% endif %}
+            {% else %}
+              <span>{{ value }}</span>
+          {% endcase %}
+      {% endcase %}
+      <div class="findify-filters-breadcrumb-close">
+        {% render 'findify-icon-cross'
+          , size: 8 %}
+      </div>
     </div>
-    {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
-    <div id="{{ breadcrumb_clear_all_element_id }}" class="findify-filters-breadcrumbs-clear-all" selected="true">
-        <muted>Clear all</muted>
+    <script>
+      const removeFilter = () => {
+          const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
+
+          const name = "{{ name }}";
+          const type = "{{ type }}";
+          const value = "{{ value }}";
+
+          const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
+          
+          const breadcrumbElement = document.getElementById(breadcrumb_element_id);
+          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+      }
+      removeFilter();
+    </script>
+  {% endfor %}
+
+  {% assign breadcrumb_show_more_element_id = 'breadcrumb-show-more-' | append: component_id %}
+  <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
+    <small></small>
+    <div class="findify-filters-breadcrumb-close">
+      {% render 'findify-icon-arrow'
+        , size: 8 %}
     </div>
+  </div>
+  {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
+  <div
+    id="{{ breadcrumb_clear_all_element_id }}"
+    class="findify-filters-breadcrumbs-clear-all"
+    selected="true">
+    <muted>Clear all</muted>
+  </div>
 </div>
 
 <script>
     const removeAllFilters = () => {
         const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
+        const sidebar_component_id = "{{ sidebar_component_id }}"
         const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
 
+        const openClass = 'open-left';
         const breacrumbClearAllClickHandler =  () => {
-                toggleFilterDrawer();
-                findify.filters.reset();
-            }
+          const containerElement = document.getElementById(sidebar_component_id);
+          containerElement.classList.remove(openClass);
+          document.documentElement.classList.remove("no-scroll");
+          findify.filters.reset();
+        }
 
         breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
-
     }
     removeAllFilters();
         
     const showMore = () => {
+        const show_all = "{{ show_all }}" === "true";
+        if(show_all) return;
+
         const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
         const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
         const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';

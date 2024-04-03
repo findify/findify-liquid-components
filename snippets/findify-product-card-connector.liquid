@@ -72,11 +72,11 @@
   if query_parameters contains "stickers="
     assign stickers = query_parameters | split: "stickers=" | last | split: "&" | first
   endif
-  if query_parameters contains "reviews_count="
-    assign reviews_count = query_parameters | split: "reviews_count=" | last | split: "&" | first
+  if query_parameters contains "reviews.count="
+    assign reviews_count = query_parameters | split: "reviews.count=" | last | split: "&" | first
   endif
-  if query_parameters contains "reviews="
-    assign reviews = query_parameters | split: "reviews=" | last | split: "&" | first
+  if query_parameters contains "reviews.average_score="
+    assign reviews = query_parameters | split: "reviews.average_score=" | last | split: "&" | first
   endif
   if query_parameters contains "brand="
     assign brand = query_parameters | split: "brand=" | last | split: "&" | first | url_decode

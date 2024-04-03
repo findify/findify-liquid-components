@@ -1,11 +1,11 @@
-
 {% liquid
   assign filter_group_element_id = 'findify-filters-' | append: name
   assign input_id = 'findify-filter-search-' | append: name
 %}
 
 <div class="findify-filters--checkbox-search">
-  <input id="{{ input_id }}"
+  <input
+    id="{{ input_id }}"
     placeholder="Search"
     type="text"
     ref="{{ name }}" />
@@ -22,10 +22,11 @@
 </div>
 
 <script>
-const filterSearch = () => {
+  const filterSearch = () => {
     const filter_group_id = "{{ filter_group_element_id }}";
     const input_id = "{{ input_id }}";
     const filterSelector = '.findify-filters-checkbox-item';
+    const filterTextSelector = 'label';
 
     const filterGroupElement = document.getElementById(filter_group_id);
     const filters = filterGroupElement.querySelectorAll(filterSelector);
@@ -34,14 +35,14 @@ const filterSearch = () => {
     const inputHandler = (e) => {
         const value = e.target.value.trim().toLowerCase();
         filters.forEach(item => {
-            const text = item.innerText.trim().toLowerCase();
+            const text = item.querySelector(filterTextSelector).innerText.trim().toLowerCase();
             const shouldHide = value && !text.includes(value);
             item.setAttribute("aria-hidden", shouldHide.toString());
         });
     };
 
     input.addEventListener("input", inputHandler);
-};
+  };
 
-filterSearch();
+  filterSearch();
 </script>
