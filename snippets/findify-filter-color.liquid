@@ -1,8 +1,7 @@
 {% liquid
   # If "label" option is selected from Visual editor we use text component
-  if color_filter_layout == 'label' or color_not_mapped
+  if color_filter_layout == 'label'
     assign component = 'text'
-    assign color_filter_layout = 'label'
   endif
 
   assign wrapper_class = 'body-wrapper-layout-' | append: color_filter_layout
@@ -29,18 +28,20 @@
       endif
     %}
 
-    {% render 'findify-filter-checkbox'
-      , name: name
-      , type: type
-      , is_selected: is_selected
-      , count: count
-      , component: component
-      , value: value
-      , text: value
-      , color_name: value
-      , border_color: border_color
-      , class: checkbox_class
-      , color_filter_layout: color_filter_layout
-    %}
+    {% if value != 'nm' %}
+      {% render 'findify-filter-checkbox'
+        , name: name
+        , type: type
+        , is_selected: is_selected
+        , count: count
+        , component: component
+        , value: value
+        , text: value
+        , color_name: value
+        , border_color: border_color
+        , class: checkbox_class
+        , color_filter_layout: color_filter_layout
+      %}
+    {% endif %}
   {% endfor %}
 </div>

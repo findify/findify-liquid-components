@@ -8,11 +8,11 @@
   assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
 
   assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
-  assign color_not_mapped = query_parameters | split: "not_mapped=" | last | split: '&' | first
-  if color_not_mapped == 'true'
-    assign color_not_mapped = true
+  assign has_mapped_color = query_parameters | split: "has_mapped_color=" | last | split: '&' | first
+  if has_mapped_color == 'true'
+    assign has_mapped_color = true
   else
-    assign color_not_mapped = false
+    assign has_mapped_color = false
   endif
 
   assign component = type
@@ -29,42 +29,42 @@
   assign element_id = 'findify-filters-' | append: name
 %}
 
-<div id="{{ element_id }}" class="findify-filter-group">
-  <div class="findify-filters-header">
-    <label tabindex="-1">
-      {{ group_label }}
-    </label>
-    {% render 'findify-icon-arrow' %}
-  </div>
-  <div class="findify-filters-body" aria-expanded="true">
-    {% case component %}
-      {% when 'text' %}
-        {% render 'findify-filter-text'
-          , name: name
-          , type: type
-          , component: component
-          , filters: filters %}
-      {% when 'color' %}
-        {% render 'findify-filter-color'
-          , name: name
-          , type: type
-          , component: component
-          , filters: filters
-          , color_filter_layout: color_filter_layout
-          , color_not_mapped: color_not_mapped %}
-      {% when 'range' or 'reviews' %}
-        {% render 'findify-filter-range'
-          , name: name
-          , type: type
-          , component: component
-          , filters: filters %}
-    {% endcase %}
+{% if name != 'color' or has_mapped_color %}
+  <div id="{{ element_id }}" class="findify-filter-group">
+    <div class="findify-filters-header">
+      <label tabindex="-1">
+        {{ group_label }}
+      </label>
+      {% render 'findify-icon-arrow' %}
+    </div>
+    <div class="findify-filters-body" aria-expanded="true">
+      {% case component %}
+        {% when 'text' %}
+          {% render 'findify-filter-text'
+            , name: name
+            , type: type
+            , component: component
+            , filters: filters %}
+        {% when 'color' %}
+          {% render 'findify-filter-color'
+            , name: name
+            , type: type
+            , component: component
+            , filters: filters
+            , color_filter_layout: color_filter_layout
+            , color_not_mapped: color_not_mapped %}
+        {% when 'range' or 'reviews' %}
+          {% render 'findify-filter-range'
+            , name: name
+            , type: type
+            , component: component
+            , filters: filters %}
+      {% endcase %}
+    </div>
   </div>
 
-</div>
-
-<script>
-  const collapseFilter = () => {
+  <script>
+      const collapseFilter = () => {
     const element_id = "{{ element_id }}";
     const filterGroupElement = document.getElementById(element_id);
     const [header, body] = filterGroupElement.querySelectorAll('div');
@@ -76,7 +76,9 @@
     };
 
     header.addEventListener("click", headerClickHandler);
-  };
+      };
 
-  collapseFilter();
-</script>
+      collapseFilter();
+  </script>
+
+{% endif %}
