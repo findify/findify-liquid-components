@@ -1,92 +1,91 @@
-{%- comment -%}
-  Reference obj: https://shopify.dev/docs/api/liquid/objects/search
-  Example: default_sort_by=popularity&filters=type-some-thing&performed=true&results=he-dh-ad-dg
-{%- endcomment -%}
+{% liquid
+  # Reference obj: https: //shopify.dev/docs/api/liquid/objects/search
+  # Example: default_sort_by=popularity&filters=type-some-thing&performed=true&results=he-dh-ad-dg
 
-{%- assign curr_page = page_url | split: 'curr_page=' | last | split: '&' | first | plus: 0 -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign last_page = page_url | split: 'last_page=' | last | split: '&' | first | plus: 0 -%}
-{%- comment -%} string {%- endcomment -%}
+  assign curr_page = page_url | split: 'curr_page=' | last | split: '&' | first | plus: 0
+  # string endcomment
+  assign last_page = page_url | split: 'last_page=' | last | split: '&' | first | plus: 0
+  # string endcomment
 
-{%- comment -%} Shared properties: search and collection {%- endcomment -%}
-{%- assign default_sort_by = page_url | split: 'default_sort_by=' | last | split: '&' | first -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign filters = page_url | split: 'filters=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'value1-value2-value3-...'[] {%- endcomment -%}
-{%- assign results_count = page_url | split: 'results_count=' | last | split: '&' | first | plus: 0 -%}
-{%- comment -%} number {%- endcomment -%}
-{%- assign sort_by = page_url | split: 'sort_by=' | last | split: '&' | first -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign sort_options = page_url | split: 'sort_options=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'name-value'[] {%- endcomment -%}
-{%- assign active_filters = page_url | split: 'active_filters=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
+  # Shared properties: search and collection endcomment
+  assign default_sort_by = page_url | split: 'default_sort_by=' | last | split: '&' | first
+  # string endcomment
+  assign filters = page_url | split: 'filters=' | last | split: '&' | first | split: ';'
+  # 'value1-value2-value3-...' [ ] endcomment
+  assign results_count = page_url | split: 'results_count=' | last | split: '&' | first | plus: 0
+  # number endcomment
+  assign sort_by = page_url | split: 'sort_by=' | last | split: '&' | first
+  # string endcomment
+  assign sort_options = page_url | split: 'sort_options=' | last | split: '&' | first | split: ';'
+  # 'name-value' [ ] endcomment
+  assign active_filters = page_url | split: 'active_filters=' | last | split: '&' | first
+  # ? endcomment
 
-{%- comment -%} Search properties: https://shopify.dev/docs/api/liquid/objects/search {%- endcomment -%}
-{%- assign performed = page_url | split: 'performed=' | last | split: '&' | first | boolean -%}
-{%- comment -%} boolean {%- endcomment -%}
-{%- assign results = page_url | split: 'results=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'productHandle'[] {%- endcomment -%}
-{% if page_url contains 'terms=' %}
-  {%- assign terms = page_url | split: 'terms=' | last | split: '&' | first -%}
-  {%- comment -%} string {%- endcomment -%}
-{% endif %}{%- assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} string[] {%- endcomment -%}
+  # Search properties: https: //shopify.dev/docs/api/liquid/objects/search endcomment
+  assign performed = page_url | split: 'performed=' | last | split: '&' | first | boolean
+  # boolean endcomment
+  assign results = page_url | split: 'results=' | last | split: '&' | first | split: ';'
+  # 'productHandle' [ ] endcomment
 
-{%- comment -%} Collection properties: https://shopify.dev/docs/api/liquid/objects/collection {%- endcomment -%}
-{%- assign all_products_count = page_url | split: 'all_products_count=' | last | split: '&' | first | plus: 0 -%}
-{%- comment -%} number {%- endcomment -%}
-{%- assign all_tags = page_url | split: 'all_tags=' | last | split: '&' | first -%}
-{%- comment -%} '?'[] {%- endcomment -%}
-{%- assign all_types = page_url | split: 'all_types=' | last | split: '&' | first -%}
-{%- comment -%} boolean {%- endcomment -%}
-{%- assign all_vendors = page_url | split: 'all_vendors=' | last | split: '&' | first -%}
-{%- comment -%} 'productHandle'[] {%- endcomment -%}
-{%- assign current_type = page_url | split: 'current_type=' | last | split: '&' | first -%}
-{%- comment -%} number {%- endcomment -%}
-{%- assign current_vendor = page_url | split: 'current_vendor=' | last | split: '&' | first -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign description = page_url | split: 'description=' | last | split: '&' | first -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign featured_image = page_url | split: 'featured_image=' | last | split: '&' | first -%}
-{%- comment -%} string[] {%- endcomment -%}
-{%- assign handle = page_url | split: 'handle=' | last | split: '&' | first -%}
-{%- comment -%} string {%- endcomment -%}
-{%- assign id = page_url | split: 'id=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign image = page_url | split: 'image=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign metafields = page_url | split: 'metafields=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign next_product = page_url | split: 'next_product=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign previous_product = page_url | split: 'previous_product=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign products = page_url | split: 'products=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'productHandle'[] {%- endcomment -%}
-{%- assign products_count = page_url | split: 'products_count=' | last | split: '&' | first | plus: 0 -%}
-{%- comment -%} number {%- endcomment -%}
-{%- assign published_at = page_url | split: 'published_at=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign tags = page_url | split: 'tags=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign template_suffix = page_url | split: 'template_suffix=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign title = page_url | split: 'title=' | last | split: '&' | first -%}
-{%- comment -%} ? {%- endcomment -%}
-{%- assign url = page_url | split: 'url=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} ? {%- endcomment -%}
+  if page_url contains 'terms='
+    assign terms = page_url | split: 'terms=' | last | split: '&' | first
+    # string endcomment
+  endif
+  assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';'
+  # string[] endcomment
 
-{%- comment -%} Extra findify hardcoded values {%- endcomment -%}
-{% assign object_type = 'product' %}{% assign filter_structure = 'list' %}
+  # Collection properties: https: //shopify.dev/docs/api/liquid/objects/collection endcomment
+  assign all_products_count = page_url | split: 'all_products_count=' | last | split: '&' | first | plus: 0
+  # number endcomment
+  assign all_tags = page_url | split: 'all_tags=' | last | split: '&' | first
+  # '?' [ ] endcomment
+  assign all_types = page_url | split: 'all_types=' | last | split: '&' | first
+  # boolean endcomment
+  assign all_vendors = page_url | split: 'all_vendors=' | last | split: '&' | first
+  # 'productHandle' [ ] endcomment
+  assign current_type = page_url | split: 'current_type=' | last | split: '&' | first
+  # number endcomment
+  assign current_vendor = page_url | split: 'current_vendor=' | last | split: '&' | first
+  # string endcomment
+  assign description = page_url | split: 'description=' | last | split: '&' | first
+  # string endcomment
+  assign featured_image = page_url | split: 'featured_image=' | last | split: '&' | first
+  # string[] endcomment
+  assign handle = page_url | split: 'handle=' | last | split: '&' | first
+  # string endcomment
+  assign id = page_url | split: 'id=' | last | split: '&' | first
+  # ? endcomment
+  assign image = page_url | split: 'image=' | last | split: '&' | first
+  # ? endcomment
+  assign metafields = page_url | split: 'metafields=' | last | split: '&' | first
+  # ? endcomment
+  assign next_product = page_url | split: 'next_product=' | last | split: '&' | first
+  # ? endcomment
+  assign previous_product = page_url | split: 'previous_product=' | last | split: '&' | first
+  # ? endcomment
+  assign products = page_url | split: 'products=' | last | split: '&' | first | split: ';'
+  # 'productHandle' [ ] endcomment
+  assign products_count = page_url | split: 'products_count=' | last | split: '&' | first | plus: 0
+  # number endcomment
+  assign published_at = page_url | split: 'published_at=' | last | split: '&' | first
+  # ? endcomment
+  assign tags = page_url | split: 'tags=' | last | split: '&' | first
+  # ? endcomment
+  assign template_suffix = page_url | split: 'template_suffix=' | last | split: '&' | first
+  # ? endcomment
+  assign title = page_url | split: 'title=' | last | split: '&' | first
+  # ? endcomment
+  assign url = page_url | split: 'url=' | last | split: '&' | first | split: ';'
+  # ? endcomment
 
-{%- comment -%} Content search tabs and contents {%- endcomment -%}
-{%- assign tabs = page_url | split: 'tabs=' | last | split: '&' | first | split: ';' -%}
-{%- comment -%} 'tab'[] {% endcomment %}
+  # Content search tabs and contents endcomment
+  assign tabs = page_url | split: 'tabs=' | last | split: '&' | first | split: ';'
+  # 'tab' [ ]
 
-{% comment %} Grid Settings and configurations{% endcomment %}
-{%- assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first -%}
+  # Grid Settings and configurations
+  assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first
 
-{%- assign color_layout = settingsObj | split: 'color_filter:' | last | split: '|' | first -%}
-{%- assign use_lazy_loading_pagination = settingsObj | split: 'use_lazy_loading_pagination:' | last | split: '|' | first -%}
-{%- assign lazy_loading_pagination_threshold = settingsObj | split: 'lazy_loading_pagination_threshold:' | last | split: '|' | first | plus: 0 -%}
+  assign color_layout = settingsObj | split: 'color_filter:' | last | split: '|' | first
+  assign use_lazy_loading_pagination = settingsObj | split: 'use_lazy_loading_pagination:' | last | split: '|' | first
+  assign lazy_loading_pagination_threshold = settingsObj | split: 'lazy_loading_pagination_threshold:' | last | split: '|' | first | plus: 0
+%}

@@ -1,60 +1,59 @@
 <div class="findify-filters--body-wrapper">
-  {%- for filterValues in items -%}
-
+  {% for filter in filters %}
     {% if forloop.index != forloop.length %}
-      {%- assign filterValue = filterValues | split: '~' -%}
-      {%- assign value = filterValue[0] -%}
-      {%- assign count = filterValue[1] -%}
-      {%- assign selected = filterValue[2] -%}
-
-      {%- assign rangeValue = "" -%}
-      {%- assign rangeAttribute = "" -%}
-
       {% liquid
-          assign fake_price = 123
-          assign money_price = fake_price | times: 100 | money
-          assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
+        assign filter_props = filter | split: '~'
+        assign value = filter_props[0] | url_decode
+        assign count = filter_props[1]
+        assign is_selected_prop = filter_props[2]
+        if is_selected_prop == 'T'
+          assign is_selected = true
+        else
+          assign is_selected = false
+        endif
+
+        assign fake_price = 123
+        assign money_price = fake_price | times: 100 | money
+        assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
+
+        if value contains "to"
+          assign to = value | split: 'to' | last
+          assign text = 'under ' | append: to | append: currency
+          assign value = 'to|' | append: to
+        elsif value contains "from"
+          assign from = value | split: 'from' | last
+          assign text = from | append: currency | append: ' & up'
+          assign value = 'from|' | append: from
+        else
+          assign from = value | split: ':' | first
+          assign to = value | split: ':' | last
+          assign text = from | append: currency | append: ' - ' | append: to | append: currency
+          assign value = 'from|' | append: from | append: '-' | append: 'to|' | append: to
+        endif
       %}
-      
-      {% if value contains "to" %}
-        {%- assign to = value | split: 'to' | last -%}
-        {%- assign rangeValue = 'under ' | append: to -%}
-        {%- assign text = 'under ' | append: to | append: currency -%}
-        {%- assign rangeAttribute = 'to|' | append: to -%}
-      {% elsif value contains "from" %}
-        {%- assign from = value | split: 'from' | last -%}
-        {%- assign rangeValue = from | append: ' & up' -%}
-        {%- assign text = from | append: currency | append: ' & up' -%}
-        {%- assign rangeAttribute = 'from|' | append: from -%}
-      {% else %}
-        {%- assign from = value | split: ':' | first -%}
-        {%- assign to = value | split: ':' | last -%}
-        {%- assign rangeValue = from | append: ' - ' | append: to -%}
-        {%- assign text = from | append: currency | append: ' - ' | append: to | append: currency -%}
-        {%- assign rangeAttribute = 'from|' | append: from | append: '-' | append: 'to|' | append: to -%}
-      {% endif %}
 
       {% render 'findify-filter-checkbox'
-        , name: filterName
-        , type: filterType
-        , selected: selected
-        , value: rangeValue
-        , text: text,
-        , attribute: rangeAttribute
+        , name: name
+        , type: type
+        , is_selected: is_selected
+        , value: value
+        , text: text
         , count: count
-        , componentType: componentType
-        , index: forloop.index
+        , component: component
       %}
-
-    {% else %}
-      {%- assign min = filterValues | split: ':' | first -%}
-      {%- assign max = filterValues | split: ':' | last -%}
     {% endif %}
 
-    {% if forloop.last and componentType == 'price' %}
-      {% render 'findify-filter-price-range' currency: currency %}
+    {% if forloop.last and component == 'range' %}
+      {% liquid
+        assign min = filter | split: ':' | first
+        assign max = filter | split: ':' | last
+      %}
+      {% render 'findify-filter-price-range'
+        , name: name
+        , currency: currency
+        , min: min
+        , max: max %}
     {% endif %}
 
-
-  {%- endfor -%}
+  {% endfor %}
 </div>

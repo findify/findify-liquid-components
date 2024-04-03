@@ -1,26 +1,70 @@
 {% liquid
-  assign fake_price = 123
-  assign money_price = fake_price | times: 100 | money
-  assign currency = money_price | replace: fake_price, '' | replace: ' ', '' | replace: ',00', ''
+  assign min_value = min
+  assign max_value = max
+  assign input_from_selector_id = 'findify-price-range-from'
+  assign input_to_selector_id = 'findify-price-range-to'
+  assign submit_btn_selector_id = 'findify-price-submit-btn'
 %}
 
 <div class="price-range-container">
   <div class="price-range-content">
     <div class='findify-price-range-input-container'>
       <input
-        type="text"
+        min="{{ min_value }}"
+        max="{{ max_value }}"
+        type="number"
         class="price-range-input"
-        id='findify-price-range-min' />
+        id='{{ input_from_selector_id }}' />
       <span>{{ currency }}</span>
     </div>
     <span>-</span>
     <div class='findify-price-range-input-container'>
       <input
-        type="text"
+        min="{{ min_value }}"
+        max="{{ max_value }}"
+        type="number"
         class="price-range-input"
-        id='findify-price-range-max' />
+        id='{{ input_to_selector_id }}' />
       <span>{{ currency }}</span>
     </div>
   </div>
-  <button id='findify-custom-price-range'>Go</button>
+  <button id='{{ submit_btn_selector_id }}'>Go</button>
 </div>
+
+<script>
+  const rangeSearch = () => {
+    const filter_name = "{{ name }}"
+    const min_value = "{{ min_value }}";
+    const max_value = "{{ max_value }}"
+
+    const input_from_selector_id = "{{ input_from_selector_id }}";
+    const input_to_selector_id = "{{ input_to_selector_id }}";
+    const submit_btn_selector_id = "{{ submit_btn_selector_id }}";
+
+    const fromInputElement = document.getElementById(input_from_selector_id);
+    const toInputElement = document.getElementById(input_to_selector_id);
+    const submitBtnElement = document.getElementById(submit_btn_selector_id);
+
+    const onSubmitHandler = () => {
+      let from = fromInputElement.value;
+      let to = toInputElement.value;
+
+      let value;
+      if (from && to) {
+        value = `from|${from}-to|${to}`;
+      } else if (from && !to) {
+        value = `from|${from}`;
+      } else if (to && !from) {
+        value = `to|${to}`;
+      }
+
+      if(value) {
+        findify.filters.update({ value, type: "range", name: filter_name });
+      }
+    }
+
+    submitBtnElement.addEventListener('click', onSubmitHandler)
+  }
+
+  rangeSearch()
+</script>

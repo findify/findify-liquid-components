@@ -1,0 +1,50 @@
+{% liquid
+  assign component_id = component_id
+  assign close_filters_element_id = 'close-btn'
+  assign see_results_element_id = 'see-results-btn'
+%}
+
+<div class="findify-filters-container">
+  <button id="{{ close_filters_element_id }}" class="findify-modal-header">
+    <span class="findify-modal-header-title">Filters</span>
+    {% render 'findify-icon-cross' %}
+  </button>
+  {% if active_filters != 'none' %}
+    <div class="findify-search-header-breadcrumb">
+      {% render 'findify-filter-breadcrumb'
+        , active_filters: active_filters
+        , color_layout: color_layout
+        , component_id: 'sidebar'
+        , sidebar_component_id: component_id
+        , show_all: true %}
+    </div>
+  {% endif %}
+  <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+    {% comment %}
+      This element #findify-filters will be replaced with rendered html from sections/findify-filters
+    {% endcomment %}
+  </div>
+  <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
+</div>
+
+<script>
+    const filterSection = () => {
+        const close_filters_element_id = "{{ close_filters_element_id }}";
+        const see_results_element_id = "{{ see_results_element_id }}";
+        const component_id = "{{ component_id }}"
+        const openClass = 'open-left';
+
+        const toggleFilterSection = () => {
+            const containerElement = document.getElementById(component_id);
+            containerElement.classList.toggle(openClass);
+            document.documentElement.classList.toggle("no-scroll");
+        }
+        
+        const closeFiltersElement = document.getElementById(close_filters_element_id);
+        closeFiltersElement.addEventListener('click', toggleFilterSection)
+
+        const seeResultsElement = document.getElementById(see_results_element_id);
+        seeResultsElement.addEventListener('click', toggleFilterSection)
+    }
+    filterSection();
+</script>

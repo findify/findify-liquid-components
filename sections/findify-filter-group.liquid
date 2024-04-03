@@ -1,53 +1,75 @@
-{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '\u0026', '&' | url_decode -%}
-{%- assign filtersParam = page_url | split: "filters=" | last | split: '&' | first -%}
-{%- assign currency = page_url | split: "currency=" | last | split: '&' | first -%}
+{% liquid
+  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: "\/", "/" | replace: "\u0026", "&" | replace: '%7C', '|' | replace: '%20', ' '
+  assign query_parameters = page_url | split: "sections=findify-filter-group&" | last
 
-{%- assign color_filter_setting = page_url | split: "color_filter=" | last | split: '&' | first -%}
-{%- assign limit = 5 -%}
+  assign name = query_parameters | split: "name=" | last | split: '&' | first
+  assign group_label = query_parameters | split: "label=" | last | split: '&' | first | url_decode
+  assign type = query_parameters | split: "type=" | last | split: '&' | first
+  assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
 
-{%- assign details = filtersParam | strip | split: '=' | first | split: '~' -%}
-{%- assign name = details[0] -%}
-{%- assign label = details[1] -%}
-{%- assign type = details[2] -%}
-{%- assign subname = details[3] -%}
+  assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
 
-{%- assign values = filtersParam | split: '=' | last | split: '|' -%}
+  assign component = type
+  if name == 'category'
+    assign component = 'text'
+  endif
+  if name contains 'reviews'
+    assign component = 'reviews'
+  endif
+  if name == 'color'
+    assign component = 'color'
+  endif
 
-{%- assign component = "" -%}
-{% if type == "text" or type == "category" %}
-  {% if name == "color" %}
-    {%- assign component = "color" -%}
-  {% else %}
-    {%- assign component = "text" -%}
-  {% endif %}
-{% endif %}
+  assign element_id = 'findify-filters-' | append: name
+%}
 
-{% if type == "range" %}
-  {% if name contains "reviews" %}
-    {%- assign component = "reviews" -%}
-  {% else %}
-    {%- assign component = "price" -%}
-  {% endif %}
-{% endif %}
-<div
-  id="findify-filters-{{name}}"
-  aria-label="{{name}}"
-  aria-collapsed="false"
-  class="findify-filter-group">
-  <div class="findify-filters-header" ref="{{name}}">
-    <label tabindex="-1" class="findify-filters-header-title">
-      {{ label }}
+<div id="{{ element_id }}" class="findify-filter-group">
+  <div class="findify-filters-header">
+    <label tabindex="-1">
+      {{ group_label }}
     </label>
     {% render 'findify-icon-arrow' %}
   </div>
-  {% render 'findify-filter-items'
-    , filterName: name
-    , filterType: type
-    , componentType: component
-    , items: values
-    , size: values.size
-    , limit: limit
-    , color_filter_setting: color_filter_setting
-    , currency: currency
-  %}
+  <div class="findify-filters-body" aria-expanded="true">
+    {% case component %}
+      {% when 'text' %}
+        {% render 'findify-filter-text'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters %}
+      {% when 'color' %}
+        {% render 'findify-filter-color'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters
+          , color_filter_layout: color_filter_layout %}
+      {% when 'range' or 'reviews' %}
+        {% render 'findify-filter-range'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters %}
+    {% endcase %}
+  </div>
+
 </div>
+
+<script>
+const collapseFilter = () => {
+    const element_id = "{{ element_id }}";
+    const filterGroupElement = document.getElementById(element_id);
+    const [header, body] = filterGroupElement.querySelectorAll('div');
+
+    const headerClickHandler = (e) => {
+      e.preventDefault();
+        const isOpen = body.getAttribute("aria-expanded") === "true";
+        body.setAttribute("aria-expanded", (!isOpen).toString());
+    };
+
+    header.addEventListener("click", headerClickHandler);
+};
+
+collapseFilter();
+</script>

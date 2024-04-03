@@ -1,7 +1,12 @@
+{% liquid
+  assign filter_toggle_sidebar_element_id = 'filter-toggle-sidebar'
+  assign filter_component_id = filter_component_id
+%}
+
 <div class="findify-search-header desktop">
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
-      <button id="findify-toggle-filter" class="findify-search-actions-toggle-btn">
+      <button id="{{ filter_toggle_sidebar_element_id }}" class="findify-search-actions-toggle-btn">
         {% render 'findify-icon-filter' %}
         FILTER BY
       </button>
@@ -26,9 +31,29 @@
   </div>
   {% if active_filters != 'none' %}
     <div class="findify-search-desktop-breadcrumb">
-      {% render 'findify-filter-selected'
+      {% render 'findify-filter-breadcrumb'
         , active_filters: active_filters
-        , color_layout: color_layout %}
+        , color_layout: color_layout
+        , component_id: 'desktop-toolbar'
+        , sidebar_component_id: filter_component_id
+      %}
     </div>
   {% endif %}
 </div>
+
+<script>
+  const filterSidebar = () => {
+    const filter_toggle_sidebar_element_id = "{{ filter_toggle_sidebar_element_id }}";
+    const filter_component_id = "{{ filter_component_id }}";
+    const openClass = 'open';
+
+    const toggleFilterSection = () => {
+        const containerElement = document.getElementById(filter_component_id);
+        containerElement.classList.toggle(openClass);
+    }
+
+    const filterToggleSidebarElement = document.getElementById(filter_toggle_sidebar_element_id);
+    filterToggleSidebarElement?.addEventListener('click', toggleFilterSection)
+  }
+  filterSidebar();
+</script>

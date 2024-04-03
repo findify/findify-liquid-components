@@ -10,13 +10,17 @@ button {
   display: none !important;
 }
 
-#findify-filters *[aria-collapsed="true"] .findify-filters--body-container {
+/* SECTION - HEADER & BODY EXPAND */
+.findify-filters-body[aria-expanded="false"] {
   display: none;
 }
 
-#findify-filters *[aria-collapsed="true"] .findify-filters--header-icon {
+.findify-filter-group:has(.findify-filters-body[aria-expanded="false"])
+  .findify-filters-header
+  svg {
   transform: rotate(180deg);
 }
+/* ENDSECTION */
 
 .findify-filters-checkbox-item {
   text-align: left;
@@ -37,12 +41,6 @@ button {
   padding-bottom: 5px;
 }
 
-.findify-filters-container[aria-collapsed="false"]
-  > .findify-filters-header
-  > svg {
-  transform: rotate(180deg);
-}
-
 .findify-filter-group {
   padding-bottom: 5px;
   border-bottom: 1px solid var(--findify-filters-separator-color);
@@ -56,29 +54,14 @@ button {
   padding: 0 12px 0 10px;
 }
 
-.findify-filters-header-title {
+.findify-filters-header label {
   text-transform: capitalize;
   font-weight: 700;
   color: var(--findify-filters-title);
-}
-
-.findify-filters-header-title span {
-}
-
-.findify-filters--header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
   cursor: pointer;
 }
 
-.findify-filters-header-title {
-  text-transform: capitalize;
-  cursor: pointer;
-}
-
-.findify-filters--body-container {
+.findify-filters-body {
   display: flex;
   flex-direction: column;
 }
@@ -92,7 +75,7 @@ button {
   display: none !important;
 }
 
-/* CHECKBOX */
+/* SECTION - Filter text value and checkbox */
 .findify-filters-checkbox-item {
   display: flex;
   align-items: center;
@@ -172,6 +155,7 @@ button {
   display: flex;
   align-items: center;
   width: calc(100% - 50px);
+  cursor: pointer;
 }
 
 .findify-filters-checkbox-item-value > span,
@@ -213,7 +197,9 @@ button {
   right: 20px;
   top: 8px;
 }
+/* ENDSECTION */
 
+/* SECTION - Scrollbar per filter */
 .findify-filters--body-wrapper {
   max-height: 155px;
   overflow: auto;
@@ -230,7 +216,9 @@ button {
 .findify-filters--body-wrapper::-webkit-scrollbar-track {
   background: #e1e1e1;
 }
-/* Color filter layout: Only color*/
+/* ENDSECTION */
+
+/* SECTION - Color filter */
 .body-wrapper-layout-color {
   display: flex;
   flex-wrap: wrap;
@@ -244,7 +232,6 @@ button {
   gap: 3px;
 }
 
-/* color item */
 .findify-filters--color-item {
   display: flex;
   align-items: center;
@@ -266,38 +253,7 @@ button {
   margin-right: 5px;
 }
 
-/* RANGE */
-.findify-filters--range-container {
-  display: flex;
-  margin-top: 10px;
-  flex-direction: column;
-}
-
-.findify-filters--range-wrapper {
-  display: flex;
-}
-
-.findify-filters--range-wrapper-input input {
-  min-width: 90px;
-  padding: 8px;
-}
-
-.findify-filters--range-wrapper-delimiter {
-  margin: 0px 5px;
-}
-
-.findify-filters--range-submit {
-  margin-left: 10px;
-}
-
-/* rating star */
-.findify-filters--rating-facet-star {
-  color: var(--findify-rating-active);
-}
-
-.findify-filters--rating-facet-star[unfilled] {
-  color: var(--findify-rating-inactive);
-}
+/* ENDSECTION */
 
 .findify-filters-sidebar.open {
   display: flex;
@@ -360,6 +316,7 @@ button {
   }
 }
 
+/* SECTION - Price range filter */
 .price-range-container {
   display: flex;
   justify-content: space-between;
@@ -377,6 +334,7 @@ button {
   border: 1px solid #000;
   background: #fff;
 }
+
 .price-range-input {
   box-shadow: none;
   max-width: 50px;
@@ -389,3 +347,17 @@ button {
   border: none;
   outline: none;
 }
+
+/* Chrome, Safari, Edge, Opera */
+.price-range-input::-webkit-outer-spin-button,
+.price-range-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.price-range-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ENDSECTION */

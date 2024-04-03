@@ -18,7 +18,6 @@ const initFindifyLazyLoadingPagination = (
       offset: (page - 1) * findify.pagination.state.limit,
       page: page,
     });
-    findify.core.updateUrlParams();
     const response = await findify.grid.api();
     return await findify.grid.renderGridItemsHTML(
       response.items,

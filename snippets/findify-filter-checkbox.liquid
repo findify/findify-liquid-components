@@ -1,28 +1,59 @@
+{% liquid
+  assign filter_element_id = 'findify-filter-' | append: value | downcase
+%}
+
 <div
-  class="findify-filters-checkbox-item {% if componentType == "color"%}findify-filters--color-item findify-filters--color-item-layout-{{color_filter_setting}}{% endif %}"
-  info="{{name}}|{{type}}"
-  selected="{{selected}}"
-  value="{% if type == "range" %}{{attribute}}{% else %}{{value}}{% endif %}">
-  {% if componentType == "text" or componentType == "price" or isColorLabel == true %}
-    {% render 'findify-filter-text-value'
-      , selected: selected
-      , hasChildren: hasChildren
-      , text: text
-    %}
-  {% elsif componentType == "reviews" %}
-    {% render 'findify-filter-rating-value'
-      , selected: selected
-      , value: value
-    %}
-  {% elsif componentType == "color" %}
-    {% render 'findify-filter-color-value'
-      , selected: selected
-      , colorName: colorName
-      , borderColor: borderColor
-      , color_filter_setting: color_filter_setting
-    %}
-  {% endif %}
-  {% if color_filter_setting != 'color' %}
-    <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
-  {% endif %}
+  id="{{ filter_element_id }}"
+  class="findify-filters-checkbox-item {{class}}"
+  data-name="{{name}}"
+  data-type="{{type}}"
+  selected="{{is_selected}}"
+  value="{{value}}">
+  {% case component %}
+    {% when 'reviews' %}
+      {% render 'findify-filter-rating-value'
+        , is_selected: is_selected
+        , value: value
+      %}
+      <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
+    {% when 'color' %}
+      {% render 'findify-filter-color-value'
+        , is_selected: is_selected
+        , color_name: color_name
+        , border_color: border_color
+        , color_filter_layout: color_filter_layout
+      %}
+    {% else %}
+      {% render 'findify-filter-text-value'
+        , is_selected: is_selected
+        , has_children: has_children
+        , text: text
+      %}
+      <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
+  {% endcase %}
 </div>
+
+<script>
+  const onFilterClick = () => {
+  const filter_element_id = "{{ filter_element_id }}"
+  const value = "{{ value }}";
+  const type = "{{ type }}";
+  const name = "{{ name }}";
+
+    const filterElement = document.getElementById(filter_element_id);
+
+    const filterClickHandler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const openClass = 'open-left';
+        const containerElement = document.getElementById('findify-filters-sidebar');
+        containerElement?.classList.remove(openClass);
+        document.documentElement.classList.remove("no-scroll");
+        findify.filters.update({ value, type, name });
+    };
+
+    filterElement.addEventListener("click", filterClickHandler);
+  };
+
+  onFilterClick();
+</script>

@@ -4,71 +4,184 @@
 {% assign selectedOrder = selectedParts[2] %}
 
 {% if is_modal == false %}
-  <div id="findify-sorting" class="findify-sorting desktop">
+  {% liquid
+    assign sorting_dropdown_btn_element_id = 'sorting-dropdown-btn'
+    assign sorting_dropdown_body_element_id = 'sorting-dropdown-body'
+  %}
+  <div id="{{ sorting_dropdown_body_element_id }}" class="findify-sorting desktop">
     <div class="findify-sorting-body">
       <span>
         Sort by:
       </span>
-      <button id="findify-sorting-button" class="findify-sorting-btn">
+      <button id="{{ sorting_dropdown_btn_element_id }}" class="findify-sorting-btn">
         {{ selectedLabel }}
         {% render 'findify-icon-arrow' %}
       </button>
     </div>
-    <ul id="findify-sorting-list" class="findify-sorting-list">
+    <ul class="findify-sorting-list">
       {% for option in options %}
         {% assign parts = option | split: '-' %}
         {% assign label = parts[0] %}
         {% assign field = parts[1] %}
         {% assign order = parts[2] %}
+        {% assign sorting_option_element_id = 'sorting-dropdown-option-' | append: field | append: '-' | append: order %}
 
         {% if field == selectedField and order == selectedOrder %}
         {% else %}
           <li
+            id="{{ sorting_option_element_id }}"
             class="findify-sorting-option"
             field="{{field}}"
             order="{{order}}">
             <small>{{ label }}</small>
           </li>
+
+          <script>
+            const sortingOption = () => {
+              const sorting_sidepanel_element_id = "{{ sorting_sidepanel_element_id }}";
+              const openClass = 'open-right';
+              const sorting_option_element_id = "{{ sorting_option_element_id }}";
+              const order = "{{ order }}";
+              const field = "{{ field }}";
+
+              const onOptionClickHandler = () => {
+                const sorting = { order_by: order, sort_by: field };
+                findify.sorting.update(sorting);
+              }
+
+              const option = document.getElementById(sorting_option_element_id);
+              option.addEventListener('click', onOptionClickHandler)
+            }
+            sortingOption();
+          </script>
         {% endif %}
       {% endfor %}
     </ul>
+    <script>
+      const sortingDropdown = () => {
+        const sorting_dropdown_btn_element_id = "{{ sorting_dropdown_btn_element_id }}";
+        const sorting_dropdown_body_element_id = "{{ sorting_dropdown_body_element_id }}";
+        const openClass = 'open';
+
+        const onSortingDropdownBtnClickHandler = () => {
+          const body = document.getElementById(sorting_dropdown_body_element_id);
+          const isOpen = body.classList.contains(openClass);
+
+          body.classList.toggle(openClass);
+
+          if (!isOpen) {
+            const onOutsideClickHandler = (e) => {
+              body.classList.remove(openClass);
+              removeOutsideClickEvent();
+            }
+
+            const removeOutsideClickEvent = () => document.removeEventListener("click", onOutsideClickHandler);
+            setTimeout(() => {
+              document.addEventListener("click", onOutsideClickHandler);
+            }, 100);
+          }
+        }
+
+        const sortingDropdownBtn = document.getElementById(sorting_dropdown_btn_element_id);
+        sortingDropdownBtn.addEventListener('click', onSortingDropdownBtnClickHandler )
+      }
+      
+      sortingDropdown();
+    </script>
   </div>
-
 {% else %}
-
+  {% liquid
+    assign sorting_sidepanel_element_id = 'findify-sorting-sidepanel'
+    assign sorting_btn_element_id = 'findify-sorting-btn'
+    assign close_sorting_element_id = 'findify-close-btn'
+    assign see_results_element_id = 'findify-see-results-btn'
+  %}
   <div id="findify-sorting-mobile" class="findify-sorting mobile">
     <div class="findify-sorting-body">
-      <button id="findify-sorting-toggler" class="findify-search-actions-toggle-btn">
+      <button id="{{ sorting_btn_element_id }}" class="findify-search-actions-toggle-btn">
         {% render 'findify-icon-sorting' %}
         SORT BY
       </button>
     </div>
 
-    <aside id="findify-sorting-sidebar" class="findify-sorting-sidebar">
-      <button id="findify-modal-sorting-header" class="findify-modal-header">
+    <aside id="{{ sorting_sidepanel_element_id }}" class="findify-sorting-sidebar">
+      <button id="{{ close_sorting_element_id }}" class="findify-modal-header">
         <span class="findify-modal-header-title">Sorting</span>
         {% render 'findify-icon-cross' %}
       </button>
-      <ul id="findify-sorting-list" class="findify-sorting-mobile-list">
+      <ul class="findify-sorting-mobile-list">
         {% for option in options %}
           {% assign parts = option | split: '-' %}
           {% assign label = parts[0] %}
           {% assign field = parts[1] %}
           {% assign order = parts[2] %}
-          <li
-            class="findify-sorting-option"
-            field="{{field}}"
-            order="{{order}}">
+          {% assign sorting_option_element_id = 'sorting-sidebar-option-' | append: field | append: '-' | append: order %}
+          <li id="{{ sorting_option_element_id }}" class="findify-sorting-option">
             <input
               type="radio"
               {% if field == selectedField and order == selectedOrder %}
               checked{% endif %}>
             <span>{{ label }}</span>
           </li>
+
+          <script>
+            const sortingOption = () => {
+              const sorting_sidepanel_element_id = "{{ sorting_sidepanel_element_id }}";
+              const openClass = 'open-right';
+              const sorting_option_element_id = "{{ sorting_option_element_id }}";
+              const order = "{{ order }}";
+              const field = "{{ field }}";
+
+              const onOptionClickHandler = () => {
+                const sorting = { order_by: order, sort_by: field };
+                findify.sorting.update(sorting);
+
+                const containerElement = document.getElementById(sorting_sidepanel_element_id);
+                containerElement.classList.remove(openClass);
+                document.documentElement.classList.remove("no-scroll");
+              }
+
+              const option = document.getElementById(sorting_option_element_id);
+              option.addEventListener('click', onOptionClickHandler)
+            }
+            sortingOption();
+          </script>
         {% endfor %}
       </ul>
-      <button id="findify-modal-sorting-footer" class="findify-modal-footer">See results</button>
+      <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
     </aside>
-
   </div>
+
+  <script>
+    const sortingSidepanel = () => {
+      const sorting_btn_element_id = "{{ sorting_btn_element_id }}";
+      const sorting_sidepanel_element_id = "{{ sorting_sidepanel_element_id }}";
+      const close_sorting_element_id = "{{ close_sorting_element_id }}"
+      const see_results_element_id = "{{ see_results_element_id }}"
+      const openClass = 'open-right';
+
+      const toggleFilterSection = () => {
+        const containerElement = document.getElementById(sorting_sidepanel_element_id);
+        containerElement.classList.toggle(openClass);
+        document.documentElement.classList.toggle("no-scroll");
+      }
+
+      const sortingToggler = document.getElementById(sorting_btn_element_id);
+      sortingToggler.addEventListener('click', toggleFilterSection);
+      
+      const closeBtn = document.getElementById(close_sorting_element_id);
+      closeBtn.addEventListener('click', toggleFilterSection);
+
+      const seeResultsBtn = document.getElementById(see_results_element_id);
+      seeResultsBtn.addEventListener('click', toggleFilterSection);
+
+      /*
+      * Add additional classes conditioned by media queries
+      */
+      const mobileContainerClasses = ["findify-modal", "animated-right", "right"];
+      const container = document.getElementById(sorting_sidepanel_element_id);
+      mobileContainerClasses.forEach((c) => container?.classList.add(c));
+    }
+    sortingSidepanel();
+  </script>
 {% endif %}

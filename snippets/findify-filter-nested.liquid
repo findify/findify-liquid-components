@@ -1,45 +1,41 @@
+{% liquid
+  assign children_props = children_filter | split: '^'
+  assign children = children_props | first | split: '-'
+  assign children_with_separator = children_props | first | append: '^'
+  assign next_children = children_filter | replace: children_with_separator, ''
+
+  assign level_name = name | append: level
+%}
+
 <div class="findify-filters--body-wrapper findify-filters--nested-body-wrapper">
-
-  {% if items contains '^' %}
-    {%- assign splittedItems = items | split: '^' -%}
-    {%- assign firstElem = splittedItems | first -%}
-    {%- assign elemToReplace = firstElem | append: '^' -%}
-    {%- assign nestedFilterValues = items | replace: elemToReplace, '' -%}
-    {%- assign items = firstElem -%}
-  {% endif %}
-
-  {%- assign values = items | split: '-' -%}
-
-  {%- for filterValues in values -%}
-    {%- assign filterValue = filterValues | split: '~' -%}
-    {%- assign name = filterName | append: level %}
-    {%- assign value = filterValue[0] -%}
-    {%- assign count = filterValue[1] -%}
-    {%- assign selected = filterValue[2] -%}
-    {%- assign hasChildren = filterValue[3] -%}
+  {%- for filter in children -%}
+    {% liquid
+      assign filter_props = filter | split: '~'
+      assign value = filter_props[0]
+      assign count = filter_props[1]
+      assign is_selected = filter_props[2]
+      assign has_children = filter_props[3]
+    %}
 
     {% render 'findify-filter-checkbox'
-      , name: name
+      , name: level_name
       , type: type
-      , selected: selected
+      , is_selected: is_selected
       , value: value
       , text: value
       , count: count
-      , componentType: componentType
-      , index: index
-      , hasChildren: hasChildren
-      , limit: limit
+      , component: component
+      , has_children: has_children
     %}
 
-    {% if nestedFilterValues != blank %}
-      {% assign nestLevelCount = level | plus: 1 %}
+    {% if next_children != blank %}
+      {% assign nest_level_number = nest_level | plus: 1 %}
       {% render 'findify-filter-nested'
-        , items: nestedFilterValues
-        , filterName: filterName
+        , children_filter: children_filter
+        , name: name
         , type: type
-        , componentType: componentType
-        , index: forloop.index
-        , level: nestLevelCount %}
+        , component: component
+        , nest_level_number: nest_level_number %}
     {% endif %}
 
   {%- endfor -%}

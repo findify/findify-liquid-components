@@ -1,16 +1,21 @@
+{% liquid
+  if is_selected
+    assign class = 'findify-filters-checkbox-item-value-selected'
+  endif
+  assign background_color_class = 'color-mapping-background-' | append: color_name | downcase
+  assign border_color_class = 'border-' | append: border_color
+%}
 
-<span class=" findify-filters-checkbox-item-value findify-filters--color-item
-{%if selected == 't'%}findify-filters-checkbox-item-value-selected{%endif%}">
-{% if color_filter_setting == 'color' %}
-    <span class="findify-filters--color-item-value color-mapping-background-{{colorName | downcase}} border-{{ borderColor }} solid-circle">
-        {%if selected == 't'%}
-                {% render 'findify-icon-checkmark' %}
+<span class="findify-filters-checkbox-item-value findify-filters--color-item {{ class }}">
+  {% case color_filter_layout %}
+    {% when 'color' %}
+      <span class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} solid-circle">
+        {% if is_selected %}
+          {% render 'findify-icon-checkmark' %}
         {% endif %}
+      </span>
+    {% else %}
+      <span class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} circle-with-label"></span>
+      {{ color_name }}
     </span>
-{% endif %}
-{% if color_filter_setting == 'color_with_label' %}
-    <span class="findify-filters--color-item-value color-mapping-background-{{colorName | downcase}} border-{{ borderColor }} circle-with-label"></span>
-    {{colorName}}
-    </span>
-{% endif %}
-</span>
+{% endcase %}</span>

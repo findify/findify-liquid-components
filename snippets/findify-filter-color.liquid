@@ -1,46 +1,47 @@
-{% if color_filter_setting == "label" %}
-  {% render 'findify-filter-text'
-    , filterName: filterName
-    , filterType: filterType
-    , componentType: componentType
-    , items: items
-    , size: size
-    , limit: limit
-    , isColorLabel: true
-  %}
-{% else %}
-  {% if color_filter_setting != 'color' %}
-    {% render 'findify-filter-search-input'
-      , filterName: filterName %}
-  {% endif %}
-  <div class="findify-filters--body-wrapper body-wrapper-layout-{{color_filter_setting}}">
-    {%- for filterValues in items -%}
-      {%- assign name = filterName -%}
-      {%- assign type = filterType -%}
-      {%- assign filterValue = filterValues | split: '~' -%}
-      {%- assign name = filterName -%}
-      {%- assign value = filterValue[0] -%}
-      {%- assign borderColor = filterValue[1] -%}
-      {%- assign count = filterValue[2] -%}
-      {%- assign selected = filterValue[3] -%}
-      {%- assign has_children = has_children[4] -%}
+{% liquid
+  # If "label" option is selected from Visual editor we use text component
+  if color_filter_layout == 'label'
+    assign component = 'text'
+  endif
 
-      {% if value != 'nm' %}
-        {% render 'findify-filter-checkbox'
-          , name: name
-          , type: type
-          , selected: selected
-          , count: count
-          , componentType: componentType
-          , value: value,
-          , text: value,
-          , colorName: value
-          , borderColor: borderColor
-          , index: forloop.index
-          , limit: limit
-          , color_filter_setting: color_filter_setting
-        %}
-      {% endif %}
-    {% endfor %}
-  </div>
+  assign wrapper_class = 'body-wrapper-layout-' | append: color_filter_layout
+  assign checkbox_class = 'findify-filters--color-item  findify-filters--color-item-layout-' | append: color_filter_layout
+%}
+
+{% if filters.size > 4 and component == 'text' %}
+  {% render 'findify-filter-search-input'
+    , name: name %}
 {% endif %}
+
+<div class="findify-filters--body-wrapper {{wrapper_class}}">
+  {%- for filter in filters -%}
+    {% liquid
+      assign filter_props = filter | split: '~'
+      assign value = filter_props[0]
+      assign border_color = filter_props[1]
+      assign count = filter_props[2]
+      assign is_selected_prop = filter_props[3]
+      if is_selected_prop == 'T'
+        assign is_selected = true
+      else
+        assign is_selected = false
+      endif
+    %}
+
+    {% if value != 'nm' %}
+      {% render 'findify-filter-checkbox'
+        , name: name
+        , type: type
+        , is_selected: is_selected
+        , count: count
+        , component: component
+        , value: value
+        , text: value
+        , color_name: value
+        , border_color: border_color
+        , class: checkbox_class
+        , color_filter_layout: color_filter_layout
+      %}
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,3 +1,8 @@
+{% liquid
+  assign filter_toggle_sidepanel_element_id = 'filter-toggle-sidepanel'
+  assign filter_component_id = filter_component_id
+%}
+
 <div class="findify-search-header mobile">
   <label class="findify-search-header-label">
     {% if is_collection == true %}
@@ -8,7 +13,7 @@
   </label>
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
-      <button id="findify-modal-toggler" class="findify-search-actions-toggle-btn">
+      <button id="{{ filter_toggle_sidepanel_element_id }}" class="findify-search-actions-toggle-btn">
         {% render 'findify-icon-filter' %}
         FILTER BY
       </button>
@@ -22,3 +27,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  const filterSidePanel = () => {
+    const filter_toggle_sidepanel_element_id = "{{ filter_toggle_sidepanel_element_id }}";
+    const filter_component_id = "{{ filter_component_id }}";
+    const openClass = 'open-left';
+
+    const toggleFilterSection = () => {
+        const containerElement = document.getElementById(filter_component_id);
+        containerElement.classList.toggle(openClass);
+        document.documentElement.classList.toggle("no-scroll");
+    }
+
+    const filterToggleSidepanelElement = document.getElementById(filter_toggle_sidepanel_element_id);
+    filterToggleSidepanelElement?.addEventListener('click', toggleFilterSection);
+
+    /*
+    * Add additional classes conditioned by media queries
+    */
+    const mobileContainerClasses = ["findify-modal", "animated-left", "left"];
+    const container = document.getElementById(filter_component_id);
+    mobileContainerClasses.forEach((c) => container?.classList.add(c));
+  }
+  filterSidePanel();
+</script>
