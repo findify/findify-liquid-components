@@ -1,26 +1,22 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-recommendation&' | last -%}
 
-{%- assign id = query_parameters | split: 'id=' | last | split: '&' | first | url_decode -%}
+{%- assign recommendation_id = query_parameters | split: 'recommendation_id=' | last | split: '&' | first | url_decode -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view=' | last | split: '&' | first -%}
 {%- assign title = query_parameters | split: 'title=' | last | split: '&' | first | url_decode -%}
 
-{%  comment  %}
-  IMPORTANT: The outer div will not be inserted on the DOM.
-{% endcomment %}
-<div id="{{ id }}" class='findify-recommendation-container'>
+<div id="{{ recommendation_id }}" class='findify-recommendation-container'>
   <h1 class='findify-swiper-title'>{{ title }}</h1>
 
   <div class='swiper'>
-    <div class="swiper-wrapper" id="findify-products-{{id}}"></div>
+    <div class="swiper-wrapper" id="findify-products-{{ recommendation_id }}"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-pagination"></div>
   </div>
 
   <script>
-      /* IMPORTANT: Script tags are executed within this file element. */
-      const selector = "#{{ id }} .swiper";
+      const selector = "#{{ recommendation_id }} .swiper";
 
       const swiper = new Swiper(selector, {
         direction: "horizontal",
