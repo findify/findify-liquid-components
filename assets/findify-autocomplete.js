@@ -37,7 +37,6 @@ const initFindifyAutocompleteEvents = () => {
     if (redirections && redirections[query]) redirectionFeedback(query, rid);
     if (window) {
       if (openInNewWindow) window.open(redirectionURL, '_blank');
-      console.log(redirectionURL);
       window.location.href = redirectionURL;
     }
   };
