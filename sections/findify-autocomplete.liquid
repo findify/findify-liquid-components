@@ -17,7 +17,7 @@
           <li>
             <a
               class="findify-suggestion"
-              href='/search?q={{ suggestion }}'
+              href='{{ basepath }}?q={{ suggestion }}'
               data-findify-suggestion>
               {{ suggestion }}
             </a>
@@ -25,9 +25,9 @@
         {% endfor %}
       </ul>
 
-      {% render 'findify-autocomplete-content-block', 
-          contents_param: contents_param, 
-          content: contents[0]  
+      {% render 'findify-autocomplete-content-block'
+        , contents_param: contents_param
+        , content: contents[0]
       %}
 
     </div>
@@ -36,6 +36,7 @@
       <div class="findify-autocomplete-title-wrapper">
         <h3>{{ productsTitle }}</h3>
         {% render 'findify-autocomplete-view-all'
+          , basepath: basepath
           , query: query
           , position: 'top' %}
       </div>
@@ -45,13 +46,14 @@
       </div>
     </div>
 
-      {% render 'findify-autocomplete-content-block', 
-          contents_param: contents_param, 
-          content: contents[1]  
-      %}
+    {% render 'findify-autocomplete-content-block'
+      , contents_param: contents_param
+      , content: contents[1]
+    %}
 
   </div>
   {% render 'findify-autocomplete-view-all'
+    , basepath: basepath
     , query: query
     , position: 'bottom' %}
 

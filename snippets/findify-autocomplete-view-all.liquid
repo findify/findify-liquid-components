@@ -1,4 +1,4 @@
-<a class="findify-view-all view-all-{{position}}" href="/search?q={%- if query != 'none' -%} {{query}} {%- endif -%}">
+<a class="findify-view-all view-all-{{position}}" href="{{ basepath }}?q={%- if query != 'none' -%} {{query}} {%- endif -%}">
   {%- if query == 'none' -%}
     View all
   {%- else -%}
