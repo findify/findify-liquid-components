@@ -24,7 +24,8 @@
     # for variant in variants and then parse and assign values
 
     # Variants may have same property as products, and so "regexes" may conflict picking wrong values, removing variants from here
-    assign query_parameters_splitted_by_variants = query_parameters | split: variants_parameters
+    assign variants_whole_block = "variants=" | append: variants_parameters
+    assign query_parameters_splitted_by_variants = query_parameters | split: variants_whole_block
     assign query_parameters_leftside = query_parameters_splitted_by_variants[0]
     assign query_parameters_rightside = query_parameters_splitted_by_variants[1] | replace_first: "&", ""
     assign query_parameters = query_parameters_leftside | append: query_parameters_rightside
@@ -87,7 +88,9 @@
   if query_parameters contains "brand="
     assign brand = query_parameters | split: "brand=" | last | split: "&" | first | url_decode
   endif
-
+  if query_parameters contains "title="
+    assign title = query_parameters | split: "title=" | last | split: "&" | first | url_decode
+  endif
   # Product Findify custom fields
   if query_parameters contains "custom_fields="
     assign custom_fields = query_parameters | split: "custom_fields=" | last | split: "&" | first
