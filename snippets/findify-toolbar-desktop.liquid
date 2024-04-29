@@ -18,7 +18,7 @@
       {% elsif terms == "" %}
         Showing {{ results_count }} results
       {% else %}
-        Showing {{ results_count }} results for "<b>{{ terms }}</b>"
+        Showing {{ results_count }} results for "<b>{{ terms | url_decode }}</b>"
       {% endif %}
     </label>
     <div>

@@ -8,7 +8,7 @@
     {% if is_collection == true %}
       {{ results_count }} products
     {% else %}
-      Showing {{ results_count }} results for "<b>{{ terms }}</b>"
+      Showing {{ results_count }} results for "<b>{{ terms | url_decode }}</b>"
     {% endif %}
   </label>
   <div class="findify-search-header-toolbar">
