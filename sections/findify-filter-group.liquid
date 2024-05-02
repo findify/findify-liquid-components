@@ -23,47 +23,48 @@
     assign component = 'reviews'
   endif
   if name == 'color'
-    assign component = 'color'
+    if color_filter_layout == 'label'
+      assign component = 'text'
+    else
+      assign component = 'color'
+    endif
   endif
-
   assign element_id = 'findify-filters-' | append: name
 %}
 
-{% if name != 'color' or has_mapped_color %}
-  <div id="{{ element_id }}" class="findify-filter-group">
-    <div class="findify-filters-header">
-      <label tabindex="-1">
-        {{ group_label }}
-      </label>
-      {% render 'findify-icon-arrow' %}
-    </div>
-    <div class="findify-filters-body" aria-expanded="true">
-      {% case component %}
-        {% when 'text' %}
-          {% render 'findify-filter-text'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters %}
-        {% when 'color' %}
-          {% render 'findify-filter-color'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters
-            , color_filter_layout: color_filter_layout
-            , color_not_mapped: color_not_mapped %}
-        {% when 'range' or 'reviews' %}
-          {% render 'findify-filter-range'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters %}
-      {% endcase %}
-    </div>
+<div id="{{ element_id }}" class="findify-filter-group">
+  <div class="findify-filters-header">
+    <label tabindex="-1">
+      {{ group_label }}
+    </label>
+    {% render 'findify-icon-arrow' %}
   </div>
+  <div class="findify-filters-body" aria-expanded="true">
+    {% case component %}
+      {% when 'text' %}
+        {% render 'findify-filter-text'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters %}
+      {% when 'color' %}
+        {% render 'findify-filter-color'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters
+          , color_filter_layout: color_filter_layout %}
+      {% when 'range' or 'reviews' %}
+        {% render 'findify-filter-range'
+          , name: name
+          , type: type
+          , component: component
+          , filters: filters %}
+    {% endcase %}
+  </div>
+</div>
 
-  <script>
+<script>
       const collapseFilter = () => {
     const element_id = "{{ element_id }}";
     const filterGroupElement = document.getElementById(element_id);
@@ -79,6 +80,4 @@
       };
 
       collapseFilter();
-  </script>
-
-{% endif %}
+</script>

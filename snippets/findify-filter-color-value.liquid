@@ -2,7 +2,7 @@
   if is_selected
     assign class = 'findify-filters-checkbox-item-value-selected'
   endif
-  assign background_color_class = 'color-mapping-background-' | append: color_name | downcase
+  assign background_color_class = 'color-mapping-background-' | append: color_name | url_decode | downcase
   assign border_color_class = 'border-' | append: border_color
 %}
 
@@ -16,6 +16,6 @@
       </span>
     {% else %}
       <span class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} circle-with-label"></span>
-      {{ color_name }}
+      {{ color_name | url_decode }}
     </span>
 {% endcase %}</span>
