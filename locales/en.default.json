@@ -24,12 +24,12 @@
       "results_count": "Showing {{ count }} results",
       "results_count_for": "Showing {{ count }} results for \"{{ term }}\"",
       "no_results_for": "No results for",
-      "no_results_message": "Check the spelling or try less specific search terms"
+      "no_results_message": "Please check the spelling or try another search term"
     },
     "collections": {
       "products_count": "{{ count }} products",
       "no_results": "No results",
-      "no_results_message": "Check the filters and try to be less strict"
+      "no_results_message": "Please try applying less strict filters"
     },
     "pagination": {
       "load_more": "Load more",

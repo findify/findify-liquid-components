@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": "Populaire zoekopdrachten",
+      "trending_products": "Populaire producten",
+      "search_suggestions": "Zoeksuggesties",
+      "product_matches": "Productovereenkomsten",
+      "view_all": "Bekijk alle",
+      "view_all_results_for": "Bekijk alle resultaten voor"
+    },
+    "filters": {
+      "filter_by": "Filters",
+      "search_placeholder": "Zoeken",
+      "and_up": "en hoger",
+      "under": "onder",
+      "clear_all": "Alle wissen",
+      "go": "gaan"
+    },
+    "sorting": {
+      "sort_by": "Sorteer op"
+    },
+    "search": {
+      "search_results": "Zoekresultaten",
+      "results_count": " {{ count }} resultaten getoond",
+      "results_count_for": " {{ count }} resultaten getoond voor \"{{ term }}\"",
+      "no_results_for": "Geen resultaten voor",
+      "no_results_message": "Controleer alstublieft de spelling of probeer een ander zoekterm"
+    },
+    "collections": {
+      "products_count": "{{ count }} producten",
+      "no_results": "Geen resultaten",
+      "no_results_message": "Probeer alstublieft minder strenge filters toe te passen"
+    },
+    "pagination": {
+      "load_more": "Toon meer",
+      "load_previous": "Toon vorige"
+    }
+  }
+}

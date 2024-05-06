@@ -1,8 +1,27 @@
-<a class="findify-view-all view-all-{{position}}" href="{{ basepath }}?q={%- if query != 'none' -%} {{query}} {%- endif -%}">
+{% assign view_all_element_id = 'view-all-element' | append: '-' | append: position %}
+
+<div id="{{ view_all_element_id }}" class="findify-view-all view-all-{{position}}">
   {%- if query == 'none' -%}
-    {{ 'findify.autocomplete.view_all' | t }}
+    <label>{{ 'findify.autocomplete.view_all' | t }}</label>
   {%- else -%}
-    {{ 'findify.autocomplete.view_all_results_for' | t }}
-    <span class="findify-components-autocomplete--tip__highlight">"{{ query }}"</span>
+    <label>
+      {{ 'findify.autocomplete.view_all_results_for' | t }}
+      <span class="findify-components-autocomplete--tip__highlight">"{{ query }}"</span>
+    </label>
   {%- endif -%}
-</a>
+</div>
+
+<script>
+  const clickViewAll = () => {
+    const view_all_element_id = "{{ view_all_element_id }}";
+    const query = "{{ query }}";
+    console.log('Initialized', query);
+
+    document.getElementById(view_all_element_id).addEventListener('click', () => {
+      console.log('Clicked', query);
+      const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
+      window.location.href = query === 'none' ? `${root}search` : `${root}search?q=${query}`;
+    })
+  }
+  clickViewAll();
+</script>

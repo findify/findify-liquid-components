@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": "عمليات البحث الرائجة",
+      "trending_products": "المنتجات الرائجة",
+      "search_suggestions": "اقتراحات البحث",
+      "product_matches": "تطابق المنتج",
+      "view_all": "عرض الكل",
+      "view_all_results_for": "عرض كل النتائج لـ"
+    },
+    "filters": {
+      "filter_by": "المرشحات",
+      "search_placeholder": "بحث",
+      "and_up": "والأعلى سعرًا",
+      "under": "أسفل",
+      "clear_all": "مسح الكل",
+      "go": "ذهاب"
+    },
+    "sorting": {
+      "sort_by": "تصنيف حسب"
+    },
+    "search": {
+      "search_results": "نتائج البحث",
+      "results_count": "عرض {{ count }} من نتائج",
+      "results_count_for": " عرض {{ count }} من نتائج لـ \"{{ term }}\"",
+      "no_results_for": "لا توجد نتائج لـ",
+      "no_results_message": "يرجى التحقق من التهجئة أو محاولة مصطلح بحث آخر"
+    },
+    "collections": {
+      "products_count": "{{ count }} المنتجات",
+      "no_results": "لا توجد نتائج",
+      "no_results_message": "يرجى محاولة تطبيق تصفية أقل صرامة"
+    },
+    "pagination": {
+      "load_more": "تحميل المزيد",
+      "load_previous": "تحميل السابق"
+    }
+  }
+}

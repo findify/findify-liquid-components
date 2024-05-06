@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": " Populära sökningar",
+      "trending_products": " Populära produkter",
+      "search_suggestions": "Sökförslag",
+      "product_matches": "Produktträffar",
+      "view_all": "Visa alla",
+      "view_all_results_for": "Visa alla resultat för"
+    },
+    "filters": {
+      "filter_by": "Filter",
+      "search_placeholder": "Sök",
+      "and_up": "& upp",
+      "under": "under",
+      "clear_all": "Rensa allt",
+      "go": "Visa"
+    },
+    "sorting": {
+      "sort_by": "Sortera efter"
+    },
+    "search": {
+      "search_results": " Sökresultat",
+      "results_count": "Visar {{ count }} resultat",
+      "results_count_for": "Visar {{ count }} resultat för \"{{ term }}\"",
+      "no_results_for": "Inga resultat för",
+      "no_results_message": " Vänligen kontrollera stavningen eller prova med ett annat sökord"
+    },
+    "collections": {
+      "products_count": "{{ count }} produkter",
+      "no_results": "Inga resultat",
+      "no_results_message": " Försök gärna att använda mindre strikta filter"
+    },
+    "pagination": {
+      "load_more": " Visa fler",
+      "load_previous": " Visa föregående"
+    }
+  }
+}

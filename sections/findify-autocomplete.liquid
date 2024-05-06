@@ -15,12 +15,9 @@
       <ul>
         {% for suggestion in suggestions %}
           <li>
-            <a
-              class="findify-suggestion"
-              href='{{ basepath }}?q={{ suggestion }}'
-              data-findify-suggestion>
+            <div data-findify-suggestion class="findify-suggestion">
               {{ suggestion }}
-            </a>
+            </div>
           </li>
         {% endfor %}
       </ul>
