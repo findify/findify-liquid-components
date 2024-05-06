@@ -65,6 +65,7 @@
   border: 1px solid var(--findify-cta-border-color);
   background: var(--findify-cta-background-color);
   color: var(--findify-text-color);
+  text-transform: uppercase;
 }
 
 .findify-search-actions-toggle-btn:hover {

@@ -18,11 +18,13 @@
 
         if value contains "to"
           assign to = value | split: 'to' | last
-          assign text = 'under ' | append: to | append: currency
+          assign under_text = 'findify.filters.under' | t
+          assign text = under_text | append: ' ' | append: to | append: currency
           assign value = 'to|' | append: to
         elsif value contains "from"
           assign from = value | split: 'from' | last
-          assign text = from | append: currency | append: ' & up'
+          assign and_up_text = 'findify.filters.and_up' | t
+          assign text = from | append: currency | append: ' ' | append: and_up_text
           assign value = 'from|' | append: from
         else
           assign from = value | split: ':' | first

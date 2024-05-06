@@ -42,9 +42,9 @@
                 assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
               %}
               {% if from == 'undefined' %}
-                <span>under {{ to | append: currency }}</span>
+                <span>{{ 'findify.filters.under' | t }} {{ to | append: currency }}</span>
               {% elsif to == 'undefined' %}
-                <span>{{ from | append: currency }} & up</span>
+                <span>{{ from | append: currency }} {{ 'findify.filters.and_up' | t }}</span>
               {% else %}
                 {{ from | append: currency }} - {{ to | append: currency }}
               {% endif %}
@@ -99,7 +99,7 @@
     id="{{ breadcrumb_clear_all_element_id }}"
     class="findify-filters-breadcrumbs-clear-all"
     selected="true">
-    <muted>Clear all</muted>
+    <muted>{{ 'findify.filters.clear_all' | t }}</muted>
   </div>
 </div>
 

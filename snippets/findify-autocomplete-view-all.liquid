@@ -1,8 +1,8 @@
 <a class="findify-view-all view-all-{{position}}" href="{{ basepath }}?q={%- if query != 'none' -%} {{query}} {%- endif -%}">
   {%- if query == 'none' -%}
-    View all
+    {{ 'findify.autocomplete.view_all' | t }}
   {%- else -%}
-    View all results for
+    {{ 'findify.autocomplete.view_all_results_for' | t }}
     <span class="findify-components-autocomplete--tip__highlight">"{{ query }}"</span>
   {%- endif -%}
 </a>

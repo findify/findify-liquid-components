@@ -11,7 +11,7 @@
   <div id="{{ sorting_dropdown_body_element_id }}" class="findify-sorting desktop">
     <div class="findify-sorting-body">
       <span>
-        Sort by:
+        {{ 'findify.sorting.sort_by' | t }}
       </span>
       <button id="{{ sorting_dropdown_btn_element_id }}" class="findify-sorting-btn">
         {{ selectedLabel }}
@@ -100,7 +100,7 @@
     <div class="findify-sorting-body">
       <button id="{{ sorting_btn_element_id }}" class="findify-search-actions-toggle-btn">
         {% render 'findify-icon-sorting' %}
-        SORT BY
+        {{ 'findify.sorting.sort_by' | t }}
       </button>
     </div>
 
