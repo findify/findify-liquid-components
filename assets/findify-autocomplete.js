@@ -2,6 +2,11 @@ const initFindifyAutocompleteEvents = () => {
   let selector = "input[name='q']";
   let rid, q, item_limit;
 
+  const getSearchDestination = (query) => {
+    const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
+    return `${root}search?q=${query}`;
+  };
+
   if (findify) {
     let meta = findify.autocomplete.state.meta;
     rid = meta.rid;
@@ -28,7 +33,8 @@ const initFindifyAutocompleteEvents = () => {
    * @param {*} rid last request id
    * @returns
    */
-  const navigate = (url, e, query, rid) => {
+  const navigate = (e, query, rid) => {
+    const url = getSearchDestination(query);
     const openInNewWindow = e && (e.ctrlKey || e.metaKey);
     const redirections = findify.core.merchantConfig.redirections;
     const redirectionURL =
@@ -49,11 +55,10 @@ const initFindifyAutocompleteEvents = () => {
   const onSearch = (e) => {
     preventDefaults(e);
     const query = e.target.value;
-    const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
-    navigate(`${root}search?q=${query}`, e, query);
+    navigate(e, query);
   };
 
-  const initSuggestionAnalytics = async (e, suggestion, properties) => {
+  const initSuggestionAnalytics = async (e, suggestion) => {
     const { q: query, rid } = findify.autocomplete.state.meta;
     try {
       findify.core.analytics.sendEvent('click-suggestion', {
@@ -63,7 +68,7 @@ const initFindifyAutocompleteEvents = () => {
     } catch (error) {
       console.log('error', error);
     }
-    return navigate(properties.href, e, query, rid);
+    return navigate(e, query, rid);
   };
 
   const initOnSuggestionEvents = () => {
@@ -75,10 +80,7 @@ const initFindifyAutocompleteEvents = () => {
           e.stopPropagation();
 
           const suggestion = e.target?.innerText;
-          const properties = {
-            href: e.target.href,
-          };
-          initSuggestionAnalytics(e, suggestion, properties);
+          initSuggestionAnalytics(e, suggestion);
         });
       });
   };

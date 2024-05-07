@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": " Suositut haut",
+      "trending_products": " Suositut tuotteet",
+      "search_suggestions": " Hakuehdotuksia",
+      "product_matches": " Löytyneet tuotteet",
+      "view_all": " Katso kaikki",
+      "view_all_results_for": " Katso kaikki tulokset"
+    },
+    "filters": {
+      "filter_by": " Suodattimet",
+      "search_placeholder": " Haku",
+      "and_up": "ja yli",
+      "under": " Alle",
+      "clear_all": " Poista kaikki",
+      "go": "mene"
+    },
+    "sorting": {
+      "sort_by": "Rajaa seuraavan mukaan"
+    },
+    "search": {
+      "search_results": "Hakutulokset",
+      "results_count": "Näyttää {{ count }} tulosta",
+      "results_count_for": "Näyttää {{ count }} tulosta tuotteelle \"{{ term }}\"",
+      "no_results_for": "Ei tuloksia",
+      "no_results_message": "Tarkista oikeinkirjoitus tai kokeile toista hakusanaa"
+    },
+    "collections": {
+      "products_count": "{{ count }} tuotteet",
+      "no_results": "Ei tuloksia",
+      "no_results_message": "Yritä käyttää löyhempiä suodattimia"
+    },
+    "pagination": {
+      "load_more": "Lataa enemmän",
+      "load_previous": "Lataa edellinen"
+    }
+  }
+}

@@ -50,7 +50,7 @@
               {% endif %}
               {% render 'findify-button'
                 , id: 'findify-pagination-load-previous'
-                , text: 'Load previous'
+                , text: 'findify.pagination.load_previous'
                 , hide: hide_load_prev %}</div>
           {% endif %}
           <div id="findify-product-grid" class="findify-product-list">
@@ -76,7 +76,7 @@
                 {% endif %}
                 {% render 'findify-button'
                   , id: 'findify-pagination-load-more'
-                  , text: 'Load more'
+                  , text: 'findify.pagination.load_more'
                   , hide: hide_load_more %}
               </div>
             {% endif %}
@@ -85,8 +85,8 @@
       </div>
     {% else %}
       <div class="findify-zero-result-container">
-        <h1>No results</h1>
-        <h3>Check the filters and try to be less strict</h3>
+        <h1>{{ 'findify.collections.no_results' | t }}</h1>
+        <h3>{{ 'findify.collections.no_results_message' | t }}</h3>
       </div>
     {% endif %}
   </div>

@@ -1,11 +1,11 @@
 {% include 'findify-autocomplete-connector' %}
 
 {%- if query != 'none' -%}
-  {%- assign suggestionsTitle = 'Search suggestions' -%}
-  {%- assign productsTitle = 'Product matches' -%}
+  {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions' | t -%}
+  {%- assign productsTitle = 'findify.autocomplete.product_matches' | t -%}
 {%- else -%}
-  {%- assign suggestionsTitle = 'Trending searches' -%}
-  {%- assign productsTitle = 'Trending products' -%}
+  {%- assign suggestionsTitle = 'findify.autocomplete.trending_searches' | t -%}
+  {%- assign productsTitle = 'findify.autocomplete.trending_products' | t -%}
 {%- endif -%}
 
 <div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
@@ -15,12 +15,9 @@
       <ul>
         {% for suggestion in suggestions %}
           <li>
-            <a
-              class="findify-suggestion"
-              href='{{ basepath }}?q={{ suggestion }}'
-              data-findify-suggestion>
+            <div data-findify-suggestion class="findify-suggestion">
               {{ suggestion }}
-            </a>
+            </div>
           </li>
         {% endfor %}
       </ul>

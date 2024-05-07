@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": "Populære søgninger",
+      "trending_products": "Populære produkter",
+      "search_suggestions": "Søgeforslag",
+      "product_matches": "Produktresultat",
+      "view_all": "Se alle",
+      "view_all_results_for": "Se alle resultater for"
+    },
+    "filters": {
+      "filter_by": "Filtre",
+      "search_placeholder": "Search",
+      "and_up": "og op",
+      "under": "under",
+      "clear_all": "Ryd alle",
+      "go": "Vis"
+    },
+    "sorting": {
+      "sort_by": "Sortér efter"
+    },
+    "search": {
+      "search_results": "Søgeresultater",
+      "results_count": "Viser {{ count }} resultater",
+      "results_count_for": "Viser {{ count }} resultater for\"{{ term }}\"",
+      "no_results_for": "Ingen resultater for",
+      "no_results_message": "Venligst tjek stavningen eller prøv et andet søgeord"
+    },
+    "collections": {
+      "products_count": "{{ count }} produkter",
+      "no_results": "Ingen resultater",
+      "no_results_message": "Prøv venligst at anvende mindre strenge filtre"
+    },
+    "pagination": {
+      "load_more": "Indlæs flere",
+      "load_previous": "Indlæs forrige"
+    }
+  }
+}

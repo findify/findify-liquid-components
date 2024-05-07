@@ -145,6 +145,10 @@ body {
   text-decoration: none;
 }
 
+.findify-view-all label {
+  cursor: pointer;
+}
+
 .findify-view-all:hover {
   text-decoration: underline;
 }
@@ -225,6 +229,11 @@ body {
   height: auto;
   line-height: 1;
   display: flex;
+  cursor: pointer;
+}
+
+.findify-suggestion {
+  cursor: pointer;
 }
 
 .findify-autocomplete .suggestions-wrapper.suggestions-horizontal ul li:hover {

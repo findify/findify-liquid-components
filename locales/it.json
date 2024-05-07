@@ -1,0 +1,39 @@
+{
+  "findify": {
+    "autocomplete": {
+      "trending_searches": "Ricerche popolari",
+      "trending_products": "Prodotti popolari",
+      "search_suggestions": "Cerca consigli",
+      "product_matches": "Prodotti trovati",
+      "view_all": "Vedi tutti",
+      "view_all_results_for": "Vedi i risultati per"
+    },
+    "filters": {
+      "filter_by": "Filtri",
+      "search_placeholder": "Cerca",
+      "and_up": "in su",
+      "under": "sotto i",
+      "clear_all": "Rimuovi tutti",
+      "go": "Vai"
+    },
+    "sorting": {
+      "sort_by": "Ordina per"
+    },
+    "search": {
+      "search_results": "Risultati ricerca",
+      "results_count": "Mostrati {{ count }} risultati",
+      "results_count_for": "Mostrati {{ count }} risultati per \"{{ term }}\"",
+      "no_results_for": "Nessun risultato per",
+      "no_results_message": "Controlla i parametri di ricerca e riprova"
+    },
+    "collections": {
+      "products_count": "{{ count }} prodotti",
+      "no_results": "Nessun risultato",
+      "no_results_message": "Modifica i filtri e riprova"
+    },
+    "pagination": {
+      "load_more": "Pagina successiva",
+      "load_previous": "Pagina precedente"
+    }
+  }
+}

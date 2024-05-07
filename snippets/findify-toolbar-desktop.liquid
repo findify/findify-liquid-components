@@ -8,17 +8,18 @@
     <div class="findify-search-header-toolbar-actions">
       <button id="{{ filter_toggle_sidebar_element_id }}" class="findify-search-actions-toggle-btn">
         {% render 'findify-icon-filter' %}
-        FILTER BY
+        {{ 'findify.filters.filter_by' | t }}
       </button>
     </div>
 
     <label class="findify-search-header-label">
       {% if is_collection == true %}
-        {{ results_count }} products
+        {{ 'findify.collections.products_count' | t: count: results_count }}
       {% elsif terms == "" %}
-        Showing {{ results_count }} results
+        {{ 'findify.search.results_count' | t: count: results_count }}
       {% else %}
-        Showing {{ results_count }} results for "<b>{{ terms | url_decode }}</b>"
+        {% assign term_decoded = terms | url_decode %}
+        {{ 'results_count_for' | t: count: results_count, term: term_decoded }}
       {% endif %}
     </label>
     <div>
