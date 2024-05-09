@@ -16,32 +16,42 @@
         assign money_price = fake_price | times: 100 | money
         assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
 
-        if value contains "to"
+        if value contains 'to'
           assign to = value | split: 'to' | last
           assign under_text = 'findify.filters.under' | t
-          assign text = under_text | append: ' ' | append: to | append: currency
+          if name == 'price'
+            assign to = to | times: 100 | money
+          endif
+          assign text = under_text | append: ' ' | append: to
           assign value = 'to|' | append: to
-        elsif value contains "from"
+        elsif value contains 'from'
           assign from = value | split: 'from' | last
           assign and_up_text = 'findify.filters.and_up' | t
-          assign text = from | append: currency | append: ' ' | append: and_up_text
+          if name == 'price'
+            assign from = from | times: 100 | money
+          endif
+          assign text = from | append: ' ' | append: and_up_text
           assign value = 'from|' | append: from
         else
           assign from = value | split: ':' | first
           assign to = value | split: ':' | last
-          assign text = from | append: currency | append: ' - ' | append: to | append: currency
+          if name == 'price'
+            assign to = to | times: 100 | money
+            assign from = from | times: 100 | money
+          endif
+          assign text = from | append: ' - ' | append: to
           assign value = 'from|' | append: from | append: '-' | append: 'to|' | append: to
         endif
       %}
 
-      {% render 'findify-filter-checkbox'
-        , name: name
-        , type: type
-        , is_selected: is_selected
-        , value: value
-        , text: text
-        , count: count
-        , component: component
+      {% render 'findify-filter-checkbox',
+        name: name,
+        type: type,
+        is_selected: is_selected,
+        value: value,
+        text: text,
+        count: count,
+        component: component
       %}
     {% endif %}
 
@@ -50,12 +60,12 @@
         assign min = filter | split: ':' | first
         assign max = filter | split: ':' | last
       %}
-      {% render 'findify-filter-price-range'
-        , name: name
-        , currency: currency
-        , min: min
-        , max: max %}
+      {% render 'findify-filter-price-range',
+        name: name,
+        currency: currency,
+        min: min,
+        max: max
+      %}
     {% endif %}
-
   {% endfor %}
 </div>
