@@ -48,15 +48,19 @@
     const submitBtnElement = document.getElementById(submit_btn_selector_id);
 
     const onSubmitHandler = () => {
-      let from = (fromInputElement.value / window.findifyBGOperationsBlockSettings?.rate).toFixed(2);
-      let to = (toInputElement.value / window.findifyBGOperationsBlockSettings?.rate).toFixed(2);
+      let from = (
+        fromInputElement.value / window.findifyBGOperationsBlockSettings?.rate
+      ).toFixed(4);
+      let to = (
+        toInputElement.value / window.findifyBGOperationsBlockSettings?.rate
+      ).toFixed(4);
 
       let value;
-      if (from && to) {
+      if (parseFloat(from) && parseFloat(to)) {
         value = `from|${from}-to|${to}`;
-      } else if (from && !to) {
+      } else if (parseFloat(from) && !parseFloat(to)) {
         value = `from|${from}`;
-      } else if (to && !from) {
+      } else if (parseFloat(to) && !parseFloat(from)) {
         value = `to|${to}`;
       }
 
