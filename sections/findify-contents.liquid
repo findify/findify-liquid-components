@@ -1,9 +1,0 @@
-{%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last -%}
-{%- assign contentsParam = page_url | split: "contents=" | last | split: '&' | first -%}
-
-{%- assign contents = contentsParam | split: ";" -%}
-
-{% for content in contents %}
-  {% render 'findify-content-card'
-    , content: content %}
-{% endfor %}
