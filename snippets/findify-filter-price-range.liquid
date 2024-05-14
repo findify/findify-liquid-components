@@ -48,12 +48,11 @@
     const submitBtnElement = document.getElementById(submit_btn_selector_id);
 
     const onSubmitHandler = () => {
-      let from = (
-        fromInputElement.value / window.findifyBGOperationsBlockSettings?.rate
-      ).toFixed(4);
-      let to = (
-        toInputElement.value / window.findifyBGOperationsBlockSettings?.rate
-      ).toFixed(4);
+      const rate = window.findifyBGOperationsBlockSettings?.useCurrencyConverter
+        ? window.Shopify?.currency?.rate
+        : 1;
+      let from = (fromInputElement.value / rate).toFixed(4);
+      let to = (toInputElement.value / rate).toFixed(4);
 
       let value;
       if (parseFloat(from) && parseFloat(to)) {
