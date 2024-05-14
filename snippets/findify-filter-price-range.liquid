@@ -48,9 +48,7 @@
     const submitBtnElement = document.getElementById(submit_btn_selector_id);
 
     const onSubmitHandler = () => {
-      const rate = window.findifyBGOperationsBlockSettings?.useCurrencyConverter
-        ? window.Shopify?.currency?.rate
-        : 1;
+      const rate = findify.utils.getShopifyCurrencyRate();
       let from = (fromInputElement.value / rate).toFixed(4);
       let to = (toInputElement.value / rate).toFixed(4);
 

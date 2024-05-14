@@ -52,10 +52,7 @@
       containerElement?.classList.remove(openClass);
       document.documentElement.classList.remove('no-scroll');
       if (name === 'price') {
-        const rate = window.findifyBGOperationsBlockSettings
-          ?.useCurrencyConverter
-          ? window.Shopify?.currency?.rate
-          : 1;
+        const rate = findify.utils.getShopifyCurrencyRate();
         value = value.replace(/\d+(\.\d+)?/g, (num) =>
           +num ? (+num / rate)?.toFixed(2) : num,
         );
