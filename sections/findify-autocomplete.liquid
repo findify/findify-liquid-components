@@ -14,10 +14,21 @@
       <h3>{{ suggestionsTitle }}</h3>
       <ul>
         {% for suggestion in suggestions %}
-          <li>
-            <div data-findify-suggestion class="findify-suggestion">
-              {{ suggestion }}
-            </div>
+          {%- assign queryHTML = '<span>'
+            | append: query
+            | append: '</span>'
+          -%}
+          {%- assign formattedSuggestion = suggestion
+            | replace: query, queryHTML
+          -%}
+          <li class="{% if query != "none" %} findify-suggestion-item {% endif %}">
+            <a
+              class="findify-suggestion"
+              href="/{{ basepath }}?q={{ suggestion }}"
+              data-findify-suggestion
+            >
+              {{ formattedSuggestion }}
+            </a>
           </li>
         {% endfor %}
       </ul>
