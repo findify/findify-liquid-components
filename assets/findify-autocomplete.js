@@ -68,7 +68,7 @@ const initFindifyAutocompleteEvents = () => {
     } catch (error) {
       console.log('error', error);
     }
-    return navigate(e, query, rid);
+    return navigate(e, suggestion, rid);
   };
 
   const initOnSuggestionEvents = () => {

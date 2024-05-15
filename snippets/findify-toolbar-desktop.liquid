@@ -19,7 +19,7 @@
         {{ 'findify.search.results_count' | t: count: results_count }}
       {% else %}
         {% assign term_decoded = terms | url_decode %}
-        {{ 'results_count_for' | t: count: results_count, term: term_decoded }}
+        {{ 'findify.search.results_count_for' | t: count: results_count, term: term_decoded }}
       {% endif %}
     </label>
     <div>
