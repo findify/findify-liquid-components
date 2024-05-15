@@ -6,6 +6,10 @@
   assign group_label = query_parameters | split: "label=" | last | split: '&' | first | url_decode
   assign type = query_parameters | split: "type=" | last | split: '&' | first
   assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
+  assign min = query_parameters | split: "min=" | last | split: '&' | first | split: ';'
+  assign max = query_parameters | split: "max=" | last | split: '&' | first | split: ';'
+  assign from = query_parameters | split: "from=" | last | split: '&' | first | split: ';'
+  assign to = query_parameters | split: "to=" | last | split: '&' | first | split: ';'
 
   assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
   assign has_mapped_color = query_parameters | split: "has_mapped_color=" | last | split: '&' | first
@@ -67,7 +71,12 @@
             , name: name
             , type: type
             , component: component
-            , filters: filters %}
+            , filters: filters
+            , min: min
+            , max: max
+            , sliderFrom: from
+            , sliderTo: to
+          %}
       {% endcase %}
     </div>
   </div>
