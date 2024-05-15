@@ -37,16 +37,17 @@
               {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
             {% else %}
               {% liquid
-                assign fake_price = 123
-                assign money_price = fake_price | times: 100 | money
-                assign currency = money_price | replace: fake_price, '' | replace: ',00', ''
+                if name == 'price'
+                  assign to = to | times: 100 | money
+                  assign from = from | times: 100 | money
+                endif
               %}
               {% if from == 'undefined' %}
-                <span>{{ 'findify.filters.under' | t }} {{ to | append: currency }}</span>
+                <span>{{ 'findify.filters.under' | t }} {{ to }}</span>
               {% elsif to == 'undefined' %}
-                <span>{{ from | append: currency }} {{ 'findify.filters.and_up' | t }}</span>
+                <span>{{ from }} {{ 'findify.filters.and_up' | t }}</span>
               {% else %}
-                {{ from | append: currency }} - {{ to | append: currency }}
+                {{ from }} - {{ to }}
               {% endif %}
           {% endcase %}
         {% else %}

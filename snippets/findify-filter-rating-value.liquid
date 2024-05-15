@@ -1,4 +1,4 @@
-<span class="findify-filters-checkbox-item-value {%if selected == 't'%}findify-filters-checkbox-item-value-selected{% endif %}">
+<span class="findify-filters-checkbox-item-value {%if is_selected == true %}findify-filters-checkbox-item-value-selected{% endif %}">
   {%- assign fromValue = value | split: '-' | first -%}
   {% assign value = fromValue | split: '|' | last %}
   {%- render 'findify-rating', value: value -%}

@@ -204,6 +204,9 @@ button {
   max-height: 155px;
   overflow: auto;
 }
+#findify-filters-price .findify-filters--body-wrapper, #findify-filters-reviews\.average_score .findify-filters--body-wrapper {
+  max-height: initial;
+}
 .findify-filters--body-wrapper::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 4px;

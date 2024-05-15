@@ -8,14 +8,20 @@
 
 <span class="findify-filters-checkbox-item-value findify-filters--color-item {{ class }}">
   {% case color_filter_layout %}
-    {% when 'color' %}
+    {% when 'color', 'color_with_label' %}
       <span class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} solid-circle">
         {% if is_selected %}
-          {% render 'findify-icon-checkmark' %}
+          {% render 'findify-icon-checkmark', color: color_name %}
         {% endif %}
       </span>
+      {% if color_filter_layout == 'color_with_label' %}
+        {{ color_name }}
+      {%  endif %}
     {% else %}
-      <span class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} circle-with-label"></span>
+      <span
+        class="findify-filters--color-item-value {{ background_color_class }} {{ border_color_class }} circle-with-label"
+      ></span>
       {{ color_name | url_decode }}
-    </span>
-{% endcase %}</span>
+      </span>
+  {% endcase -%}
+</span>

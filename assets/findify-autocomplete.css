@@ -248,7 +248,12 @@ body {
   line-height: 1;
   padding: 5px;
 }
-
+.findify-autocomplete .suggestions-wrapper .findify-suggestion-item a {
+  color: #c0c0c0;
+}
+.findify-autocomplete .suggestions-wrapper .findify-suggestion-item a span {
+  color: #1c1d1d;
+}
 /* end */
 
 /* dropdown start */
@@ -287,7 +292,7 @@ body {
 .findify-autocomplete-fullscreen {
   width: 100%;
   padding: 15px 30px 20px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .findify-autocomplete-fullscreen .findify-autocomplete-content {
