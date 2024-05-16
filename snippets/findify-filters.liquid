@@ -4,7 +4,6 @@
   assign see_results_element_id = 'see-results-btn'
 %}
 <aside id="{{ findify_filters_component_id }}" class="findify-filters-sidebar open">
-
   <div class="findify-filters-container">
     <button id="{{ close_filters_element_id }}" class="findify-modal-header">
       <span class="findify-modal-header-title">{{ 'findify.filters.filters_btn' | t }}</span>
@@ -24,6 +23,7 @@
       {% comment %}
         This element #findify-filters will be replaced with rendered html from sections/findify-filters
       {% endcomment %}
+
     </div>
     <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
   </div>
