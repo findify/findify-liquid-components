@@ -14,8 +14,6 @@
   {%- assign show_content_integration = true -%}
 {% endif %}
 
-{% assign findify_filters_component_id = 'findify-filters-sidebar' %}
-
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
     <h1 class="findify-heading">{{ 'findify.search.search_results' | t }}</h1>
@@ -55,12 +53,10 @@
           {% render 'findify-loader' %}
         </div>
 
-        <aside id="findify-filters-sidebar" class="findify-filters-sidebar open">
-          {% render 'findify-filters'
-            , component_id: findify_filters_component_id,
-            , active_filters: active_filters
-            , color_layout: color_layout %}
-        </aside>
+        {% render 'findify-filters'
+          , component_id: findify_filters_component_id,
+          , active_filters: active_filters
+          , color_layout: color_layout %}
         <!-- product grid section! -->
         <div class="findify-products-section">
           {% if use_lazy_loading_pagination == 'true' %}
