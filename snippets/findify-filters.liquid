@@ -6,7 +6,7 @@
 
 <div class="findify-filters-container">
   <button id="{{ close_filters_element_id }}" class="findify-modal-header">
-    <span class="findify-modal-header-title">{{ 'findify.filters.filters_btn' | t }}</span>
+    <span class="findify-modal-header-title">Filters</span>
     {% render 'findify-icon-cross' %}
   </button>
   {% if active_filters != 'none' %}
@@ -44,7 +44,9 @@
         closeFiltersElement.addEventListener('click', toggleFilterSection)
 
         const seeResultsElement = document.getElementById(see_results_element_id);
-        seeResultsElement.addEventListener('click', toggleFilterSection)
+        seeResultsElement.addEventListener('click', toggleFilterSection);
+        
+        findify.filters.initSlider();
     }
     filterSection();
 </script>
