@@ -3,11 +3,11 @@
   assign close_filters_element_id = 'close-btn'
   assign see_results_element_id = 'see-results-btn'
 %}
-
 <aside id="{{ findify_filters_component_id }}" class="findify-filters-sidebar open">
+
   <div class="findify-filters-container">
     <button id="{{ close_filters_element_id }}" class="findify-modal-header">
-      <span class="findify-modal-header-title">Filters</span>
+      <span class="findify-modal-header-title">{{ 'findify.filters.filters_btn' | t }}</span>
       {% render 'findify-icon-cross' %}
     </button>
     {% if active_filters != 'none' %}
@@ -28,6 +28,7 @@
     <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
   </div>
 </aside>
+
 <script>
     const filterSection = () => {
         const close_filters_element_id = "{{ close_filters_element_id }}";
@@ -39,7 +40,6 @@
           if(findify.utils?.isMobile()){
             findify.grid?.load();
           }
-
           const containerElement = document.getElementById(component_id);
           containerElement.classList.toggle(openClass);
           document.documentElement.classList.toggle("no-scroll");
