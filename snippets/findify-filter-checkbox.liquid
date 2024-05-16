@@ -45,11 +45,6 @@
     const filterClickHandler = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const openClass = 'open-left';
-      const containerElement = document.getElementById(
-        'findify-filters-sidebar',
-      );
-      containerElement?.classList.remove(openClass);
       document.documentElement.classList.remove('no-scroll');
       if (name === 'price') {
         const rate = findify.utils.getShopifyCurrencyRate();

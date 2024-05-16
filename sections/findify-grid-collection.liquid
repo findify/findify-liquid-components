@@ -2,8 +2,6 @@
 {%- assign query_parameters = page_url | split: 'sections=findify-grid-collection&' | last -%}
 {% include 'findify-grid-connector' %}
 
-{% assign findify_filters_component_id = 'findify-filters-sidebar' %}
-
 <div id="findify-search" class="findify-search-section">
   <div class="findify-search-container">
     {% render 'findify-toolbar-desktop'
@@ -33,12 +31,10 @@
           {% render 'findify-loader' %}
         </div>
 
-        <aside id="{{ findify_filters_component_id }}" class="findify-filters-sidebar open">
-          {% render 'findify-filters'
-            , component_id: findify_filters_component_id,
-            , active_filters: active_filters
-            , color_layout: color_layout %}
-        </aside>
+        {% render 'findify-filters'
+          , component_id: findify_filters_component_id,
+          , active_filters: active_filters
+          , color_layout: color_layout %}
 
         <div class="findify-products-section">
           {% if use_lazy_loading_pagination == 'true' %}

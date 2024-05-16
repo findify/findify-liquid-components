@@ -107,14 +107,10 @@
 <script>
     const removeAllFilters = () => {
         const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-        const sidebar_component_id = "{{ sidebar_component_id }}"
         const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
 
         const openClass = 'open-left';
         const breacrumbClearAllClickHandler =  () => {
-          const containerElement = document.getElementById(sidebar_component_id);
-          containerElement.classList.remove(openClass);
-          document.documentElement.classList.remove("no-scroll");
           findify.filters.reset();
         }
 

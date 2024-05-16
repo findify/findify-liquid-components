@@ -3,29 +3,31 @@
   assign close_filters_element_id = 'close-btn'
   assign see_results_element_id = 'see-results-btn'
 %}
+<aside id="{{ findify_filters_component_id }}" class="findify-filters-sidebar open">
+  <div class="findify-filters-container">
+    <button id="{{ close_filters_element_id }}" class="findify-modal-header">
+      <span class="findify-modal-header-title">{{ 'findify.filters.filters_btn' | t }}</span>
+      {% render 'findify-icon-cross' %}
+    </button>
+    {% if active_filters != 'none' %}
+      <div class="findify-search-header-breadcrumb">
+        {% render 'findify-filter-breadcrumb'
+          , active_filters: active_filters
+          , color_layout: color_layout
+          , component_id: 'sidebar'
+          , sidebar_component_id: component_id
+          , show_all: true %}
+      </div>
+    {% endif %}
+    <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
+      {% comment %}
+        This element #findify-filters will be replaced with rendered html from sections/findify-filters
+      {% endcomment %}
 
-<div class="findify-filters-container">
-  <button id="{{ close_filters_element_id }}" class="findify-modal-header">
-    <span class="findify-modal-header-title">{{ 'findify.filters.filters_btn' | t }}</span>
-    {% render 'findify-icon-cross' %}
-  </button>
-  {% if active_filters != 'none' %}
-    <div class="findify-search-header-breadcrumb">
-      {% render 'findify-filter-breadcrumb'
-        , active_filters: active_filters
-        , color_layout: color_layout
-        , component_id: 'sidebar'
-        , sidebar_component_id: component_id
-        , show_all: true %}
     </div>
-  {% endif %}
-  <div id="findify-filters" class="findify-filters-wrapper modal-filters-wrapper">
-    {% comment %}
-      This element #findify-filters will be replaced with rendered html from sections/findify-filters
-    {% endcomment %}
+    <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
   </div>
-  <button id="{{ see_results_element_id }}" class="findify-modal-footer">See results</button>
-</div>
+</aside>
 
 <script>
     const filterSection = () => {
@@ -35,9 +37,12 @@
         const openClass = 'open-left';
 
         const toggleFilterSection = () => {
-            const containerElement = document.getElementById(component_id);
-            containerElement.classList.toggle(openClass);
-            document.documentElement.classList.toggle("no-scroll");
+          if(findify.utils?.isMobile()){
+            findify.grid?.load();
+          }
+          const containerElement = document.getElementById(component_id);
+          containerElement.classList.toggle(openClass);
+          document.documentElement.classList.toggle("no-scroll");
         }
         
         const closeFiltersElement = document.getElementById(close_filters_element_id);
