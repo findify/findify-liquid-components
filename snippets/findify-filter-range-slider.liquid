@@ -1,34 +1,45 @@
-<div class="price-input-container"> 
-    
-    <div class="slider-container"> 
-        <div class="price-slider"> 
-        </div> 
-      <div class="range-input"> 
-    <input type="range" 
-           class="min-range" 
-           min="0"
-           max={{ max }}
-           value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
-           step="0" /> 
-    <input type="range" 
-           class="max-range" 
-           min="0"
-           max={{ max }}
-           value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
-           step="0" /> 
+<div class="price-input-container">
+  <div class="slider-container">
+    <div class="price-slider"></div>
+    <div class="range-input">
+      <input
+        type="range"
+        class="min-range"
+        min="0"
+        max="{{ max }}"
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
+        step="0"
+      >
+      <input
+        type="range"
+        class="max-range"
+        min="0"
+        max="{{ max }}"
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
+        step="0"
+      >
+    </div>
+  </div>
+  <div class="price-input">
+    <div class="price-field">
+      <input
+        type="hidden"
+        class="min-input"
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
+      >
+      <div class="min-input div"> 
+        {% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}
+      </div>
+    </div>
+    <div class="price-field">
+      <input
+        type="hidden"
+        class="max-input"
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
+      >
+      <div class="max-input div" > 
+        {% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}
+      </div>
+    </div>
+  </div>
 </div>
-    </div> 
-  <div class="price-input"> 
-        <div class="price-field"> 
-
-            <input type="number" 
-                   class="min-input" 
-                   value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"> 
-        </div> 
-        <div class="price-field">
-            <input type="number" 
-                   class="max-input" 
-                   value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"> 
-        </div> 
-    </div> 
-</div> 
