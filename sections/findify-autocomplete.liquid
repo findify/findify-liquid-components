@@ -1,6 +1,6 @@
 {% include 'findify-autocomplete-connector' %}
 
-{%- if query != 'none' -%}
+{%- if query != '' -%}
   {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions'
     | t
   -%}
@@ -26,7 +26,7 @@
           {%- assign formattedSuggestion = suggestion
             | replace: query, queryHTML
           -%}
-          <li class="{% if query != "none" %} findify-suggestion-item {% endif %}">
+          <li class="{% if query != "" %} findify-suggestion-item {% endif %}">
             <a
               class="findify-suggestion"
               href="/{{ basepath }}?q={{ suggestion }}"
