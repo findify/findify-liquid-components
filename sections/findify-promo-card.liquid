@@ -9,33 +9,57 @@
 {%- assign top_header = parameters | split: 'top_header=' | last | split: '&' | first -%}
 {%- assign id = parameters | split: 'id=' | last | split: '&' | first -%}
 
+{%- assign margin_top_btn = parameters | split: 'margin_top_btn=' | last | split: '&' | first -%}
+{%- assign margin_bottom_btn = parameters | split: 'margin_bottom_btn=' | last | split: '&' | first -%}
+{%- assign horizontal_align = parameters | split: 'horizontal_align=' | last | split: '&' | first -%}
+{%- assign vertical_align = parameters | split: 'vertical_align=' | last | split: '&' | first -%}
+{%- assign button_desktop_layout = parameters | split: 'button_desktop_layout=' | last | split: '&' | first -%}
+
 <div id="findify-promo-card-{{id}}" class="findify-promo-card">
   {% if image_url != '' %}
-    <style>
-      #findify-promo-card-{{ id }} .findify-promo-card-wrapper {
-        background-image: url('{{image_url}}');
+  <style>
+    #findify-promo-card- {
+        {
+        id
       }
-    </style>
+    }
+
+    .findify-promo-card-wrapper {
+      background-image: url('{{image_url}}');
+    }
+  </style>
   {% endif %}
   <div class="findify-promo-card-wrapper">
-    <div class="findify-promo-card-title-container">
+    <div 
+     class="findify-promo-card-title-container"
+     style="
+      justify-content: {{ vertical_align }};
+      align-items: {{ horizontal_align }};
+    ">
       <h4 class="findify-promo-card-top-header">{{ top_header }}</h4>
       <p class="findify-promo-card-subheader">{{ sub_header }}</p>
     </div>
     {% if cta_text != '' %}
-      <a href="{{redirect_link}}" class="findify-promo-card-cta-button">{{ cta_text }}</a>
+    <a 
+      href="{{redirect_link}}" 
+      class="findify-promo-card-cta-button {% if button_desktop_layout == 'fullwidth' %}findify-promo-card-cta-button-fullwidth{% endif %}"
+      style=" 
+        margin-top: {{ margin_top_btn }}px; 
+        margin-bottom: {{ margin_bottom_btn }}px">
+        {{cta_text }}
+    </a>
     {% endif %}
   </div>
-{% comment %}
+  {% comment %}
   <div class="findify-promo-card-footer">{{footer}}</div>
-{% endcomment %}
+  {% endcomment %}
 </div>
 
 {% schema %}
-  {
-    "name": "Findify promo card",
-    "settings": []
-  }
+{
+"name": "Findify promo card",
+"settings": []
+}
 {% endschema %}
 
 {% stylesheet %}
