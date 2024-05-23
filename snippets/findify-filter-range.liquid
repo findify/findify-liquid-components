@@ -56,6 +56,7 @@
     {% endif %}
 
     {% if forloop.last and component == 'range' %}
+    
       {% render 'findify-filter-price-range',
         name: name,
         currency: currency,
@@ -64,9 +65,9 @@
       %}
 
       <!-- uncomment to use price slider -->
-      <!-- {% if name == 'price' %}
+      <!-- 
         {% render 'findify-filter-range-slider', min: min, max: max, name: name, from: sliderFrom, to: sliderTo %}
-      {% endif %} -->
+      -->
     {% endif %}
   {% endfor %}
 </div>
