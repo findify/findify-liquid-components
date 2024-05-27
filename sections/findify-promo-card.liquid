@@ -25,14 +25,8 @@
     grid-row: span {{ span_row }}">
   {% if image_url != '' %}
   <style>
-    #findify-promo-card- {
-        {
-        id
-      }
-    }
-
-    .findify-promo-card-wrapper {
-      background-image: url('{{image_url}}');
+    #findify-promo-card-{{ id }} .findify-promo-card-wrapper {
+      background-image: url('{{ image_url }}');
     }
   </style>
   {% endif %}
