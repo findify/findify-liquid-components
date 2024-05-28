@@ -1,29 +1,45 @@
-<div
-  class="findify-filters--range-slider__wrapper"
-  data-ref={{name}}
-  data-thumbsize="14"
-  data-rangemin={{min}}
-  data-rangemax={{max}}>
-  <input
-    class="findify-filters--range__slider-min"
-    name="min"
-    type="range"
-    step="1"
-    min={{min}}
-    max={{max}}
-    data-value={{min}} />
-  <div class="findify-filters--range__slider-track"></div>
-  <input
-    class="findify-filters--range__slider-max"
-    name="max"
-    type="range"
-    step="1"
-    min={{min}}
-    max={{max}}
-    data-value={{max}} />
-  <div class="findify-filters--range__slider-current-value-wrapper">
-    <span class="findify-filters--range__slider-current-value-lower">{{ min | append: '00' | money }}</span>
-    <span class="findify-filters--range__slider-current-value-delimiter">-</span>
-    <span class="findify-filters--range__slider-current-value-upper">{{ max | append: '00' | money }}</span>
+<div class="price-input-container">
+  <div class="slider-container">
+    <div class="price-slider"></div>
+    <div class="range-input">
+      <input
+        type="range"
+        class="min-range"
+        min="0"
+        max="{{ max }}"
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
+        step="0"
+      >
+      <input
+        type="range"
+        class="max-range"
+        min="0"
+        max="{{ max }}"
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
+        step="0"
+      >
+    </div>
+  </div>
+  <div class="price-input">
+    <div class="price-field">
+      <input
+        type="hidden"
+        class="min-input"
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
+      >
+      <div class="min-input div"> 
+        {% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}
+      </div>
+    </div>
+    <div class="price-field">
+      <input
+        type="hidden"
+        class="max-input"
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
+      >
+      <div class="max-input div" > 
+        {% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}
+      </div>
+    </div>
   </div>
 </div>

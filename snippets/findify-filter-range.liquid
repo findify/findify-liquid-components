@@ -19,28 +19,28 @@
         if value contains 'to'
           assign to = value | split: 'to' | last
           assign under_text = 'findify.filters.under' | t
+          assign value = 'to|' | append: to
           if name == 'price'
             assign to = to | times: 100 | money
           endif
           assign text = under_text | append: ' ' | append: to
-          assign value = 'to|' | append: to
         elsif value contains 'from'
           assign from = value | split: 'from' | last
           assign and_up_text = 'findify.filters.and_up' | t
+          assign value = 'from|' | append: from
           if name == 'price'
             assign from = from | times: 100 | money
           endif
           assign text = from | append: ' ' | append: and_up_text
-          assign value = 'from|' | append: from
         else
           assign from = value | split: ':' | first
           assign to = value | split: ':' | last
+          assign value = 'from|' | append: from | append: '-' | append: 'to|' | append: to
           if name == 'price'
             assign to = to | times: 100 | money
             assign from = from | times: 100 | money
           endif
           assign text = from | append: ' - ' | append: to
-          assign value = 'from|' | append: from | append: '-' | append: 'to|' | append: to
         endif
       %}
 
@@ -56,16 +56,18 @@
     {% endif %}
 
     {% if forloop.last and component == 'range' %}
-      {% liquid
-        assign min = filter | split: ':' | first
-        assign max = filter | split: ':' | last
-      %}
+    
       {% render 'findify-filter-price-range',
         name: name,
         currency: currency,
         min: min,
         max: max
       %}
+
+      <!-- uncomment to use price slider -->
+      <!-- 
+        {% render 'findify-filter-range-slider', min: min, max: max, name: name, from: sliderFrom, to: sliderTo %}
+      -->
     {% endif %}
   {% endfor %}
 </div>
