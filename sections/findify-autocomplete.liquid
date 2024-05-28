@@ -1,14 +1,19 @@
 {% include 'findify-autocomplete-connector' %}
 
-{%- if query != 'none' -%}
-  {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions' | t -%}
+{%- if query != '' -%}
+  {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions'
+    | t
+  -%}
   {%- assign productsTitle = 'findify.autocomplete.product_matches' | t -%}
 {%- else -%}
   {%- assign suggestionsTitle = 'findify.autocomplete.trending_searches' | t -%}
   {%- assign productsTitle = 'findify.autocomplete.trending_products' | t -%}
 {%- endif -%}
 
-<div id="findify-autocomplete" class="findify-autocomplete findify-autocomplete-fullscreen hidden">
+<div
+  id="findify-autocomplete"
+  class="findify-autocomplete findify-autocomplete-fullscreen hidden"
+>
   <div class="findify-autocomplete-content">
     <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
       <h3>{{ suggestionsTitle }}</h3>
@@ -21,7 +26,7 @@
           {%- assign formattedSuggestion = suggestion
             | replace: query, queryHTML
           -%}
-          <li class="{% if query != "none" %} findify-suggestion-item {% endif %}">
+          <li class="{% if query != "" %} findify-suggestion-item {% endif %}">
             <a
               class="findify-suggestion"
               href="/{{ basepath }}?q={{ suggestion }}"
@@ -33,20 +38,20 @@
         {% endfor %}
       </ul>
 
-      {% render 'findify-autocomplete-content-block'
-        , contents_param: contents_param
-        , content: contents[0]
+      {% render 'findify-autocomplete-content-block',
+        contents_param: contents_param,
+        content: contents[0]
       %}
-
     </div>
 
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
         <h3>{{ productsTitle }}</h3>
-        {% render 'findify-autocomplete-view-all'
-          , basepath: basepath
-          , query: query
-          , position: 'top' %}
+        {% render 'findify-autocomplete-view-all',
+          basepath: basepath,
+          query: query,
+          position: 'top'
+        %}
       </div>
       <div id="findify-autocomplete-products" class="products-container"></div>
       <div class="findify-close-autocomplete">
@@ -54,30 +59,29 @@
       </div>
     </div>
 
-    {% render 'findify-autocomplete-content-block'
-      , contents_param: contents_param
-      , content: contents[1]
+    {% render 'findify-autocomplete-content-block',
+      contents_param: contents_param,
+      content: contents[1]
     %}
-
   </div>
-  {% render 'findify-autocomplete-view-all'
-    , basepath: basepath
-    , query: query
-    , position: 'bottom' %}
-
+  {% render 'findify-autocomplete-view-all',
+    basepath: basepath,
+    query: query,
+    position: 'bottom'
+  %}
 
   <script>
-      /* IMPORTANT: Script tags are executed within this file element. */
+    /* IMPORTANT: Script tags are executed within this file element. */
 
-      initFindifyAutocompleteEvents();
+    initFindifyAutocompleteEvents();
   </script>
 </div>
 
 {% schema %}
-  {
-    "name": "Findify autocomplete",
-    "settings": []
-  }
+{
+  "name": "Findify autocomplete",
+  "settings": []
+}
 {% endschema %}
 
 {% stylesheet %}
