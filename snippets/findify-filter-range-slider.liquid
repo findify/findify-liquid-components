@@ -1,10 +1,21 @@
+{% liquid
+  assign slider_container_selector = 'slider-container'
+  assign range_input_selector = 'range-input'
+  assign price_input_selector = 'price-input'
+
+  assign min_range_selector = 'min-range'
+  assign max_range_selector = 'max-range'
+
+  assign min_input_selector = 'min-input'
+  assign max_input_selector = 'max-input'
+%}
 <div class="price-input-container">
-  <div class="slider-container">
+  <div class="{{slider_container_selector}}">
     <div class="price-slider"></div>
-    <div class="range-input">
+    <div class="{{range_input_selector}}">
       <input
         type="range"
-        class="min-range"
+        class="{{min_range_selector}}"
         min="0"
         max="{{ max }}"
         value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
@@ -12,7 +23,7 @@
       >
       <input
         type="range"
-        class="max-range"
+        class="{{max_range_selector}}"
         min="0"
         max="{{ max }}"
         value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
@@ -20,26 +31,125 @@
       >
     </div>
   </div>
-  <div class="price-input">
+  <div class="{{price_input_selector}}">
     <div class="price-field">
       <input
         type="hidden"
-        class="min-input"
+        class="{{min_input_selector}}"
         value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
       >
-      <div class="min-input div"> 
+      <div class="{{min_input_selector}} div">
         {% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}
       </div>
     </div>
     <div class="price-field">
       <input
         type="hidden"
-        class="max-input"
+        class="{{max_input_selector}}"
         value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
       >
-      <div class="max-input div" > 
-        {% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}
+      <div class="{{max_input_selector}} div">
+        {% if to contains 'up' %}{{ max }}{% else %}{{ to }}{% endif %}
       </div>
     </div>
   </div>
 </div>
+<script>
+  const initSlider = () => {
+    const min_range_selector = '.{{ min_range_selector }}';
+    const max_range_selector = '.{{ max_range_selector }}';
+    const min_input_selector = '.{{min_input_selector}}.div';
+    const max_input_selector = '.{{max_input_selector}}.div';
+    const price_slider_selector =
+      '.{{slider_container_selector}} .price-slider';
+    const range_input_selector = '.{{range_input_selector}} input';
+    const price_input_selector = '.{{price_input_selector}} input';
+
+    const rate = findify.utils?.getShopifyCurrencyRate();
+
+    const min = document.querySelector(min_range_selector).getAttribute('min');
+    const max = document.querySelector(max_range_selector).getAttribute('max');
+
+    const minRangeValue = document.querySelector(min_range_selector).value;
+    const maxRangeValue = document.querySelector(max_range_selector).value;
+
+    const rangevalue = document.querySelector(price_slider_selector);
+    const rangeInputvalue = document.querySelectorAll(range_input_selector);
+
+    if (min == minRangeValue) rangevalue.style.left = `0%`;
+    else
+      rangevalue.style.left = `${
+        (minRangeValue / rangeInputvalue[0].max) * 100
+      }%`;
+    if (max == maxRangeValue) rangevalue.style.right = `0%`;
+    else
+      rangevalue.style.right = `${
+        100 - (maxRangeValue / rangeInputvalue[1].max) * 100
+      }%`;
+
+    // Set the price gap
+    let priceGap = 1;
+
+    // Adding event listners to price input elements
+    const priceInputvalue = document.querySelectorAll(price_input_selector);
+    for (let i = 0; i < priceInputvalue.length; i++) {
+      // Add event listeners to range input elements
+      for (let i = 0; i < rangeInputvalue.length; i++) {
+        rangeInputvalue[i].addEventListener('mouseup', (e) => {
+          let minVal = parseInt(rangeInputvalue[0].value);
+
+          let maxVal = parseInt(rangeInputvalue[1].value);
+
+          const priceValues = findify.filters.state.filter(
+            (item) => item.name == 'price'
+          )[0];
+
+          if (
+            !priceValues ||
+            (priceValues && Number(priceValues?.values[0].from) !== minVal) ||
+            Number(priceValues?.values[0].to) !== maxVal
+          )
+            findify.filters.update(
+              {
+                value: `from|${minVal / rate}-to|${maxVal / rate}`,
+                type: 'range',
+                name: 'price',
+              },
+              true
+            );
+        });
+
+        rangeInputvalue[i].addEventListener('input', (e) => {
+          let minVal = parseInt(rangeInputvalue[0].value);
+          let maxVal = parseInt(rangeInputvalue[1].value);
+
+          let diff = maxVal - minVal;
+          // Check if the price gap is exceeded
+          if (diff < priceGap) {
+            // Check if the input is the min range input
+            if (e.target.className === min_range_selector) {
+              rangeInputvalue[0].value = maxVal - priceGap;
+            } else {
+              rangeInputvalue[1].value = minVal + priceGap;
+            }
+          } else {
+            // Update price inputs and range progress
+            priceInputvalue[0].value = minVal;
+            priceInputvalue[1].value = maxVal;
+
+            rangevalue.style.left = `${
+              (minVal / rangeInputvalue[0].max) * 100
+            }%`;
+            rangevalue.style.right = `${
+              100 - (maxVal / rangeInputvalue[1].max) * 100
+            }%`;
+          }
+
+          document.querySelector(min_input_selector).textContent = minVal;
+          document.querySelector(max_input_selector).textContent = maxVal;
+        });
+      }
+    }
+  };
+  initSlider();
+</script>
