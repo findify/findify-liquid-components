@@ -32,18 +32,20 @@
   {% endif %}
   <div class="findify-promo-card-wrapper">
     <div 
-     class="findify-promo-card-title-container"
-     style="
-      justify-content: {{ vertical_align }};
-      align-items: {{ horizontal_align }};
-    ">
+     class="
+      findify-promo-card-title-container
+      findify-promo-card-title-container-{{ vertical_align }}
+      findify-promo-card-title-container-{{ horizontal_align }}
+      "
+     >
       <h4 class="findify-promo-card-top-header">{{ top_header }}</h4>
       <p class="findify-promo-card-subheader">{{ sub_header }}</p>
     </div>
     {% if cta_text != '' %}
     <a 
       href="{{redirect_link}}" 
-      class="findify-promo-card-cta-button 
+      class="
+        findify-promo-card-cta-button 
         {% if button_desktop_layout == 'fullwidth' %}
           findify-promo-card-cta-button-fullwidth
         {% endif %}"
