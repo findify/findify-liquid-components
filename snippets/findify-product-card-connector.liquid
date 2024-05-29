@@ -7,7 +7,7 @@
     assign class = query_parameters | split: "class=" | last | split: "&" | first
   endif
   assign widget = query_parameters | split: "widget=" | last | split: "&" | first
-  
+
   # Product Collection Slot
   if query_parameters contains "collectionSlot="
     assign collection_slot = query_parameters | split: "collectionSlot=" | last | split: "&" | first
@@ -64,9 +64,9 @@
     assign price = query_parameters | split: "price=" | last | split: "&" | first
   endif
   if product.url contains "?"
-    assign product_url = collection_slot | append:product.url | append: "&variant=" | append: selected_variant_id
+    assign product_url = product.url | append: "&variant=" | append: selected_variant_id
   else
-    assign product_url = collection_slot | append:product.url | append: "?variant=" | append: selected_variant_id
+    assign product_url = product.url | append: "?variant=" | append: selected_variant_id
   endif
   if query_parameters contains "quantity="
     assign quantity = query_parameters | split: "quantity=" | last | split: "&" | first
