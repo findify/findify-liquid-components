@@ -15,10 +15,8 @@
   const clickViewAll = () => {
     const view_all_element_id = "{{ view_all_element_id }}";
     const query = "{{ query }}";
-    console.log('Initialized', query);
 
     document.getElementById(view_all_element_id).addEventListener('click', () => {
-      console.log('Clicked', query);
       const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
       window.location.href = query === 'none' ? `${root}search` : `${root}search?q=${query}`;
     })
