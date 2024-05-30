@@ -53,14 +53,20 @@
         {% else %}
           {% case name %}
             {% when 'color' %}
-              {% if color_layout %}
-                <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
-                {% if color_layout == 'color_with_label' %}
-                  <span>{{ value }}</span>
-                {% endif %}
-              {% else %}
-                <span>{{ value }}</span>
-              {% endif %}
+              {% case color_layout %}
+                {% when 'color', 'color_with_label' %}
+                  <span
+                    class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"
+                  >
+                  </span>
+                  {% if color_layout == 'color_with_label' %}
+                    {{ value }}
+                  {% endif %}
+                {% else %}
+                  <span>
+                    {{ value | url_decode }}
+                  </span>
+              {% endcase -%}
             {% else %}
               <span>{{ value }}</span>
           {% endcase %}
