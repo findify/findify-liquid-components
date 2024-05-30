@@ -11,8 +11,6 @@
   # Product Collection Slot
   if query_parameters contains "collectionSlot="
     assign collection_slot = query_parameters | split: "collectionSlot=" | last | split: "&" | first
-    # Prefix the current locale if any
-    assign collection_slot = routes.root_url | append: collection_slot | replace: '//', '/'
   endif
   # Product metadata
   assign colormap = query_parameters | split: "colormap=" | last | split: "&" | first | split: ';'
@@ -65,6 +63,7 @@
   if query_parameters contains "price="
     assign price = query_parameters | split: "price=" | last | split: "&" | first
   endif
+  # Manipulating product.url to add variant and collection awareness with locale awareness
   if product.url contains "?"
     assign product_url_dto = product.url | append: "&variant=" | append: selected_variant_id
   else
@@ -73,7 +72,7 @@
   if product_url_dto contains routes.root_url and routes.root_url != '/'
     assign product_url_dto = product_url_dto | replace: routes.root_url, ''
   endif
-  assign product_url = collection_slot | append: product_url_dto
+  assign product_url = routes.root_url | append: collection_slot | append: product_url_dto | replace: '//', '/'
   if query_parameters contains "quantity="
     assign quantity = query_parameters | split: "quantity=" | last | split: "&" | first
   endif
