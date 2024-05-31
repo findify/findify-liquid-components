@@ -15,7 +15,7 @@
 {%- assign span_row = parameters | split: 'span_row=' | last | split: '&' | first -%}
 {%- assign horizontal_align = parameters | split: 'horizontal_align=' | last | split: '&' | first -%}
 {%- assign vertical_align = parameters | split: 'vertical_align=' | last | split: '&' | first -%}
-{%- assign button_desktop_layout = parameters | split: 'button_desktop_layout=' | last | split: '&' | first -%}
+{%- assign button_layout = parameters | split: 'button_layout=' | last | split: '&' | first -%}
 
 <div 
   id="findify-promo-card-{{id}}" 
@@ -46,7 +46,7 @@
       href="{{redirect_link}}" 
       class="
         findify-promo-card-cta-button 
-        {% if button_desktop_layout == 'fullwidth' %}
+        {% if button_layout == 'fullwidth' %}
           findify-promo-card-cta-button-fullwidth
         {% endif %}"
       style=" 

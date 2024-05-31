@@ -123,6 +123,10 @@ b {
   .findify-search-desktop-breadcrumb {
     margin-bottom: 15px;
   }
+
+  .findify-product-list {
+    grid-auto-flow: dense;
+  }
 }
 
 @media (max-width: 768px) {
