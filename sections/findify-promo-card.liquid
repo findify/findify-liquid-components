@@ -16,6 +16,7 @@
 {%- assign horizontal_align = parameters | split: 'horizontal_align=' | last | split: '&' | first -%}
 {%- assign vertical_align = parameters | split: 'vertical_align=' | last | split: '&' | first -%}
 {%- assign button_layout = parameters | split: 'button_layout=' | last | split: '&' | first -%}
+{%- assign text_color = parameters | split: 'text_color=' | last | split: '&' | first -%}
 
 <div 
   id="findify-promo-card-{{id}}" 
@@ -38,8 +39,16 @@
       findify-promo-card-title-container-{{ horizontal_align }}
       "
      >
-      <h4 class="findify-promo-card-top-header">{{ top_header }}</h4>
-      <p class="findify-promo-card-subheader">{{ sub_header }}</p>
+      <h4 
+        class="findify-promo-card-top-header" 
+        style="color: {{ text_color }}">
+          {{ top_header }}
+      </h4>
+      <p 
+        class="findify-promo-card-subheader" 
+        style="color: {{ text_color }}">
+          {{ sub_header }}
+      </p>
     </div>
     {% if cta_text != '' %}
     <a 
