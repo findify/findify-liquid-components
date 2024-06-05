@@ -1,6 +1,6 @@
 {% liquid
   assign value = value | strip_html
-  assign filter_element_id = 'findify-filter-' | append: value
+  assign filter_element_id = 'findify-filter-' | append: value | replace: ' ', '' | replace: '&amp;', '&'
 %}
 
 <div
@@ -54,8 +54,12 @@
       }
       findify.filters.update({ value, type, name });
     };
-
+    if(filterElement) {
     filterElement.addEventListener("click", filterClickHandler);
+    } else {
+      console.log('filter_element_id', filter_element_id)
+      console.log('value', value)
+    }
   };
 
   onFilterClick();
