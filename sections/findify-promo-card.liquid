@@ -9,14 +9,19 @@
 {%- assign top_header = parameters | split: 'top_header=' | last | split: '&' | first -%}
 {%- assign id = parameters | split: 'id=' | last | split: '&' | first -%}
 
-{%- assign margin_top_btn = parameters | split: 'margin_top_btn=' | last | split: '&' | first -%}
 {%- assign margin_bottom_btn = parameters | split: 'margin_bottom_btn=' | last | split: '&' | first -%}
 {%- assign span_col = parameters | split: 'span_col=' | last | split: '&' | first -%}
 {%- assign span_row = parameters | split: 'span_row=' | last | split: '&' | first -%}
 {%- assign horizontal_align = parameters | split: 'horizontal_align=' | last | split: '&' | first -%}
 {%- assign vertical_align = parameters | split: 'vertical_align=' | last | split: '&' | first -%}
 {%- assign button_layout = parameters | split: 'button_layout=' | last | split: '&' | first -%}
-{%- assign text_color = parameters | split: 'text_color=' | last | split: '&' | first -%}
+{%- assign header1_color = parameters | split: 'header1_color=' | last | split: '&' | first -%}
+{%- assign header2_color = parameters | split: 'header2_color=' | last | split: '&' | first -%}
+{%- assign button_text_color = parameters | split: 'button_text_color=' | last | split: '&' | first -%}
+
+{%- assign header1_size = parameters | split: 'header1_size=' | last | split: '&' | first -%}
+{%- assign header2_size = parameters | split: 'header2_size=' | last | split: '&' | first -%}
+{%- assign button_text_size = parameters | split: 'button_text_size=' | last | split: '&' | first -%}
 
 <div 
   id="findify-promo-card-{{id}}" 
@@ -41,12 +46,12 @@
      >
       <h4 
         class="findify-promo-card-top-header" 
-        style="color: {{ text_color }}">
+        style="color: {{ header1_color }}; font-size: {{ header1_size }}px">
           {{ top_header }}
       </h4>
       <p 
         class="findify-promo-card-subheader" 
-        style="color: {{ text_color }}">
+        style="color: {{ header2_color }}; font-size: {{ header2_size }}px">
           {{ sub_header }}
       </p>
     </div>
@@ -59,9 +64,10 @@
           findify-promo-card-cta-button-fullwidth
         {% endif %}"
       style=" 
-        margin-top: {{ margin_top_btn }}px; 
-        margin-bottom: {{ margin_bottom_btn }}px">
-        {{cta_text }}
+        margin-bottom: {{ margin_bottom_btn }}px;
+        color: {{ button_text_color }}; 
+        font-size: {{ button_text_size }}px">
+          {{cta_text }}
     </a>
     {% endif %}
   </div>

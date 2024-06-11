@@ -30,6 +30,7 @@
   text-align: center;
   font-weight: 600;
   margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .findify-promo-card-subheader {
@@ -74,10 +75,12 @@
 
 .findify-promo-card-title-container-top {
   justify-content: start;
+  margin-top: 10px;
 }
 
 .findify-promo-card-title-container-bottom {
   justify-content: end;
+  margin-bottom: 10px;
 }
 
 .findify-promo-card-title-container-middle {
