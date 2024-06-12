@@ -8,8 +8,20 @@
       assign type = parts[1]
 
       if type == 'range'
-        assign from = parts[2]
-        assign to = parts[3]
+        if name == 'price'
+          assign from_props = parts[2] | split: ':'
+          assign from = from_props | first
+          assign fromDisplay = from_props | last
+          assign to_props = parts[3] | split: ':'
+          assign to = to_props | first
+          assign toDisplay = to_props | last
+        else
+          assign from = parts[2]
+          assign fromDisplay = parts[2]
+          assign to = parts[3]
+          assign toDisplay = parts[3]
+        endif
+
         assign value = 'from|' | append: from | append: '-to|' | append: to
         assign reviewValue = from | append: 'to' | append: to
       else
@@ -28,37 +40,31 @@
       value="{{value}}">
       {% case type %}
         {% when 'range' %}
-          {% liquid
-            assign from = parts[2]
-            assign to = parts[3]
-          %}
           {% case name %}
             {% when 'reviews.average_score' %}
               {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
             {% else %}
               {% liquid
                 if name == 'price'
-                  assign to = to | times: 100 | money
-                  assign from = from | times: 100 | money
+                  assign toDisplay = toDisplay | times: 100 | money
+                  assign fromDisplay = fromDisplay | times: 100 | money
                 endif
               %}
-              {% if from == 'undefined' %}
-                <span>{{ 'findify.filters.under' | t }} {{ to }}</span>
-              {% elsif to == 'undefined' %}
-                <span>{{ from }} {{ 'findify.filters.and_up' | t }}</span>
+              {% if fromDisplay == 'undefined' %}
+                <span>{{ 'findify.filters.under' | t }} {{ toDisplay }}</span>
+              {% elsif toDisplay == 'undefined' %}
+                <span>{{ fromDisplay }} {{ 'findify.filters.and_up' | t }}</span>
               {% else %}
-                {{ from }} - {{ to }}
+                {{ fromDisplay }} - {{ toDisplay }}
               {% endif %}
           {% endcase %}
         {% else %}
           {% case name %}
             {% when 'color' %}
               {% case color_layout %}
-                {% when 'color', 'color_with_label' %}
-                  <span
-                    class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"
-                  >
-                  </span>
+                {% when 'color'
+                  , 'color_with_label' %}
+                  <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
                   {% if color_layout == 'color_with_label' %}
                     {{ value }}
                   {% endif %}
