@@ -19,16 +19,14 @@
         min="0"
         max="{{ max }}"
         value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
-        step="0"
-      >
+        step="0">
       <input
         type="range"
         class="{{max_range_selector}}"
         min="0"
         max="{{ max }}"
         value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
-        step="0"
-      >
+        step="0">
     </div>
   </div>
   <div class="{{price_input_selector}}">
@@ -36,20 +34,24 @@
       <input
         type="hidden"
         class="{{min_input_selector}}"
-        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
-      >
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}">
       <div class="{{min_input_selector}} div">
-        {% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}
+        {% if from contains 'under' %}
+          {{ min }}
+        {% else %}
+          {{ from }}{% endif %}
       </div>
     </div>
     <div class="price-field">
       <input
         type="hidden"
         class="{{max_input_selector}}"
-        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
-      >
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}">
       <div class="{{max_input_selector}} div">
-        {% if to contains 'up' %}{{ max }}{% else %}{{ to }}{% endif %}
+        {% if to contains 'up' %}
+          {{ max }}
+        {% else %}
+          {{ to }}{% endif %}
       </div>
     </div>
   </div>
@@ -64,8 +66,6 @@
       '.{{slider_container_selector}} .price-slider';
     const range_input_selector = '.{{range_input_selector}} input';
     const price_input_selector = '.{{price_input_selector}} input';
-
-    const rate = findify.utils?.getShopifyCurrencyRate();
 
     const min = document.querySelector(min_range_selector).getAttribute('min');
     const max = document.querySelector(max_range_selector).getAttribute('max');
@@ -111,7 +111,7 @@
           )
             findify.filters.update(
               {
-                value: `from|${minVal / rate}-to|${maxVal / rate}`,
+                value: `from|${minVal}-to|${maxVal}`,
                 type: 'range',
                 name: 'price',
               },
