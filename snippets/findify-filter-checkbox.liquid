@@ -46,12 +46,6 @@
       e.preventDefault();
       e.stopPropagation();
       document.documentElement.classList.remove('no-scroll');
-      if (name === 'price') {
-        const rate = findify.utils.getShopifyCurrencyRate();
-        value = value.replace(/\d+(\.\d+)?/g, (num) =>
-          +num ? (+num / rate)?.toFixed(2) : num,
-        );
-      }
       findify.filters.update({ value, type, name });
     };
 
