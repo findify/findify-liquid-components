@@ -30,3 +30,36 @@ const initOnProductCardClick = (id, properties) => {
     initProductCardAnalytics(id, properties);
   });
 };
+
+const cleanActiveSwatches = (productCard) => {
+  productCard.querySelectorAll('.findify-color-swatch').forEach((swatch) => 
+   swatch.classList.remove('active'));
+}
+
+const setProductUrl = (productCard, url) => {
+  productCard.querySelectorAll('.findify-product-link').forEach((aTag) =>
+    aTag.setAttribute("href", url)
+  );
+}
+
+const onSwatchClick = (event, product_id, product_url, variant_url, variant_image) => {
+
+  const targetedSwatch = event.target;
+  
+  const productCard = document.getElementById(product_id);
+  const swatchImage = productCard.querySelector(`.findify-product-swatch-image`);
+
+  if(targetedSwatch.classList.contains('active')) {
+    cleanActiveSwatches(productCard);
+    setProductUrl(productCard, product_url);
+    swatchImage.setAttribute('hidden', true);
+  }
+  else {
+    cleanActiveSwatches(productCard);
+    targetedSwatch.classList.add('active');
+    
+    setProductUrl(productCard, variant_url);
+    swatchImage.removeAttribute('hidden');
+    swatchImage.src = `//cdn.shopify.com/s/files/${variant_image}`;
+  }
+}

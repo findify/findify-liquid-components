@@ -4,151 +4,50 @@
 %}
 
 <div class="findify-color-swatch-wrapper">
-
-  {% for color in colors %}
-    {% liquid
-      for colorMapEntry in colormap
-        assign current_iterator_name = colorMapEntry | split: ':' | first | downcase
-        assign current_iterator_color = colorMapEntry | split: ':' | last
-
-        if current_iterator_name == color
-          assign current_name_color = current_iterator_name | url_decode
-          assign current_value_color = current_iterator_color | url_decode
-        endif
-      endfor
-    %}
-
-    {% liquid
-      for variant in variants
-        assign current_iterator_variant_id = variant | split: 'id=' | last | split: '~' | first
-        assign current_iterator_variant_color = variant | split: 'color=' | last | split: '~' | first | downcase
-
-        if current_iterator_variant_color == color
-          assign current_variant_id = current_iterator_variant_id
-          assign current_variant_url = product_url | split: "?variant=" | first | append: "?variant=" | append: current_variant_id
-        endif
-      endfor
-    %}
-
-    {% if current_name_color and current_value_color and current_variant_id %}
+    {% for color in colors  %}
+      {% liquid
+          assign color_lowercase = color | downcase
+          for colormap_item in colormap
+            assign colormap_item_name = colormap_item | split: ':' | first
+            assign colormap_item_value = colormap_item | split: ':' | last
+    
+            if colormap_item_name == color_lowercase
+              assign current_color_name = color | url_decode
+              assign current_color_value = colormap_item_value | url_decode
+            endif
+        endfor
+      %}
+    
+    {% if current_color_name and current_color_value %}
       {% assign color_counter = color_counter | plus: 1 %}
       {% if color_counter <= max_colors %}
         {% liquid
-          if current_value_color contains "https"
-            assign styling = "background: no-repeat url(" | append: current_value_color | append: ") center"
+          if current_color_value contains "https"
+            assign styling = "background: no-repeat url(" | append: current_color_value | append: ") center"
           else
-            assign styling = "background-color:" | append: current_value_color
+            assign styling = "background-color:" | append: current_color_value
           endif
-          if current_value_color contains "fff"
+          if current_color_value contains "fff"
             assign styling = styling | append: '; border: 1px solid #000'
           endif
         %}
-        {% assign current_swatch_color_id = 'color-swatch-' | append: current_variant_id %}
 
-        <div class="findify-color-swatch">
-          <div
-            id="{{ current_swatch_color_id }}"
-            class="findify-color"
-            style="{{styling}}"
-            href="{{ current_variant_url }}">
-            <span class="findify-color-tooltip">
-              {{ current_name_color | capitalize }}
-            </span>
-          </div>
+        {% assign found_variant = variants | split: current_color_name %}
+        {% assign matched_variant = found_variant[1] %}
+
+        {% assign variant_id = matched_variant | split: "id=" | last | split: "~" | first %}
+        {% assign variant_url = product_url | split: "?variant=" | first | append: "?variant=" | append: variant_id %}
+        {% assign variant_image = matched_variant | split: "image_url=" | last | split: "~" | first | append: "&width=940" %}
+        
+        <div 
+          class="findify-color-swatch" 
+          style="{{styling}}" 
+          onclick="onSwatchClick(event, '{{ product_id }}', '{{ product_url }}', '{{ variant_url }}', '{{ variant_image }}')"
+        >
+          <span class="findify-color-tooltip">
+            {{ current_color_name | capitalize }}
+          </span>
         </div>
-
-        {% assign current_images_id = 'images-' | append: current_variant_id %}
-        <div id="{{ current_images_id }}" style="display: none;">
-          {% liquid
-            for variant in product.variants
-              assign current_variant_id_number = current_variant_id | plus: 0
-              if variant.id == current_variant_id_number
-                assign current_variant = variant
-              endif
-              assign testing_variant = variant
-            endfor
-          %}
-          {% render 'findify-product-image'
-            , media: current_variant.featured_media
-            , class: 'first-image' %}
-          {% if current_variant.media[1] != null %}
-            {% render 'findify-product-image'
-              , media: current_variant.media[1]
-              , class: 'second-image' %}
-          {% endif %}
-        </div>
-
-        <script>
-
-          const product_id = "{{ product.id }}";
-          const current_swatch_color_id = "{{ current_swatch_color_id }}";
-          const current_images_id = "{{ current_images_id }}";
-          const current_variant_href = "{{ current_variant.url }}";
-
-          const productCardElement = document.getElementById(product_id);
-
-          const selectors = {
-            colorSwatch: `.findify-color-swatch`,
-            firstImage: `.first-image`,
-            secondImage: `.second-image`,
-            title: `.findify-product-title label`,
-            link: `.findify-product-link`,
-          };
-
-          const removeActiveClasses = () => {
-            const colorSwatches = productCardElement.querySelectorAll(
-              selectors.colorSwatch
-            );
-            [...colorSwatches].forEach((element) => element.classList.remove("active"));
-          };
-
-          const addActiveClassToCurrent = () => {
-            document
-              .getElementById(current_swatch_color_id)
-              .parentNode.classList.add("active");
-          };
-
-          document
-            .getElementById(current_swatch_color_id)
-            .addEventListener("click", (e) => {
-              removeActiveClasses();
-
-              if (productCardElement) {
-                /* Replacing product card current first image eg. originally the featured image */
-                const currentFirstImage = productCardElement.querySelector(
-                  selectors.firstImage
-                );
-                const variantFirstImage = document
-                  .getElementById(current_images_id)
-                  .querySelector(selectors.firstImage);
-                if (variantFirstImage) {
-                  currentFirstImage.replaceWith(variantFirstImage.cloneNode());
-                }
-
-                /* Replacing product card current second image eg. originally the second media */
-                const currentSecondImage = productCardElement.querySelector(
-                  selectors.secondImage
-                );
-                const variantSecondImage = document
-                  .getElementById(current_images_id)
-                  .querySelector(selectors.secondImage);
-                if (currentSecondImage && variantSecondImage) {
-                  currentSecondImage.replaceWith(variantSecondImage.cloneNode());
-                } else if (currentSecondImage) {
-                  /* If none, let's stop showing second image on hover */
-                  currentSecondImage.remove();
-                }
-
-                /* Replacing product card <a href with current variant */
-                const aTags = productCardElement.querySelectorAll(selectors.link);
-                [...aTags].forEach((aTag) =>
-                  aTag.setAttribute("href", current_variant_href)
-                );
-                addActiveClassToCurrent();
-              }
-            });
-
-        </script>
 
       {% endif %}
     {% endif %}
@@ -156,6 +55,6 @@
 
   {% if color_counter > max_colors %}
     {% assign other_colors = colors.size | minus: max_colors %}
-    <button class="other-colors-btn">+{{ other_colors }}</button>
+    <div class="other-colors-btn">+{{ other_colors }}</div>
   {% endif %}
 </div>
