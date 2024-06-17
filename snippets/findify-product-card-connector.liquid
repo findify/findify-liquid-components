@@ -40,7 +40,7 @@
     assign availability = query_parameters | split: "availability=" | last | split: "&" | first
   endif
   if query_parameters contains "color="
-    assign colors = query_parameters | split: "color=" | last | split: "&" | first | url_decode | downcase | split: ";"
+    assign colors = query_parameters | split: "color=" | last | split: "&" | first | url_decode | split: ";"
   endif
   if query_parameters contains "selected_variant_id="
     assign selected_variant_id = query_parameters | split: "selected_variant_id=" | last | split: "&" | first
