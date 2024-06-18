@@ -16,3 +16,6 @@
   display: flex;
   gap: 10px;
 }
+.findify-content-card img {
+  width: 100%;
+}
