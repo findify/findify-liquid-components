@@ -35,7 +35,7 @@
 >
     <div class="adapt-content-img content-fallback-img">
       {% if image_url %} 
-        <img src="{{ image_url }}" alt="{{ title }}"/>
+        <img src="{{ image_url |  url_decode }}" alt="{{ title }}"/>
       {% else if %}
         {% render 'findify-content-image-fallback' %}
       {% endif %}
