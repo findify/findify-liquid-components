@@ -45,7 +45,14 @@
           containerElement.classList.toggle(openClass);
           document.documentElement.classList.toggle("no-scroll");
         }
-        
+        const setSidebarOpen = () => {
+          if (findify.filters.isSidebarOpen) {
+            document
+              .querySelector('#findify-filters-sidebar')
+              ?.classList?.add('open');
+          }
+        };
+        setSidebarOpen();
         const closeFiltersElement = document.getElementById(close_filters_element_id);
         closeFiltersElement.addEventListener('click', toggleFilterSection)
 
