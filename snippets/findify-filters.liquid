@@ -35,6 +35,7 @@
         const close_filters_element_id = "{{ close_filters_element_id }}";
         const see_results_element_id = "{{ see_results_element_id }}";
         const component_id = "{{ component_id }}"
+        const findify_filters_component_id = "{{ findify_filters_component_id }}";
         const openClass = 'open-left';
 
         const toggleFilterSection = () => {
@@ -47,9 +48,8 @@
         }
         const setSidebarOpen = () => {
           if (findify.filters.isSidebarOpen) {
-            document
-              .querySelector('#findify-filters-sidebar')
-              ?.classList?.add('open');
+            const containerElement = document.getElementById(findify_filters_component_id);
+            containerElement?.classList?.add('open');
           }
         };
         setSidebarOpen();
