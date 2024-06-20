@@ -20,7 +20,9 @@ body {
   background: var(--findify-background-color);
   z-index: 9999 !important;
 }
-
+.findify-autocomplete .findify-zero-result-container{
+  text-align: center;
+}
 .findify-autocomplete.hidden {
   display: none !important;
 }
@@ -541,5 +543,10 @@ body {
     margin-top: 0;
     margin-bottom: 0;
     color: var(--findify-text-color);
+  }
+  .autocomplete-empty-content{
+    font-size: 12px;
+    margin-top: 6px;
+    color: var(--findify-text-secondary-color)
   }
 }
