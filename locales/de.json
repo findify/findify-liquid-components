@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Mehr laden",
       "load_previous": "Vorherige laden"
+    },
+    "content": {
+      "no_content": "Kein Inhalt für diese Abfrage"
     }
   }
 }

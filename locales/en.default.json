@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Load more",
       "load_previous": "Load previous"
+    },
+    "content": {
+      "no_content": "No content for this query"
     }
   }
 }

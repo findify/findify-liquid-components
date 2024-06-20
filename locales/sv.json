@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": " Visa fler",
       "load_previous": " Visa föregående"
+    },
+    "content": {
+      "no_content": "Inget innehåll för denna fråga"
     }
   }
 }

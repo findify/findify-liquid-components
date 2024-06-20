@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Lataa enemmän",
       "load_previous": "Lataa edellinen"
+    },
+    "content": {
+      "no_content": "Ei sisältöä tälle kyselylle"
     }
   }
 }
