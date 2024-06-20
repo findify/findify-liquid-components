@@ -47,7 +47,7 @@
           document.documentElement.classList.toggle("no-scroll");
         }
         const setSidebarOpen = () => {
-          if (findify.filters.isSidebarOpen) {
+          if (findify?.filters?.isSidebarOpen) {
             const containerElement = document.getElementById(findify_filters_component_id);
             containerElement?.classList?.add('open');
           }
