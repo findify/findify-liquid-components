@@ -49,8 +49,14 @@
     const openClass = 'open';
 
     const toggleFilterSection = () => {
-        const containerElement = document.getElementById(filter_component_id);
-        containerElement.classList.toggle(openClass);
+      const containerElement = document.getElementById(filter_component_id);
+      if(containerElement.classList.contains(openClass)){
+        containerElement.classList.remove(openClass);
+        findify.filters.isSidebarOpen = false
+      } else {
+        containerElement.classList.add(openClass)
+        findify.filters.isSidebarOpen = true;
+      }
     }
 
     const filterToggleSidebarElement = document.getElementById(filter_toggle_sidebar_element_id);
