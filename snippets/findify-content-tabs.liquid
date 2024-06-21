@@ -21,7 +21,13 @@
     {% assign content_id = tabParts[0] %}
     {% assign label = tabParts[1] %}
     {% assign count = tabParts[2] %}
-    <button class="findify-tab" target="{{ content_id }}">
+    <button
+      class="findify-tab"
+      target="{{ content_id }}"
+      {% if count == '0' %}
+        disabled
+      {% endif %}
+    >
       <label>{{ label }}</label>
       <span class="findify-tab-badge">{{ count }}</span>
     </button>

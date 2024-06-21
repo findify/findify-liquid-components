@@ -3,6 +3,7 @@
   assign query_parameters = page_url | split: 'sections=findify-autocomplete&' | last
   assign suggestions = query_parameters | split: 'suggestion=' | last | split: '&' | first | split: ','
   assign query = query_parameters | split: 'query=' | last | split: '&' | first
+  assign results_count = query_parameters | split: 'results_count=' | last | split: '&' | first
   assign contents_param = page_url | split: 'content=' | last
   assign contents = contents_param | split: '&' | first | split: ';'
 

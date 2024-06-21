@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "تحميل المزيد",
       "load_previous": "تحميل السابق"
+    },
+    "content": {
+      "no_content": "لا يوجد محتوى لهذا الاستعلام"
     }
   }
 }
