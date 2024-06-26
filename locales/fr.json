@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Charger plus",
       "load_previous": "Charger précédemment"
+    },
+    "content": {
+      "no_content": "Aucun contenu pour cette requête"
     }
   }
 }

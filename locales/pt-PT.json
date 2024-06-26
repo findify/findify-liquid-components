@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Carregar mais",
       "load_previous": "Carregar anterior"
+    },
+    "content": {
+      "no_content": "Não há conteúdo para esta consulta"
     }
   }
 }

@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Toon meer",
       "load_previous": "Toon vorige"
+    },
+    "content": {
+      "no_content": "Geen inhoud voor deze zoekopdracht"
     }
   }
 }

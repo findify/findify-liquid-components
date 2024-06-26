@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Indlæs flere",
       "load_previous": "Indlæs forrige"
+    },
+    "content": {
+      "no_content": "No content for this query"
     }
   }
 }

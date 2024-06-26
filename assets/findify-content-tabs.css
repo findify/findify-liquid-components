@@ -23,7 +23,9 @@
   margin: 0;
   padding: 0;
 }
-
+.findify-tab:disabled > label {
+  color: #c0c0c0;
+}
 .findify-tab.active {
   pointer-events: none;
   color: var(--findify-text-color);

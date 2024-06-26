@@ -35,6 +35,9 @@
     "pagination": {
       "load_more": "Last inn mer",
       "load_previous": "Last inn forrige"
+    },
+    "content": {
+      "no_content": "Ikke noe innhold for dette søket"
     }
   }
 }
