@@ -1,3 +1,4 @@
+
 const initFindifyLazyLoadingPagination = (
   lazy_loading_pagination_threshold
 ) => {
@@ -114,9 +115,14 @@ const initFindifyLazyLoadingPagination = (
     findify.utils.executeScripts(productCardScripts);
   };
 
+  const goToProductBackFromPDP = () => {
+    findify.grid.goToProduct(removeLoader, initNextEvents)
+  }
+
   const init = () => {
     initPrevButton();
     initNextEvents();
+    goToProductBackFromPDP(); 
   };
   init();
 };

@@ -1,6 +1,13 @@
 {%- include 'findify-product-card-connector' -%}
 
-<div id="{{ id }}" class="findify-product-card {{ class }}">
+<div 
+  id="{{ id }}"
+  product-id="product-{{ id }}" 
+  class="findify-product-card {{ class }}" 
+  {%if page != blank%}
+    page="{{ page }}"
+  {%endif%}
+>
   <a class="findify-product-link" href={{ product_url }}>
     <div class='image-container'>
       {% if current_variant.featured_media != null %}
@@ -54,8 +61,9 @@
         const id = "{{id}}";
         const selected_variant_id = "{{selected_variant_id}}";
         const widget = "{{widget}}";
+        const page = "{{page}}"
 
-        initOnProductCardClick(id, { widget, selected_variant_id });
+        initOnProductCardClick(id, page, { widget, selected_variant_id });
   </script>
 
 </div>
