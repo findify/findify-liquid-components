@@ -9,6 +9,7 @@ const initFindifyLazyLoadingPagination = (
     nextBtn: "findify-pagination-load-more",
     loader: "findify-grid-infinite-scroll",
     grid: "findify-product-grid",
+    paginationContainer: "findify-lazy-loading-pagination-container"
   };
 
   const initialPage = findify.pagination.state.page;
@@ -115,14 +116,44 @@ const initFindifyLazyLoadingPagination = (
     findify.utils.executeScripts(productCardScripts);
   };
 
-  const goToProductBackFromPDP = () => {
-    findify.grid.goToProduct(removeLoader, initNextEvents)
-  }
+  const scrollToProduct = () => {
+    const productData = sessionStorage.getItem("product");
+    if (!productData) return;
+
+    const id = productData.split(":")[1];
+
+
+    const product = document.body.querySelector(
+      `#findify-product-grid>div[product-id=product-${id}]`
+    );
+    const { top, height } = product.getBoundingClientRect();
+
+    const loader = document.getElementById(selectors.loader);
+    const paginationContainer = document.querySelector(
+      `#findify-pagination > .${selectors.paginationContainer}`
+    );
+
+    removeLoader();
+
+    window.scrollTo({
+      top: top + window.scrollY - height,
+      behavior: "smooth",
+    });
+    paginationContainer.parentElement.insertBefore(
+      loader,
+      paginationContainer
+    );
+    setTimeout(() => {
+      sessionStorage.removeItem("product");
+      initNextEvents();
+    }, 500);
+
+  };
 
   const init = () => {
     initPrevButton();
     initNextEvents();
-    goToProductBackFromPDP(); 
+    scrollToProduct();
   };
   init();
 };
