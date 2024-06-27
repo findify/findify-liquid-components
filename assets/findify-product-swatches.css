@@ -37,6 +37,7 @@
 }
 
 .findify-color-tooltip {
+  z-index: 1;
   display: none;
   position: absolute;
   min-width: 50px;
