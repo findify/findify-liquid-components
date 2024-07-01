@@ -3,8 +3,23 @@
   assign max_colors = 10
 %}
 
+
+{% assign color_keys = "Color,color,Colour,colour,COLOUR,COLOR" | split: ',' %}
+
+{% assign colors = "" %}
+
+{% for key in color_keys %}
+    {% if product.options contains key %}
+         {% for color_option in product.options_by_name[key].values %}
+           {% assign colors = colors | append: color_option | append: "," %}
+         {% endfor %}
+     {% endif %}
+{% endfor %}
+
+{% assign colors_array = colors | split: ',' %}
+
 <div class="findify-color-swatch-wrapper">
-    {% for color in colors  %}
+    {% for color in colors_array  %}
       {% liquid
           assign color_lowercase = color | downcase
           for colormap_item in colormap
@@ -37,12 +52,12 @@
 
         {% assign variant_id = matched_variant | split: "id=" | last | split: "~" | first %}
         {% assign variant_url = product_url | split: "?variant=" | first | append: "?variant=" | append: variant_id %}
-        {% assign variant_image = matched_variant | split: "image_url=" | last | split: "~" | first | append: "&width=940" %}
+        {% assign variant_image = matched_variant | split: "image_url=" | last | split: ";" | first | append: "&width=940" %}
         
         <div 
           class="findify-color-swatch" 
           style="{{styling}}" 
-          onclick="onSwatchClick(event, '{{ product_id }}', '{{ product_url }}', '{{ variant_url }}', '{{ variant_image }}')"
+          onclick="onSwatchClick(event, '{{ product_url }}', '{{ variant_url }}', '{{ variant_image }}')"
         >
           <span class="findify-color-tooltip">
             {{ current_color_name | capitalize }}

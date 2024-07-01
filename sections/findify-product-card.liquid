@@ -26,12 +26,11 @@
       <div class="findify-product-brand">{{ brand }}</div>
     {% endif %}
 
-    {% comment %} {% render 'findify-product-swatches-color', 
-      product_id: id,
+    {% comment %} {% render 'findify-product-swatches-color',
       product_url: product_url,
-      colors: colors,
-      colormap: colormap, 
-      variants: variants, 
+      product: product,
+      colormap: colormap,
+      variants: variants,
     %} {% endcomment %}
     
     <a class="findify-product-link" href={{ product_url }}>

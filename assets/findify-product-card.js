@@ -42,14 +42,14 @@ const setProductUrl = (productCard, url) => {
   );
 }
 
-const onSwatchClick = (event, product_id, product_url, variant_url, variant_image) => {
-
-  const targetedSwatch = event.target;
+const onSwatchClick = (event, product_url, variant_url, variant_image) => {
   
-  const productCard = document.getElementById(product_id);
+  const targetedSwatch = event.target;
+  const productCard = targetedSwatch.closest('div[id].findify-product-card');
   const swatchImage = productCard.querySelector(`.findify-product-swatch-image`);
-
+  
   if(targetedSwatch.classList.contains('active')) {
+
     cleanActiveSwatches(productCard);
     setProductUrl(productCard, product_url);
     swatchImage.setAttribute('hidden', true);
