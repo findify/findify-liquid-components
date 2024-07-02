@@ -25,9 +25,14 @@ const initProductCardAnalytics = (id, properties) => {
   }
 };
 
-const initOnProductCardClick = (id, properties) => {
+const savePosition = (id, page) => {
+  sessionStorage.setItem('product', `${page}:${id}`)
+}
+
+const initOnProductCardClick = (id, page, properties) => {
   document.getElementById(id).addEventListener("click", (e) => {
     initProductCardAnalytics(id, properties);
+    savePosition(id, page);
   });
 };
 
