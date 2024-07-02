@@ -12,6 +12,11 @@
   if query_parameters contains "collectionSlot="
     assign collection_slot = query_parameters | split: "collectionSlot=" | last | split: "&" | first
   endif
+  # Product Show Hover Image
+  if query_parameters contains "showHoverImage="
+    assign showHoverImage = query_parameters | split: "showHoverImage=" | last | split: "&" | first
+  endif
+   
   # Product metadata
   assign colormap = query_parameters | split: "colormap=" | last | split: "&" | first | split: ';'
   assign position = query_parameters | split: "position=" | last | split: "&" | first
