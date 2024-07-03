@@ -19,7 +19,7 @@
           , media: product.featured_media
           , class: 'first-image' %}
       {% endif %}
-      {%- if product.media[1] != null -%}
+      {%- if product.media[1] != null and showHoverImage == 'true' -%}
         {% render 'findify-product-image'
           , media: product.media[1]
           , class: 'second-image' %}

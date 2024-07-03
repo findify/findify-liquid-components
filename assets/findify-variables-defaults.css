@@ -33,4 +33,7 @@
 
   /* Sidebar mobile */
   --findify-sidebar-header-background-color: #000000;
+
+  /* Product Card */
+  --findify-product-card-aspect-ratio: 100%
 }
