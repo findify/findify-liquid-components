@@ -34,8 +34,8 @@
 
   const updateCartEvent = () => {};
 
-  setTimeout(() => {
+  window.addEventListener("findifyIsLoaded", () => {
     viewPageEvent();
     updateCartEvent();
-  }, 1000);
+  });
 })();
