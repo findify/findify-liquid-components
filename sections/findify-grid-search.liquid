@@ -3,8 +3,10 @@
 
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
-{%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
+{%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view=' | last | split: '|' | first | split: '&' | first -%}
+{%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view=' | last | split: '|' | first | split: '&' | first -%}
+
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
 {%  comment  %} Content integration configuration {% endcomment %}
 {%- assign use_content_integration = query_parameters | split: 'use_content_integration:' | last | split: '&' | first -%}
@@ -137,18 +139,30 @@
 
       setFindifyIsLoading(false);
     } else {
-      const initRecommendation = async (type) => await findify.recommendation.init({
-          recommendation_id: "{{ recommendation_id }}",
-          desktop_slide_per_view,
-          recommendation_title
-        })
-        
-      findify.core.init.promise.then(() => {
-        initRecommendation()
-        window.addEventListener("popstate", () => {
+      const id = "{{ recommendation_id }}";
+      
+      const initRecommendation = async () => {
+        if (!id) {
+          console.warn(
+            'To display a Findify recommendation you should insert the ID within the Findify Recommendation App Block'
+          );
+          return;
+        }
+        await findify.recommendation.init({
+          id,
+          desktop_slide_per_view: "{{ desktop_slide_per_view }}",
+          title: "{{ recommendation_title }}",
+          mobile_slide_per_view: "{{ mobile_slide_per_view }}",
+        });
+      };
+
+      findify.core.init.then(() => {
+        initRecommendation();
+
+        window.addEventListener('popstate', () => {
           initRecommendation();
         });
-      });  
+      });
     }
 
   </script>
