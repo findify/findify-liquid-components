@@ -1,11 +1,15 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}{%- assign query_parameters_products = page_url | split: 'sections=findify-products&' | last -%}
 
+{%  comment  %} Grid config {% endcomment %}
+
+{%- assign desktop_products_per_view = query_parameters | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign mobile_products_per_view = query_parameters | split: 'mobile_products_per_view:' | last | split: '|' | first | split: '&' | first -%}
+
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
-
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
 {%  comment  %} Content integration configuration {% endcomment %}
@@ -74,7 +78,10 @@
                 , hide: hide_load_prev %}
             </div>
           {% endif %}
-          <div id="findify-product-grid" class="findify-product-list">
+          <div
+            id="findify-product-grid"
+            class="findify-product-list"
+          >
             {% comment %}
               This element #findify-product-grid will be replaced with rendered html from sections/findify-products
             {% endcomment %}
@@ -125,7 +132,18 @@
     </div>
     <div id={{ recommendation_id }} class='swiper'></div>
   {% endif %}
-
+  <style>
+     @media (min-width: 768px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+    @media (max-width: 576px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+  </style>
   <script>
     if("{{ results_count }}" != "0"){
       if("{{ show_content_integration }}" == 'true') {
