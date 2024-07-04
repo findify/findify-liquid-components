@@ -31,6 +31,7 @@
     assign terms = page_url | split: 'terms=' | last | split: '&' | first
     # string endcomment
   endif
+  
   assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';'
   # string[] endcomment
 
