@@ -1,11 +1,6 @@
 {%- assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' | replace: '%7C', '|' | replace: '%27', "'" -%}
 {%- assign query_parameters = page_url | split: 'sections=findify-search&' | last -%}{%- assign query_parameters_products = page_url | split: 'sections=findify-products&' | last -%}
 
-{%  comment  %} Grid config {% endcomment %}
-
-{%- assign desktop_products_per_view = query_parameters | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '&' | first -%}
-{%- assign mobile_products_per_view = query_parameters | split: 'mobile_products_per_view:' | last | split: '|' | first | split: '&' | first -%}
-
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}

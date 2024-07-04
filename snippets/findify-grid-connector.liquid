@@ -83,6 +83,9 @@
   # 'tab' [ ]
 
   # Grid Settings and configurations
+  assign desktop_products_per_view = query_parameters | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '&' | first 
+  assign mobile_products_per_view = query_parameters | split: 'mobile_products_per_view:' | last | split: '|' | first | split: '&' | first 
+
   assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first
 
   assign color_layout = settingsObj | split: 'color_filter:' | last | split: '|' | first
