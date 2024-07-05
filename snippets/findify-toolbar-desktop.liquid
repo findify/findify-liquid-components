@@ -11,11 +11,17 @@
         {{ 'findify.filters.filter_by' | t }}
       </button>
     </div>
-    {%
-      render 'findify-query' terms: terms, results_count: results_count, is_collection: is_collection,       , terms: terms
-      , corrected_q: corrected_q
-      , query_type: query_type
-    %}
+
+    <label class="findify-search-header-label">
+      {% if is_collection == true %}
+        {{ 'findify.collections.products_count' | t: count: results_count }}
+      {% elsif terms == "" %}
+        {{ 'findify.search.results_count' | t: count: results_count }}
+      {% else %}
+        {% assign term_decoded = terms | url_decode %}
+        {{ 'findify.search.results_count_for' | t: count: results_count, term: term_decoded }}
+      {% endif %}
+    </label>
     <div>
       {% render 'findify-sorting'
         , options: sort_options

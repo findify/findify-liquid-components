@@ -4,11 +4,13 @@
 %}
 
 <div class="findify-search-header mobile">
-  {%
-    render 'findify-query' terms: terms, results_count: results_count, is_collection: is_collection,       , terms: terms
-    , corrected_q: corrected_q
-    , query_type: query_type
-  %}
+  <label class="findify-search-header-label">
+    {% if is_collection == true %}
+      {{ results_count }} products
+    {% else %}
+      Showing {{ results_count }} results for "<b>{{ terms | url_decode }}</b>"
+    {% endif %}
+  </label>
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
       <button id="{{ filter_toggle_sidepanel_element_id }}" class="findify-search-actions-toggle-btn">
