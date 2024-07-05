@@ -6,12 +6,15 @@
   {% elsif terms == '' %}
     {{ 'findify.search.results_count' | t: count: results_count }}
   {% elsif corrected_q != '' %}
-    Showing 36 Results For "{{ corrected_q }}". 0 Results For "
-    {{ term_decoded }}
-    ".
+    {{
+      'findify.search.results_count_for_corrected_query'
+      | t: count: results_count, term: term_decoded, corrected_term: corrected_q
+    }}
   {% elsif query_type == 'or' %}
-    Showing 0 Results For "{{ term_decoded }}". Showing Results That Partially
-    Match Instead.
+    {{
+      'findify.search.results_count_for_partial_query'
+      | t: term: term_decoded
+    }}
   {% else %}
     {{
       'findify.search.results_count_for'
