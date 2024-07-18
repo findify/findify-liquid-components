@@ -6,17 +6,16 @@
     data-findify-variant-item-id="{{product.selected_or_first_available_variant.id}}"></div>
 {% endif %}
 
-{% if cart %}
-  <div data-findify-event="update-cart">
-    {% for item in cart.items %}
-      <div
-        data-findify-item-id="{{ item.product_id }}"
-        data-findify-variant-item-id="{{item.variant_id}}"
-        data-findify-unit-price="{{ item.price | money_without_currency }}"
-        data-findify-quantity="{{ item.quantity }}"></div>
-    {% endfor %}
-  </div>
-{% endif %}
+
+<div data-findify-event="update-cart">
+  {% for item in cart.items %}
+    <div
+      data-findify-item-id="{{ item.product_id }}"
+      data-findify-variant-item-id="{{item.variant_id}}"
+      data-findify-unit-price="{{ item.price | money_without_currency }}"
+      data-findify-quantity="{{ item.quantity }}"></div>
+  {% endfor %}
+</div>
 
 <script>
   window.findify = {
