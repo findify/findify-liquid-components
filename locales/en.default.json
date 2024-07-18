@@ -25,7 +25,9 @@
       "results_count": "Showing {{ count }} results",
       "results_count_for": "Showing {{ count }} results for \"{{ term }}\"",
       "no_results_for": "No results for",
-      "no_results_message": "Please check the spelling or try another search term"
+      "no_results_message": "Please check the spelling or try another search term",
+      "results_count_for_corrected_query": "Showing {{ count }} Results For \"{{ corrected_term }}\". 0 Results For \"{{ term }}\".",
+      "results_count_for_partial_query": "Showing 0 Results For \"{{ term }}\". Showing Results That PartiallyMatch Instead."
     },
     "collections": {
       "products_count": "{{ count }} products",

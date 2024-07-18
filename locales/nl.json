@@ -25,7 +25,9 @@
       "results_count": " {{ count }} resultaten getoond",
       "results_count_for": " {{ count }} resultaten getoond voor \"{{ term }}\"",
       "no_results_for": "Geen resultaten voor",
-      "no_results_message": "Controleer alstublieft de spelling of probeer een ander zoekterm"
+      "no_results_message": "Controleer alstublieft de spelling of probeer een ander zoekterm",
+      "results_count_for_corrected_query": "Toont {{ count }} resultaten voor \"{{ corrected_term }}\". 0 resultaten voor \"{{ term }}\".",
+      "results_count_for_partial_query": "Toont 0 resultaten voor \"{{ term }}\". Resultaten weergeven die gedeeltelijk overeenkomen."
     },
     "collections": {
       "products_count": "{{ count }} producten",

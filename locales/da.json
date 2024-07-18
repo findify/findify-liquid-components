@@ -25,7 +25,9 @@
       "results_count": "Viser {{ count }} resultater",
       "results_count_for": "Viser {{ count }} resultater for\"{{ term }}\"",
       "no_results_for": "Ingen resultater for",
-      "no_results_message": "Venligst tjek stavningen eller prøv et andet søgeord"
+      "no_results_message": "Venligst tjek stavningen eller prøv et andet søgeord",
+      "results_count_for_corrected_query": "Viser {{ count }} resultater for \"{{ corrected_term }}\". 0 resultater for \"{{ term }}\".",
+      "results_count_for_partial_query": "Viser 0 resultater for \"{{ term }}\". Viser resultater, der delvist matcher i stedet."
     },
     "collections": {
       "products_count": "{{ count }} produkter",
