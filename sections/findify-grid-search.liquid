@@ -4,7 +4,8 @@
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
+{%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
 {%  comment  %} Content integration configuration {% endcomment %}
 {%- assign use_content_integration = query_parameters | split: 'use_content_integration:' | last | split: '&' | first -%}
@@ -76,7 +77,10 @@
                 , hide: hide_load_prev %}
             </div>
           {% endif %}
-          <div id="findify-product-grid" class="findify-product-list">
+          <div
+            id="findify-product-grid"
+            class="findify-product-list"
+          >
             {% comment %}
               This element #findify-product-grid will be replaced with rendered html from sections/findify-products
             {% endcomment %}
@@ -127,7 +131,18 @@
     </div>
     <div id={{ recommendation_id }} class='swiper'></div>
   {% endif %}
-
+  <style>
+     @media (min-width: 768px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+    @media (max-width: 576px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+  </style>
   <script>
     if("{{ results_count }}" != "0"){
       if("{{ show_content_integration }}" == 'true') {
@@ -141,18 +156,30 @@
 
       setFindifyIsLoading(false);
     } else {
-      const initRecommendation = async (type) => await findify.recommendation.init({
-          recommendation_id: "{{ recommendation_id }}",
-          desktop_slide_per_view,
-          recommendation_title
-        })
-        
+      const id = "{{ recommendation_id }}";
+      
+      const initRecommendation = async () => {
+        if (!id) {
+          console.warn(
+            'To display a Findify recommendation you should insert the ID within the Findify Recommendation App Block'
+          );
+          return;
+        }
+        await findify.recommendation.init({
+          id,
+          desktop_slide_per_view: "{{ desktop_slide_per_view }}",
+          title: "{{ recommendation_title }}",
+          mobile_slide_per_view: "{{ mobile_slide_per_view }}",
+        });
+      };
+
       findify.core.init.then(() => {
-        initRecommendation()
-        window.addEventListener("popstate", () => {
+        initRecommendation();
+
+        window.addEventListener('popstate', () => {
           initRecommendation();
         });
-      });  
+      });
     }
 
   </script>
