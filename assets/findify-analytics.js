@@ -2,14 +2,14 @@
   /**
    * productPageAnalyticsTagSelectorId can be found in findify-head-injector
    */
-  const productPageAnalyticsTagSelectorId = "findify-analytics-product";
+  const productPageAnalyticsTagSelectorId = 'findify-analytics-product';
   const isProductDetails = () =>
     !!document.getElementById(productPageAnalyticsTagSelectorId);
 
   const getPageType = () => {
-    if (isProductDetails()) return "product-details";
-    if (findify.utils.isSearch()) return "search-results";
-    if (findify.utils.isCollection()) return "smart-collection";
+    if (isProductDetails()) return 'product-details';
+    if (findify.utils.isSearch()) return 'search-results';
+    if (findify.utils.isCollection()) return 'smart-collection';
   };
 
   const viewPageEvent = () => {
@@ -20,7 +20,7 @@
     const page_type = getPageType();
 
     try {
-      findify.core.analytics.sendEvent("view-page", {
+      findify.core.analytics.sendEvent('view-page', {
         width,
         height,
         ref,
@@ -28,14 +28,14 @@
         page_type,
       });
     } catch (error) {
-      console.error("Error sending view-page event", error);
+      console.error('Error sending view-page event', error);
     }
   };
 
   const updateCartEvent = () => {};
 
-  setTimeout(() => {
+  findify.core.init.then(() => {
     viewPageEvent();
     updateCartEvent();
-  }, 1000);
+  });
 })();
