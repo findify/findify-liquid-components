@@ -13,6 +13,16 @@
 {% else %}
   {%- assign show_content_integration = true -%}
 {% endif %}
+
+{%- assign content_lazy_loading_pagination = query_parameters
+  | split: 'content_lazy_loading_pagination:'
+  | last
+  | split: '|'
+  | first
+  | split: '&'
+  | first
+-%}
+
 {% assign findify_filters_component_id = 'findify-filters-sidebar' %}
 <div id="findify-search" class="findify-search-section">
   {% if results_count > 0 %}
@@ -111,7 +121,9 @@
         {% assign content_id = tab | split: '~' | first %}
         <div id="{{content_id}}-content" class="findify-tab-content">
           {% render 'findify-content-grid'
-            , content_id: content_id %}
+            , content_id: content_id
+            , content_lazy_loading_pagination: content_lazy_loading_pagination
+            %}
         </div>
       {% endfor %}
     {% endif %}

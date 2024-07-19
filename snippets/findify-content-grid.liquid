@@ -4,6 +4,9 @@
 
 <div class="findify-content-grid">
   <div id="content-tab-{{content_id}}" class="findify-content-list"></div>
-  {% render 'findify-lazy-loading-pagination'
-    , id: content_id %}
+  {% if content_lazy_loading_pagination == 'true' %}
+    {% render 'findify-lazy-loading-pagination', id: content_id %}
+  {% else %}
+    <div id="findify-pagination"></div>
+  {% endif %}
 </div>
