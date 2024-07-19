@@ -1,3 +1,7 @@
+
+.findify-search-section.disable_search_input .findify-filters--checkbox-search{
+  display: none;
+}
 .findify-filters--range-container {
   display: flex;
   margin-top: 10px;

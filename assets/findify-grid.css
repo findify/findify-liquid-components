@@ -8,22 +8,24 @@
 .findify-search-section.filters-right .findify-search-main {
   flex-direction: row-reverse;
 }
-.findify-search-section.filters-horizontal .findify-search-main{
-  flex-wrap: wrap;
-}
-.findify-search-section.filters-horizontal .findify-filters-sidebar.open{
-  width: 100%;
-  flex-wrap: wrap;
-}
-.findify-search-section.filters-horizontal .findify-filters-wrapper{
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 1100px;
-}
-.findify-search-section.filters-horizontal #shopify-section-findify-filter-group{
-  min-width: 210px;
-  max-width: 210px;
+@media (min-width: 768px) {
+  .findify-search-section.filters-horizontal .findify-search-main{
+    flex-wrap: wrap;
+  }
+  .findify-search-section.filters-horizontal .findify-filters-sidebar.open{
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .findify-search-section.filters-horizontal .findify-filters-wrapper{
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1100px;
+  }
+  .findify-search-section.filters-horizontal #shopify-section-findify-filter-group{
+    min-width: 210px;
+    max-width: 210px;
+  }
 }
 
 
