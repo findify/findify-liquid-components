@@ -58,7 +58,8 @@
         //end
 
         const toggleFilterSection = () => {
-          if(findify.utils?.isMobile()){
+          const isDrawerDesktop = document.querySelector('.findify-search-section.filters-drawer');
+          if(findify.utils?.isMobile() || isDrawerDesktop){
             findify.grid?.load();
           }
           const containerElement = document.getElementById(component_id);
