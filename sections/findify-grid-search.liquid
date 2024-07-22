@@ -7,6 +7,14 @@
 {%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
+{%- assign desktop_filter_layout = query_parameters | split: 'desktop_filter_layout:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign desktop_filter_position = query_parameters | split: 'desktop_filter_position:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign one_open_filter = query_parameters | split: 'one_open_filter:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign all_filters_hidden = query_parameters | split: 'all_filters_hidden:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign all_filters_collapsed = query_parameters | split: 'all_filters_collapsed:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign sticky_filters = query_parameters | split: 'sticky_filters:' | last | split: '|' | first | split: '&' | first -%}
+
+
 {%  comment  %} Content integration configuration {% endcomment %}
 {%- assign use_content_integration = query_parameters | split: 'use_content_integration:' | last | split: '&' | first -%}
 {% if use_content_integration == 'false' or tabs[0] == 'none' %}
@@ -25,7 +33,20 @@
 -%}
 
 {% assign findify_filters_component_id = 'findify-filters-sidebar' %}
-<div id="findify-search" class="findify-search-section">
+
+<div 
+  id="findify-search" 
+  class="
+    findify-search-section 
+  {% if desktop_filter_layout != 'drawer' and sticky_filters == "true" %} findify-filters-sticky {% endif %}
+  {% if one_open_filter == "true" %} findify-one-filter-open {% endif %}
+  {% if all_filters_collapsed == "true" %} findify-filter-collapsed {% endif %}
+  {% if all_filters_hidden == "true" %} findify-filter-hidden {% endif %}
+  {% if desktop_filter_layout != 'horizontal' %}filters-{{ desktop_filter_position }} {% endif %}
+  {% if disable_search_input == 'true' %} findify-filters-disable_search_input {% endif %}
+  disable_search_input
+  filters-{{ desktop_filter_layout }}"
+>
   {% if results_count > 0 %}
     <h1 class="findify-heading">{{ 'findify.search.search_results' | t }}</h1>
     {% if show_content_integration %}
@@ -39,7 +60,8 @@
     {% endif %}
 
     <div class="findify-search-container">
-      {% render 'findify-toolbar-desktop'
+      {% if desktop_filter_layout != 'drawer' %}
+        {% render 'findify-toolbar-desktop'
         , results_count: results_count
         , terms: terms
         , corrected_q: corrected_q
@@ -71,7 +93,11 @@
         {% render 'findify-filters'
           , component_id: findify_filters_component_id,
           , active_filters: active_filters
-          , color_layout: color_layout %}
+          , color_layout: color_layout 
+          , one_open_filter: one_open_filter
+          , all_filters_collapsed: all_filters_collapsed
+          , all_filters_hidden: all_filters_hidden
+        %}
         <!-- product grid section! -->
         <div class="findify-products-section">
           {% if use_lazy_loading_pagination == 'true' %}

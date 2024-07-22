@@ -1,3 +1,7 @@
+
+.findify-search-section.disable_search_input .findify-filters--checkbox-search{
+  display: none;
+}
 .findify-filters--range-container {
   display: flex;
   margin-top: 10px;
@@ -129,6 +133,12 @@ button {
 }
 
 /* SECTION - HEADER & BODY EXPAND */
+.findify-search-section.filters-horizontal .findify-filters-body{
+  position: absolute;
+  z-index: 3;
+  background: #fff;
+  width: 100%;
+}
 .findify-filters-body[aria-expanded="false"] {
   display: none;
 }
@@ -151,7 +161,15 @@ button {
   width: 260px;
   position: relative;
 }
-
+.findify-filters-wrapper.absolute{
+  position: absolute;
+}
+.findify-filters-wrapper.fixed{
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  background: #fff;
+}
 /* FILTERS */
 .findify-filters-container {
   display: flex;
@@ -160,6 +178,7 @@ button {
 }
 
 .findify-filter-group {
+  position: relative;
   padding-bottom: 5px;
   border-bottom: 1px solid var(--findify-filters-separator-color);
 }
@@ -378,6 +397,7 @@ button {
 
 .findify-filters-sidebar.open {
   display: flex;
+  width: 260px
 }
 
 @media (max-width: 768px) {

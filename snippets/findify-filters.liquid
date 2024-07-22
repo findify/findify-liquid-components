@@ -37,9 +37,29 @@
         const component_id = "{{ component_id }}"
         const findify_filters_component_id = "{{ findify_filters_component_id }}";
         const openClass = 'open-left';
+        //changes
+        const isFiltersHidden = {{ all_filters_hidden }};
+        const isAllFiltersCollapsed= {{ all_filters_collapsed }};
+        const isOneFilterOpen = {{ one_open_filter }};
+        const sidebarClass = document.querySelector('.findify-filters-sidebar').className;
+
+        if(isFiltersHidden) 
+          document.querySelector('.findify-filters-sidebar').className = sidebarClass.replace('open', '');
+      
+        if(isAllFiltersCollapsed)
+          document.querySelectorAll('.findify-filters-body').forEach(item => {
+            item.setAttribute('aria-expanded', 'false');
+          })
+        
+        if(isOneFilterOpen)
+          document.querySelectorAll('.findify-filters-body').forEach((item, index) => {
+            if(index > 0) item.setAttribute('aria-expanded', 'false');
+          })
+        //end
 
         const toggleFilterSection = () => {
-          if(findify.utils?.isMobile()){
+          const isDrawerDesktop = document.querySelector('.findify-search-section.filters-drawer');
+          if(findify.utils?.isMobile() || isDrawerDesktop){
             findify.grid?.load();
           }
           const containerElement = document.getElementById(component_id);
