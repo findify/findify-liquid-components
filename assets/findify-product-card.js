@@ -30,7 +30,7 @@ const savePosition = (id, page) => {
 }
 
 const initOnProductCardClick = (id, page, properties) => {
-  document.getElementById(id).addEventListener("click", (e) => {
+  document.querySelector(`.${properties.widget}_${id}`).addEventListener("click", (e) => {
     initProductCardAnalytics(id, properties);
     savePosition(id, page);
   });

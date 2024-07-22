@@ -31,6 +31,14 @@
     assign terms = page_url | split: 'terms=' | last | split: '&' | first
     # string endcomment
   endif
+  if page_url contains 'corrected_q='
+    assign corrected_q = page_url | split: 'corrected_q=' | last | split: '&' | first
+    # string endcomment
+  endif
+  if page_url contains 'query_type='
+    assign query_type = page_url | split: 'query_type=' | last | split: '&' | first
+    # string endcomment
+  endif
   assign types = page_url | split: 'types=' | last | split: '&' | first | split: ';'
   # string[] endcomment
 
@@ -83,6 +91,9 @@
   # 'tab' [ ]
 
   # Grid Settings and configurations
+  assign desktop_products_per_view = query_parameters | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '&' | first 
+  assign mobile_products_per_view = query_parameters | split: 'mobile_products_per_view:' | last | split: '|' | first | split: '&' | first 
+
   assign settingsObj = page_url | split: 'settingsObj=' | last | split: '&' | first
 
   assign color_layout = settingsObj | split: 'color_filter:' | last | split: '|' | first

@@ -25,7 +25,9 @@
       "results_count": "Näyttää {{ count }} tulosta",
       "results_count_for": "Näyttää {{ count }} tulosta tuotteelle \"{{ term }}\"",
       "no_results_for": "Ei tuloksia",
-      "no_results_message": "Tarkista oikeinkirjoitus tai kokeile toista hakusanaa"
+      "no_results_message": "Tarkista oikeinkirjoitus tai kokeile toista hakusanaa",
+      "results_count_for_corrected_query": "Näytetään {{ count }} tulokset haulle \"{{ corrected_term }}\". 0 tulosta haulle \"{{ term }}\".",
+      "results_count_for_partial_query": "Näytetään 0 tulosta haulle \"{{ term }}\". Näytetään sen sijaan osittain vastaavat tulokset."
     },
     "collections": {
       "products_count": "{{ count }} tuotteet",

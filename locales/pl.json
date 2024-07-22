@@ -25,7 +25,9 @@
       "results_count": "Wyświetlanie {{ count }} wyników",
       "results_count_for": "Wyświetlanie {{ count }} wyników dla \"{{ term }}\"",
       "no_results_for": "Brak wyników dla ",
-      "no_results_message": "Proszę sprawdzić pisownię lub spróbować innego terminu wyszukiwania"
+      "no_results_message": "Proszę sprawdzić pisownię lub spróbować innego terminu wyszukiwania",
+      "results_count_for_corrected_query": "Wyświetlanie {{ count }} wyników dla „{{ corrected_term }}”. 0 wyników dla \"{{ term }}\".",
+      "results_count_for_partial_query": "Wyświetlanie 0 wyników dla „{{ term }}”. Zamiast tego wyświetlanie wyników, które są częściowo zgodne."
     },
     "collections": {
       "products_count": "{{ count }} produkty",

@@ -4,7 +4,8 @@
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
-{%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
+{%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
 
 {%- assign desktop_filter_layout = query_parameters | split: 'desktop_filter_layout:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign desktop_filter_position = query_parameters | split: 'desktop_filter_position:' | last | split: '|' | first | split: '&' | first -%}
@@ -21,6 +22,16 @@
 {% else %}
   {%- assign show_content_integration = true -%}
 {% endif %}
+
+{%- assign content_lazy_loading_pagination = query_parameters
+  | split: 'content_lazy_loading_pagination:'
+  | last
+  | split: '|'
+  | first
+  | split: '&'
+  | first
+-%}
+
 {% assign findify_filters_component_id = 'findify-filters-sidebar' %}
 
 <div 
@@ -51,19 +62,22 @@
     <div class="findify-search-container">
       {% if desktop_filter_layout != 'drawer' %}
         {% render 'findify-toolbar-desktop'
-          , results_count: results_count
-          , terms: terms
-          , sort_options: sort_options
-          , default_sort_by: default_sort_by
-          , sort_by: sort_by
-          , active_filters: active_filters
-          , color_layout: color_layout
-          , filter_component_id: findify_filters_component_id
-        %}
-      {% endif %}
+        , results_count: results_count
+        , terms: terms
+        , corrected_q: corrected_q
+        , query_type: query_type
+        , sort_options: sort_options
+        , default_sort_by: default_sort_by
+        , sort_by: sort_by
+        , active_filters: active_filters
+        , color_layout: color_layout
+        , filter_component_id: findify_filters_component_id
+      %}
       {% render 'findify-toolbar-mobile'
         , results_count: results_count
         , terms: terms
+        , corrected_q: corrected_q
+        , query_type: query_type
         , sort_options: sort_options
         , default_sort_by: default_sort_by
         , sort_by: sort_by
@@ -99,7 +113,10 @@
                 , hide: hide_load_prev %}
             </div>
           {% endif %}
-          <div id="findify-product-grid" class="findify-product-list">
+          <div
+            id="findify-product-grid"
+            class="findify-product-list"
+          >
             {% comment %}
               This element #findify-product-grid will be replaced with rendered html from sections/findify-products
             {% endcomment %}
@@ -138,7 +155,9 @@
         {% assign content_id = tab | split: '~' | first %}
         <div id="{{content_id}}-content" class="findify-tab-content">
           {% render 'findify-content-grid'
-            , content_id: content_id %}
+            , content_id: content_id
+            , content_lazy_loading_pagination: content_lazy_loading_pagination
+            %}
         </div>
       {% endfor %}
     {% endif %}
@@ -150,7 +169,18 @@
     </div>
     <div id={{ recommendation_id }} class='swiper'></div>
   {% endif %}
-
+  <style>
+     @media (min-width: 768px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+    @media (max-width: 576px) {
+      .findify-product-list {
+        grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
+      }
+    }
+  </style>
   <script>
     if("{{ results_count }}" != "0"){
       if("{{ show_content_integration }}" == 'true') {
@@ -164,18 +194,30 @@
 
       setFindifyIsLoading(false);
     } else {
-      const initRecommendation = async (type) => await findify.recommendation.init({
-          recommendation_id: "{{ recommendation_id }}",
-          desktop_slide_per_view,
-          recommendation_title
-        })
-        
-      findify.core.init.promise.then(() => {
-        initRecommendation()
-        window.addEventListener("popstate", () => {
+      const id = "{{ recommendation_id }}";
+      
+      const initRecommendation = async () => {
+        if (!id) {
+          console.warn(
+            'To display a Findify recommendation you should insert the ID within the Findify Recommendation App Block'
+          );
+          return;
+        }
+        await findify.recommendation.init({
+          id,
+          desktop_slide_per_view: "{{ desktop_slide_per_view }}",
+          title: "{{ recommendation_title }}",
+          mobile_slide_per_view: "{{ mobile_slide_per_view }}",
+        });
+      };
+
+      findify.core.init.then(() => {
+        initRecommendation();
+
+        window.addEventListener('popstate', () => {
           initRecommendation();
         });
-      });  
+      });
     }
 
   </script>

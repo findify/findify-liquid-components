@@ -25,7 +25,9 @@
       "results_count": "Se muestran {{ count }} resultados",
       "results_count_for": " Se muestran {{ count }} resultados para \"{{ term }}\"",
       "no_results_for": " No hemos encontrado ningún resultado para ",
-      "no_results_message": "Por favor, verifica la ortografía o intenta con otro término de búsqueda"
+      "no_results_message": "Por favor, verifica la ortografía o intenta con otro término de búsqueda",
+      "results_count_for_corrected_query": "Kuvatakse {{ count }} tulemused päringule \"{{ corrected_term }}\". 0 tulemust päringule \"{{ term }}\".",
+      "results_count_for_partial_query": "Kuvatakse 0 tulemust päringule \"{{ term }}\". Selle asemel kuvatakse tulemused, mis osaliselt vastavad."
     },
     "collections": {
       "products_count": "{{ count }} productos",
