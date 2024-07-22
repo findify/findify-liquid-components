@@ -41,6 +41,7 @@
         {%- if previous -%}
           <li>
             <a
+              data-value='{{ previous_title }}'
               href="{{ previous_url }}{{ anchor }}"
               class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
               aria-label="{{ 'general.pagination.previous' | t }}">
@@ -62,6 +63,7 @@
             {%- if is_link -%}
               <a
                 href="{{ url }}{{ anchor }}"
+                data-value='{{ title }}'
                 class="pagination__item link"
                 aria-label="{{ 'general.pagination.page' | t: number: title }}">{{ title }}</a>
             {%- else -%}
@@ -82,6 +84,7 @@
         {%- if next -%}
           <li>
             <a
+              data-value='{{ next_title }}'
               href="{{ next_url }}{{ anchor }}"
               class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce"
               aria-label="{{ 'general.pagination.next' | t }}">

@@ -3,6 +3,8 @@
 
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id=' | last | split: '&' | first | url_decode -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view=' | last | split: '&' | first -%}
+{%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view=' | last | split: '|' | first | split: '&' | first -%}
+
 {%- assign title = query_parameters | split: 'title=' | last | split: '&' | first | url_decode -%}
 
 <div id="{{ recommendation_id }}" class='findify-recommendation-container'>
@@ -31,7 +33,7 @@
         slidesPerView: "{{ desktop_slide_per_view }}",
         breakpoints: {
           320: {
-            slidesPerView: 2,
+            slidesPerView: "{{ mobile_slide_per_view }}",
             spaceBetween: 20,
           },
           480: {

@@ -1,0 +1,24 @@
+{% assign term_decoded = terms | url_decode %}
+
+<label class="findify-search-header-label">
+  {% if is_collection == true %}
+    {{ 'findify.collections.products_count' | t: count: results_count }}
+  {% elsif terms == '' %}
+    {{ 'findify.search.results_count' | t: count: results_count }}
+  {% elsif corrected_q != '' %}
+    {{
+      'findify.search.results_count_for_corrected_query'
+      | t: count: results_count, term: term_decoded, corrected_term: corrected_q
+    }}
+  {% elsif query_type == 'or' %}
+    {{
+      'findify.search.results_count_for_partial_query'
+      | t: term: term_decoded
+    }}
+  {% else %}
+    {{
+      'findify.search.results_count_for'
+      | t: count: results_count, term: term_decoded
+    }}
+  {% endif %}
+</label>
