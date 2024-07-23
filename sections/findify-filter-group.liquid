@@ -51,7 +51,7 @@
       </label>
       {% render 'findify-icon-arrow' %}
     </div>
-    <div class="findify-filters-body" aria-expanded="true">
+    <div class="findify-filters-body" data-opened="true">
       {% case component %}
         {% when 'text' %}
           {% render 'findify-filter-text'
@@ -82,67 +82,6 @@
   </div>
 
   <script>
-      const collapseFilter = () => {
-        const element_id = "{{ element_id }}";
-        const filterGroupElement = document.getElementById(element_id);
-        const [header, body] = filterGroupElement.querySelectorAll('div');
-        const isOneFilterOpen = document.querySelector('.findify-one-filter-open');
-    
-        const headerClickHandler = (e) => {
-          e.preventDefault();
-
-          if(isOneFilterOpen){
-            const isExpanded = e.target
-              .parentNode
-              .parentNode
-              .querySelector('.findify-filters-body')?.getAttribute('aria-expanded');
-            if(isExpanded == 'false')
-              document.querySelector('#findify-filters [aria-expanded="true"]')?.setAttribute('aria-expanded', 'false'); 
-          }
-
-          const isOpen = body.getAttribute("aria-expanded") === "true";
-          body.setAttribute("aria-expanded", (!isOpen).toString());
-        };
-    
-        header.addEventListener("click", headerClickHandler);
-      };
-      
-      const filtersPosition = document.querySelector('#findify-filters').getBoundingClientRect().top;
-      const filterClass = document.querySelector('#findify-filters').className;
-      const searchWrapperTop = document.querySelector('.findify-search-container').getBoundingClientRect().x;
-      const isHorizontal = document.querySelector('.findify-search-section.filters-horizontal');
-
-      const fixedFilters = () => {
-        const scrollPosition = window.scrollY;
-        const classNames = document.querySelector('#findify-filters').className;
-        const searchWrapperHeight = document.querySelector('.findify-search-main').offsetHeight;
-        const filtersWrapperHeight = document.querySelector('#findify-filters').offsetHeight;
-        
-        if(scrollPosition >= filtersPosition && !classNames.includes('fixed')){
-          document.querySelector('#findify-filters').className = classNames?.replace('absolute', '');
-          document.querySelector('#findify-filters').style.top = `0px`;
-          document.querySelector('#findify-filters').className += ' fixed';
-        }
-
-        if(scrollPosition > (searchWrapperHeight - 50) && !isHorizontal){
-
-          document.querySelector('#findify-filters').className = filterClass;
-          document.querySelector('#findify-filters').className += ' absolute';
-          document.querySelector('#findify-filters').style.top = `${searchWrapperHeight - filtersWrapperHeight}px`;
-        }
-
-        if( (scrollPosition - 80) < searchWrapperTop) 
-          document.querySelector('#findify-filters').className = classNames.replace('fixed', '');
-      }
-    
-      const isSticky = document.querySelector('.findify-filters-sticky');
-      if(isSticky) {
-        window.addEventListener('scroll', fixedFilters);
-        document.querySelectorAll('#shopify-section-findify-filter-group').forEach( item => {
-          item.addEventListener('click', fixedFilters);
-        })
-      }
-
-      collapseFilter();
+      collapseFilter("{{ element_id }}");
   </script>
 {% endif %}
