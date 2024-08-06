@@ -1,5 +1,5 @@
 {% liquid
-  assign value = value | strip_html
+  assign value = value | strip_html | url_encode
   assign filter_element_id = 'findify-filter-' | append: value
 %}
 
