@@ -19,13 +19,16 @@
     </div>
     <span>-</span>
     <div class="findify-price-range-input-container">
-      <input
-        min="{{ min_value }}"
-        max="{{ max_value }}"
-        type="number"
-        class="price-range-input"
-        id="{{ input_to_selector_id }}">
-      <span>{{ currency }}</span>
+      <label>
+        <input
+          min="{{ min_value }}"
+          max="{{ max_value }}"
+          type="number"
+          class="price-range-input"
+          id="{{ input_from_selector_id }}"
+        >
+        {{ currency }}
+      </label>
     </div>
   </div>
   <button id='{{ submit_btn_selector_id }}'>{{ 'findify.filters.go' | t }}</button>
