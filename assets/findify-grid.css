@@ -135,10 +135,6 @@ b {
   color: var(--findify-text-color);
 }
 
-.findify-hidden {
-  display: none !important;
-}
-
 @media (min-width: 767px) {
   .findify-filters-sidebar {
     display: none;
