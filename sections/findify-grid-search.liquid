@@ -172,12 +172,12 @@
   {% endif %}
   <style>
      @media (min-width: 768px) {
-      .findify-product-list {
+      #findify-product-grid.findify-product-list {
         grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
       }
     }
     @media (max-width: 576px) {
-      .findify-product-list {
+      #findify-product-grid.findify-product-list {
         grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
       }
     }
