@@ -23,7 +23,11 @@
   </div>
 {% else %}
   <div class="findify-autocomplete-content">
-    <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
+    <div class="
+      suggestions-wrapper 
+      {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}
+      mobile-{{ mobile_suggestion_template }}
+    ">
       <h3>{{ suggestionsTitle }}</h3>
       <ul>
         {% for suggestion in suggestions %}
@@ -61,7 +65,10 @@
           position: 'top'
         %}
       </div>
-      <div id="findify-autocomplete-products" class="products-container"></div>
+      <div 
+        id="findify-autocomplete-products" 
+        class="products-container mobile-products-per-row-{{ mobile_products_per_row }}"
+      />
       <div class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}
       </div>

@@ -139,7 +139,7 @@ const initFindifyAutocompleteEvents = () => {
       event.target.removeEventListener('keyup', handleFindifyChange);
       latestResponse = await findify.autocomplete.api(q);
       rid = latestResponse.meta.rid;
-      await findify.autocomplete.render(latestResponse);
+      await findify.autocomplete.render(latestResponse, findify.autocomplete.liquid);
     }
     if (event.type == 'focus')
       setTimeout(() => openAutocomplete(event.target), 200);
