@@ -1,6 +1,6 @@
 {% liquid
   assign value = value | strip_html
-  assign filter_element_id = 'findify-filter-' | append: value
+  assign filter_element_id = 'findify-filter-' | append: value | url_encode
 %}
 
 <div
