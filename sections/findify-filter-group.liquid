@@ -95,13 +95,13 @@
             const isExpanded = e.target
               .parentNode
               .parentNode
-              .querySelector('.findify-filters-body')?.getAttribute('aria-opened');
+              .querySelector('.findify-filters-body')?.getAttribute('data-opened');
             if(isExpanded == 'false')
-              document.querySelector('#findify-filters [aria-opened="true"]')?.setAttribute('aria-opened', 'false'); 
+              document.querySelector('#findify-filters [data-opened="true"]')?.setAttribute('data-opened', 'false'); 
           }
 
-          const isOpen = body.getAttribute("aria-opened") === "true";
-          body.setAttribute("aria-opened", (!isOpen).toString());
+          const isOpen = body.getAttribute("data-opened") === "true";
+          body.setAttribute("data-opened", (!isOpen).toString());
         };
     
         header.addEventListener("click", headerClickHandler);
