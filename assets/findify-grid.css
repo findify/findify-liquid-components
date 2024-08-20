@@ -131,15 +131,8 @@
   flex: 1;
 }
 
-.findify-product-card {
-}
-
 b {
   color: var(--findify-text-color);
-}
-
-.hidden {
-  display: none !important;
 }
 
 @media (min-width: 767px) {

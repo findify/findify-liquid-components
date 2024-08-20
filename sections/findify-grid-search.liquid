@@ -44,7 +44,6 @@
   {% if all_filters_hidden == "true" %} findify-filter-hidden {% endif %}
   {% if desktop_filter_layout != 'horizontal' %}filters-{{ desktop_filter_position }} {% endif %}
   {% if disable_search_input == 'true' %} findify-filters-disable_search_input {% endif %}
-  disable_search_input
   filters-{{ desktop_filter_layout }}"
 >
   {% if results_count > 0 %}
@@ -172,12 +171,12 @@
   {% endif %}
   <style>
      @media (min-width: 768px) {
-      .findify-product-list {
+      #findify-product-grid.findify-product-list {
         grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
       }
     }
     @media (max-width: 576px) {
-      .findify-product-list {
+      #findify-product-grid.findify-product-list {
         grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
       }
     }
