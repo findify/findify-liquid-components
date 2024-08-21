@@ -10,6 +10,7 @@
 {%- assign all_filters_hidden = query_parameters | split: 'all_filters_hidden:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign all_filters_collapsed = query_parameters | split: 'all_filters_collapsed:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign sticky_filters = query_parameters | split: 'sticky_filters:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign disable_search_input = query_parameters | split: 'disable_search_input:' | last | split: '|' | first | split: '&' | first -%}
 
 <div 
   id="findify-search" 
@@ -118,13 +119,13 @@
     {% endif %}
   </div>
   <style>
-    @media (min-width: 768px) {
-      #findify-product-grid.findify-product-list {
+     @media (min-width: 768px) {
+      .findify-product-list {
         grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
       }
     }
     @media (max-width: 576px) {
-      #findify-product-grid.findify-product-list {
+      .findify-product-list {
         grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
       }
     }

@@ -6,20 +6,21 @@
     data-findify-variant-item-id="{{product.selected_or_first_available_variant.id}}"></div>
 {% endif %}
 
-
-<div data-findify-event="update-cart">
-  {% for item in cart.items %}
-    <div
-      data-findify-item-id="{{ item.product_id }}"
-      data-findify-variant-item-id="{{item.variant_id}}"
-      data-findify-unit-price="{{ item.price | money_without_currency }}"
-      data-findify-quantity="{{ item.quantity }}"></div>
-  {% endfor %}
-</div>
+{% if cart %}
+  <div data-findify-event="update-cart">
+    {% for item in cart.items %}
+      <div
+        data-findify-item-id="{{ item.product_id }}"
+        data-findify-variant-item-id="{{item.variant_id}}"
+        data-findify-unit-price="{{ item.price | money_without_currency }}"
+        data-findify-quantity="{{ item.quantity }}"></div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 <script>
   window.findify = {
-    current_version: "2024-08.01", // DO NOT MODIFY! This is required within Shopify App Side, a Regex will extract the current version.
+    current_version: "2024-07.01", // DO NOT MODIFY! This is required within Shopify App Side, a Regex will extract the current version.
     product_fields: {
         include: [], // Include, also, these fields to be returned to liquid section
         exclude: [], // Exclude these fields from being sent to liquid section
@@ -38,7 +39,6 @@
 </script>
 
 <script src="{{ 'findify-analytics.js' | asset_url }}" defer></script>
-<script src="{{ 'findify-filter.js' | asset_url }}" defer></script>
 
 <link
   rel="stylesheet"

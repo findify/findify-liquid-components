@@ -1,5 +1,5 @@
 
-.findify-search-section.disable_search_input .findify-filters--checkbox-search{
+.findify-search-section.findify-filters-disable_search_input .findify-filters--checkbox-search{
   display: none;
 }
 .findify-filters--range-container {
@@ -128,8 +128,8 @@ button {
   cursor: pointer;
 }
 
-#findify-filters *[data-opened="true"] {
-  display: block;
+#findify-filters *[aria-hidden="true"] {
+  display: none !important;
 }
 
 /* SECTION - HEADER & BODY EXPAND */
@@ -139,12 +139,11 @@ button {
   background: #fff;
   width: 100%;
 }
-
-.findify-filters-body[data-opened="false"] {
+.findify-filters-body[aria-expanded="false"] {
   display: none;
 }
 
-.findify-filter-group:has(.findify-filters-body[aria-expanded="true"])
+.findify-filter-group:has(.findify-filters-body[aria-expanded="false"])
   .findify-filters-header
   svg {
   transform: rotate(180deg);
@@ -470,14 +469,11 @@ button {
 }
 
 .findify-price-range-input-container {
+  display: flex;
+  align-items: center;
   padding: 0 8px;
   border: 1px solid #000;
   background: #fff;
-}
-
-.findify-price-range-input-container label {
-  display: flex;
-  align-items: center;
 }
 
 .price-range-input {
