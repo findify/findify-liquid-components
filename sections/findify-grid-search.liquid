@@ -6,13 +6,13 @@
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title=' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
-
 {%- assign desktop_filter_layout = query_parameters | split: 'desktop_filter_layout:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign desktop_filter_position = query_parameters | split: 'desktop_filter_position:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign one_open_filter = query_parameters | split: 'one_open_filter:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign all_filters_hidden = query_parameters | split: 'all_filters_hidden:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign all_filters_collapsed = query_parameters | split: 'all_filters_collapsed:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign sticky_filters = query_parameters | split: 'sticky_filters:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign disable_search_input = query_parameters | split: 'disable_search_input:' | last | split: '|' | first | split: '&' | first -%}
 
 
 {%  comment  %} Content integration configuration {% endcomment %}
@@ -46,6 +46,7 @@
   {% if disable_search_input == 'true' %} findify-filters-disable_search_input {% endif %}
   filters-{{ desktop_filter_layout }}"
 >
+
   {% if results_count > 0 %}
     <h1 class="findify-heading">{{ 'findify.search.search_results' | t }}</h1>
     {% if show_content_integration %}
@@ -61,17 +62,17 @@
     <div class="findify-search-container">
       {% if desktop_filter_layout != 'drawer' %}
         {% render 'findify-toolbar-desktop'
-        , results_count: results_count
-        , terms: terms
-        , corrected_q: corrected_q
-        , query_type: query_type
-        , sort_options: sort_options
-        , default_sort_by: default_sort_by
-        , sort_by: sort_by
-        , active_filters: active_filters
-        , color_layout: color_layout
-        , filter_component_id: findify_filters_component_id
-      %}
+          , results_count: results_count
+          , terms: terms
+          , corrected_q: corrected_q
+          , query_type: query_type
+          , sort_options: sort_options
+          , default_sort_by: default_sort_by
+          , sort_by: sort_by
+          , active_filters: active_filters
+          , color_layout: color_layout
+          , filter_component_id: findify_filters_component_id
+        %}
       {% endif %}
       {% render 'findify-toolbar-mobile'
         , results_count: results_count
@@ -113,10 +114,7 @@
                 , hide: hide_load_prev %}
             </div>
           {% endif %}
-          <div
-            id="findify-product-grid"
-            class="findify-product-list"
-          >
+          <div id="findify-product-grid" class="findify-product-list">
             {% comment %}
               This element #findify-product-grid will be replaced with rendered html from sections/findify-products
             {% endcomment %}
@@ -156,8 +154,8 @@
         <div id="{{content_id}}-content" class="findify-tab-content">
           {% render 'findify-content-grid'
             , content_id: content_id
-            , content_lazy_loading_pagination: content_lazy_loading_pagination
-            %}
+            , content_lazy_loading_pagination: content_lazy_loading_pagination 
+          %}
         </div>
       {% endfor %}
     {% endif %}
@@ -169,6 +167,7 @@
     </div>
     <div id={{ recommendation_id }} class='swiper'></div>
   {% endif %}
+
   <style>
      @media (min-width: 768px) {
       #findify-product-grid.findify-product-list {
@@ -181,6 +180,7 @@
       }
     }
   </style>
+
   <script>
     if("{{ results_count }}" != "0"){
       if("{{ show_content_integration }}" == 'true') {
@@ -221,6 +221,7 @@
     }
 
   </script>
+
 </div>
 
 

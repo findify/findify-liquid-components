@@ -51,7 +51,7 @@
       </label>
       {% render 'findify-icon-arrow' %}
     </div>
-    <div class="findify-filters-body" data-opened="true">
+    <div class="findify-filters-body" aria-expanded="true">
       {% case component %}
         {% when 'text' %}
           {% render 'findify-filter-text'
@@ -95,13 +95,13 @@
             const isExpanded = e.target
               .parentNode
               .parentNode
-              .querySelector('.findify-filters-body')?.getAttribute('aria-opened');
+              .querySelector('.findify-filters-body')?.getAttribute('aria-expanded');
             if(isExpanded == 'false')
-              document.querySelector('#findify-filters [aria-opened="true"]')?.setAttribute('aria-opened', 'false'); 
+              document.querySelector('#findify-filters [aria-expanded="true"]')?.setAttribute('aria-expanded', 'false'); 
           }
 
-          const isOpen = body.getAttribute("aria-opened") === "true";
-          body.setAttribute("aria-opened", (!isOpen).toString());
+          const isOpen = body.getAttribute("aria-expanded") === "true";
+          body.setAttribute("aria-expanded", (!isOpen).toString());
         };
     
         header.addEventListener("click", headerClickHandler);
