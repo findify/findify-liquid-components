@@ -44,7 +44,7 @@
               href="/{{ basepath }}?q={{ suggestion }}"
               data-findify-suggestion
             >
-              {{ formattedSuggestion }}
+              {{ formattedSuggestion |  url_decode }}
             </a>
           </li>
         {% endfor %}
