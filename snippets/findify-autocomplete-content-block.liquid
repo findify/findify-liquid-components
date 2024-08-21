@@ -1,4 +1,4 @@
-{%- if contents_param != 'none' -%}
+{%- if content != null and content != 'none' -%}
   <div class="findify-autocomplete-content-wrapper">
     {% assign contentArray = content | split: '~' %}
     {% assign content_id = contentArray[0] %}
