@@ -4,8 +4,8 @@
 {%  comment  %} Recommendation fallback configuration {% endcomment %}
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id:' | last | split: '|' | first -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign recommendation_title = query_parameters | split: 'recommendation_title:' | last | split: '&' | first -%}{% include 'findify-grid-connector' %}
-
 {%- assign desktop_filter_layout = query_parameters | split: 'desktop_filter_layout:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign desktop_filter_position = query_parameters | split: 'desktop_filter_position:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign one_open_filter = query_parameters | split: 'one_open_filter:' | last | split: '|' | first | split: '&' | first -%}
