@@ -6,7 +6,7 @@
   {%- else -%}
     <label>
       {{ 'findify.autocomplete.view_all_results_for' | t }}
-      <span class="findify-components-autocomplete--tip__highlight">"{{ query }}"</span>
+      <span class="findify-components-autocomplete--tip__highlight">"{{ query |  url_decode }}"</span>
     </label>
   {%- endif -%}
 </div>
