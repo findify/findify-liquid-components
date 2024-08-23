@@ -1,6 +1,7 @@
 {%- include 'findify-product-card-connector' -%}
 
 <a
+  aria-label="{{ product.title  }}"
   href={{ product_url }}
   id="{{ id }}"
   product-id="product-{{ id }}"
