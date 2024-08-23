@@ -1,6 +1,7 @@
 {% liquid
   assign filter_group_element_id = 'findify-filters-' | append: name
   assign input_id = 'findify-filter-search-' | append: name
+  assign label = 'Search for' | append: 'name'
 %}
 
 <div class="findify-filters--checkbox-search">
@@ -8,7 +9,8 @@
     id="{{ input_id }}"
     placeholder="{{ 'findify.filters.search_placeholder' | t }}"
     type="text"
-    ref="{{ name }}" />
+    ref="{{ name }}" 
+    aria-label="{{ label }}"/>
   <svg
     width="14"
     height="15"
