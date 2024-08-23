@@ -1,58 +1,56 @@
 {%- include 'findify-product-card-connector' -%}
 
-<a
-  aria-label="{{ product.title  }}"
-  href={{ product_url }}
+<div
   id="{{ id }}"
   product-id="product-{{ id }}"
-  class="findify-product-card {{ class }} {{ widget }}_{{ id }} findify-product-link"
+  class="findify-product-card {{ class }} {{ widget }}_{{ id }}"
   {% if page != blank %}
   page="{{ page }}"
   {% endif %}>
-  
-  <div class='image-container'>
-    {% if current_variant.featured_media != null %}
-      {% render 'findify-product-image'
-        , media: current_variant.featured_media
-        , class: 'first-image' %}
-    {% else %}
-      {% render 'findify-product-image'
-        , media: product.featured_media
-        , class: 'first-image' %}
-    {% endif %}
-    {%- if product.media[1] != null and showHoverImage == 'true' -%}
-      {% render 'findify-product-image'
-        , media: product.media[1]
-        , class: 'second-image' %}
-    {%- endif -%}
+  <a class="findify-product-link" href={{ product_url }}>
+    <div class='image-container'>
+      {% if current_variant.featured_media != null %}
+        {% render 'findify-product-image'
+          , media: current_variant.featured_media
+          , class: 'first-image' %}
+      {% else %}
+        {% render 'findify-product-image'
+          , media: product.featured_media
+          , class: 'first-image' %}
+      {% endif %}
+      {%- if product.media[1] != null and showHoverImage == 'true' -%}
+        {% render 'findify-product-image'
+          , media: product.media[1]
+          , class: 'second-image' %}
+      {%- endif -%}
 
-  {% comment %} <img width="100%" height="100%" class="findify-product-swatch-image" hidden /> {% endcomment %}
-  </div>
-  
-  <div class="content-wrapper">
-    {% if brand %}
-      <div class="findify-product-brand">{{ brand }}</div>
-    {% endif %}
-
-    {% comment %} {% render 'findify-product-swatches-color',
-            product_url: product_url,
-            product: product,
-            colormap: colormap,
-            variants: variants,
-        %} {% endcomment %}
-
-    <div class='findify-product-title findify-cut-text'>
-      <label>{{ product.title }}</label>
+    {% comment %} <img width="100%" height="100%" class="findify-product-swatch-image" hidden /> {% endcomment %}
     </div>
+    <div class="content-wrapper">
+      {% if brand %}
+        <div class="findify-product-brand">{{ brand }}</div>
+      {% endif %}
 
-    {% render 'findify-product-price'
-      , product: product %}
-    {% if reviews %}
-      {% render 'findify-rating'
-        , value: reviews
-        , count: reviews_count %}
-    {% endif %}
-  </div>
+      {% comment %} {% render 'findify-product-swatches-color',
+              product_url: product_url,
+              product: product,
+              colormap: colormap,
+              variants: variants,
+          %} {% endcomment %}
+
+
+      <div class='findify-product-title findify-cut-text'>
+        <label>{{ product.title }}</label>
+      </div>
+      {% render 'findify-product-price'
+        , product: product %}
+      {% if reviews %}
+        {% render 'findify-rating'
+          , value: reviews
+          , count: reviews_count %}
+      {% endif %}
+    </div>
+  </a>
 
 
   <script>
@@ -65,4 +63,4 @@
         initOnProductCardClick(id, page, { widget, selected_variant_id });
   </script>
 
-</a>
+</div>
