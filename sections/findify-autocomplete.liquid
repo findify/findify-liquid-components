@@ -19,7 +19,7 @@
     <h1>
       {{ 'findify.search.no_results_for' | t }} "{{ query | url_decode }}"
     </h1>
-    <h3>{{ 'findify.search.no_results_message' | t }}</h3>
+    <h2>{{ 'findify.search.no_results_message' | t }}</h2>
   </div>
 {% else %}
   <div class="findify-autocomplete-content">
@@ -28,7 +28,7 @@
       {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}
       mobile-{{ mobile_suggestion_template }}
     ">
-      <h3>{{ suggestionsTitle }}</h3>
+      <h2>{{ suggestionsTitle }}</h2>
       <ul>
         {% for suggestion in suggestions %}
           {%- assign queryHTML = '<span>'
@@ -58,7 +58,7 @@
 
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
-        <h3>{{ productsTitle }}</h3>
+        <h2>{{ productsTitle }}</h2>
         {% render 'findify-autocomplete-view-all',
           basepath: basepath,
           query: query,
