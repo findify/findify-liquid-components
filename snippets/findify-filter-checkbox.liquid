@@ -51,6 +51,9 @@
     };
 
     filterElement.addEventListener("click", filterClickHandler);
+    filterElement.addEventListener("keydown", e => {
+      if (e.key === 'Enter') filterClickHandler(e)
+    });
   };
 
   onFilterClick();

@@ -29,6 +29,7 @@
         {% if field == selectedField and order == selectedOrder %}
         {% else %}
           <li
+            tabindex="0"
             id="{{ sorting_option_element_id }}"
             class="findify-sorting-option"
             field="{{field}}"
@@ -50,7 +51,10 @@
               }
 
               const option = document.getElementById(sorting_option_element_id);
-              option.addEventListener('click', onOptionClickHandler)
+              option.addEventListener('click', onOptionClickHandler);
+              option.addEventListener("keydown", (e) => {
+                if(e.key === 'Enter') onOptionClickHandler();
+              });
             }
             sortingOption();
           </script>
