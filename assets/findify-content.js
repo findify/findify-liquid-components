@@ -48,6 +48,8 @@ const initFindifyContentEvents = () => {
   };
 
   contentIntegrations.forEach(({ id }) => {
+    if (findify.contents?.state && findify.contents?.state[id]) {
+
     const infiniteScrollElement = document.getElementById(
       `${id}-infinite-scroll`
     );
@@ -154,5 +156,6 @@ const initFindifyContentEvents = () => {
       );
     };
     initPagination();
+  }
   });
 };
