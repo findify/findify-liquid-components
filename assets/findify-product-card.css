@@ -33,7 +33,9 @@ a:visited:not(.button) {
 .findify-product-price {
   color: var(--findify-text-color);
 }
-
+.findify-product-link{
+  display: block;
+}
 .findify-product-price-with-compare {
   font-weight: 700;
 }
