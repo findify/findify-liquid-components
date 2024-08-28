@@ -45,7 +45,7 @@
 
 {% if show %}
   <div id="{{ element_id }}" class="findify-filter-group">
-    <div class="findify-filters-header">
+    <div class="findify-filters-header" tabindex="0">
       <label tabindex="-1">
         {{ group_label }}
       </label>
@@ -105,6 +105,9 @@
         };
     
         header.addEventListener("click", headerClickHandler);
+        header.addEventListener("keydown", (e) => {
+          if (e.key === 'Enter') headerClickHandler(e)
+        });
       };
       
       const filtersPosition = document.querySelector('#findify-filters').getBoundingClientRect().top;
