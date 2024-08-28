@@ -3,7 +3,9 @@ a:visited:not(.button) {
   text-decoration: none;
   color: unset;
 }
-
+.findify-product-card__image{
+  min-width: 42%;
+}
 .findify-product-card {
   min-height: 380px;
 }
