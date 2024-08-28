@@ -15,7 +15,10 @@
       "under": "onder",
       "clear_all": "Alle wissen",
       "go": "gaan",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "Minimale prijs",
+      "max_price": "Maximale prijs",
+      "search_for": "Zoeken naar {{ term }}"
     },
     "sorting": {
       "sort_by": "Sorteer op"

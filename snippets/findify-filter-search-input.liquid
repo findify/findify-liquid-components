@@ -1,7 +1,7 @@
 {% liquid
   assign filter_group_element_id = 'findify-filters-' | append: name
   assign input_id = 'findify-filter-search-' | append: name
-  assign label = 'Search for' | append: 'name'
+  assign label = 'findify.filters.search_for' | t: term: name 
 %}
 
 <div class="findify-filters--checkbox-search">
