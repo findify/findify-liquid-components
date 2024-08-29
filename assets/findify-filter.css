@@ -323,12 +323,6 @@ button {
   background: var(--findify-input-background-color);
 }
 
-.findify-filters--checkbox-search input:focus-visible {
-  box-shadow: none;
-  outline-offset: none;
-  outline: none;
-}
-
 .findify-filters--checkbox-search-icon {
   position: absolute;
   right: 20px;

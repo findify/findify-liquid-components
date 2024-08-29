@@ -15,7 +15,10 @@
       "under": "under",
       "clear_all": "Ryd alle",
       "go": "Vis",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "Minimumspris",
+      "max_price": "Maksimal pris",
+      "search_for": "Søg efter {{ term }}"
     },
     "sorting": {
       "sort_by": "Sortér efter"

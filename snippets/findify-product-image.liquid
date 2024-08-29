@@ -9,7 +9,7 @@
               {{ media | image_url }} {{ media.width }}w
             "
   src="{{ media | image_url: width: 533 }}"
-  alt=""
+  alt="{{ media.alt }}"
   class="adapt motion-reduce {{ class }}"
   loading="lazy"
   width="{{ media.width }}"

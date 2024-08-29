@@ -15,7 +15,10 @@
       "under": " Sous",
       "clear_all": "Effacer tout",
       "go": "aller à",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "Prix ​​minimum",
+      "max_price": "Prix ​​maximum",
+      "search_for": "Rechercher {{ term }}"
     },
     "sorting": {
       "sort_by": "Trier par"

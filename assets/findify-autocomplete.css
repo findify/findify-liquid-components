@@ -352,7 +352,7 @@ body {
   flex: 0.5;
 }
 
-.findify-autocomplete-fullscreen .suggestions-wrapper h3 {
+.findify-autocomplete-fullscreen .suggestions-wrapper h2 {
   padding-left: 30px;
   color: var(--findify-text-color);
 }
@@ -507,7 +507,7 @@ body {
     padding-top: 15px;
   }
 
-  .findify-autocomplete-fullscreen .suggestions-wrapper h3,
+  .findify-autocomplete-fullscreen .suggestions-wrapper h2,
   .findify-autocomplete-fullscreen .suggestions-wrapper ul,
   .findify-autocomplete-fullscreen .products-wrapper,
   .findify-autocomplete-dropdown .suggestions-wrapper h3,

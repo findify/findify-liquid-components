@@ -31,16 +31,21 @@
     const filter_toggle_sidepanel_element_id = "{{ filter_toggle_sidepanel_element_id }}";
     const filter_component_id = "{{ filter_component_id }}";
     const openClass = 'open-left';
+    const containerElement = document.getElementById(filter_component_id);
 
     const toggleFilterSection = () => {
-        const containerElement = document.getElementById(filter_component_id);
-        containerElement.classList.toggle(openClass);
-        document.documentElement.classList.toggle("no-scroll");
+      containerElement.classList.toggle(openClass);
+      document.documentElement.classList.toggle("no-scroll");
     }
 
     const filterToggleSidepanelElement = document.getElementById(filter_toggle_sidepanel_element_id);
     filterToggleSidepanelElement?.addEventListener('click', toggleFilterSection);
-
+    document.addEventListener('keyup', e => {
+      if (e.code == 'Escape'){
+        containerElement.classList.remove(openClass);
+        document.documentElement.classList.remove("no-scroll");
+      }
+    })
     /*
     * Add additional classes conditioned by media queries
     */

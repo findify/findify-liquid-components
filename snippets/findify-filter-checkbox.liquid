@@ -4,6 +4,7 @@
 %}
 
 <div
+  tabindex="0"
   id="{{ filter_element_id }}"
   class="findify-filters-checkbox-item {{class}}"
   data-name="{{name}}"
@@ -50,6 +51,9 @@
     };
 
     filterElement.addEventListener("click", filterClickHandler);
+    filterElement.addEventListener("keydown", e => {
+      if (e.key === 'Enter') filterClickHandler(e)
+    });
   };
 
   onFilterClick();

@@ -1,6 +1,6 @@
 {% assign view_all_element_id = 'view-all-element' | append: '-' | append: position %}
 
-<div id="{{ view_all_element_id }}" class="findify-view-all view-all-{{position}}">
+<button id="{{ view_all_element_id }}" class="findify-view-all view-all-{{position}}" >
   {%- if query == '' -%}
     <label>{{ 'findify.autocomplete.view_all' | t }}</label>
   {%- else -%}
@@ -9,7 +9,7 @@
       <span class="findify-components-autocomplete--tip__highlight">"{{ query |  url_decode }}"</span>
     </label>
   {%- endif -%}
-</div>
+</button>
 
 <script>
   const clickViewAll = () => {

@@ -29,6 +29,7 @@
         {% if field == selectedField and order == selectedOrder %}
         {% else %}
           <li
+            tabindex="0"
             id="{{ sorting_option_element_id }}"
             class="findify-sorting-option"
             field="{{field}}"
@@ -50,7 +51,10 @@
               }
 
               const option = document.getElementById(sorting_option_element_id);
-              option.addEventListener('click', onOptionClickHandler)
+              option.addEventListener('click', onOptionClickHandler);
+              option.addEventListener("keydown", (e) => {
+                if(e.key === 'Enter') onOptionClickHandler();
+              });
             }
             sortingOption();
           </script>
@@ -116,7 +120,7 @@
           {% assign field = parts[1] %}
           {% assign order = parts[2] %}
           {% assign sorting_option_element_id = 'sorting-sidebar-option-' | append: field | append: '-' | append: order %}
-          <li id="{{ sorting_option_element_id }}" class="findify-sorting-option">
+          <li tabindex="0" id="{{ sorting_option_element_id }}" class="findify-sorting-option">
             <input
               type="radio"
               {% if field == selectedField and order == selectedOrder %}
