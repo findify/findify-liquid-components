@@ -15,7 +15,10 @@
       "under": "أسفل",
       "clear_all": "مسح الكل",
       "go": "ذهاب",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "الحد الأدنى للسعر",
+      "max_price": "الحد الأقصى للسعر",
+      "search_for": "ابحث عن {{ term }}"
     },
     "sorting": {
       "sort_by": "تصنيف حسب"

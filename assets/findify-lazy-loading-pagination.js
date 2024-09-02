@@ -1,15 +1,15 @@
-
 const initFindifyLazyLoadingPagination = (
   lazy_loading_pagination_threshold
 ) => {
   let lazyLoadedCounter = 0;
 
   const selectors = {
-    prevBtn: "findify-pagination-load-previous",
-    nextBtn: "findify-pagination-load-more",
-    loader: "findify-grid-infinite-scroll",
-    grid: "findify-product-grid",
-    paginationContainer: "findify-lazy-loading-pagination-container"
+    prevBtn: 'findify-pagination-load-previous',
+    nextBtn: 'findify-pagination-load-more',
+    loader: 'findify-grid-infinite-scroll',
+    grid: 'findify-product-grid',
+    productResultTab: 'findify-product-result-content',
+    paginationContainer: 'findify-lazy-loading-pagination-container',
   };
 
   const initialPage = findify.pagination.state.page;
@@ -30,7 +30,7 @@ const initFindifyLazyLoadingPagination = (
   const initPrevButton = () => {
     const prevBtnElement = document.getElementById(selectors.prevBtn);
     if (prevBtnElement) {
-      prevBtnElement.addEventListener("click", async () => {
+      prevBtnElement.addEventListener('click', async () => {
         const prevPage =
           Math.min(initialPage, findify.pagination.state.page) - 1;
         const items = await renderPage(prevPage);
@@ -52,7 +52,14 @@ const initFindifyLazyLoadingPagination = (
   let isLoading = false;
   const onScrollFunction = async () => {
     const nextLoadingElement = document.getElementById(selectors.loader);
-    if (!isLoading && findify.utils.isInViewport(nextLoadingElement)) {
+    const searchProductTab = document.getElementById(
+      selectors.productResultTab
+    );
+    if (
+      !isLoading &&
+      findify.utils.isInViewport(nextLoadingElement) &&
+      !findify.utils.isHidden(searchProductTab)
+    ) {
       isLoading = true;
       lazyLoadedCounter++;
       await loadNext();
@@ -64,14 +71,14 @@ const initFindifyLazyLoadingPagination = (
   };
 
   const removeLoader = (showLoadMoreButton) => {
-    window.removeEventListener("scroll", onScrollFunction, scrollEventOptions);
+    window.removeEventListener('scroll', onScrollFunction, scrollEventOptions);
     const nextLoadingElement = document.getElementById(selectors.loader);
     if (nextLoadingElement) {
       nextLoadingElement.remove();
     }
     if (showLoadMoreButton) {
       const nextBtnElement = document.getElementById(selectors.nextBtn);
-      nextBtnElement.classList.toggle("hidden");
+      nextBtnElement.classList.toggle('hidden');
     }
   };
 
@@ -98,11 +105,11 @@ const initFindifyLazyLoadingPagination = (
   const initNextEvents = () => {
     const nextLoadingElement = document.getElementById(selectors.loader);
     if (nextLoadingElement) {
-      window.addEventListener("scroll", onScrollFunction, scrollEventOptions);
+      window.addEventListener('scroll', onScrollFunction, scrollEventOptions);
     }
     const nextBtnElement = document.getElementById(selectors.nextBtn);
     if (nextBtnElement) {
-      nextBtnElement.addEventListener("click", () => loadNext());
+      nextBtnElement.addEventListener('click', () => loadNext());
     }
   };
 
@@ -117,7 +124,7 @@ const initFindifyLazyLoadingPagination = (
   };
 
   const scrollToProduct = () => {
-    const productData = sessionStorage.getItem("product");
+    const productData = sessionStorage.getItem('product');
     if (!productData) return;
 
     const parsedProductData = JSON.parse(productData);

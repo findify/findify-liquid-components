@@ -101,6 +101,8 @@
 
   .findify-sorting-mobile-list li {
     list-style: none;
+    justify-content: left;
+    display: flex;
   }
 
   .findify-sorting-mobile-list li label {

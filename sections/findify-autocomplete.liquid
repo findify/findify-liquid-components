@@ -12,19 +12,23 @@
 
 <div
   id="findify-autocomplete"
-  class="findify-autocomplete findify-autocomplete-fullscreen hidden"
+  class="findify-autocomplete findify-autocomplete-fullscreen hidden {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}"
 >
 {% if results_count == "0" %}
   <div class="findify-zero-result-container">
     <h1>
       {{ 'findify.search.no_results_for' | t }} "{{ query | url_decode }}"
     </h1>
-    <h3>{{ 'findify.search.no_results_message' | t }}</h3>
+    <h2>{{ 'findify.search.no_results_message' | t }}</h2>
   </div>
 {% else %}
   <div class="findify-autocomplete-content">
-    <div class="suggestions-wrapper {% if suggestionsTemplate == 'horizontal' %} suggestions-horizontal {% endif %}">
-      <h3>{{ suggestionsTitle }}</h3>
+    <div class="
+      suggestions-wrapper 
+      {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}
+      mobile-{{ mobile_suggestion_template }}
+    ">
+      <h2>{{ suggestionsTitle }}</h2>
       <ul>
         {% for suggestion in suggestions %}
           {%- assign queryHTML = '<span>'
@@ -40,7 +44,7 @@
               href="/{{ basepath }}?q={{ suggestion }}"
               data-findify-suggestion
             >
-              {{ formattedSuggestion }}
+              {{ formattedSuggestion |  url_decode }}
             </a>
           </li>
         {% endfor %}
@@ -54,17 +58,20 @@
 
     <div class="products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
-        <h3>{{ productsTitle }}</h3>
+        <h2>{{ productsTitle }}</h2>
         {% render 'findify-autocomplete-view-all',
           basepath: basepath,
           query: query,
           position: 'top'
         %}
       </div>
-      <div id="findify-autocomplete-products" class="products-container"></div>
-      <div class="findify-close-autocomplete">
+      <div 
+        id="findify-autocomplete-products" 
+        class="products-container mobile-products-per-row-{{ mobile_products_per_row }}"
+      />
+      <button class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}
-      </div>
+      </button>
     </div>
 
     {% render 'findify-autocomplete-content-block',

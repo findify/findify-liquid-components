@@ -1,6 +1,7 @@
 const initFindifyAutocompleteEvents = () => {
   let selector = "input[name='q']";
   let rid, q, item_limit;
+  let activeInput;
 
   const getSearchDestination = (query) => {
     const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
@@ -104,7 +105,9 @@ const initFindifyAutocompleteEvents = () => {
         .className.includes('hidden')
     ) {
       document.querySelector('.findify-autocomplete').className += ' hidden';
+      activeInput?.parentNode?.querySelector('button[type="submit"]')?.focus();
     }
+    document.removeEventListener(`keydown`, initTrapFocus);
   };
 
   const closeAutocompleteOutside = (e, input) => {
@@ -114,8 +117,37 @@ const initFindifyAutocompleteEvents = () => {
       document.removeEventListener('click', closeAutocompleteOutside);
     }
   };
+  const initTrapFocus = (e) => {
+    const isTabPressed = e.key === `Tab` || e.keyCode === 9;
 
+    if (!isTabPressed ) return
+    
+    const modal = document.querySelector(".findify-autocomplete");
+    const focusableElements = `a, button, [href], input:not([type="hidden"]), select, textarea, iframe, [tabindex]:not([tabindex="-1"])`;
+
+    const focusableContent = modal.querySelectorAll(focusableElements);
+
+    const firstFocusableElement = focusableContent[0];
+    const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+    if (document.activeElement === activeInput) {
+      firstFocusableElement.focus()
+      e.preventDefault();
+      return
+    };
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableElement) {
+        activeInput.focus();
+        e.preventDefault();
+      }
+    } else if (document.activeElement === lastFocusableElement) {
+      firstFocusableElement.focus();
+      e.preventDefault();
+    }
+  };
   const openAutocomplete = (input) => {
+    activeInput = input;
     const autocompleteClassName = document.querySelector(
       '.findify-autocomplete'
     ).className;
@@ -128,6 +160,7 @@ const initFindifyAutocompleteEvents = () => {
       closeAutocompleteOutside(e, input)
     );
     setAutocompletePosition(input);
+    document.addEventListener(`keydown`, initTrapFocus);
   };
 
   const loadFindifyAutocomplete = async (event) => {
@@ -139,8 +172,9 @@ const initFindifyAutocompleteEvents = () => {
       event.target.removeEventListener('keyup', handleFindifyChange);
       latestResponse = await findify.autocomplete.api(q);
       rid = latestResponse.meta.rid;
-      await findify.autocomplete.render(latestResponse);
+      await findify.autocomplete.render(latestResponse, findify.autocomplete.liquid);
     }
+
     if (event.type == 'focus')
       setTimeout(() => openAutocomplete(event.target), 200);
     else openAutocomplete(event.target);

@@ -15,7 +15,10 @@
       "under": "under",
       "clear_all": "Rensa allt",
       "go": "Visa",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "Lägsta pris",
+      "max_price": "Maxpris",
+      "search_for": "Leta efter {{ term }}"
     },
     "sorting": {
       "sort_by": "Sortera efter"

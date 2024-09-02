@@ -11,11 +11,13 @@
         {{ 'findify.filters.filter_by' | t }}
       </button>
     </div>
+
     {%
       render 'findify-query' terms: terms, results_count: results_count, is_collection: is_collection,       , terms: terms
       , corrected_q: corrected_q
       , query_type: query_type
     %}
+
     <div>
       {% render 'findify-sorting'
         , options: sort_options
@@ -57,5 +59,6 @@
     //changes comment to disable toggling
     filterToggleSidebarElement?.addEventListener('click', toggleFilterSection)
   }
+  
   filterSidebar();
 </script>

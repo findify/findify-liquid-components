@@ -32,6 +32,7 @@
     %}
 
     <div
+      tabindex="0"
       id="{{ breadcrumb_element_id }}"
       class="findify-filters-breadcrumb-item"
       selected="true"
@@ -94,6 +95,10 @@
           
           const breadcrumbElement = document.getElementById(breadcrumb_element_id);
           breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+          breadcrumbElement.addEventListener("keydown", (e) => {
+            if (e.key === 'Enter') breadcrumbClickHandler()
+          });
       }
       removeFilter();
     </script>
@@ -109,6 +114,7 @@
   </div>
   {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
   <div
+    tabindex="0"
     id="{{ breadcrumb_clear_all_element_id }}"
     class="findify-filters-breadcrumbs-clear-all"
     selected="true">
@@ -127,6 +133,9 @@
         }
 
         breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
+        breadcrumbClearAllElement.addEventListener("keydown", (e) => {
+          if(e.key === 'Enter') breacrumbClearAllClickHandler();
+        });
     }
     removeAllFilters();
         

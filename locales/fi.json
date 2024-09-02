@@ -15,7 +15,10 @@
       "under": " Alle",
       "clear_all": " Poista kaikki",
       "go": "mene",
-      "see_results": "See results"
+      "see_results": "See results",
+      "min_price": "Minimihinta",
+      "max_price": "Maksimihinta",
+      "search_for": "Etsi {{ term }}"
     },
     "sorting": {
       "sort_by": "Rajaa seuraavan mukaan"
