@@ -12,7 +12,7 @@
 
 <div
   id="findify-autocomplete"
-  class="findify-autocomplete findify-autocomplete-fullscreen hidden"
+  class="findify-autocomplete findify-autocomplete-fullscreen hidden {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}"
 >
 {% if results_count == "0" %}
   <div class="findify-zero-result-container">

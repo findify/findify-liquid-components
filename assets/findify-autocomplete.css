@@ -347,6 +347,9 @@ body {
 .findify-autocomplete-fullscreen .findify-autocomplete-content {
   display: flex;
 }
+.findify-autocomplete-fullscreen.suggestions-horizontal .findify-autocomplete-content{
+  flex-direction: column;
+}
 
 .findify-autocomplete-fullscreen .suggestions-wrapper {
   flex: 0.5;
