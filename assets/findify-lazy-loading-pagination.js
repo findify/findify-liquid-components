@@ -120,34 +120,36 @@ const initFindifyLazyLoadingPagination = (
     const productData = sessionStorage.getItem("product");
     if (!productData) return;
 
-    const id = productData.split(":")[1];
+    const parsedProductData = JSON.parse(productData);
+    const currentUrl = window.location.href;
+    const { url, id } = parsedProductData;
 
+    if (currentUrl == url) {
+      const product = document.body.querySelector(
+        `#findify-product-grid>div[product-id=product-${id}]`
+      );
+      const { top, height } = product.getBoundingClientRect();
 
-    const product = document.body.querySelector(
-      `#findify-product-grid>div[product-id=product-${id}]`
-    );
-    const { top, height } = product.getBoundingClientRect();
+      const loader = document.getElementById(selectors.loader);
+      const paginationContainer = document.querySelector(
+        `#findify-pagination > .${selectors.paginationContainer}`
+      );
 
-    const loader = document.getElementById(selectors.loader);
-    const paginationContainer = document.querySelector(
-      `#findify-pagination > .${selectors.paginationContainer}`
-    );
+      removeLoader();
 
-    removeLoader();
-
-    window.scrollTo({
-      top: top + window.scrollY - height,
-      behavior: "smooth",
-    });
-    paginationContainer.parentElement.insertBefore(
-      loader,
-      paginationContainer
-    );
-    setTimeout(() => {
-      sessionStorage.removeItem("product");
-      initNextEvents();
-    }, 500);
-
+      window.scrollTo({
+        top: top + window.scrollY - height,
+        behavior: "smooth",
+      });
+      paginationContainer.parentElement.insertBefore(
+        loader,
+        paginationContainer
+      );
+      setTimeout(() => {
+        sessionStorage.removeItem("product");
+        initNextEvents();
+      }, 500);
+    }
   };
 
   const init = () => {
@@ -157,3 +159,29 @@ const initFindifyLazyLoadingPagination = (
   };
   init();
 };
+
+const initScrollToProductForPagination = () => {
+  const productData = sessionStorage.getItem("product");
+  if (!productData) return;
+ 
+  const parsedProductData = JSON.parse(productData);
+  const currentUrl = window.location.href;
+  const { url, id } = parsedProductData;
+
+  if (currentUrl == url) {
+
+    const product = document.body.querySelector(
+      `#findify-product-grid>div[product-id=product-${id}]`
+    );
+    const { top, height } = product.getBoundingClientRect();
+
+    window.scrollTo({
+      top: top + window.scrollY - height,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      sessionStorage.removeItem("product");
+    }, 500);
+  }
+}

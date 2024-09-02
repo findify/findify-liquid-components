@@ -192,6 +192,10 @@
         initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
       }
 
+      if("{{ use_lazy_loading_pagination }}" == "false") {
+        initScrollToProductForPagination();
+      }
+
       setFindifyIsLoading(false);
     } else {
       const id = "{{ recommendation_id }}";
@@ -214,7 +218,7 @@
       findify.core.init.then(() => {
         initRecommendation();
 
-        window.addEventListener('popstate', () => {
+        window.addEventListener('popstate', () => { 
           initRecommendation();
         });
       });
