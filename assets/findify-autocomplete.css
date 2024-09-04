@@ -481,12 +481,6 @@ body {
     flex-direction: column;
   }
 
-  /*  
-  .findify-autocomplete .findify-products-container > div{
-    flex-basis: 50%;
-    max-width: 50%;
-  }
-  */
   .findify-autocomplete .findify-products-container > div {
     flex-basis: auto;
     max-width: initial;
