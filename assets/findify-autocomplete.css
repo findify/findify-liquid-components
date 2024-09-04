@@ -365,7 +365,7 @@ body {
 
 /* slide-in */
 .findify-autocomplete.findify-autocomplete-slide-in,
-.findify-autocomplete.findify-autocomplete-slide-in {
+.findify-autocomplete.findify-autocomplete-slide-in.findify-hidden {
   right: -100%;
   display: block !important;
   opacity: 0;
