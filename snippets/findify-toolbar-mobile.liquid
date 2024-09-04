@@ -35,7 +35,7 @@
 
     const toggleFilterSection = () => {
       containerElement.classList.toggle(openClass);
-      document.documentElement.classList.toggle("no-scroll");
+      document.documentElement.classList.toggle("findify-no-scroll");
     }
 
     const filterToggleSidepanelElement = document.getElementById(filter_toggle_sidepanel_element_id);
@@ -43,7 +43,7 @@
     document.addEventListener('keyup', e => {
       if (e.code == 'Escape'){
         containerElement.classList.remove(openClass);
-        document.documentElement.classList.remove("no-scroll");
+        document.documentElement.classList.remove("findify-no-scroll");
       }
     })
     /*

@@ -138,7 +138,7 @@ b {
   color: var(--findify-text-color);
 }
 
-.hidden {
+.findify-hidden {
   display: none !important;
 }
 

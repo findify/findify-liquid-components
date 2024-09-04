@@ -6,15 +6,15 @@
   assign submit_btn_selector_id = 'findify-price-submit-btn'
 %}
 
-<div class="price-range-container">
-  <div class="price-range-content">
+<div class="findify-price-range-container">
+  <div class="findify-price-range-content">
     <div class="findify-price-range-input-container">
       <input
         aria-label="{{'findify.filters.min_price' | t }}"
         min="{{ min_value }}"
         max="{{ max_value }}"
         type="number"
-        class="price-range-input"
+        class="findify-price-range-input"
         id="{{ input_from_selector_id }}">
       <span>{{ currency }}</span>
     </div>
@@ -25,7 +25,7 @@
         min="{{ min_value }}"
         max="{{ max_value }}"
         type="number"
-        class="price-range-input"
+        class="findify-price-range-input"
         id="{{ input_to_selector_id }}">
       <span>{{ currency }}</span>
     </div>

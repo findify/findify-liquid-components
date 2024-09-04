@@ -1,17 +1,17 @@
 {% liquid
-  assign slider_container_selector = 'slider-container'
-  assign range_input_selector = 'range-input'
-  assign price_input_selector = 'price-input'
+  assign slider_container_selector = 'findify-slider-container'
+  assign range_input_selector = 'findify-range-input'
+  assign price_input_selector = 'findify-price-input'
 
-  assign min_range_selector = 'min-range'
-  assign max_range_selector = 'max-range'
+  assign min_range_selector = 'findify-min-range'
+  assign max_range_selector = 'findify-max-range'
 
-  assign min_input_selector = 'min-input'
-  assign max_input_selector = 'max-input'
+  assign min_input_selector = 'findify-min-input'
+  assign max_input_selector = 'findify-max-input'
 %}
-<div class="price-input-container">
+<div class="findify-price-input-container">
   <div class="{{slider_container_selector}}">
-    <div class="price-slider"></div>
+    <div class="findify-price-slider"></div>
     <div class="{{range_input_selector}}">
       <input
         type="range"
@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="{{price_input_selector}}">
-    <div class="price-field">
+    <div class="findify-price-field">
       <input
         type="hidden"
         class="{{min_input_selector}}"
@@ -42,7 +42,7 @@
           {{ from }}{% endif %}
       </div>
     </div>
-    <div class="price-field">
+    <div class="findify-price-field">
       <input
         type="hidden"
         class="{{max_input_selector}}"
@@ -63,7 +63,7 @@
     const min_input_selector = '.{{min_input_selector}}.div';
     const max_input_selector = '.{{max_input_selector}}.div';
     const price_slider_selector =
-      '.{{slider_container_selector}} .price-slider';
+      '.{{slider_container_selector}} .findify-price-slider';
     const range_input_selector = '.{{range_input_selector}} input';
     const price_input_selector = '.{{price_input_selector}} input';
 

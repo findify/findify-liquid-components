@@ -46,7 +46,7 @@
     const filterClickHandler = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      document.documentElement.classList.remove('no-scroll');
+      document.documentElement.classList.remove('findify-no-scroll');
       findify.filters.update({ value, type, name });
     };
 

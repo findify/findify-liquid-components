@@ -12,7 +12,7 @@
 
 <div
   id="findify-autocomplete"
-  class="findify-autocomplete findify-autocomplete-fullscreen hidden {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}"
+  class="findify-autocomplete findify-autocomplete-fullscreen findify-hidden {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}"
 >
 {% if results_count == "0" %}
   <div class="findify-zero-result-container">
@@ -24,7 +24,7 @@
 {% else %}
   <div class="findify-autocomplete-content">
     <div class="
-      suggestions-wrapper 
+      findify-suggestions-wrapper 
       {% if desktop_suggestion_template == 'horizontal' %} suggestions-horizontal {% endif %}
       mobile-{{ mobile_suggestion_template }}
     ">
@@ -56,7 +56,7 @@
       %}
     </div>
 
-    <div class="products-wrapper">
+    <div class="findify-products-wrapper">
       <div class="findify-autocomplete-title-wrapper">
         <h2>{{ productsTitle }}</h2>
         {% render 'findify-autocomplete-view-all',
@@ -67,7 +67,7 @@
       </div>
       <div 
         id="findify-autocomplete-products" 
-        class="products-container mobile-products-per-row-{{ mobile_products_per_row }}"
+        class="findify-products-container findify-mobile-products-per-row-{{ mobile_products_per_row }}"
       />
       <button class="findify-close-autocomplete">
         {% render 'findify-icon-cross' %}

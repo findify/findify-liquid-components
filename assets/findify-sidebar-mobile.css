@@ -14,7 +14,7 @@
 }
 
 .findify-search-section.filters-drawer{
-  .no-scroll {
+  .findify-no-scroll {
     overflow: hidden;
   }
 
@@ -91,7 +91,7 @@
   }
 }
 @media (max-width: 768px){
-  .no-scroll {
+  .findify-no-scroll {
     overflow: hidden;
   }
 

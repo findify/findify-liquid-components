@@ -23,7 +23,7 @@
 }
 
 .findify-filters-breadcrumb-item .solid-circle,
-.findify-filters-breadcrumb-item .circle-with-label {
+.findify-filters-breadcrumb-item .findify-circle-with-label {
   height: 25px;
   width: 25px;
 }

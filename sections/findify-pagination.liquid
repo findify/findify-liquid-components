@@ -37,13 +37,13 @@
       class="pagination"
       role="navigation"
       aria-label="{{ 'general.pagination.label' | t }}">
-      <ul class="pagination__list list-unstyled" role="list">
+      <ul class="findify-pagination__list list-unstyled" role="list">
         {%- if previous -%}
           <li>
             <a
               data-value='{{ previous_title }}'
               href="{{ previous_url }}{{ anchor }}"
-              class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
+              class="findify-pagination__item findify-pagination__item--next findify-pagination__item-arrow link motion-reduce"
               aria-label="{{ 'general.pagination.previous' | t }}">
               {% render 'findify-icon-arrow' %}
             </a>
@@ -64,18 +64,18 @@
               <a
                 href="{{ url }}{{ anchor }}"
                 data-value='{{ title }}'
-                class="pagination__item link"
+                class="findify-pagination__item link"
                 aria-label="{{ 'general.pagination.page' | t: number: title }}">{{ title }}</a>
             {%- else -%}
               {%- if title == current_page -%}
                 <a
                   role="link"
                   aria-disabled="true"
-                  class="pagination__item pagination__item--current light"
+                  class="findify-pagination__item findify-pagination__item--current light"
                   aria-current="page"
                   aria-label="{{ 'general.pagination.page' | t: number: title }}">{{ title }}</a>
               {%- else -%}
-                <span class="pagination__item">{{ title }}</span>
+                <span class="findify-pagination__item">{{ title }}</span>
               {%- endif -%}
             {%- endif -%}
           </li>
@@ -86,7 +86,7 @@
             <a
               data-value='{{ next_title }}'
               href="{{ next_url }}{{ anchor }}"
-              class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce"
+              class="findify-pagination__item findify-pagination__item--prev findify-pagination__item-arrow link motion-reduce"
               aria-label="{{ 'general.pagination.next' | t }}">
               {%- render 'findify-icon-arrow' -%}
             </a>

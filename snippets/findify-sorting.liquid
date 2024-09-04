@@ -142,7 +142,7 @@
 
                 const containerElement = document.getElementById(sorting_sidepanel_element_id);
                 containerElement.classList.remove(openClass);
-                document.documentElement.classList.remove("no-scroll");
+                document.documentElement.classList.remove("findify-no-scroll");
               }
 
               const option = document.getElementById(sorting_option_element_id);
@@ -167,7 +167,7 @@
       const toggleFilterSection = () => {
         const containerElement = document.getElementById(sorting_sidepanel_element_id);
         containerElement.classList.toggle(openClass);
-        document.documentElement.classList.toggle("no-scroll");
+        document.documentElement.classList.toggle("findify-no-scroll");
       }
 
       const sortingToggler = document.getElementById(sorting_btn_element_id);
