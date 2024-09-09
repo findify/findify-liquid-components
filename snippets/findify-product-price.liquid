@@ -7,13 +7,18 @@
 
   assign price = target.price | money
   assign compare_at_price = target.compare_at_price | money
+  assign has_discount = false
 -%}
-
+{% if target.price != target.compare_at_price
+  and target.price < target.compare_at_price
+%}
+  {% assign has_discount = true %}
+{% endif %}
 <div>
-  <span class="findify-product-price {%if compare_at_price != '' and price != compare_at_price %} findify-product-price-with-compare{% endif %}">
+  <span class="findify-product-price {%if has_discount %} findify-product-price-with-compare{% endif %}">
     {{ price }}
   </span>
-  {% if price != compare_at_price %}
+  {% if has_discount %}
     <span class="findify-product-price-compare-at">
       <s>
         {{ compare_at_price }}
