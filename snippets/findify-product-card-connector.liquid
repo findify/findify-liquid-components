@@ -16,7 +16,7 @@
   if query_parameters contains "showHoverImage="
     assign showHoverImage = query_parameters | split: "showHoverImage=" | last | split: "&" | first
   endif
-   
+
   # Product metadata
   assign colormap = query_parameters | split: "colormap=" | last | split: "&" | first | split: ';'
   assign position = query_parameters | split: "position=" | last | split: "&" | first

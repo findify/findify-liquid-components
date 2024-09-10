@@ -1,0 +1,113 @@
+{%- liquid
+  # Product template settings
+  if findify_product contains "class="
+    assign class = findify_product | split: "class=" | last | split: "&" | first
+  endif
+  assign widget = findify_product | split: "widget=" | last | split: "&" | first
+
+  # Product Collection Slot
+  if findify_product contains "collectionSlot="
+    assign collection_slot = findify_product | split: "collectionSlot=" | last | split: "&" | first
+  endif
+  # Product Show Hover Image
+  if findify_product contains "showHoverImage="
+    assign showHoverImage = findify_product | split: "showHoverImage=" | last | split: "&" | first
+  endif
+
+  # Product metadata
+  assign colormap = findify_product | split: "colormap=" | last | split: "&" | first | split: ';'
+  assign position = findify_product | split: "position=" | last | split: "&" | first
+  assign page = page_url | split: 'page=' | last | split: '&' | first | plus: 0
+
+  if findify_product contains "handler="
+    assign handler = findify_product | split: "handler=" | last | split: "&" | first | url_decode
+    assign product = all_products[handler]
+  endif
+
+  # Product Findify variants fields
+  if findify_product contains "variants="
+    assign variants_parameters = findify_product | split: "variants=" | last | split: "&" | first
+    assign variants = variants_parameters | url_decode | split: "^"
+    # for variant in variants and then parse and assign values
+
+    # Variants may have same property as products, and so "regexes" may conflict picking wrong values, removing variants from here
+    assign variants_whole_block = "variants=" | append: variants_parameters
+    assign findify_product_splitted_by_variants = findify_product | split: variants_whole_block
+    assign findify_product_leftside = findify_product_splitted_by_variants[0]
+    assign findify_product_rightside = findify_product_splitted_by_variants[1] | replace_first: "&", ""
+    assign findify_product = findify_product_leftside | append: findify_product_rightside
+  endif
+
+  # Product Findify fields
+  if findify_product contains "availability="
+    assign availability = findify_product | split: "availability=" | last | split: "&" | first
+  endif
+  if findify_product contains "color="
+    assign colors = findify_product | split: "color=" | last | split: "&" | first | url_decode | split: ";"
+  endif
+  if findify_product contains "selected_variant_id="
+    assign selected_variant_id = findify_product | split: "selected_variant_id=" | last | split: "&" | first
+    for variant in product.variants
+      assign current_variant_id_number = selected_variant_id | plus: 0
+      if variant.id == current_variant_id_number
+        assign current_variant = variant
+      endif
+    endfor
+  endif
+  if findify_product contains "item_group_id="
+    assign item_group_id = findify_product | split: "item_group_id=" | last | split: "&" | first
+  endif
+  if findify_product contains "id="
+    assign id = findify_product | split: "id=" | last | split: "&" | first
+  endif
+  if findify_product contains "category="
+    assign category = findify_product | split: "category=" | last | split: "&" | first | url_decode
+  endif
+  if findify_product contains "price="
+    assign price = findify_product | split: "price=" | last | split: "&" | first
+  endif
+  # Manipulating product.url to add variant and collection awareness with locale awareness
+  if product.url contains "?"
+    assign product_url_dto = product.url | append: "&variant=" | append: selected_variant_id
+  else
+    assign product_url_dto = product.url | append: "?variant=" | append: selected_variant_id
+  endif
+  if product_url_dto contains routes.root_url and routes.root_url != '/'
+    assign product_url_dto = product_url_dto | replace: routes.root_url, ''
+  endif
+  assign product_url = routes.root_url | append: collection_slot | append: product_url_dto | replace: '//', '/'
+  if findify_product contains "quantity="
+    assign quantity = findify_product | split: "quantity=" | last | split: "&" | first
+  endif
+  if findify_product contains "size="
+    assign sizes = findify_product | split: "size=" | last | split: "&" | first | split: "^" | url_decode
+  endif
+  if findify_product contains "sku="
+    assign sku = findify_product | split: "sku=" | last | split: "&" | first
+  endif
+  if findify_product contains "tags="
+    assign tags = findify_product | split: "tags=" | last | split: "&" | first
+  endif
+  if findify_product contains "stickers="
+    assign stickers = findify_product | split: "stickers=" | last | split: "&" | first
+  endif
+  if findify_product contains "reviews.count="
+    assign reviews_count = findify_product | split: "reviews.count=" | last | split: "&" | first
+  endif
+  if findify_product contains "reviews.average_score="
+    assign reviews = findify_product | split: "reviews.average_score=" | last | split: "&" | first
+  endif
+  if findify_product contains "brand="
+    assign brand = findify_product | split: "brand=" | last | split: "&" | first | url_decode
+  endif
+  if findify_product contains "title="
+    assign title = findify_product | split: "title=" | last | split: "&" | first | url_decode
+  endif
+  # Product Findify custom fields
+  if findify_product contains "custom_fields="
+    assign custom_fields = findify_product | split: "custom_fields=" | last | split: "&" | first
+    # if custom_fields contains "example_field"
+    # assign example_field = custom_fields | split: "example_field=" | last | split: "~" | first | url_decode
+    # endif
+  endif
+-%}
