@@ -26,7 +26,7 @@
 .findify-tab:disabled > label {
   color: #c0c0c0;
 }
-.findify-tab.active {
+.findify-tab.findify-active {
   pointer-events: none;
   color: var(--findify-text-color);
   cursor: default;

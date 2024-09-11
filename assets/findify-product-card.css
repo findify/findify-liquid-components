@@ -10,7 +10,7 @@
   min-height: 380px;
 }
 
-.adapt {
+.findify-adapt {
   width: 100%;
   aspect-ratio: 1/1.5;
   object-fit: cover;

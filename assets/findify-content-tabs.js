@@ -25,10 +25,10 @@ const initFindifyTabsEvents = () => {
     }
     tabs = document.querySelectorAll(selectors.tab);
     for (i = 0; i < tabs.length; i++) {
-      tabs[i].className = tabs[i].className.replace(" active", "");
+      tabs[i].className = tabs[i].className.replace(" findify-active", "");
     }
     document.getElementById(selectors.id(tab_id)).style.display = "block";
-    event.currentTarget.className += " active";
+    event.currentTarget.className += " findify-active";
   };
 
   const init = () => {
