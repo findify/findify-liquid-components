@@ -1,6 +1,6 @@
 {% assign breadcrumb_container_element_id = 'breadcrumb-container-' | append: component_id | replace: ' ', '' %}
 <div id="{{ breadcrumb_container_element_id }}" class="findify-filters-breadcrumbs-body">
-  {%- assign filters = active_filters | split: ";" -%}
+  {%- assign filters = active_filters | split: ';' -%}
   {% for filter in filters %}
     {% liquid
       assign parts = filter | split: '~'
@@ -38,7 +38,8 @@
       selected="true"
       type="{{type}}"
       name="{{name}}"
-      value="{{value}}">
+      value="{{value}}"
+    >
       {% case type %}
         {% when 'range' %}
           {% case name %}
@@ -52,9 +53,15 @@
                 endif
               %}
               {% if fromDisplay == 'undefined' %}
-                <span>{{ 'findify.filters.under' | t }} {{ toDisplay }}</span>
+                <span>
+                  {{- 'findify.filters.under' | t }}
+                  {{ toDisplay -}}
+                </span>
               {% elsif toDisplay == 'undefined' %}
-                <span>{{ fromDisplay }} {{ 'findify.filters.and_up' | t }}</span>
+                <span>
+                  {{- fromDisplay }}
+                  {{ 'findify.filters.and_up' | t -}}
+                </span>
               {% else %}
                 {{ fromDisplay }} - {{ toDisplay }}
               {% endif %}
@@ -63,8 +70,7 @@
           {% case name %}
             {% when 'color' %}
               {% case color_layout %}
-                {% when 'color'
-                  , 'color_with_label' %}
+                {% when 'color', 'color_with_label' %}
                   <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
                   {% if color_layout == 'color_with_label' %}
                     {{ value }}
@@ -79,27 +85,26 @@
           {% endcase %}
       {% endcase %}
       <div class="findify-filters-breadcrumb-close">
-        {% render 'findify-icon-cross'
-          , size: 8 %}
+        {% render 'findify-icon-cross', size: 8 %}
       </div>
     </div>
     <script>
       const removeFilter = () => {
-          const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
+        const breadcrumb_element_id = '{{ breadcrumb_element_id }}';
 
-          const name = "{{ name }}";
-          const type = "{{ type }}";
-          const value = "{{ value }}";
+        const name = '{{ name }}';
+        const type = '{{ type }}';
+        const value = '{{ value }}';
 
-          const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
-          
-          const breadcrumbElement = document.getElementById(breadcrumb_element_id);
-          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
-          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
-          breadcrumbElement.addEventListener("keydown", (e) => {
-            if (e.key === 'Enter') breadcrumbClickHandler()
-          });
-      }
+        const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
+
+        const breadcrumbElement = document.getElementById(breadcrumb_element_id);
+        breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+        breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+        breadcrumbElement.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') breadcrumbClickHandler();
+        });
+      };
       removeFilter();
     </script>
   {% endfor %}
@@ -108,8 +113,7 @@
   <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
     <small></small>
     <div class="findify-filters-breadcrumb-close">
-      {% render 'findify-icon-arrow'
-        , size: 8 %}
+      {% render 'findify-icon-arrow', size: 8 %}
     </div>
   </div>
   {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
@@ -117,78 +121,78 @@
     tabindex="0"
     id="{{ breadcrumb_clear_all_element_id }}"
     class="findify-filters-breadcrumbs-clear-all"
-    selected="true">
+    selected="true"
+  >
     <muted>{{ 'findify.filters.clear_all' | t }}</muted>
   </div>
 </div>
 
 <script>
-    const removeAllFilters = () => {
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-        const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
+  const removeAllFilters = () => {
+    const breadcrumb_clear_all_element_id = '{{ breadcrumb_clear_all_element_id }}';
+    const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
 
-        const openClass = 'open-left';
-        const breacrumbClearAllClickHandler =  () => {
-          findify.filters.reset();
-        }
-
-        breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
-        breadcrumbClearAllElement.addEventListener("keydown", (e) => {
-          if(e.key === 'Enter') breacrumbClearAllClickHandler();
-        });
-    }
-    removeAllFilters();
-        
-    const showMore = () => {
-        const show_all = "{{ show_all }}" === "true";
-        if(show_all) return;
-
-        const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
-        const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
-        const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-
-        const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
-        if (!breadcrumbsContainer) return;
-        const showMore = document.getElementById(breadcrumb_show_more_element_id);
-
-        const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
-        const gap = 15;
-        const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
-
-        let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
-        const containerWidth = breadcrumbsContainer.offsetWidth;
-        const hiddenBreadcrumbs = [];
-
-        for (const breadcrumb of breadcrumbs) {
-            const breadcrumbWidth = breadcrumb.offsetWidth;
-            totalBreadcrumbsWidth += breadcrumbWidth + gap;
-
-            if (totalBreadcrumbsWidth > containerWidth) {
-                breadcrumb.style.display = "none";
-                hiddenBreadcrumbs.push(breadcrumb);
-            }
-        }
-
-        if (hiddenBreadcrumbs.length > 0) {
-            const showMoreTextContainer = showMore.querySelector("small");
-            showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
-
-            showMore.addEventListener("click", () => {
-                showMore.classList.toggle("open");
-                const showMoreText = showMoreTextContainer.textContent;
-                const newShowMoreText = showMoreText === "Less" ? `${hiddenBreadcrumbs.length} more` : "Less";
-
-                for (const breadcrumb of hiddenBreadcrumbs) {
-                    breadcrumb.style.display = breadcrumb.style.display === "none" ? "" : "none";
-                }
-
-                showMoreTextContainer.textContent = newShowMoreText;
-            });
-        } else {
-            showMore.style.display = "none";
-        }
+    const openClass = 'open-left';
+    const breacrumbClearAllClickHandler = () => {
+      findify.filters.reset();
     };
-    showMore();
 
+    breadcrumbClearAllElement.addEventListener('click', breacrumbClearAllClickHandler);
+    breadcrumbClearAllElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') breacrumbClearAllClickHandler();
+    });
+  };
+  removeAllFilters();
+
+  const showMore = () => {
+    const show_all = '{{ show_all }}' === 'true';
+    if (show_all) return;
+
+    const breadcrumb_container_element_id = '{{ breadcrumb_container_element_id }}';
+    const breadcrumb_show_more_element_id = '{{ breadcrumb_show_more_element_id }}';
+    const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
+    const breadcrumb_clear_all_element_id = '{{ breadcrumb_clear_all_element_id }}';
+
+    const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
+    if (!breadcrumbsContainer) return;
+    const showMore = document.getElementById(breadcrumb_show_more_element_id);
+
+    const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
+    const gap = 15;
+    const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
+
+    let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
+    const containerWidth = breadcrumbsContainer.offsetWidth;
+    const hiddenBreadcrumbs = [];
+
+    for (const breadcrumb of breadcrumbs) {
+      const breadcrumbWidth = breadcrumb.offsetWidth;
+      totalBreadcrumbsWidth += breadcrumbWidth + gap;
+
+      if (totalBreadcrumbsWidth > containerWidth) {
+        breadcrumb.style.display = 'none';
+        hiddenBreadcrumbs.push(breadcrumb);
+      }
+    }
+
+    if (hiddenBreadcrumbs.length > 0) {
+      const showMoreTextContainer = showMore.querySelector('small');
+      showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
+
+      showMore.addEventListener('click', () => {
+        showMore.classList.toggle('open');
+        const showMoreText = showMoreTextContainer.textContent;
+        const newShowMoreText = showMoreText === 'Less' ? `${hiddenBreadcrumbs.length} more` : 'Less';
+
+        for (const breadcrumb of hiddenBreadcrumbs) {
+          breadcrumb.style.display = breadcrumb.style.display === 'none' ? '' : 'none';
+        }
+
+        showMoreTextContainer.textContent = newShowMoreText;
+      });
+    } else {
+      showMore.style.display = 'none';
+    }
+  };
+  showMore();
 </script>
