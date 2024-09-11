@@ -78,7 +78,7 @@ const initFindifyLazyLoadingPagination = (
     }
     if (showLoadMoreButton) {
       const nextBtnElement = document.getElementById(selectors.nextBtn);
-      nextBtnElement.classList.toggle('hidden');
+      nextBtnElement.classList.toggle('findify-hidden');
     }
   };
 
