@@ -26,7 +26,8 @@ const initProductCardAnalytics = (id, properties) => {
 };
 
 const savePosition = (id, page) => {
-  sessionStorage.setItem('product', `${page}:${id}`)
+  const url = window.location.href
+  sessionStorage.setItem('product', JSON.stringify({id, url, page}))
 }
 
 const initOnProductCardClick = (id, page, properties) => {
@@ -50,7 +51,7 @@ const setProductUrl = (productCard, url) => {
 const onSwatchClick = (event, product_url, variant_url, variant_image) => {
   
   const targetedSwatch = event.target;
-  const productCard = targetedSwatch.closest('div[id].findify-product-card');
+  const productCard = targetedSwatch.closest('div[id].findify-product-card'); 
   const swatchImage = productCard.querySelector(`.findify-product-swatch-image`);
   
   if(targetedSwatch.classList.contains('active')) {

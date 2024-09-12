@@ -1,5 +1,5 @@
-a:not(.button),
-a:visited:not(.button) {
+.findify-product-link:not(.button),
+.findify-product-link:visited:not(.button) {
   text-decoration: none;
   color: unset;
 }
@@ -44,20 +44,20 @@ a:visited:not(.button) {
   color: var(--findify-text-secondary-color);
 }
 
-.image-container {
+.findify-image-container {
   position: relative;
   padding-top: var(--findify-product-card-aspect-ratio);
   display: inline-block;
   width: 100%;
 }
-.image-container img {
+.findify-image-container img {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
 }
 
-.image-container .second-image {
+.findify-image-container .findify-second-image {
   display: none;
   position: absolute;
   top: 0;
@@ -65,7 +65,7 @@ a:visited:not(.button) {
   z-index: 1;
 }
 
-.image-container:hover .second-image {
+.findify-image-container:hover .findify-second-image {
   display: inline;
 }
 

@@ -135,6 +135,10 @@
         initFindifyLazyLoadingPagination("{{lazy_loading_pagination_threshold}}");
       }
 
+      if("{{ use_lazy_loading_pagination }}" == "false") { 
+        initScrollToProductForPagination();
+      }
+
       setFindifyIsLoading(false);
   </script>
 </div>
