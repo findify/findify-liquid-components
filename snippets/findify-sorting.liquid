@@ -8,12 +8,18 @@
     assign sorting_dropdown_btn_element_id = 'sorting-dropdown-btn'
     assign sorting_dropdown_body_element_id = 'sorting-dropdown-body'
   %}
-  <div id="{{ sorting_dropdown_body_element_id }}" class="findify-sorting desktop">
+  <div
+    id="{{ sorting_dropdown_body_element_id }}"
+    class="findify-sorting findify-desktop"
+  >
     <div class="findify-sorting-body">
       <span>
         {{ 'findify.sorting.sort_by' | t }}
       </span>
-      <button id="{{ sorting_dropdown_btn_element_id }}" class="findify-sorting-btn">
+      <button
+        id="{{ sorting_dropdown_btn_element_id }}"
+        class="findify-sorting-btn"
+      >
         {{ selectedLabel | url_decode }}
         {% render 'findify-icon-arrow' %}
       </button>
@@ -24,7 +30,11 @@
         {% assign label = parts[0] | url_decode %}
         {% assign field = parts[1] %}
         {% assign order = parts[2] %}
-        {% assign sorting_option_element_id = 'sorting-dropdown-option-' | append: field | append: '-' | append: order %}
+        {% assign sorting_option_element_id = 'sorting-dropdown-option-'
+          | append: field
+          | append: '-'
+          | append: order
+        %}
 
         {% if field == selectedField and order == selectedOrder %}
         {% else %}
@@ -41,7 +51,7 @@
           <script>
             const sortingOption = () => {
               const sorting_sidepanel_element_id = '{{ sorting_sidepanel_element_id }}';
-              const openClass = 'open-right';
+              const openClass = 'findify-open-right';
               const sorting_option_element_id = '{{ sorting_option_element_id }}';
               const order = '{{ order }}';
               const field = '{{ field }}';
@@ -66,7 +76,7 @@
       const sortingDropdown = () => {
         const sorting_dropdown_btn_element_id = '{{ sorting_dropdown_btn_element_id }}';
         const sorting_dropdown_body_element_id = '{{ sorting_dropdown_body_element_id }}';
-        const openClass = 'open';
+        const openClass = 'findify-open';
 
         const onSortingDropdownBtnClickHandler = () => {
           const body = document.getElementById(sorting_dropdown_body_element_id);
@@ -101,17 +111,25 @@
     assign close_sorting_element_id = 'findify-close-btn'
     assign see_results_element_id = 'findify-see-results-btn'
   %}
-  <div id="findify-sorting-mobile" class="findify-sorting mobile">
+  <div id="findify-sorting-mobile" class="findify-sorting findify-mobile">
     <div class="findify-sorting-body">
-      <button id="{{ sorting_btn_element_id }}" class="findify-search-actions-toggle-btn">
+      <button
+        id="{{ sorting_btn_element_id }}"
+        class="findify-search-actions-toggle-btn"
+      >
         {% render 'findify-icon-sorting' %}
         {{ 'findify.sorting.sort_by' | t }}
       </button>
     </div>
 
-    <aside id="{{ sorting_sidepanel_element_id }}" class="findify-sorting-sidebar">
+    <aside
+      id="{{ sorting_sidepanel_element_id }}"
+      class="findify-sorting-sidebar"
+    >
       <button id="{{ close_sorting_element_id }}" class="findify-modal-header">
-        <span class="findify-modal-header-title">{{ 'findify.sorting.sort_by' | t }}</span>
+        <span class="findify-modal-header-title">
+          {{- 'findify.sorting.sort_by' | t -}}
+        </span>
         {% render 'findify-icon-cross' %}
       </button>
       <ul class="findify-sorting-mobile-list">
@@ -120,8 +138,16 @@
           {% assign label = parts[0] | url_decode %}
           {% assign field = parts[1] %}
           {% assign order = parts[2] %}
-          {% assign sorting_option_element_id = 'sorting-sidebar-option-' | append: field | append: '-' | append: order %}
-          <li tabindex="0" id="{{ sorting_option_element_id }}" class="findify-sorting-option">
+          {% assign sorting_option_element_id = 'sorting-sidebar-option-'
+            | append: field
+            | append: '-'
+            | append: order
+          %}
+          <li
+            tabindex="0"
+            id="{{ sorting_option_element_id }}"
+            class="findify-sorting-option"
+          >
             <input
               type="radio"
               {% if field == selectedField and order == selectedOrder %}
@@ -134,7 +160,7 @@
           <script>
             const sortingOption = () => {
               const sorting_sidepanel_element_id = '{{ sorting_sidepanel_element_id }}';
-              const openClass = 'open-right';
+              const openClass = 'findify-open-right';
               const sorting_option_element_id = '{{ sorting_option_element_id }}';
               const order = '{{ order }}';
               const field = '{{ field }}';
@@ -145,7 +171,7 @@
 
                 const containerElement = document.getElementById(sorting_sidepanel_element_id);
                 containerElement.classList.remove(openClass);
-                document.documentElement.classList.remove('no-scroll');
+                document.documentElement.classList.remove('findify-no-scroll');
               };
 
               const option = document.getElementById(sorting_option_element_id);
@@ -165,12 +191,12 @@
       const sorting_sidepanel_element_id = '{{ sorting_sidepanel_element_id }}';
       const close_sorting_element_id = '{{ close_sorting_element_id }}';
       const see_results_element_id = '{{ see_results_element_id }}';
-      const openClass = 'open-right';
+      const openClass = 'findify-open-right';
 
       const toggleFilterSection = () => {
         const containerElement = document.getElementById(sorting_sidepanel_element_id);
         containerElement.classList.toggle(openClass);
-        document.documentElement.classList.toggle('no-scroll');
+        document.documentElement.classList.toggle('findify-no-scroll');
       };
 
       const sortingToggler = document.getElementById(sorting_btn_element_id);
@@ -185,7 +211,7 @@
       /*
        * Add additional classes conditioned by media queries
        */
-      const mobileContainerClasses = ['findify-modal', 'animated-right', 'right'];
+      const mobileContainerClasses = ['findify-modal', 'findify-animated-right', 'findify-right'];
       const container = document.getElementById(sorting_sidepanel_element_id);
       mobileContainerClasses.forEach((c) => container?.classList.add(c));
     };

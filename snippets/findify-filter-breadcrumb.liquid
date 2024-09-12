@@ -71,7 +71,9 @@
             {% when 'color' %}
               {% case color_layout %}
                 {% when 'color', 'color_with_label' %}
-                  <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
+                  <span
+                    class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} findify-solid-circle {{ color_layout }}"
+                  ></span>
                   {% if color_layout == 'color_with_label' %}
                     {{ value }}
                   {% endif %}
@@ -90,11 +92,11 @@
     </div>
     <script>
       const removeFilter = () => {
-        const breadcrumb_element_id = '{{ breadcrumb_element_id }}';
+        const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
 
-        const name = '{{ name }}';
-        const type = '{{ type }}';
-        const value = '{{ value }}';
+        const name = "{{ name }}";
+        const type = "{{ type }}";
+        const value = "{{ value }}";
 
         const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
 
@@ -110,7 +112,10 @@
   {% endfor %}
 
   {% assign breadcrumb_show_more_element_id = 'breadcrumb-show-more-' | append: component_id %}
-  <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
+  <div
+    id="{{ breadcrumb_show_more_element_id }}"
+    class="findify-filters-breadcrumbs-show-more"
+  >
     <small></small>
     <div class="findify-filters-breadcrumb-close">
       {% render 'findify-icon-arrow', size: 8 %}
@@ -132,7 +137,7 @@
     const breadcrumb_clear_all_element_id = '{{ breadcrumb_clear_all_element_id }}';
     const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
 
-    const openClass = 'open-left';
+    const openClass = 'findify-open-left';
     const breacrumbClearAllClickHandler = () => {
       findify.filters.reset();
     };
@@ -180,7 +185,7 @@
       showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
 
       showMore.addEventListener('click', () => {
-        showMore.classList.toggle('open');
+        showMore.classList.toggle('findify-open');
         const showMoreText = showMoreTextContainer.textContent;
         const newShowMoreText = showMoreText === 'Less' ? `${hiddenBreadcrumbs.length} more` : 'Less';
 

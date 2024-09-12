@@ -1,18 +1,18 @@
 {% liquid
-  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: "\/", "/" | replace: "\u0026", "&" | replace: '%7C', '|' | replace: '%20', ' '
-  assign query_parameters = page_url | split: "sections=findify-filter-group&" | last
+  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '\u0026', '&' | replace: '%7C', '|' | replace: '%20', ' '
+  assign query_parameters = page_url | split: 'sections=findify-filter-group&' | last
 
-  assign name = query_parameters | split: "name=" | last | split: '&' | first
-  assign group_label = query_parameters | split: "label=" | last | split: '&' | first | url_decode
-  assign type = query_parameters | split: "type=" | last | split: '&' | first
-  assign filters = query_parameters | split: "filters=" | last | split: '&' | first | split: ';'
-  assign min = query_parameters | split: "min=" | last | split: '&' | first | split: ';'
-  assign max = query_parameters | split: "max=" | last | split: '&' | first | split: ';'
-  assign from = query_parameters | split: "from=" | last | split: '&' | first | split: ';'
-  assign to = query_parameters | split: "to=" | last | split: '&' | first | split: ';'
+  assign name = query_parameters | split: 'name=' | last | split: '&' | first
+  assign group_label = query_parameters | split: 'label=' | last | split: '&' | first | url_decode
+  assign type = query_parameters | split: 'type=' | last | split: '&' | first
+  assign filters = query_parameters | split: 'filters=' | last | split: '&' | first | split: ';'
+  assign min = query_parameters | split: 'min=' | last | split: '&' | first | split: ';'
+  assign max = query_parameters | split: 'max=' | last | split: '&' | first | split: ';'
+  assign from = query_parameters | split: 'from=' | last | split: '&' | first | split: ';'
+  assign to = query_parameters | split: 'to=' | last | split: '&' | first | split: ';'
 
-  assign color_filter_layout = query_parameters | split: "color_filter=" | last | split: '&' | first
-  assign has_mapped_color = query_parameters | split: "has_mapped_color=" | last | split: '&' | first
+  assign color_filter_layout = query_parameters | split: 'color_filter=' | last | split: '&' | first
+  assign has_mapped_color = query_parameters | split: 'has_mapped_color=' | last | split: '&' | first
   if has_mapped_color == 'true'
     assign has_mapped_color = true
   else
@@ -54,28 +54,25 @@
     <div class="findify-filters-body" aria-expanded="true">
       {% case component %}
         {% when 'text' %}
-          {% render 'findify-filter-text'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters %}
+          {% render 'findify-filter-text', name: name, type: type, component: component, filters: filters %}
         {% when 'color' %}
-          {% render 'findify-filter-color'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters
-            , color_filter_layout: color_filter_layout %}
-        {% when 'range' or 'reviews' %}
-          {% render 'findify-filter-range'
-            , name: name
-            , type: type
-            , component: component
-            , filters: filters
-            , min: min
-            , max: max
-            , sliderFrom: from
-            , sliderTo: to
+          {% render 'findify-filter-color',
+            name: name,
+            type: type,
+            component: component,
+            filters: filters,
+            color_filter_layout: color_filter_layout
+          %}
+        {% when 'range', 'reviews' %}
+          {% render 'findify-filter-range',
+            name: name,
+            type: type,
+            component: component,
+            filters: filters,
+            min: min,
+            max: max,
+            sliderFrom: from,
+            sliderTo: to
           %}
       {% endcase %}
     </div>
@@ -113,7 +110,7 @@
       const filtersPosition = document.querySelector('#findify-filters').getBoundingClientRect().top;
       const filterClass = document.querySelector('#findify-filters').className;
       const searchWrapperTop = document.querySelector('.findify-search-container').getBoundingClientRect().x;
-      const isHorizontal = document.querySelector('.findify-search-section.filters-horizontal');
+      const isHorizontal = document.querySelector('.findify-search-section.findify-filters-horizontal');
 
       const fixedFilters = () => {
         const scrollPosition = window.scrollY;
@@ -121,21 +118,21 @@
         const searchWrapperHeight = document.querySelector('.findify-search-main').offsetHeight;
         const filtersWrapperHeight = document.querySelector('#findify-filters').offsetHeight;
         
-        if(scrollPosition >= filtersPosition && !classNames.includes('fixed')){
-          document.querySelector('#findify-filters').className = classNames?.replace('absolute', '');
+        if(scrollPosition >= filtersPosition && !classNames.includes('findify-fixerd')){
+          document.querySelector('#findify-filters').className = classNames?.replace('findify-absolute', '');
           document.querySelector('#findify-filters').style.top = `0px`;
-          document.querySelector('#findify-filters').className += ' fixed';
+          document.querySelector('#findify-filters').className += ' findify-fixerd';
         }
 
         if(scrollPosition > (searchWrapperHeight - 50) && !isHorizontal){
 
           document.querySelector('#findify-filters').className = filterClass;
-          document.querySelector('#findify-filters').className += ' absolute';
+          document.querySelector('#findify-filters').className += ' findify-absolute';
           document.querySelector('#findify-filters').style.top = `${searchWrapperHeight - filtersWrapperHeight}px`;
         }
 
         if( (scrollPosition - 80) < searchWrapperTop) 
-          document.querySelector('#findify-filters').className = classNames.replace('fixed', '');
+          document.querySelector('#findify-filters').className = classNames.replace('findify-fixerd', '');
       }
     
       const isSticky = document.querySelector('.findify-filters-sticky');

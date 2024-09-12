@@ -141,6 +141,7 @@ body {
   color: var(--findify-text-secondary-color);
   padding: 4px;
   text-decoration: none;
+  background: initial;
 }
 
 .findify-view-all label {

@@ -3,10 +3,13 @@
   assign filter_component_id = filter_component_id
 %}
 
-<div class="findify-search-header desktop">
+<div class="findify-search-header findify-desktop">
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
-      <button id="{{ filter_toggle_sidebar_element_id }}" class="findify-search-actions-toggle-btn">
+      <button
+        id="{{ filter_toggle_sidebar_element_id }}"
+        class="findify-search-actions-toggle-btn"
+      >
         {% render 'findify-icon-filter' %}
         {{ 'findify.filters.filter_by' | t }}
       </button>
@@ -19,7 +22,12 @@
     %}
 
     <div>
-      {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by, is_modal: false %}
+      {% render 'findify-sorting',
+        options: sort_options,
+        default: default_sort_by,
+        selected: sort_by,
+        is_modal: false
+      %}
     </div>
   </div>
   {% if active_filters != 'none' %}
@@ -27,7 +35,7 @@
       {% render 'findify-filter-breadcrumb',
         active_filters: active_filters,
         color_layout: color_layout,
-        component_id: 'desktop-toolbar',
+        component_id: 'findify-desktop-toolbar',
         sidebar_component_id: filter_component_id
       %}
     </div>
@@ -38,7 +46,7 @@
   const filterSidebar = () => {
     const filter_toggle_sidebar_element_id = '{{ filter_toggle_sidebar_element_id }}';
     const filter_component_id = '{{ filter_component_id }}';
-    const openClass = 'open';
+    const openClass = 'findify-open';
 
     const toggleFilterSection = () => {
       const containerElement = document.getElementById(filter_component_id);
