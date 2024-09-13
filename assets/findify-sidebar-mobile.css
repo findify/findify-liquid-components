@@ -86,7 +86,7 @@
     background: #5396ed;
     color: #fff;
     text-transform: uppercase;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   }
 }
@@ -163,7 +163,7 @@
     background: #5396ed;
     color: #fff;
     text-transform: uppercase;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   } 
 }

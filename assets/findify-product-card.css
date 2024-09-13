@@ -73,3 +73,8 @@
   font-style: italic;
   font-size: smaller;
 }
+@media (max-width: 576px) {
+  .findify-product-card {
+    min-height: 300px;
+  }  
+}
