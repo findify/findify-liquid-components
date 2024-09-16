@@ -1,0 +1,25 @@
+{%- liquid
+  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: "\/", "/" | replace: "\u0026", "&"
+  assign findify_product_list_params = page_url | split: "sections=findify-product-list&" | last | url_decode | replace: 'ç', '&'
+  assign findify_product_list = findify_product_list_params | split: "§"
+-%}
+
+<div>
+    {% for findify_product in findify_product_list %}
+        {% include 'findify-product-card-params' %}
+        {%- render 'findify-product-card'
+  , id: id
+  , class: class
+  , widget: widget
+  , page: page
+  , product_url: product_url
+  , current_variant: current_variant,
+  , product: product,
+  , showHoverImage: showHoverImage
+  , brand: brand,
+  , reviews: reviews
+  , reviews_count: reviews_count
+  , selected_variant_id: selected_variant_id
+-%}
+    {% endfor %}
+</div>
