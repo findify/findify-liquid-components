@@ -483,6 +483,9 @@ button {
   outline: none;
 }
 
+.findify-price-range-input-container .money {
+  white-space: nowrap;
+}
 /* Chrome, Safari, Edge, Opera */
 .findify-price-range-input::-webkit-outer-spin-button,
 .findify-price-range-input::-webkit-inner-spin-button {
