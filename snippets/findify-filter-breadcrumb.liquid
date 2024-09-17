@@ -18,7 +18,7 @@
 {% assign breadcrumbs_size = breadcrumbs | size %}
 {% if breadcrumbs_size > 0 %}
   <div id="{{ breadcrumb_container_element_id }}" class="findify-filters-breadcrumbs-body">
-    {% for filter in filters %}
+    {% for filter in breadcrumbs %}
       {% liquid
         assign parts = filter | split: '~'
         assign name = parts[0]
@@ -138,75 +138,75 @@
       <muted>{{ 'findify.filters.clear_all' | t }}</muted>
     </div>
   </div>
+
+  <script>
+      const removeAllFilters = () => {
+          const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
+          const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
+
+          const openClass = 'open-left';
+          const breacrumbClearAllClickHandler =  () => {
+            findify.filters.reset();
+          }
+
+          breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
+          breadcrumbClearAllElement.addEventListener("keydown", (e) => {
+            if(e.key === 'Enter') breacrumbClearAllClickHandler();
+          });
+      }
+      removeAllFilters();
+          
+      const showMore = () => {
+          const show_all = "{{ show_all }}" === "true";
+          if(show_all) return;
+
+          const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
+          const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
+          const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
+          const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
+
+          const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
+          if (!breadcrumbsContainer) return;
+          const showMore = document.getElementById(breadcrumb_show_more_element_id);
+
+          const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
+          const gap = 15;
+          const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
+
+          let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
+          const containerWidth = breadcrumbsContainer.offsetWidth;
+          const hiddenBreadcrumbs = [];
+
+          for (const breadcrumb of breadcrumbs) {
+              const breadcrumbWidth = breadcrumb.offsetWidth;
+              totalBreadcrumbsWidth += breadcrumbWidth + gap;
+
+              if (totalBreadcrumbsWidth > containerWidth) {
+                  breadcrumb.style.display = "none";
+                  hiddenBreadcrumbs.push(breadcrumb);
+              }
+          }
+
+          if (hiddenBreadcrumbs.length > 0) {
+              const showMoreTextContainer = showMore.querySelector("small");
+              showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
+
+              showMore.addEventListener("click", () => {
+                  showMore.classList.toggle("open");
+                  const showMoreText = showMoreTextContainer.textContent;
+                  const newShowMoreText = showMoreText === "Less" ? `${hiddenBreadcrumbs.length} more` : "Less";
+
+                  for (const breadcrumb of hiddenBreadcrumbs) {
+                      breadcrumb.style.display = breadcrumb.style.display === "none" ? "" : "none";
+                  }
+
+                  showMoreTextContainer.textContent = newShowMoreText;
+              });
+          } else {
+              showMore.style.display = "none";
+          }
+      };
+      showMore();
+
+  </script>
 {% endif %}
-
-<script>
-    const removeAllFilters = () => {
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-        const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
-
-        const openClass = 'open-left';
-        const breacrumbClearAllClickHandler =  () => {
-          findify.filters.reset();
-        }
-
-        breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
-        breadcrumbClearAllElement.addEventListener("keydown", (e) => {
-          if(e.key === 'Enter') breacrumbClearAllClickHandler();
-        });
-    }
-    removeAllFilters();
-        
-    const showMore = () => {
-        const show_all = "{{ show_all }}" === "true";
-        if(show_all) return;
-
-        const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
-        const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
-        const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-
-        const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
-        if (!breadcrumbsContainer) return;
-        const showMore = document.getElementById(breadcrumb_show_more_element_id);
-
-        const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
-        const gap = 15;
-        const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
-
-        let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
-        const containerWidth = breadcrumbsContainer.offsetWidth;
-        const hiddenBreadcrumbs = [];
-
-        for (const breadcrumb of breadcrumbs) {
-            const breadcrumbWidth = breadcrumb.offsetWidth;
-            totalBreadcrumbsWidth += breadcrumbWidth + gap;
-
-            if (totalBreadcrumbsWidth > containerWidth) {
-                breadcrumb.style.display = "none";
-                hiddenBreadcrumbs.push(breadcrumb);
-            }
-        }
-
-        if (hiddenBreadcrumbs.length > 0) {
-            const showMoreTextContainer = showMore.querySelector("small");
-            showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
-
-            showMore.addEventListener("click", () => {
-                showMore.classList.toggle("open");
-                const showMoreText = showMoreTextContainer.textContent;
-                const newShowMoreText = showMoreText === "Less" ? `${hiddenBreadcrumbs.length} more` : "Less";
-
-                for (const breadcrumb of hiddenBreadcrumbs) {
-                    breadcrumb.style.display = breadcrumb.style.display === "none" ? "" : "none";
-                }
-
-                showMoreTextContainer.textContent = newShowMoreText;
-            });
-        } else {
-            showMore.style.display = "none";
-        }
-    };
-    showMore();
-
-</script>
