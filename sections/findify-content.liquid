@@ -33,7 +33,7 @@
   href="{{ url |  url_decode }}"
   target="_blank"
 >
-    <div class="adapt-content-img content-fallback-img">
+    <div class="findify-adapt-content-img findify-content-fallback-img">
       {% if image_url %} 
         <img src="{{ image_url |  url_decode }}" alt="{{ title }}"/>
       {% else if %}
@@ -41,7 +41,7 @@
       {% endif %}
     </div>
 
-  <div class="content-wrapper">
+  <div class="findify-content-wrapper">
     <p class="findify-content-title">{{ title |  url_decode }}</p>
   </div>
 </a>

@@ -3,10 +3,13 @@
   assign filter_component_id = filter_component_id
 %}
 
-<div class="findify-search-header desktop">
+<div class="findify-search-header findify-desktop">
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
-      <button id="{{ filter_toggle_sidebar_element_id }}" class="findify-search-actions-toggle-btn">
+      <button
+        id="{{ filter_toggle_sidebar_element_id }}"
+        class="findify-search-actions-toggle-btn"
+      >
         {% render 'findify-icon-filter' %}
         {{ 'findify.filters.filter_by' | t }}
       </button>
@@ -19,20 +22,21 @@
     %}
 
     <div>
-      {% render 'findify-sorting'
-        , options: sort_options
-        , default: default_sort_by
-        , selected: sort_by
-        , is_modal: false %}
+      {% render 'findify-sorting',
+        options: sort_options,
+        default: default_sort_by,
+        selected: sort_by,
+        is_modal: false
+      %}
     </div>
   </div>
   {% if active_filters != 'none' %}
     <div class="findify-search-desktop-breadcrumb">
-      {% render 'findify-filter-breadcrumb'
-        , active_filters: active_filters
-        , color_layout: color_layout
-        , component_id: 'desktop-toolbar'
-        , sidebar_component_id: filter_component_id
+      {% render 'findify-filter-breadcrumb',
+        active_filters: active_filters,
+        color_layout: color_layout,
+        component_id: 'findify-desktop-toolbar',
+        sidebar_component_id: filter_component_id
       %}
     </div>
   {% endif %}
@@ -40,25 +44,25 @@
 
 <script>
   const filterSidebar = () => {
-    const filter_toggle_sidebar_element_id = "{{ filter_toggle_sidebar_element_id }}";
-    const filter_component_id = "{{ filter_component_id }}";
-    const openClass = 'open';
+    const filter_toggle_sidebar_element_id = '{{ filter_toggle_sidebar_element_id }}';
+    const filter_component_id = '{{ filter_component_id }}';
+    const openClass = 'findify-open';
 
     const toggleFilterSection = () => {
       const containerElement = document.getElementById(filter_component_id);
-      if(containerElement.classList.contains(openClass)){
+      if (containerElement.classList.contains(openClass)) {
         containerElement.classList.remove(openClass);
-        findify.filters.isSidebarOpen = false
+        findify.filters.isSidebarOpen = false;
       } else {
-        containerElement.classList.add(openClass)
+        containerElement.classList.add(openClass);
         findify.filters.isSidebarOpen = true;
       }
-    }
+    };
 
     const filterToggleSidebarElement = document.getElementById(filter_toggle_sidebar_element_id);
     //changes comment to disable toggling
-    filterToggleSidebarElement?.addEventListener('click', toggleFilterSection)
-  }
-  
+    filterToggleSidebarElement?.addEventListener('click', toggleFilterSection);
+  };
+
   filterSidebar();
 </script>

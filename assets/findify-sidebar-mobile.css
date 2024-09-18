@@ -8,13 +8,13 @@
   }
 }
 
-.filters-drawer .findify-modal .findify-filters-wrapper,
-.filters-drawer .findify-modal .findify-filters-container{
+.findify-filters-drawer .findify-modal .findify-filters-wrapper,
+.findify-filters-drawer .findify-modal .findify-filters-container{
   width: 100%;
 }
 
-.findify-search-section.filters-drawer{
-  .no-scroll {
+.findify-search-section.findify-filters-drawer{
+  .findify-no-scroll {
     overflow: hidden;
   }
 
@@ -28,31 +28,31 @@
     top: 0;
   }
 
-  .left {
+  .findify-left {
     left: -100%;
   }
 
-  .right {
+  .findify-right {
     right: -100%;
   }
 
-  .findify-modal.animated-left {
+  .findify-modal.findify-animated-left {
     transition: 300ms left cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.animated-right {
+  .findify-modal.findify-animated-right {
     transition: 300ms right cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.animated {
+  .findify-modal.findify-animated {
     transition: 300ms left cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.open-left {
+  .findify-modal.findify-open-left {
     left: 0;
   }
 
-  .findify-modal.open-right {
+  .findify-modal.findify-open-right {
     right: 0;
   }
 
@@ -86,12 +86,12 @@
     background: #5396ed;
     color: #fff;
     text-transform: uppercase;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   }
 }
 @media (max-width: 768px){
-  .no-scroll {
+  .findify-no-scroll {
     overflow: hidden;
   }
 
@@ -105,31 +105,31 @@
     top: 0;
   }
 
-  .left {
+  .findify-left {
     left: -100%;
   }
 
-  .right {
+  .findify-right {
     right: -100%;
   }
 
-  .findify-modal.animated-left {
+  .findify-modal.findify-animated-left {
     transition: 300ms left cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.animated-right {
+  .findify-modal.findify-animated-right {
     transition: 300ms right cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.animated {
+  .findify-modal.findify-animated {
     transition: 300ms left cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .findify-modal.open-left {
+  .findify-modal.findify-open-left {
     left: 0;
   }
 
-  .findify-modal.open-right {
+  .findify-modal.findify-open-right {
     right: 0;
   }
 
@@ -163,7 +163,7 @@
     background: #5396ed;
     color: #fff;
     text-transform: uppercase;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   } 
 }

@@ -1,17 +1,17 @@
 {% liquid
-  assign slider_container_selector = 'slider-container'
-  assign range_input_selector = 'range-input'
-  assign price_input_selector = 'price-input'
+  assign slider_container_selector = 'findify-slider-container'
+  assign range_input_selector = 'findify-range-input'
+  assign price_input_selector = 'findify-price-input'
 
   assign min_range_selector = 'min-range'
   assign max_range_selector = 'max-range'
 
-  assign min_input_selector = 'min-input'
-  assign max_input_selector = 'max-input'
+  assign min_input_selector = 'findify-min-input'
+  assign max_input_selector = 'findify-max-input'
 %}
-<div class="price-input-container">
+<div class="findify-price-input-container">
   <div class="{{slider_container_selector}}">
-    <div class="price-slider"></div>
+    <div class="findify-price-slider"></div>
     <div class="{{range_input_selector}}">
       <input
         type="range"
@@ -19,39 +19,45 @@
         min="0"
         max="{{ max }}"
         value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
-        step="0">
+        step="0"
+      >
       <input
         type="range"
         class="{{max_range_selector}}"
         min="0"
         max="{{ max }}"
         value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
-        step="0">
+        step="0"
+      >
     </div>
   </div>
   <div class="{{price_input_selector}}">
-    <div class="price-field">
+    <div class="findify-price-field">
       <input
         type="hidden"
         class="{{min_input_selector}}"
-        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}">
+        value="{% if from contains 'under' %}{{ min }}{% else %}{{ from }}{% endif %}"
+      >
       <div class="{{min_input_selector}} div">
         {% if from contains 'under' %}
           {{ min }}
         {% else %}
-          {{ from }}{% endif %}
+          {{ from -}}
+        {%- endif %}
       </div>
     </div>
-    <div class="price-field">
+    <div class="findify-price-field">
       <input
         type="hidden"
         class="{{max_input_selector}}"
-        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}">
+        value="{% if to contains "up" %}{{ max }}{% else %}{{ to }}{% endif %}"
+      >
       <div class="{{max_input_selector}} div">
         {% if to contains 'up' %}
           {{ max }}
         {% else %}
-          {{ to }}{% endif %}
+          {{ to -}}
+        {%- endif %}
       </div>
     </div>
   </div>
@@ -63,7 +69,7 @@
     const min_input_selector = '.{{min_input_selector}}.div';
     const max_input_selector = '.{{max_input_selector}}.div';
     const price_slider_selector =
-      '.{{slider_container_selector}} .price-slider';
+      '.{{slider_container_selector}} .findify-price-slider';
     const range_input_selector = '.{{range_input_selector}} input';
     const price_input_selector = '.{{price_input_selector}} input';
 

@@ -10,7 +10,7 @@
   min-height: 380px;
 }
 
-.adapt {
+.findify-adapt {
   width: 100%;
   aspect-ratio: 1/1.5;
   object-fit: cover;
@@ -72,4 +72,9 @@
 .findify-product-brand {
   font-style: italic;
   font-size: smaller;
+}
+@media (max-width: 576px) {
+  .findify-product-card {
+    min-height: 300px;
+  }  
 }
