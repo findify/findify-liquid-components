@@ -39,7 +39,7 @@ const initOnProductCardClick = (id, page, properties) => {
 
 const cleanActiveSwatches = (productCard) => {
   productCard.querySelectorAll('.findify-color-swatch').forEach((swatch) => 
-   swatch.classList.remove('active'));
+   swatch.classList.remove('findify-active'));
 }
 
 const setProductUrl = (productCard, url) => {
@@ -54,7 +54,7 @@ const onSwatchClick = (event, product_url, variant_url, variant_image) => {
   const productCard = targetedSwatch.closest('div[id].findify-product-card'); 
   const swatchImage = productCard.querySelector(`.findify-product-swatch-image`);
   
-  if(targetedSwatch.classList.contains('active')) {
+  if(targetedSwatch.classList.contains('findify-active')) {
 
     cleanActiveSwatches(productCard);
     setProductUrl(productCard, product_url);
@@ -62,7 +62,7 @@ const onSwatchClick = (event, product_url, variant_url, variant_image) => {
   }
   else {
     cleanActiveSwatches(productCard);
-    targetedSwatch.classList.add('active');
+    targetedSwatch.classList.add('findify-active');
     
     setProductUrl(productCard, variant_url);
     swatchImage.removeAttribute('hidden');

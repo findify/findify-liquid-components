@@ -5,7 +5,7 @@
     {% assign count = contentArray[1] %}
     {% assign title = contentArray[2] %}
     <div id="{{content_id}}-content" class="findify-autocomplete-tab-content">
-      <h3 class="autocomplete-content-title">{{ title }}</h3>
+      <h3 class="findify-autocomplete-content-title">{{ title }}</h3>
       {% if count == '0' %}
         <h3>{{ 'findify.content.no_content' | t }}</h3>
       {% else %}

@@ -35,11 +35,11 @@
   transform: rotate(0);
 }
 
-.findify-sorting.open .findify-sorting-btn {
+.findify-sorting.findify-open .findify-sorting-btn {
   border-bottom: none;
 }
 
-.findify-sorting.open .findify-sorting-btn > svg {
+.findify-sorting.findify-open .findify-sorting-btn > svg {
   transform: rotate(180deg);
 }
 
@@ -55,10 +55,10 @@
   right: 0;
   top: 100%;
   margin: 0;
-  z-index: 5;
+  z-index: 2;
 }
 
-.findify-sorting.open .findify-sorting-list {
+.findify-sorting.findify-open .findify-sorting-list {
   display: flex;
 }
 
@@ -80,13 +80,13 @@
 }
 
 @media (min-width: 767px) {
-  .findify-sorting.mobile {
+  .findify-sorting.findify-mobile {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .findify-sorting.desktop {
+  .findify-sorting.findify-desktop {
     display: none;
   }
   .findify-sorting-sidebar {

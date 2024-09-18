@@ -1,12 +1,15 @@
 {% assign view_all_element_id = 'view-all-element' | append: '-' | append: position %}
 
-<button id="{{ view_all_element_id }}" class="findify-view-all view-all-{{position}}" >
+<button
+  id="{{ view_all_element_id }}"
+  class="findify-view-all findify-view-all-{{position}}"
+>
   {%- if query == '' -%}
     <label>{{ 'findify.autocomplete.view_all' | t }}</label>
   {%- else -%}
     <label>
       {{ 'findify.autocomplete.view_all_results_for' | t }}
-      <span class="findify-components-autocomplete--tip__highlight">"{{ query |  url_decode }}"</span>
+      <span class="findify-components-autocomplete--tip__highlight">"{{ query | url_decode }}"</span>
     </label>
   {%- endif -%}
 </button>
@@ -19,7 +22,7 @@
     document.getElementById(view_all_element_id).addEventListener('click', () => {
       const root = window.Shopify.routes.root ? window.Shopify.routes.root : '';
       window.location.href = query === 'none' ? `${root}search` : `${root}search?q=${query}`;
-    })
-  }
+    });
+  };
   clickViewAll();
 </script>

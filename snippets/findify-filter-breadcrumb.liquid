@@ -1,194 +1,212 @@
 {% assign breadcrumb_container_element_id = 'breadcrumb-container-' | append: component_id | replace: ' ', '' %}
-<div id="{{ breadcrumb_container_element_id }}" class="findify-filters-breadcrumbs-body">
-  {%- assign filters = active_filters | split: ";" -%}
-  {% for filter in filters %}
-    {% liquid
-      assign parts = filter | split: '~'
-      assign name = parts[0]
-      assign type = parts[1]
+{% assign filters = active_filters | split: ';' %}
+{% assign breadcrumbs = '' %}
 
-      if type == 'range'
-        if name == 'price'
-          assign from_props = parts[2] | split: ':'
-          assign from = from_props | first
-          assign fromDisplay = from_props | last
-          assign to_props = parts[3] | split: ':'
-          assign to = to_props | first
-          assign toDisplay = to_props | last
+{% for filter in filters %}
+  {% assign parts = filter | split: '~' %}
+  {% assign type = parts[1] %}
+
+  {% if type != 'undefined' %}
+    {% if breadcrumbs != '' %}
+      {% assign breadcrumbs = breadcrumbs | append: ',' %}
+    {% endif %}
+    {% assign breadcrumbs = breadcrumbs | append: filter %}
+  {% endif %}
+{% endfor %}
+
+{% assign breadcrumbs = breadcrumbs | split: ',' %}
+{% assign breadcrumbs_size = breadcrumbs | size %}
+{% if breadcrumbs_size > 0 %}
+  <div id="{{ breadcrumb_container_element_id }}" class="findify-filters-breadcrumbs-body">
+    {% for filter in breadcrumbs %}
+      {% liquid
+        assign parts = filter | split: '~'
+        assign name = parts[0]
+        assign type = parts[1]
+
+        if type == 'range'
+          if name == 'price'
+            assign from_props = parts[2] | split: ':'
+            assign from = from_props | first
+            assign fromDisplay = from_props | last
+            assign to_props = parts[3] | split: ':'
+            assign to = to_props | first
+            assign toDisplay = to_props | last
+          else
+            assign from = parts[2]
+            assign fromDisplay = parts[2]
+            assign to = parts[3]
+            assign toDisplay = parts[3]
+          endif
+
+          assign value = 'from|' | append: from | append: '-to|' | append: to
+          assign reviewValue = from | append: 'to' | append: to
         else
-          assign from = parts[2]
-          assign fromDisplay = parts[2]
-          assign to = parts[3]
-          assign toDisplay = parts[3]
+          assign value = parts[2] | url_decode
         endif
 
-        assign value = 'from|' | append: from | append: '-to|' | append: to
-        assign reviewValue = from | append: 'to' | append: to
-      else
-        assign value = parts[2] | url_decode
-      endif
+        assign breadcrumb_element_id = 'breadcrumb-' | append: component_id | append: '-' | append: value | replace: ' ', ''
+      %}
 
-      assign breadcrumb_element_id = 'breadcrumb-' | append: component_id | append: '-' | append: value | replace: ' ', ''
-    %}
-
-    <div
-      tabindex="0"
-      id="{{ breadcrumb_element_id }}"
-      class="findify-filters-breadcrumb-item"
-      selected="true"
-      type="{{type}}"
-      name="{{name}}"
-      value="{{value}}">
-      {% case type %}
-        {% when 'range' %}
-          {% case name %}
-            {% when 'reviews.average_score' %}
-              {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
-            {% else %}
-              {% liquid
-                if name == 'price'
-                  assign toDisplay = toDisplay | times: 100 | money
-                  assign fromDisplay = fromDisplay | times: 100 | money
-                endif
-              %}
-              {% if fromDisplay == 'undefined' %}
-                <span>{{ 'findify.filters.under' | t }} {{ toDisplay }}</span>
-              {% elsif toDisplay == 'undefined' %}
-                <span>{{ fromDisplay }} {{ 'findify.filters.and_up' | t }}</span>
+      <div
+        tabindex="0"
+        id="{{ breadcrumb_element_id }}"
+        class="findify-filters-breadcrumb-item"
+        selected="true"
+        type="{{type}}"
+        name="{{name}}"
+        value="{{value}}">
+        {% case type %}
+          {% when 'range' %}
+            {% case name %}
+              {% when 'reviews.average_score' %}
+                {% render 'findify-filter-rating-value', selected: true, value: from | append: 'to' | append: to %}
               {% else %}
-                {{ fromDisplay }} - {{ toDisplay }}
-              {% endif %}
-          {% endcase %}
-        {% else %}
-          {% case name %}
-            {% when 'color' %}
-              {% case color_layout %}
-                {% when 'color'
-                  , 'color_with_label' %}
-                  <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
-                  {% if color_layout == 'color_with_label' %}
-                    {{ value }}
-                  {% endif %}
+                {% liquid
+                  if name == 'price'
+                    assign toDisplay = toDisplay | times: 100 | money
+                    assign fromDisplay = fromDisplay | times: 100 | money
+                  endif
+                %}
+                {% if fromDisplay == 'undefined' %}
+                  <span>{{ 'findify.filters.under' | t }} {{ toDisplay }}</span>
+                {% elsif toDisplay == 'undefined' %}
+                  <span>{{ fromDisplay }} {{ 'findify.filters.and_up' | t }}</span>
                 {% else %}
-                  <span>
-                    {{ value | url_decode }}
-                  </span>
-              {% endcase -%}
-            {% else %}
-              <span>{{ value }}</span>
-          {% endcase %}
-      {% endcase %}
+                  {{ fromDisplay }} - {{ toDisplay }}
+                {% endif %}
+            {% endcase %}
+          {% else %}
+            {% case name %}
+              {% when 'color' %}
+                {% case color_layout %}
+                  {% when 'color'
+                    , 'color_with_label' %}
+                    <span class="findify-filters--color-item-value color-mapping-background-{{value | downcase}} solid-circle {{ color_layout }}"></span>
+                    {% if color_layout == 'color_with_label' %}
+                      {{ value }}
+                    {% endif %}
+                  {% else %}
+                    <span>
+                      {{ value | url_decode }}
+                    </span>
+                {% endcase -%}
+              {% else %}
+                <span>{{ value }}</span>
+            {% endcase %}
+        {% endcase %}
+        <div class="findify-filters-breadcrumb-close">
+          {% render 'findify-icon-cross'
+            , size: 8 %}
+        </div>
+      </div>
+      <script>
+        const removeFilter = () => {
+            const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
+
+            const name = "{{ name }}";
+            const type = "{{ type }}";
+            const value = "{{ value }}";
+
+            const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
+            
+            const breadcrumbElement = document.getElementById(breadcrumb_element_id);
+            breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+            breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
+            breadcrumbElement.addEventListener("keydown", (e) => {
+              if (e.key === 'Enter') breadcrumbClickHandler()
+            });
+        }
+        removeFilter();
+      </script>
+    {% endfor %}
+
+    {% assign breadcrumb_show_more_element_id = 'breadcrumb-show-more-' | append: component_id %}
+    <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
+      <small></small>
       <div class="findify-filters-breadcrumb-close">
-        {% render 'findify-icon-cross'
+        {% render 'findify-icon-arrow'
           , size: 8 %}
       </div>
     </div>
-    <script>
-      const removeFilter = () => {
-          const breadcrumb_element_id = "{{ breadcrumb_element_id }}"
-
-          const name = "{{ name }}";
-          const type = "{{ type }}";
-          const value = "{{ value }}";
-
-          const breadcrumbClickHandler = () => findify.filters.update({ name, type, value });
-          
-          const breadcrumbElement = document.getElementById(breadcrumb_element_id);
-          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
-          breadcrumbElement.addEventListener('click', breadcrumbClickHandler);
-          breadcrumbElement.addEventListener("keydown", (e) => {
-            if (e.key === 'Enter') breadcrumbClickHandler()
-          });
-      }
-      removeFilter();
-    </script>
-  {% endfor %}
-
-  {% assign breadcrumb_show_more_element_id = 'breadcrumb-show-more-' | append: component_id %}
-  <div id="{{ breadcrumb_show_more_element_id }}" class="findify-filters-breadcrumbs-show-more">
-    <small></small>
-    <div class="findify-filters-breadcrumb-close">
-      {% render 'findify-icon-arrow'
-        , size: 8 %}
+    {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
+    <div
+      tabindex="0"
+      id="{{ breadcrumb_clear_all_element_id }}"
+      class="findify-filters-breadcrumbs-clear-all"
+      selected="true">
+      <muted>{{ 'findify.filters.clear_all' | t }}</muted>
     </div>
   </div>
-  {% assign breadcrumb_clear_all_element_id = 'breadcrumb-clear-all-' | append: component_id %}
-  <div
-    tabindex="0"
-    id="{{ breadcrumb_clear_all_element_id }}"
-    class="findify-filters-breadcrumbs-clear-all"
-    selected="true">
-    <muted>{{ 'findify.filters.clear_all' | t }}</muted>
-  </div>
-</div>
 
-<script>
-    const removeAllFilters = () => {
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
-        const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
+  <script>
+      const removeAllFilters = () => {
+          const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
+          const breadcrumbClearAllElement = document.getElementById(breadcrumb_clear_all_element_id);
 
-        const openClass = 'open-left';
-        const breacrumbClearAllClickHandler =  () => {
-          findify.filters.reset();
-        }
+          const openClass = 'open-left';
+          const breacrumbClearAllClickHandler =  () => {
+            findify.filters.reset();
+          }
 
-        breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
-        breadcrumbClearAllElement.addEventListener("keydown", (e) => {
-          if(e.key === 'Enter') breacrumbClearAllClickHandler();
-        });
-    }
-    removeAllFilters();
-        
-    const showMore = () => {
-        const show_all = "{{ show_all }}" === "true";
-        if(show_all) return;
+          breadcrumbClearAllElement.addEventListener("click", breacrumbClearAllClickHandler);
+          breadcrumbClearAllElement.addEventListener("keydown", (e) => {
+            if(e.key === 'Enter') breacrumbClearAllClickHandler();
+          });
+      }
+      removeAllFilters();
+          
+      const showMore = () => {
+          const show_all = "{{ show_all }}" === "true";
+          if(show_all) return;
 
-        const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
-        const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
-        const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
-        const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
+          const breadcrumb_container_element_id = "{{ breadcrumb_container_element_id }}"
+          const breadcrumb_show_more_element_id = "{{ breadcrumb_show_more_element_id }}";
+          const breadcrumbItemSelector = '.findify-filters-breadcrumb-item';
+          const breadcrumb_clear_all_element_id = "{{ breadcrumb_clear_all_element_id }}";
 
-        const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
-        if (!breadcrumbsContainer) return;
-        const showMore = document.getElementById(breadcrumb_show_more_element_id);
+          const breadcrumbsContainer = document.getElementById(breadcrumb_container_element_id);
+          if (!breadcrumbsContainer) return;
+          const showMore = document.getElementById(breadcrumb_show_more_element_id);
 
-        const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
-        const gap = 15;
-        const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
+          const breadcrumbs = Array.from(breadcrumbsContainer.querySelectorAll(breadcrumbItemSelector));
+          const gap = 15;
+          const clearAllWidth = document.getElementById(breadcrumb_clear_all_element_id).offsetWidth;
 
-        let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
-        const containerWidth = breadcrumbsContainer.offsetWidth;
-        const hiddenBreadcrumbs = [];
+          let totalBreadcrumbsWidth = showMore.offsetWidth + clearAllWidth + gap;
+          const containerWidth = breadcrumbsContainer.offsetWidth;
+          const hiddenBreadcrumbs = [];
 
-        for (const breadcrumb of breadcrumbs) {
-            const breadcrumbWidth = breadcrumb.offsetWidth;
-            totalBreadcrumbsWidth += breadcrumbWidth + gap;
+          for (const breadcrumb of breadcrumbs) {
+              const breadcrumbWidth = breadcrumb.offsetWidth;
+              totalBreadcrumbsWidth += breadcrumbWidth + gap;
 
-            if (totalBreadcrumbsWidth > containerWidth) {
-                breadcrumb.style.display = "none";
-                hiddenBreadcrumbs.push(breadcrumb);
-            }
-        }
+              if (totalBreadcrumbsWidth > containerWidth) {
+                  breadcrumb.style.display = "none";
+                  hiddenBreadcrumbs.push(breadcrumb);
+              }
+          }
 
-        if (hiddenBreadcrumbs.length > 0) {
-            const showMoreTextContainer = showMore.querySelector("small");
-            showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
+          if (hiddenBreadcrumbs.length > 0) {
+              const showMoreTextContainer = showMore.querySelector("small");
+              showMoreTextContainer.textContent = `${hiddenBreadcrumbs.length} more`;
 
-            showMore.addEventListener("click", () => {
-                showMore.classList.toggle("open");
-                const showMoreText = showMoreTextContainer.textContent;
-                const newShowMoreText = showMoreText === "Less" ? `${hiddenBreadcrumbs.length} more` : "Less";
+              showMore.addEventListener("click", () => {
+                  showMore.classList.toggle("open");
+                  const showMoreText = showMoreTextContainer.textContent;
+                  const newShowMoreText = showMoreText === "Less" ? `${hiddenBreadcrumbs.length} more` : "Less";
 
-                for (const breadcrumb of hiddenBreadcrumbs) {
-                    breadcrumb.style.display = breadcrumb.style.display === "none" ? "" : "none";
-                }
+                  for (const breadcrumb of hiddenBreadcrumbs) {
+                      breadcrumb.style.display = breadcrumb.style.display === "none" ? "" : "none";
+                  }
 
-                showMoreTextContainer.textContent = newShowMoreText;
-            });
-        } else {
-            showMore.style.display = "none";
-        }
-    };
-    showMore();
+                  showMoreTextContainer.textContent = newShowMoreText;
+              });
+          } else {
+              showMore.style.display = "none";
+          }
+      };
+      showMore();
 
-</script>
+  </script>
+{% endif %}

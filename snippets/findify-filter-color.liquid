@@ -4,13 +4,12 @@
     assign component = 'text'
   endif
 
-  assign wrapper_class = 'body-wrapper-layout-' | append: color_filter_layout
+  assign wrapper_class = 'findify-body-wrapper-layout-' | append: color_filter_layout
   assign checkbox_class = 'findify-filters--color-item  findify-filters--color-item-layout-' | append: color_filter_layout
 %}
 
 {% if filters.size > 4 and component == 'text' %}
-  {% render 'findify-filter-search-input'
-    , name: name %}
+  {% render 'findify-filter-search-input', name: name %}
 {% endif %}
 
 <div class="findify-filters--body-wrapper {{wrapper_class}}">
@@ -29,18 +28,18 @@
     %}
 
     {% if value != 'nm' %}
-      {% render 'findify-filter-checkbox'
-        , name: name
-        , type: type
-        , is_selected: is_selected
-        , count: count
-        , component: component
-        , value: value
-        , text: value
-        , color_name: value
-        , border_color: border_color
-        , class: checkbox_class
-        , color_filter_layout: color_filter_layout
+      {% render 'findify-filter-checkbox',
+        name: name,
+        type: type,
+        is_selected: is_selected,
+        count: count,
+        component: component,
+        value: value,
+        text: value,
+        color_name: value,
+        border_color: border_color,
+        class: checkbox_class,
+        color_filter_layout: color_filter_layout
       %}
     {% endif %}
   {% endfor %}

@@ -143,7 +143,7 @@ const initFindifyContentEvents = () => {
 
      const initPagination = () => {
       const links = document.querySelectorAll(
-        `#${id}-content .pagination__item.link`
+        `#${id}-content .findify-pagination__item.link`
       );
 
       links.forEach((link) =>
