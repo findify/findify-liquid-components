@@ -28,38 +28,38 @@
 #findify-filters-price .findify-filters--body-container{
   margin-top: 10px;
 }
-.price-input-container { 
+.findify-price-input-container { 
   width: 100%; 
   margin-top: 10px;
   padding: 0 10px;
 } 
 
-.price-input .price-field { 
+.findify-price-input .findify-price-field { 
   display: flex; 
   margin-bottom: 22px; 
 } 
 
-.price-field span { 
+.findify-price-field span { 
     margin-right: 10px; 
     margin-top: 6px; 
     font-size: 17px; 
 } 
 
-.price-field input { 
+.findify-price-field input { 
     font-size: 15px; 
     font-family: "DM Sans", sans-serif; 
     border-radius: 9px; 
     border: 0px;  
     width: 100%;
 } 
-.price-field input.min-input{
+.findify-price-field input.findify-min-input{
   text-align: left;
 }
-.price-field input.max-input{
+.findify-price-field input.findify-max-input{
   text-align: right;
 }
 
-.price-input { 
+.findify-price-input { 
   display: flex;
   width: 100%; 
   font-size: 19px; 
@@ -75,18 +75,18 @@ input::-webkit-inner-spin-button {
     margin: 0; 
 } 
 
-.slider-container { 
+.findify-slider-container { 
     width: 100%; 
 } 
 
-.slider-container { 
+.findify-slider-container { 
     height: 6px; 
     position: relative; 
     background: #e4e4e4; 
     border-radius: 5px; 
 } 
 
-.slider-container .price-slider { 
+.findify-slider-container .findify-price-slider { 
     height: 100%; 
     left: 0; 
     right: 0; 
@@ -95,11 +95,11 @@ input::-webkit-inner-spin-button {
     background: #01940b; 
 } 
 
-.range-input { 
+.findify-range-input { 
     position: relative; 
 } 
 
-.range-input input { 
+.findify-range-input input { 
     position: absolute; 
     width: 100%; 
     height: 5px; 
@@ -133,7 +133,7 @@ button {
 }
 
 /* SECTION - HEADER & BODY EXPAND */
-.findify-search-section.filters-horizontal .findify-filters-body{
+.findify-search-section.findify-filters-horizontal .findify-filters-body{
   position: absolute;
   z-index: 3;
   background: #fff;
@@ -161,10 +161,10 @@ button {
   width: 260px;
   position: relative;
 }
-.findify-filters-wrapper.absolute{
+.findify-filters-wrapper.findify-absolute{
   position: absolute;
 }
-.findify-filters-wrapper.fixed{
+.findify-filters-wrapper.findify-fixed{
   position: fixed;
   top: 0;
   z-index: 3;
@@ -353,14 +353,14 @@ button {
 /* ENDSECTION */
 
 /* SECTION - Color filter */
-.body-wrapper-layout-color {
+.findify-body-wrapper-layout-color {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   padding: 0 12px 0 10px;
 }
 
-.body-wrapper-layout-color_with_label {
+.findify-body-wrapper-layout-color_with_label {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -371,12 +371,12 @@ button {
   align-items: center;
 }
 
-.solid-circle {
+.findify-solid-circle {
   height: 35px;
   width: 35px;
 }
 
-.circle-with-label {
+.findify-circle-with-label {
   height: 30px;
   width: 30px;
 }
@@ -389,7 +389,7 @@ button {
 
 /* ENDSECTION */
 
-.findify-filters-sidebar.open {
+.findify-filters-sidebar.findify-open {
   display: flex;
   width: 260px
 }
@@ -445,19 +445,19 @@ button {
     justify-content: unset;
   }
   /* Ellipsis for mobile, increase with maximum */
-  .findify-filters-checkbox-item-value > span:not(.solid-circle),
-  .findify-filters--checkbox-nested-value > span:not(.solid-circle) {
+  .findify-filters-checkbox-item-value > span:not(.findify-solid-circle),
+  .findify-filters--checkbox-nested-value > span:not(.findify-solid-circle) {
     width: 250px;
   }
 }
 
 /* SECTION - Price range filter */
-.price-range-container {
+.findify-price-range-container {
   display: flex;
   justify-content: space-between;
   padding: 5px 12px 0 10px;
 }
-.price-range-content {
+.findify-price-range-content {
   display: flex;
   gap: 5px;
 }
@@ -470,7 +470,7 @@ button {
   background: #fff;
 }
 
-.price-range-input {
+.findify-price-range-input {
   box-shadow: none;
   max-width: 50px;
   height: 30px;
@@ -484,14 +484,14 @@ button {
 }
 
 /* Chrome, Safari, Edge, Opera */
-.price-range-input::-webkit-outer-spin-button,
-.price-range-input::-webkit-inner-spin-button {
+.findify-price-range-input::-webkit-outer-spin-button,
+.findify-price-range-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-.price-range-input[type="number"] {
+.findify-price-range-input[type="number"] {
   -moz-appearance: textfield;
 }
 

@@ -102,9 +102,9 @@ const initFindifyAutocompleteEvents = () => {
       isEscape ||
       !document
         .querySelector('.findify-autocomplete')
-        .className.includes('hidden')
+        .className.includes('findify-hidden')
     ) {
-      document.querySelector('.findify-autocomplete').className += ' hidden';
+      document.querySelector('.findify-autocomplete').className += ' findify-hidden';
       activeInput?.parentNode?.querySelector('button[type="submit"]')?.focus();
     }
     document.removeEventListener(`keydown`, initTrapFocus);
@@ -152,7 +152,7 @@ const initFindifyAutocompleteEvents = () => {
       '.findify-autocomplete'
     ).className;
     document.querySelector('.findify-autocomplete').className =
-      autocompleteClassName.replace(' hidden', '');
+      autocompleteClassName.replace(' findify-hidden', '');
     document
       .querySelector('.findify-close-autocomplete')
       ?.addEventListener('click', (e) => closeAutocomplete(e));

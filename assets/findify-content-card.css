@@ -1,10 +1,10 @@
-.adapt-content-img {
+.findify-adapt-content-img {
   width: 100%;
   aspect-ratio: 2/1;
   object-fit: cover;
 }
 
-.content-fallback-img {
+.findify-content-fallback-img {
   background: #f9f9f9;
   display: flex;
   justify-content: center;

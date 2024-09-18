@@ -20,9 +20,9 @@
     {% if one_open_filter == "true" %} findify-one-filter-open {% endif %}
     {% if all_filters_collapsed == "true" %} findify-filter-collapsed {% endif %}
     {% if all_filters_hidden == "true" %} findify-filter-hidden {% endif %}
-    {% if desktop_filter_layout != 'horizontal' %}filters-{{ desktop_filter_position }} {% endif %}
+    {% if desktop_filter_layout != 'horizontal' %}findify-filters-{{ desktop_filter_position }} {% endif %}
     {% if disable_search_input == 'true' %} findify-filters-disable_search_input {% endif %}
-    filters-{{ desktop_filter_layout }}
+    findify-filters-{{ desktop_filter_layout }}
   "
 >
   <div class="findify-search-container">

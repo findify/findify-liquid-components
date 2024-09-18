@@ -1,1 +1,6 @@
-<button id="{{ id }}" class="findify-btn {% if hide %}hidden{% endif %}">{{ text | t }}</button>
+<button
+  id="{{ id }}"
+  class="findify-btn {% if hide %}findify-hidden{% endif %}"
+>
+  {{ text | t }}
+</button>

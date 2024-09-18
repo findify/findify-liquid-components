@@ -10,27 +10,21 @@
   data-name="{{name}}"
   data-type="{{type}}"
   selected="{{is_selected}}"
-  value="{{value}}">
+  value="{{value}}"
+>
   {% case component %}
     {% when 'reviews' %}
-      {% render 'findify-filter-rating-value'
-        , is_selected: is_selected
-        , value: value
-      %}
+      {% render 'findify-filter-rating-value', is_selected: is_selected, value: value %}
       <span class=" findify-filter-checkbox-item-count">({{ count }})</span>
     {% when 'color' %}
-      {% render 'findify-filter-color-value'
-        , is_selected: is_selected
-        , color_name: color_name
-        , border_color: border_color
-        , color_filter_layout: color_filter_layout
+      {% render 'findify-filter-color-value',
+        is_selected: is_selected,
+        color_name: color_name,
+        border_color: border_color,
+        color_filter_layout: color_filter_layout
       %}
     {% else %}
-      {% render 'findify-filter-text-value'
-        , is_selected: is_selected
-        , has_children: has_children
-        , text: text
-      %}
+      {% render 'findify-filter-text-value', is_selected: is_selected, has_children: has_children, text: text %}
       <span class="findify-filter-checkbox-item-count">({{ count }})</span>
   {% endcase %}
 </div>
@@ -46,7 +40,7 @@
     const filterClickHandler = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      document.documentElement.classList.remove('no-scroll');
+      document.documentElement.classList.remove('findify-no-scroll');
       findify.filters.update({ value, type, name });
     };
 
