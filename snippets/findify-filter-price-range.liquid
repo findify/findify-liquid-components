@@ -4,9 +4,10 @@
   assign input_from_selector_id = 'findify-price-range-from'
   assign input_to_selector_id = 'findify-price-range-to'
   assign submit_btn_selector_id = 'findify-price-submit-btn'
+  assign form_selector_id = 'findify-price-range-container__' | append: name
 %}
 
-<div class="findify-price-range-container">
+<form class="findify-price-range-container" id={{ form_selector_id }}>
   <div class="findify-price-range-content">
     <div class="findify-price-range-input-container">
       <input
@@ -16,6 +17,8 @@
         type="number"
         class="findify-price-range-input"
         id="{{ input_from_selector_id }}"
+        inputMode="numeric"
+        pattern="[0-9]*"
       >
       <span>{{ currency }}</span>
     </div>
@@ -28,14 +31,17 @@
         type="number"
         class="findify-price-range-input"
         id="{{ input_to_selector_id }}"
+        type="number"
+        inputMode="numeric"
+        pattern="[0-9]*"
       >
       <span>{{ currency }}</span>
     </div>
   </div>
-  <button id="{{ submit_btn_selector_id }}">
+  <button type='submit' id="{{ submit_btn_selector_id }}">
     {{ 'findify.filters.go' | t }}
   </button>
-</div>
+</form>
 
 <script>
   const rangeSearch = () => {
@@ -45,16 +51,20 @@
 
     const input_from_selector_id = '{{ input_from_selector_id }}';
     const input_to_selector_id = '{{ input_to_selector_id }}';
+    const form_selector_id = '{{ form_selector_id }}'
     const submit_btn_selector_id = '{{ submit_btn_selector_id }}';
 
     const fromInputElement = document.getElementById(input_from_selector_id);
     const toInputElement = document.getElementById(input_to_selector_id);
+    const formElement = document.getElementById(form_selector_id);
     const submitBtnElement = document.getElementById(submit_btn_selector_id);
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = (e) => {
+      e.preventDefault();
       const rate = findify.utils.getShopifyCurrencyRate();
       let from = Math.round(fromInputElement.value / rate)
       let to = Math.round(toInputElement.value / rate)
+      if(from <= 0 || to <= 0) return       
       let value;
       if (parseFloat(from) && parseFloat(to)) {
         value = `from|${from}-to|${to}`;
@@ -69,7 +79,7 @@
       }
     };
 
-    submitBtnElement.addEventListener('click', onSubmitHandler);
+    formElement.addEventListener('submit', onSubmitHandler);
   };
 
   rangeSearch();

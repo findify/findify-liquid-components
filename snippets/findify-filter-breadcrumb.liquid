@@ -64,16 +64,16 @@
               {% else %}
                 {% liquid
                   if name == 'price'
-                    assign toDisplay = toDisplay | times: 100 | money
-                    assign fromDisplay = fromDisplay | times: 100 | money
+                    assign toDisplayMoney = toDisplay | times: 100 | money
+                    assign fromDisplayMoney = fromDisplay | times: 100 | money
                   endif
                 %}
                 {% if fromDisplay == 'undefined' %}
-                  <span>{{ 'findify.filters.under' | t }} {{ toDisplay }}</span>
+                  <span>{{ 'findify.filters.under' | t }} {{ toDisplayMoney }}</span>
                 {% elsif toDisplay == 'undefined' %}
-                  <span>{{ fromDisplay }} {{ 'findify.filters.and_up' | t }}</span>
+                  <span>{{ fromDisplayMoney }} {{ 'findify.filters.and_up' | t }}</span>
                 {% else %}
-                  {{ fromDisplay }} - {{ toDisplay }}
+                  {{ fromDisplayMoney }} - {{ toDisplayMoney }}
                 {% endif %}
             {% endcase %}
           {% else %}

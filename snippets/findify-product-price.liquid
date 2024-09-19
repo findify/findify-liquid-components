@@ -5,10 +5,18 @@
     assign target = product
   endif
 
+  assign price_max = target.price_max | money
+  assign price_min = target.price_min | money
+
   assign price = target.price | money
   assign compare_at_price = target.compare_at_price | money
   assign has_discount = false
 -%}
+
+{% if price_max != price_min %}
+  {% assign price = 'From ' | append: price_min %}
+{% endif %}
+
 {% if target.price != target.compare_at_price
   and target.price < target.compare_at_price
 %}

@@ -3,17 +3,10 @@
     {% if forloop.index != forloop.length %}
       {% liquid
         assign filter_props = filter | split: '~'
-        if name == 'price'
-          assign value = filter_props[0] | url_decode
-          assign value_display = filter_props[1]
-          assign count = filter_props[2]
-          assign is_selected_prop = filter_props[3]
-        else
-          assign value = filter_props[0] | url_decode
-          assign value_display = filter_props[0]
-          assign count = filter_props[1]
-          assign is_selected_prop = filter_props[2]
-        endif
+        assign value = filter_props[0] | url_decode
+        assign value_display = filter_props[1]
+        assign count = filter_props[2]
+        assign is_selected_prop = filter_props[3]
 
         if is_selected_prop == 'T'
           assign is_selected = true

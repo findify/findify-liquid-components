@@ -47,7 +47,7 @@
   position: absolute;
   display: none;
   flex-direction: column;
-  width: 160px;
+  width: 240px;
   border: 1px solid var(--findify-cta-border-color);
   border-top: none;
   background-color: var(--findify-background-color);
