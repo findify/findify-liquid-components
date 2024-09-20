@@ -74,11 +74,11 @@
       </button>
     </div>
 
-    {% render 'findify-autocomplete-content-block',
-      contents_param: contents_param,
-      content: contents[1]
-    %}
-  </div>
+    </div>
+  {% render 'findify-autocomplete-content-block',
+    contents_param: contents_param,
+    content: contents[1]
+  %}
   {% render 'findify-autocomplete-view-all',
     basepath: basepath,
     query: query,
