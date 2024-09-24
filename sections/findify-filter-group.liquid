@@ -51,7 +51,7 @@
       </label>
       {% render 'findify-icon-arrow' %}
     </div>
-    <div class="findify-filters-body" aria-expanded="true">
+    <div class="findify-filters-body" role='group'>
       {% case component %}
         {% when 'text' %}
           {% render 'findify-filter-text', name: name, type: type, component: component, filters: filters %}

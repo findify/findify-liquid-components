@@ -69,16 +69,16 @@
         id="findify-autocomplete-products" 
         class="findify-products-container findify-mobile-products-per-row-{{ mobile_products_per_row }}"
       />
-      <button class="findify-close-autocomplete">
+      <button class="findify-close-autocomplete" aria-label="Close Autocomplete">
         {% render 'findify-icon-cross' %}
       </button>
     </div>
 
-    {% render 'findify-autocomplete-content-block',
-      contents_param: contents_param,
-      content: contents[1]
-    %}
-  </div>
+    </div>
+  {% render 'findify-autocomplete-content-block',
+    contents_param: contents_param,
+    content: contents[1]
+  %}
   {% render 'findify-autocomplete-view-all',
     basepath: basepath,
     query: query,
