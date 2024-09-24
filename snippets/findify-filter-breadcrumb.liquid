@@ -6,7 +6,7 @@
   {% assign parts = filter | split: '~' %}
   {% assign type = parts[1] %}
 
-  {% if type != 'undefined' %}
+  {% if type %}
     {% if breadcrumbs != '' %}
       {% assign breadcrumbs = breadcrumbs | append: ',' %}
     {% endif %}
