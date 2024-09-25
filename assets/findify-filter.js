@@ -1,6 +1,6 @@
 const filterSearch = (filter_group_id, input_id) => {
     const filterSelector = '.findify-filters-checkbox-item';
-    const filterTextSelector = 'label';
+    const filterTextSelector = '.findify-filters-checkbox-item-value';
 
     const filterGroupElement = document.getElementById(filter_group_id);
     const filters = filterGroupElement.querySelectorAll(filterSelector);

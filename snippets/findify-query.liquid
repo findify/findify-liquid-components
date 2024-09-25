@@ -1,6 +1,6 @@
 {% assign term_decoded = terms | url_decode %}
 
-<label class="findify-search-header-label">
+<div class="findify-search-header-label">
   {% if is_collection == true %}
     {{ 'findify.collections.products_count' | t: count: results_count }}
   {% elsif terms == '' %}
@@ -21,4 +21,4 @@
       | t: count: results_count, term: term_decoded
     }}
   {% endif %}
-</label>
+</div>
