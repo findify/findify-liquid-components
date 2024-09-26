@@ -5,12 +5,12 @@
   class="findify-view-all findify-view-all-{{position}}"
 >
   {%- if query == '' -%}
-    <label>{{ 'findify.autocomplete.view_all' | t }}</label>
+    <span>{{ 'findify.autocomplete.view_all' | t }}</span>
   {%- else -%}
-    <label>
+    <span>
       {{ 'findify.autocomplete.view_all_results_for' | t }}
       <span class="findify-components-autocomplete--tip__highlight">"{{ query | url_decode }}"</span>
-    </label>
+    </span>
   {%- endif -%}
 </button>
 
