@@ -31,13 +31,14 @@
       <h2>{{ suggestionsTitle }}</h2>
       <ul>
         {% for suggestion in suggestions %}
-          {%- assign queryHTML = '<span>'
-            | append: query
-            | append: '</span>'
-          -%}
-          {%- assign formattedSuggestion = suggestion
-            | replace: query, queryHTML
-          -%}
+          {%- assign formattedSuggestion = suggestion -%}
+          {% if query != "" %}
+            {%- assign queryHTML = '<span>'
+              | append: query
+              | append: '</span>'
+            -%}
+            {%- assign formattedSuggestion = formattedSuggestion | replace: query, queryHTML -%}
+          {% endif %}
           <li class="{% if query != "" %} findify-suggestion-item {% endif %}">
             <a
               class="findify-suggestion"
