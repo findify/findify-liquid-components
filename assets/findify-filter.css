@@ -191,7 +191,7 @@ button {
   padding: 0 12px 0 10px;
 }
 
-.findify-filters-header label {
+.findify-filters-header span {
   text-transform: capitalize;
   font-weight: 700;
   color: var(--findify-filters-title);

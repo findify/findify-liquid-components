@@ -83,7 +83,7 @@
     height: 50px;
     display: flex;
     justify-content: center;
-    background: #5396ed;
+    background: black;
     color: #fff;
     text-transform: uppercase;
     position: fixed;
@@ -160,7 +160,7 @@
     height: 50px;
     display: flex;
     justify-content: center;
-    background: #5396ed;
+    background: black;
     color: #fff;
     text-transform: uppercase;
     position: fixed;
