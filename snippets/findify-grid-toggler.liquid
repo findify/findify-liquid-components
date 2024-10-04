@@ -1,0 +1,57 @@
+{% assign container_selector = 'findify-grid-togglers' %}
+{% assign grid_selector = 'findify-grid-toggler' %}
+{% assign products_per_view = products_per_view | plus: 0 %}
+{% assign products_per_view_alt = products_per_view_alt | plus: 0 %}
+
+<div class="{{container_selector}}">
+  <button
+    class="{{grid_selector}}"
+    data-template="{% if products_per_view > products_per_view_alt %}alt{% else %}main{% endif %}"
+  >
+    {% if is_mobile %}
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect y="0.5" width="14" height="14" fill="#E2E2E2"/>
+      </svg>
+
+    {% else %}
+      <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="9.8" height="21" fill="#E2E2E2"/>
+        <rect x="11.9004" width="9.8" height="21" fill="#E2E2E2"/>
+      </svg>
+    {% endif %}
+  </button>
+  <button
+    class="{{grid_selector}}"
+    data-template="{% if products_per_view > products_per_view_alt %}main{% else %}alt{% endif %}"
+  >
+    <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.400391" width="9.45" height="9.45" fill="#E2E2E2"/>
+      <rect x="11.9512" width="9.45" height="9.45" fill="#E2E2E2"/>
+      <rect x="0.400391" y="11.5498" width="9.45" height="9.45" fill="#E2E2E2"/>
+      <rect x="11.9512" y="11.5498" width="9.45" height="9.45" fill="#E2E2E2"/>
+    </svg>
+  </button>
+</div>
+<script>
+  const containerElement = document.querySelector(`.{{parent_selector}} .{{container_selector}}`);
+  const buttons = containerElement.querySelectorAll('.{{grid_selector}}');
+
+  const setProductTemplate = () => {
+    const template = localStorage.getItem('findify-grid-template') || 'main';
+    console.log(template);
+    containerElement.querySelector(`[data-template='${template}']`)?.classList.add('findify-active');
+    document.getElementById('findify-product-grid').setAttribute('data-template', template);
+  };
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      localStorage.setItem('findify-grid-template', btn.dataset.template);
+      document.getElementById('findify-product-grid').setAttribute('data-template', btn.dataset.template);
+
+      buttons.forEach((i) => i.classList.remove('findify-active'));
+      btn.classList.add('findify-active');
+    });
+  });
+
+  setProductTemplate();
+</script>
