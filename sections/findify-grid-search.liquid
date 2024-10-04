@@ -13,8 +13,14 @@
 {%- assign all_filters_collapsed = query_parameters | split: 'all_filters_collapsed:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign sticky_filters = query_parameters | split: 'sticky_filters:' | last | split: '|' | first | split: '&' | first -%}
 {%- assign disable_search_input = query_parameters | split: 'disable_search_input:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign use_grid_toggler_on_desktop = query_parameters | split: 'use_grid_toggler_on_desktop:' | last | split: '|' | first | split: '&' | first -%}
+{%- assign use_grid_toggler_on_mobile = query_parameters | split: 'use_grid_toggler_on_mobile:' | last | split: '|' | first | split: '&' | first -%}
 
-
+{% if mobile_products_per_view == '1' %}
+  {% assign mobile_products_per_view_alt = '2' %} 
+{% else %}
+  {% assign mobile_products_per_view_alt = '1' %} 
+{% endif %}
 {%  comment  %} Content integration configuration {% endcomment %}
 {%- assign use_content_integration = query_parameters | split: 'use_content_integration:' | last | split: '&' | first -%}
 {% if use_content_integration == 'false' or tabs[0] == 'none' %}
@@ -72,6 +78,9 @@
           , active_filters: active_filters
           , color_layout: color_layout
           , filter_component_id: findify_filters_component_id
+          , use_grid_toggler: use_grid_toggler_on_desktop
+          , products_per_view_alt: desktop_products_per_view_alt
+          , products_per_view: desktop_products_per_view
         %}
       {% endif %}
       {% render 'findify-toolbar-mobile'
@@ -84,6 +93,9 @@
         , sort_by: sort_by
         , active_filters: active_filters
         , filter_component_id: findify_filters_component_id
+        , use_grid_toggler: use_grid_toggler_on_mobile
+        , products_per_view: mobile_products_per_view
+        , products_per_view_alt: mobile_products_per_view_alt
       %}
 
         <div id="findify-search-main" class="findify-search-main">
@@ -114,7 +126,7 @@
                 , hide: hide_load_prev %}
             </div>
           {% endif %}
-          <div id="findify-product-grid" class="findify-product-list">
+          <div id="findify-product-grid" class="findify-product-list" data-template="main">
             {% comment %}
               This element #findify-product-grid will be replaced with rendered html from sections/findify-products
             {% endcomment %}
@@ -170,13 +182,19 @@
 
   <style>
      @media (min-width: 768px) {
-      #findify-product-grid.findify-product-list {
+      #findify-product-grid.findify-product-list[data-template='main'] {
         grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
+      }
+      #findify-product-grid.findify-product-list[data-template='alt'] {
+        grid-template-columns: repeat({{desktop_products_per_view_alt}}, minmax(180px, 1fr));
       }
     }
     @media (max-width: 576px) {
-      #findify-product-grid.findify-product-list {
+      #findify-product-grid.findify-product-list[data-template='main'] {
         grid-template-columns: repeat({{mobile_products_per_view}}, minmax(180px, 1fr));
+      }
+      #findify-product-grid.findify-product-list[data-template='alt'] {
+        grid-template-columns: repeat({{mobile_products_per_view_alt}}, minmax(180px, 1fr));
       }
     }
   </style>
