@@ -14,6 +14,12 @@
     assign showHoverImage = findify_product | split: "showHoverImage=" | last | split: "&" | first
   endif
 
+  assign showColorSwatchesOnDesktop = findify_product | split: "showColorSwatchesOnDesktop=" | last | split: "&" | first
+  assign showColorSwatchesOnMobile = findify_product | split: "showColorSwatchesOnMobile=" | last | split: "&" | first
+  assign colorSwatchesStyleDesktop = findify_product | split: "colorSwatchesStyleDesktop=" | last | split: "&" | first
+  assign colorSwatchesStyleMobile = findify_product | split: "colorSwatchesStyleMobile=" | last | split: "&" | first
+  assign colorSwatchesVisibility = findify_product | split: "colorSwatchesVisibility=" | last | split: "&" | first
+   
   # Product metadata
   assign colormap = findify_product | split: "colormap=" | last | split: "&" | first | split: ';'
   assign position = findify_product | split: "position=" | last | split: "&" | first
