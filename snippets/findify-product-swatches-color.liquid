@@ -1,11 +1,6 @@
-{% liquid
-  assign color_counter = 0
-  assign max_colors = 10
-%}
-
+{% assign color_counter = 0 %}
 
 {% assign color_keys = "Color,color,Colour,colour,COLOUR,COLOR" | split: ',' %}
-
 {% assign colors = "" %}
 
 {% for key in color_keys %}
@@ -18,44 +13,54 @@
 
 {% assign colors_array = colors | split: ',' %}
 
-<div class="findify-color-swatch-wrapper">
-    {% for color in colors_array  %}
+<div class="findify-color-swatches-inner" data-swatches-count={{ colors_array.size }} data-swatches-id={{ product.id }}>
+  <div class="swiper">
+  <div class="findify-prev-swatch">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M13 17L6 10L13 3" stroke="#222222" stroke-linecap="round"/>
+    </svg>
+  </div>   
+  <div class="swiper-wrapper">
+    {% for color in colors_array %}
       {% liquid
           assign color_lowercase = color | downcase
+          assign old_color = "old_colors=" | append: color_lowercase 
+          assign found_variant = variants | split: old_color 
+          assign matched_variant = found_variant[0]
+          assign findify_color = matched_variant | downcase | split: "color=" | last | split: "~" | first
+        
           for colormap_item in colormap
-            assign colormap_item_name = colormap_item | split: ':' | first
+            assign colormap_item_name = colormap_item | split: ':' | first | url_decode
             assign colormap_item_value = colormap_item | split: ':' | last
     
-            if colormap_item_name == color_lowercase
-              assign current_color_name = color | url_decode
+            if colormap_item_name == findify_color
+              assign current_color_name = findify_color | url_decode
               assign current_color_value = colormap_item_value | url_decode
             endif
         endfor
       %}
     
-    {% if current_color_name and current_color_value %}
-      {% assign color_counter = color_counter | plus: 1 %}
-      {% if color_counter <= max_colors %}
+      {% if current_color_name and current_color_value %}
+        {% assign color_counter = color_counter | plus: 1 %}
         {% liquid
           if current_color_value contains "https"
             assign styling = "background: no-repeat url(" | append: current_color_value | append: ") center"
           else
             assign styling = "background-color:" | append: current_color_value
           endif
-          if current_color_value contains "fff"
-            assign styling = styling | append: '; border: 1px solid #000'
+  
+          assign lowercase_value = current_color_value | downcase
+          if lowercase_value contains "fff"
+            assign styling = styling | append: '; border: 1px solid #000;'
           endif
         %}
-
-        {% assign found_variant = variants | split: current_color_name %}
-        {% assign matched_variant = found_variant[1] %}
-
         {% assign variant_id = matched_variant | split: "id=" | last | split: "~" | first %}
+  
         {% assign variant_url = product_url | split: "?variant=" | first | append: "?variant=" | append: variant_id %}
-        {% assign variant_image = matched_variant | split: "image_url=" | last | split: ";" | first | append: "&width=940" %}
+        {% assign variant_image = matched_variant | split: "image_url=" | last | split: "~" | first | append: "&width=940" %}
         
         <div 
-          class="findify-color-swatch" 
+          class="findify-color-swatch swiper-slide" 
           style="{{styling}}" 
           onclick="onSwatchClick(event, '{{ product_url }}', '{{ variant_url }}', '{{ variant_image }}')"
         >
@@ -63,13 +68,39 @@
             {{ current_color_name | capitalize }}
           </span>
         </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+  <div class="findify-more-swatches"></div>
+        
+  <div class="findify-next-swatch">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 3L14 10L7 17" stroke="#222222" stroke-linecap="round"/>
+    </svg>
+  </div>
 
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+</div>
+<script>
+  const isMobile = window.innerWidth < 769;
+  const swatchesStyleDesktop = "{{ colorSwatchesStyleDesktop }}";
+  const swatchesStyleMobile = "{{ colorSwatchesStyleMobile }}";
+  
+  const initSwiper = isMobile 
+      ? swatchesStyleMobile === "1"
+      : swatchesStyleDesktop === "1";
 
-  {% if color_counter > max_colors %}
-    {% assign other_colors = colors.size | minus: max_colors %}
-    <div class="other-colors-btn">+{{ other_colors }}</div>
-  {% endif %}
+  if (initSwiper) {
+    const swiper = new Swiper(`[data-swatches-id="{{ product.id }}"] .swiper`, {
+      spaceBetween: 10,
+      slidesPerView: "auto",
+      navigation: {
+        nextEl: ".findify-next-swatch",
+        prevEl: ".findify-prev-swatch",
+      },
+    });
+  } else {
+    document.querySelector(`[data-swatches-id="{{ product.id }}"]`).setAttribute('data-disabled', true);
+  }
+</script>
+          
 </div>
