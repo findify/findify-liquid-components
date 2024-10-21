@@ -1,9 +1,19 @@
 {% include 'findify-autocomplete-connector' %}
+{% assign content_1 = '' %}
+{% assign content_2 = '' %}
+
+{% for item in contents %}
+  {% assign position = item | split: '~' | last %}
+
+  {% if position == '1' %}
+    {% assign content_1 = content_1 | append: item | append: ';' %}
+  {% elsif position == '2' %}
+    {% assign content_2 = content_2 | append: item | append: ';' %}
+  {% endif %}
+{% endfor %}
 
 {%- if query != '' -%}
-  {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions'
-    | t
-  -%}
+  {%- assign suggestionsTitle = 'findify.autocomplete.search_suggestions' | t -%}
   {%- assign productsTitle = 'findify.autocomplete.product_matches' | t -%}
 {%- else -%}
   {%- assign suggestionsTitle = 'findify.autocomplete.trending_searches' | t -%}
@@ -14,78 +24,72 @@
   id="findify-autocomplete"
   class="findify-autocomplete findify-autocomplete-fullscreen findify-hidden {% if desktop_suggestion_template == 'horizontal' %} findify-suggestions-horizontal {% endif %}"
 >
-{% if results_count == "0" %}
-  <div class="findify-zero-result-container">
-    <h1>
-      {{ 'findify.search.no_results_for' | t }} "{{ query | url_decode }}"
-    </h1>
-    <h2>{{ 'findify.search.no_results_message' | t }}</h2>
-  </div>
-{% else %}
-  <div class="findify-autocomplete-content">
-    <div class="
-      findify-suggestions-wrapper 
-      {% if desktop_suggestion_template == 'horizontal' %} findify-suggestions-horizontal {% endif %}
-      findify-mobile-{{ mobile_suggestion_template }}
-    ">
-      <h2>{{ suggestionsTitle }}</h2>
-      <ul>
-        {% for suggestion in suggestions %}
-          {%- assign formattedSuggestion = suggestion -%}
-          {% if query != "" %}
-            {%- assign queryHTML = '<span>'
-              | append: query
-              | append: '</span>'
-            -%}
-            {%- assign formattedSuggestion = formattedSuggestion | replace: query, queryHTML -%}
-          {% endif %}
-          <li class="{% if query != "" %} findify-suggestion-item {% endif %}">
-            <a
-              class="findify-suggestion"
-              href="/{{ basepath }}?q={{ suggestion }}"
-              data-findify-suggestion
-            >
-              {{ formattedSuggestion |  url_decode }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-
-      {% render 'findify-autocomplete-content-block',
-        contents_param: contents_param,
-        content: contents[0]
-      %}
+  {% if results_count == '0' %}
+    <div class="findify-zero-result-container">
+      <h1>{{ 'findify.search.no_results_for' | t }} "{{ query | url_decode }}"</h1>
+      <h2>{{ 'findify.search.no_results_message' | t }}</h2>
     </div>
-
-    <div class="findify-products-wrapper">
-      <div class="findify-autocomplete-title-wrapper">
-        <h2>{{ productsTitle }}</h2>
-        {% render 'findify-autocomplete-view-all',
-          basepath: basepath,
-          query: query,
-          position: 'top'
-        %}
+  {% else %}
+    <div class="findify-autocomplete-content">
+      <div
+        class="
+          findify-suggestions-wrapper
+          {% if desktop_suggestion_template == 'horizontal' %} findify-suggestions-horizontal {% endif %}
+          findify-mobile-{{ mobile_suggestion_template }}
+          findify-desktop-{{ desktop_suggestion_template }}
+        "
+      >
+        <h2>{{ suggestionsTitle }}</h2>
+        <ul>
+          {% for suggestion in suggestions %}
+            {%- assign formattedSuggestion = suggestion -%}
+            {% if query != '' %}
+              {%- assign queryHTML = '<span>' | append: query | append: '</span>' -%}
+              {%- assign formattedSuggestion = formattedSuggestion | replace: query, queryHTML -%}
+            {% endif %}
+            <li class="{% if query != "" %} findify-suggestion-item {% endif %}">
+              <a
+                class="findify-suggestion"
+                href="/{{ basepath }}?q={{ suggestion }}"
+                data-findify-suggestion
+              >
+                {{ formattedSuggestion | url_decode }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if content_1 != '' and desktop_suggestion_template != 'horizontal' %}
+          <div class="findify-content-vertical">
+            {% render 'findify-autocomplete-content-block', contents_param: contents_param, content: content_1 %}
+          </div>
+        {% endif %}
       </div>
-      <div 
-        id="findify-autocomplete-products" 
-        class="findify-products-container findify-mobile-products-per-row-{{ mobile_products_per_row }}"
-      />
-      <button class="findify-close-autocomplete" aria-label="Close Autocomplete">
-        {% render 'findify-icon-cross' %}
-      </button>
-    </div>
 
+      <div class="findify-products-wrapper">
+        <div class="findify-autocomplete-title-wrapper">
+          <h2>{{ productsTitle }}</h2>
+          {% render 'findify-autocomplete-view-all', basepath: basepath, query: query, position: 'top' %}
+        </div>
+        <div
+          id="findify-autocomplete-products"
+          class="findify-products-container findify-mobile-products-per-row-{{ mobile_products_per_row }}"
+        />
+        <button class="findify-close-autocomplete" aria-label="Close Autocomplete">
+          {% render 'findify-icon-cross' %}
+        </button>
+      </div>
     </div>
-  {% render 'findify-autocomplete-content-block',
-    contents_param: contents_param,
-    content: contents[1]
-  %}
-  {% render 'findify-autocomplete-view-all',
-    basepath: basepath,
-    query: query,
-    position: 'bottom'
-  %}
-{% endif %}
+    {% if content_2 != '' %}
+      {% render 'findify-autocomplete-content-block', contents_param: contents_param, content: content_2 %}
+    {% endif %}
+    {% render 'findify-autocomplete-view-all', basepath: basepath, query: query, position: 'bottom' %}
+
+    {% if content_1 != '' and desktop_suggestion_template == 'horizontal' %}
+      <div class="findify-content-horizontal">
+        {% render 'findify-autocomplete-content-block', contents_param: contents_param, content: content_1 %}
+      </div>
+    {% endif %}
+  {% endif %}
 
   <script>
     /* IMPORTANT: Script tags are executed within this file element. */
@@ -93,7 +97,18 @@
     initFindifyAutocompleteEvents();
   </script>
 </div>
-
+<style>
+   @media (min-width: 768px) {
+    .findify-autocomplete .findify-products-container {
+      grid-template-columns: repeat({{desktop_products_per_view}}, minmax(180px, 1fr));
+    }
+  }
+  @media (max-width: 576px) {
+    .findify-autocomplete .findify-products-container {
+      grid-template-columns: repeat({{mobile_products_per_row}}, minmax(180px, 1fr));
+    }
+  }
+</style>
 {% schema %}
 {
   "name": "Findify autocomplete",

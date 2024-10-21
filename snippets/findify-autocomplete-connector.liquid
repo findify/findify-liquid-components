@@ -6,15 +6,15 @@
   assign results_count = query_parameters | split: 'results_count=' | last | split: '&' | first
   assign contents_param = page_url | split: 'content=' | last
   assign contents = contents_param | split: '&' | first | split: ';'
-  
-  assign settingsObj = query_parameters | split: 'settings=' | last | split: '|' | first
-  assign desktop_suggestion_template = settingsObj | split: 'desktop_suggestion_template:' | last | split: '|' | first | split: "%7C" | first
-  assign mobile_products_per_row = settingsObj | split: 'mobile_products_per_row:' | last | split: '|' | first | split: "%7C" | first
-  assign mobile_suggestion_template = settingsObj | split: 'mobile_suggestion_template:' | last | split: '|' | first | split: "%7C" | first
-  
 
-  assign suggestionsTemplate = "vertical"
-  assign class = "findify-autocomplete findify-autocomplete-fullscreen"
+  assign settingsObj = query_parameters | split: 'settings=' | last | split: '|' | first
+  assign desktop_suggestion_template = settingsObj | split: 'desktop_suggestion_template:' | last | split: '|' | first | split: '%7C' | first
+  assign mobile_products_per_row = settingsObj | split: 'mobile_products_per_row:' | last | split: '|' | first | split: '%7C' | first
+  assign mobile_suggestion_template = settingsObj | split: 'mobile_suggestion_template:' | last | split: '|' | first | split: '%7C' | first
+  assign desktop_products_per_view = settingsObj | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '%7C' | first
+
+  assign suggestionsTemplate = 'vertical'
+  assign class = 'findify-autocomplete findify-autocomplete-fullscreen'
 
   assign basepath = shop_locale.root_url | append: 'search'
 %}

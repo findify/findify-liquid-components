@@ -1,4 +1,4 @@
-{%  comment  %}  
+{% comment %}
   This is the default findify snippet for content cards.
   You are free to modify its structure or their styling to match your brand look&feel.
 
@@ -8,40 +8,47 @@
   Attention: Long content might be rendered via JS as there is a query string parameter length restriction
 {% endcomment %}
 {%- liquid
-   assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'
-   assign query_parameters = page_url | split: "sections=findify-content&" | last
+  assign page_url = content_for_header | split: '"pageurl":"' | last | split: '"' | first | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&'
+  assign query_parameters = page_url | split: 'sections=findify-content&' | last
 
   # Content template settings
-   assign widget = query_parameters | split: "widget=" | last | split: "&" | first
-   assign url = query_parameters  | split: "url=" | last | split: "&" | first
-   
-   if query_parameters contains "title="
-    assign title = query_parameters  | split: "title=" | last | split: "&" | first
-   endif
-   
-   if query_parameters contains "image_url="
-     assign image_url = query_parameters  | split: "image_url=" | last | split: "&" | first
-   endif
-   
-   if query_parameters contains "thumbnail_url="
-     assign thumbnail_url = query_parameters  | split: "thumbnail_url=" | last | split: "&" | first
-   endif
+  assign widget = query_parameters | split: 'widget=' | last | split: '&' | first
+  assign url = query_parameters | split: 'url=' | last | split: '&' | first
+
+  if query_parameters contains 'title='
+    assign title = query_parameters | split: 'title=' | last | split: '&' | first
+  endif
+
+  if query_parameters contains 'image_url='
+    assign image_url = query_parameters | split: 'image_url=' | last | split: '&' | first
+  endif
+
+  if query_parameters contains 'thumbnail_url='
+    assign thumbnail_url = query_parameters | split: 'thumbnail_url=' | last | split: '&' | first
+  endif
+
+  if query_parameters contains 'showImage='
+    assign showImage = query_parameters | split: 'showImage=' | last | split: '&' | first
+  endif
 %}
 
 <a
   class="findify-content-card"
   href="{{ url |  url_decode }}"
   target="_blank"
+  data-image="{{ showImage }}"
 >
+  {% if showImage != 'false' %}
     <div class="findify-adapt-content-img findify-content-fallback-img">
-      {% if image_url %} 
-        <img src="{{ image_url |  url_decode }}" alt="{{ title }}"/>
-      {% else if %}
+      {% if image_url %}
+        <img src="{{ image_url |  url_decode }}" alt="{{ title }}">
+      {% else %}
         {% render 'findify-content-image-fallback' %}
       {% endif %}
     </div>
+  {% endif %}
 
   <div class="findify-content-wrapper">
-    <p class="findify-content-title">{{ title |  url_decode }}</p>
+    <p class="findify-content-title">{{ title | url_decode }}</p>
   </div>
 </a>
