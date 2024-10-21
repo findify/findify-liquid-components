@@ -17,9 +17,10 @@
     {% liquid
       assign filter_props = filter | split: '~'
       assign value = filter_props[0]
-      assign border_color = filter_props[1]
-      assign count = filter_props[2]
-      assign is_selected_prop = filter_props[3]
+      assign old_color = filter_props[1]
+      assign border_color = filter_props[2]
+      assign count = filter_props[3]
+      assign is_selected_prop = filter_props[4]
       if is_selected_prop == 'T'
         assign is_selected = true
       else
@@ -39,7 +40,8 @@
         color_name: value,
         border_color: border_color,
         class: checkbox_class,
-        color_filter_layout: color_filter_layout
+        color_filter_layout: color_filter_layout,
+        old_color: old_color
       %}
     {% endif %}
   {% endfor %}
