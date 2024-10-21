@@ -4,11 +4,20 @@
 %}
 
 <div class="findify-search-header findify-mobile">
-  {%
-    render 'findify-query' terms: terms, results_count: results_count, is_collection: is_collection,       , terms: terms
-    , corrected_q: corrected_q
-    , query_type: query_type
-  %}
+  <div class="findify-toolbar-block">
+    {%
+      render 'findify-query' terms: terms, results_count: results_count, is_collection: is_collection,       , terms: terms
+      , corrected_q: corrected_q
+      , query_type: query_type
+    %}
+    {% if use_grid_toggler == 'true' %}
+      {% render 'findify-grid-toggler' is_mobile: true
+      , parent_selector: 'findify-mobile'
+      , products_per_view_alt: products_per_view_alt
+      , products_per_view: products_per_view
+      %}
+    {% endif %}
+  </div>
   <div class="findify-search-header-toolbar">
     <div class="findify-search-header-toolbar-actions">
       <button

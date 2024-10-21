@@ -21,13 +21,14 @@
       , query_type: query_type
     %}
 
-    <div>
-      {% render 'findify-sorting',
-        options: sort_options,
-        default: default_sort_by,
-        selected: sort_by,
-        is_modal: false
-      %}
+    <div class="findify-toolbar-block">
+      {% if use_grid_toggler == 'true' %}
+        {% render 'findify-grid-toggler' parent_selector: 'findify-desktop'
+        , products_per_view_alt: products_per_view_alt
+        , products_per_view: products_per_view
+        %}
+      {% endif %}
+      {% render 'findify-sorting', options: sort_options, default: default_sort_by, selected: sort_by, is_modal: false %}
     </div>
   </div>
   {% if active_filters != 'none' %}
