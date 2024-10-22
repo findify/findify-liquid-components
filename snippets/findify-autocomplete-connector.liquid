@@ -11,7 +11,7 @@
   assign desktop_suggestion_template = settingsObj | split: 'desktop_suggestion_template:' | last | split: '|' | first | split: '%7C' | first
   assign mobile_products_per_row = settingsObj | split: 'mobile_products_per_row:' | last | split: '|' | first | split: '%7C' | first
   assign mobile_suggestion_template = settingsObj | split: 'mobile_suggestion_template:' | last | split: '|' | first | split: '%7C' | first
-  assign desktop_products_per_view = settingsObj | split: 'desktop_products_per_view:' | last | split: '|' | first | split: '%7C' | first
+  assign desktop_products_per_row = settingsObj | split: 'desktop_products_per_row:' | last | split: '|' | first | split: '%7C' | first
 
   assign suggestionsTemplate = 'vertical'
   assign class = 'findify-autocomplete findify-autocomplete-fullscreen'
