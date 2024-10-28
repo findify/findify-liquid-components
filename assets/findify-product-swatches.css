@@ -146,8 +146,7 @@
   justify-content: start;
   display: flex;
   align-items: center;
-  max-width: 0;
-  overflow: hidden;
+  max-width: 100%;
 }
 
 .findify-color-swatches-inner[data-disabled="true"] .findify-next-swatch,

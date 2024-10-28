@@ -1,101 +1,52 @@
-.swiper-wrapper {
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  list-style: none;
-  padding: 0;
-  z-index: 1;
+.findify-recommendation-container .swiper-wrapper {
   padding-bottom: 30px;
 }
 
-.swiper-container-vertical > .swiper-wrapper {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.swiper-container-android .swiper-slide,
-.swiper-wrapper {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-.swiper-container-free-mode > .swiper-wrapper {
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-  margin: 0 auto;
-}
-
-.swiper-wrapper .swiper-slide {
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 100%;
-  height: auto;
-  position: relative;
-  -webkit-transition-property: -webkit-transform;
-  transition-property: -webkit-transform;
-  transition-property: transform;
-  transition-property: transform, -webkit-transform;
-}
-
-.swiper-slide-invisible-blank {
-  visibility: hidden;
-}
-
-.swiper-button-disabled {
-  display: none !important;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
+.findify-recommendation-container .swiper-button-prev,
+.findify-recommendation-container .swiper-button-next {
   position: absolute;
-  top: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 1;
   cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex !important;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  display: flex;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  padding: 0 10px;
-  background: transparent;
+  background-color: var(--findify-cta-background-accent);
   border: none;
-  height: 100%;
   top: calc(50% - 50px) !important;
-  color: var(--color-black);
+  padding: 10px 20px;
+  color: var(--findify-text-inverse-color);
+  outline: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
 }
 
-.swiper-button-prev {
+/* 
+.findify-recommendation-container .swiper-button-disabled {
+  display: none;
+}
+*/
+
+.findify-recommendation-container .swiper-button-prev {
   left: 0;
   right: auto;
-  outline: none;
-  left: 0px;
 }
 
-.swiper-button-next {
+.findify-recommendation-container .swiper-button-next {
   right: 0;
   left: auto;
-  outline: none;
-  right: 0px;
 }
 
-.swiper-pagination-bullets.swiper-pagination-horizontal {
-  bottom: 0;
-  top: auto;
-  left: 0;
+/* 
+.findify-recommendation-container .swiper-pagination-bullets.swiper-pagination-horizontal {
   width: 100%;
   z-index: 9;
 }
+*/
 
-.swiper {
+.findify-recommendation-container .swiper {
   width: 100%;
-  margin: 30px 0;
 }
 
 .findify-recommendation-container {
@@ -112,16 +63,6 @@
   width: 98%;
   height: 1.6em;
   white-space: nowrap;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  background-color: var(--findify-cta-background-accent);
-  border-radius: 50%;
-  padding: 10px 20px;
-  color: var(--findify-text-inverse-color);
-  width: 38px !important;
-  height: 38px !important;
 }
 
 .swiper-button-next:after,
