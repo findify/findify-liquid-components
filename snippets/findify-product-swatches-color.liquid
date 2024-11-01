@@ -13,7 +13,10 @@
 
 {% assign colors_array = colors | split: ',' %}
 
-<div class="findify-color-swatches-inner" data-swatches-count={{ colors_array.size }} data-swatches-id={{ product.id }}>
+<div 
+  class="findify-color-swatches-inner" 
+  data-swatches-count="{{ colors_array.size }}" 
+>
   <div class="swiper">
   <div class="findify-prev-swatch">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -39,7 +42,6 @@
             endif
         endfor
       %}
-    
       {% if current_color_name and current_color_value %}
         {% assign color_counter = color_counter | plus: 1 %}
         {% liquid
@@ -79,28 +81,50 @@
     </svg>
   </div>
 
+  </div>       
 </div>
+
 <script>
   const isMobile = window.innerWidth < 769;
   const swatchesStyleDesktop = "{{ colorSwatchesStyleDesktop }}";
   const swatchesStyleMobile = "{{ colorSwatchesStyleMobile }}";
-  
-  const initSwiper = isMobile 
+  const colorCounter = "{{ color_counter }}";
+  const productSwatches = document.querySelector(`[data-swatches-id="{{ swatches_id }}"]`);
+
+  if(colorCounter === "0") {
+    productSwatches.setAttribute("hidden", true);
+  }
+  else {
+    const initSwiper = isMobile 
       ? swatchesStyleMobile === "1"
       : swatchesStyleDesktop === "1";
+    
+    if (initSwiper) {
+      const swiper = new Swiper(`[data-swatches-id="{{ swatches_id }}"] .swiper`, {
+        spaceBetween: 10,
+        slidesPerView: "auto",
+        navigation: {
+          nextEl: ".findify-next-swatch",
+          prevEl: ".findify-prev-swatch",
+        },
+      });
+    } 
+    else {
 
-  if (initSwiper) {
-    const swiper = new Swiper(`[data-swatches-id="{{ product.id }}"] .swiper`, {
-      spaceBetween: 10,
-      slidesPerView: "auto",
-      navigation: {
-        nextEl: ".findify-next-swatch",
-        prevEl: ".findify-prev-swatch",
-      },
-    });
-  } else {
-    document.querySelector(`[data-swatches-id="{{ product.id }}"]`).setAttribute('data-disabled', true);
+      const productCard = document.querySelector('[id="{{ product.id }}"]');
+      productSwatches.setAttribute("data-disabled", true);
+      let prevMax = initializeDisabledSwatches(productCard);
+      const resizeObserver = new ResizeObserver((entries) => {
+
+          const containerWidth = productSwatches.getBoundingClientRect().width;
+          const { maxSwatches: newMax } = getMaxSwatches(containerWidth);
+
+          if(newMax !== prevMax) {
+            initializeDisabledSwatches(productCard);
+          }
+      });
+      
+      resizeObserver.observe(productCard);
+    }
   }
 </script>
-          
-</div>
