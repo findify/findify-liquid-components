@@ -24,32 +24,30 @@
             , class: 'findify-second-image' %}
         {%- endif -%}
   
-        {% comment %} <img width="100%" height="100%" class="findify-product-swatch-image" hidden /> {% endcomment %}
+        <img width="100%" height="100%" class="findify-product-swatch-image" hidden />
       </div>
     </a>
 
-    {% comment %}
-      {% assign swatches_id = product.id | append: "_" | append: widget %}
-      
-      <div 
-        class="findify-color-swatches-outer"
-        data-swatches-visibility="{{ colorSwatchesVisibility }}"
-        data-show-desktop="{{ showColorSwatchesOnDesktop }}"
-        data-show-mobile="{{ showColorSwatchesOnMobile }}"
-        data-swatches-id="{{ swatches_id }}" 
-      >
-         {% render 'findify-product-swatches-color',
-            product_url: product_url,
-            product: product,
-            swatches_id: swatches_id,
-            colormap: colormap,
-            variants: variants,
-            colorSwatchesStyleDesktop: colorSwatchesStyleDesktop,
-            colorSwatchesStyleMobile: colorSwatchesStyleMobile,
-            colorSwatchesVisibility: colorSwatchesVisibility,
-          %} 
-       </div>
-     {% endcomment %}
+    {% assign swatches_id = product.id | append: "_" | append: widget %}
+    
+    <div 
+      class="findify-color-swatches-outer"
+      data-swatches-visibility="{{ colorSwatchesVisibility }}"
+      data-show-desktop="{{ showColorSwatchesOnDesktop }}"
+      data-show-mobile="{{ showColorSwatchesOnMobile }}"
+      data-swatches-id="{{ swatches_id }}" 
+    >
+        {% render 'findify-product-swatches-color',
+          product_url: product_url,
+          product: product,
+          swatches_id: swatches_id,
+          colormap: colormap,
+          variants: variants,
+          colorSwatchesStyleDesktop: colorSwatchesStyleDesktop,
+          colorSwatchesStyleMobile: colorSwatchesStyleMobile,
+          colorSwatchesVisibility: colorSwatchesVisibility,
+        %} 
+      </div>
   </div>
   <div class="findify-content-wrapper">
     {% if brand %}
