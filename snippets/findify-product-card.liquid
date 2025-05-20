@@ -57,13 +57,13 @@
     <div class='findify-product-title findify-cut-text'>
       <span>{{ product.title }}</span>
     </div>
-    {% render 'findify-product-price'
-      , product: product %}
     {% if reviews %}
       {% render 'findify-rating'
         , value: reviews
         , count: reviews_count %}
     {% endif %}
+    {% render 'findify-product-price'
+      , product: product, current_variant: current_variant, use_variant: true %}
   </div>
 
 
