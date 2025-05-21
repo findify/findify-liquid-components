@@ -23,19 +23,18 @@
 -%}
 
 <div>
-  {% if target.available == true %}
+  <div>
     <span class="findify-product-price {%if has_discount %} findify-product-price-with-compare{% endif %}">
       {{ current_variant_price_formatted }}
     </span>
     {% if has_discount %}
       <span class="findify-product-price-compare-at">
-        <s>
-          {{ compare_at_price_formatted }}
-        </s>
+        <s>{{ compare_at_price_formatted }}</s>
       </span>
     {% endif %}
-  {% else %}
-    <span>
+  </div>
+  {% if target.available == false %}
+    <span class="findify-product-out-of-stock">
       {{ 'products.product.inventory_out_of_stock' | t }}
     </span>
   {% endif %}
