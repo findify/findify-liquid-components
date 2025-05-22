@@ -1,36 +1,41 @@
 {%- liquid
   if use_variant
-    assign target = product.selected_or_first_available_variant
+    assign target = current_variant
   else
     assign target = product
   endif
 
-  assign price_max = target.price_max | money
-  assign price_min = target.price_min | money
+  assign price_max = product.price_max
+  assign current_variant_price = target.price
+  assign current_variant_price_formatted = current_variant_price | money
 
-  assign price = target.price | money
-  assign compare_at_price = target.compare_at_price | money
+  assign compare_at_price = target.compare_at_price
+  assign compare_at_price_formatted = compare_at_price | money
   assign has_discount = false
+
+  if price_max != current_variant_price
+    assign current_variant_price_formatted = 'From ' | append: current_variant_price_formatted
+  endif
+
+  if current_variant_price != compare_at_price and current_variant_price < compare_at_price
+    assign has_discount = true
+  endif
 -%}
 
-{% if price_max != price_min %}
-  {% assign price = 'From ' | append: price_min %}
-{% endif %}
-
-{% if target.price != target.compare_at_price
-  and target.price < target.compare_at_price
-%}
-  {% assign has_discount = true %}
-{% endif %}
 <div>
-  <span class="findify-product-price {%if has_discount %} findify-product-price-with-compare{% endif %}">
-    {{ price }}
-  </span>
-  {% if has_discount %}
-    <span class="findify-product-price-compare-at">
-      <s>
-        {{ compare_at_price }}
-      </s>
+  <div>
+    <span class="findify-product-price {%if has_discount %} findify-product-price-with-compare{% endif %}">
+      {{ current_variant_price_formatted }}
+    </span>
+    {% if has_discount %}
+      <span class="findify-product-price-compare-at">
+        <s>{{ compare_at_price_formatted }}</s>
+      </span>
+    {% endif %}
+  </div>
+  {% if target.available == false %}
+    <span class="findify-product-out-of-stock">
+      {{ 'products.product.inventory_out_of_stock' | t }}
     </span>
   {% endif %}
 </div>
