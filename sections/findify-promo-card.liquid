@@ -23,7 +23,8 @@
 {%- assign header2_size = parameters | split: 'header2_size=' | last | split: '&' | first -%}
 {%- assign button_text_size = parameters | split: 'button_text_size=' | last | split: '&' | first -%}
 
-<div 
+<a
+  href="{{ redirect_link | default: 'javascript:void(0)' }}"
   id="findify-promo-card-{{id}}" 
   class="findify-promo-card"
   style="
@@ -56,8 +57,7 @@
       </p>
     </div>
     {% if cta_text != '' %}
-    <a 
-      href="{{redirect_link}}" 
+    <div 
       class="
         findify-promo-card-cta-button 
         {% if button_layout == 'fullwidth' %}
@@ -68,13 +68,13 @@
         color: {{ button_text_color }}; 
         font-size: {{ button_text_size }}px">
           {{cta_text }}
-    </a>
+    </div>
     {% endif %}
   </div>
   {% comment %}
   <div class="findify-promo-card-footer">{{footer}}</div>
   {% endcomment %}
-</div>
+</a>
 
 {% schema %}
 {
