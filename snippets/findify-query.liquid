@@ -1,5 +1,5 @@
 {% assign term_decoded = terms | url_decode %}
-
+{% assign corrected_q_decoded = corrected_q | url_decode %}
 <div class="findify-search-header-label">
   {% if is_collection == true %}
     {{ 'findify.collections.products_count' | t: count: results_count }}
@@ -8,7 +8,7 @@
   {% elsif corrected_q != '' %}
     {{
       'findify.search.results_count_for_corrected_query'
-      | t: count: results_count, term: term_decoded, corrected_term: corrected_q
+      | t: count: results_count, term: term_decoded, corrected_term: corrected_q_decoded
     }}
   {% elsif query_type == 'or' %}
     {{
