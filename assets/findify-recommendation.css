@@ -71,3 +71,32 @@
   font-weight: 700;
   font-size: 20px;
 }
+
+/* Grid layout */
+.findify-recommendation-container .findify-recommendation-grid {
+  width: 100%;
+}
+
+.findify-recommendation-container .findify-recommendation-grid-inner {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 640px) {
+  .findify-recommendation-container .findify-recommendation-grid-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Hide swiper controls in grid layout (not rendered, but safe) */
+.findify-recommendation-container [data-layout="grid"] + .swiper-button-prev,
+.findify-recommendation-container [data-layout="grid"] + .swiper-button-next,
+.findify-recommendation-container [data-layout="grid"] + .swiper-pagination {
+  display: none !important;
+}
+
+/* Ensure product cards stretch properly in grid */
+.findify-recommendation-grid-item {
+  width: 100% !important;
+}
