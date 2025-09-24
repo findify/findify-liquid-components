@@ -4,51 +4,68 @@
 {%- assign recommendation_id = query_parameters | split: 'recommendation_id=' | last | split: '&' | first | url_decode -%}
 {%- assign desktop_slide_per_view = query_parameters | split: 'desktop_slide_per_view=' | last | split: '&' | first -%}
 {%- assign mobile_slide_per_view = query_parameters | split: 'mobile_slide_per_view=' | last | split: '|' | first | split: '&' | first -%}
+{%- assign layout = query_parameters | split: 'layout=' | last | split: '&' | first -%}
 
 {%- assign title = query_parameters | split: 'title=' | last | split: '&' | first | url_decode -%}
 
 <div id="{{ recommendation_id }}" class='findify-recommendation-container'>
   <h1 class='findify-swiper-title'>{{ title }}</h1>
 
-  <div class='swiper'>
-    <div class="swiper-wrapper" id="findify-products-{{ recommendation_id }}"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-pagination"></div>
-  </div>
+  {% if layout == 'grid' %}
+    <div class="findify-recommendation-grid" data-layout="grid">
+      <style>
+        #{{ recommendation_id }} .findify-recommendation-grid-inner {
+          grid-template-columns: repeat({{ desktop_slide_per_view | default: 4 }}, minmax(0, 1fr));
+        }
+        @media (max-width: 640px) {
+          #{{ recommendation_id }} .findify-recommendation-grid-inner {
+            grid-template-columns: repeat({{ mobile_slide_per_view | default: 2 }}, minmax(0, 1fr));
+          }
+        }
+      </style>
+      <div class="findify-recommendation-grid-inner" id="findify-products-{{ recommendation_id }}"></div>
+    </div>
+  {% else %}
+    <div class='swiper' data-layout="carousel">
+      <div class="swiper-wrapper" id="findify-products-{{ recommendation_id }}"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-pagination"></div>
+    </div>
 
-  <script>
-      const selector = "#{{ recommendation_id }} .swiper";
-      const swiper = new Swiper(selector, {
-        direction: "horizontal",
-        pagination: {
-          el: ".swiper-pagination",
-          type: "bullets",
-          clickable: true,
-          dynamicBullets: true,
-          dynamicMainBullets: 4,
-        },
-        slidesPerView: "{{ desktop_slide_per_view }}",
-        breakpoints: {
-          320: {
-            slidesPerView: "{{ mobile_slide_per_view }}",
-            spaceBetween: 20,
+    <script>
+        const selector = "#{{ recommendation_id }} .swiper";
+        const swiper = new Swiper(selector, {
+          direction: "horizontal",
+          pagination: {
+            el: ".swiper-pagination",
+            type: "bullets",
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 4,
           },
-          480: {
-            slidesPerView: 3,
-            spaceBetween: 30,
+          slidesPerView: "{{ desktop_slide_per_view }}",
+          breakpoints: {
+            320: {
+              slidesPerView: "{{ mobile_slide_per_view }}",
+              spaceBetween: 20,
+            },
+            480: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+            640: {
+              slidesPerView: "{{ desktop_slide_per_view }}",
+              spaceBetween: 30,
+            },
           },
-          640: {
-            slidesPerView: "{{ desktop_slide_per_view }}",
-            spaceBetween: 30,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
           },
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-  </script>
+        });
+    </script>
+  {% endif %}
 </div>
 
 {% schema %}
